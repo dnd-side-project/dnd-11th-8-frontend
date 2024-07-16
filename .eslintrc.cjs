@@ -5,6 +5,8 @@ module.exports = {
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:react-hooks/recommended',
+    "plugin:@tanstack/eslint-plugin-query/recommended",
+    "prettier",
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
@@ -14,5 +16,8 @@ module.exports = {
       'warn',
       { allowConstantExport: true },
     ],
+    // 파일 상단에 react 를 import 해야 하는 룰을 비활성화 합니다.
+    "react/react-in-jsx-scope": 0,
+
   },
 }
