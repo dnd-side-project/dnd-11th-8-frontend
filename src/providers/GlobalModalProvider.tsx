@@ -8,7 +8,7 @@ interface ModalState {
 }
 
 export interface GlobalModalContextState {
-  openModal: (modalState: ModalState) => void;
+  openModal: (modalState: Omit<ModalState, 'isOpen'>) => void;
   closeModal: () => void;
 }
 
@@ -40,9 +40,11 @@ export const GlobalModalProvider = ({ children }: GlobalModalProviderProps) => {
       {modalState.isOpen && (
         <div
           id={'back-drop'}
-          className={'w-screen h-screen absolute top-0 left-0 bg-black bg-opacity-30'}
+          className={
+            'w-screen h-screen absolute top-0 left-0 bg-black bg-opacity-40 flex items-center justify-center'
+          }
         >
-          <div id={'modal-content'}>
+          <div className={'bg-white p-8'} id={'modal-content'}>
             {modalState.title && (
               <header>
                 <h2>modalState.title</h2>
