@@ -9,7 +9,8 @@ type RoutePath =
   | '/my-plant'
   | '/my-plant/add'
   | '/profile'
-  | '/profile/edit';
+  | '/profile/edit'
+  | string;
 
 const useInternalRouter = () => {
   const navigate = useNavigate();
