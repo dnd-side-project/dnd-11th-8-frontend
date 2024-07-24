@@ -47,7 +47,7 @@ export const GlobalModalProvider = ({ children }: GlobalModalProviderProps) => {
           <div className={'bg-white p-8'} id={'modal-content'}>
             {modalState.title && (
               <header>
-                <h2>modalState.title</h2>
+                <h2>{modalState.title}</h2>
               </header>
             )}
             <p>{modalState.description}</p>
