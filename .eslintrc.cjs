@@ -13,8 +13,8 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   plugins: ['react-refresh'],
   rules: {
-    'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
     // 파일 상단에 react 를 import 해야 하는 룰을 비활성화 합니다.
     'react/react-in-jsx-scope': 0,
+    'react-refresh/only-export-components': 'off',
   },
 };
