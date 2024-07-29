@@ -6,6 +6,9 @@ on:
   pull_request:
     types: [opened, synchronize]
 
+env:
+  GITHUB_TOKEN: ${{ secrets.DND_11_8_FRONTEND_TOKEN }}
+
 jobs:
   build:
     name: Build and Test
@@ -32,6 +35,87 @@ jobs:
         run: pnpm install
 
       - name: Build
-        run: pnpm build
+        id: build
+        run: pnpm build 2>&1 | tee build.txt
+
+      - name: Comment when build failed
+        if: steps.build.outcome == 'failure'
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ env.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            const build = fs.readFileSync('build.txt', 'utf-8');
+            await github.rest.issues.createComment({
+              issue_number: context.payload.pull_request.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `## Build Failed
+            \`\`\`
+            ${build}
+            \`\`\`
+            `
+            });
+
       - name: Test
-        run: pnpm test
+        id: test
+        run: pnpm test 2>&1 | tee test.txt
+
+      - name: Comment when test failed
+        if: steps.test.outcome == 'failure'
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ env.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            const test = fs.readFileSync('test.txt', 'utf-8');
+            await github.rest.issues.createComment({
+              issue_number: context.payload.pull_request.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `## Test Failed
+            \`\`\`
+            ${test}
+            \`\`\`
+            `
+            });
+
+      - name: Save test coverage result
+        run: pnpm coverage 2>&1 | tee coverage.txt
+
+      - name: Comment test coverage result
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ env.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            const coverage = fs.readFileSync('coverage.txt', 'utf-8');
+            await github.rest.issues.createComment({
+              issue_number: context.payload.pull_request.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `## Test Coverage
+            \`\`\`text
+            ${coverage}
+            \`\`\`
+            `
+            });
+
+      - name: Assign reviewer when all steps success
+        if: success()
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ env.GITHUB_TOKEN }}
+          script: |
+            const frontendDevelopers = ['gihwan-dev', 'hijiyun'];
+
+            const reviewers = frontendDevelopers.filter((developer) => developer !== context.actor);
+
+            if (reviewers.length > 0) {
+              await github.rest.pulls.requestReviewers({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: context.payload.pull_request.number,
+                reviewers: reviewers,
+              });
+            }
