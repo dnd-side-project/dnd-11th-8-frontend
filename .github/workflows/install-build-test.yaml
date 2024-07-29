@@ -8,6 +8,7 @@ on:
 
 env:
   GITHUB_TOKEN: ${{ secrets.DND_11_8_FRONTEND_TOKEN }}
+  GITHUB_ACTIONS: true
 
 jobs:
   build:
@@ -46,17 +47,34 @@ jobs:
           script: |
             const fs = require('fs');
             const build = fs.readFileSync('build.txt', 'utf-8');
-            await github.rest.issues.createComment({
-              issue_number: context.payload.pull_request.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: `
-            <h2>Build Failed</h2>
-            <pre>
-            ${build}
-            <pre>
-            `
-            });
+            
+            const existingComment = comments.find(comment => comment.body.includes('## Build Failed'));
+            
+            if (existingComment) {
+              await github.rest.issues.updateComment({
+                comment_id: existingComment.id,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: `
+              ## Build Failed
+              \`\`\`console
+              ${build}
+              \`\`\`
+              `
+              });
+            } else {
+              await github.rest.issues.createComment({
+                issue_number: context.payload.pull_request.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: `
+              ## Build Failed
+              \`\`\`console
+              ${build}
+              \`\`\`
+              `
+              });
+            }
 
       - name: Test
         id: test
@@ -70,17 +88,34 @@ jobs:
           script: |
             const fs = require('fs');
             const test = fs.readFileSync('test.txt', 'utf-8');
-            await github.rest.issues.createComment({
-              issue_number: context.payload.pull_request.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: `
-            <h2>Test Failed</h2>
-            <pre>
-            ${test}
-            <pre>
-            `
-            });
+            
+            const existingComment = comments.find(comment => comment.body.includes('## Test Failed'));
+            
+            if (existingComment) {
+              await github.rest.issues.updateComment({
+                comment_id: existingComment.id,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: `
+              ## Test Failed
+              \`\`\`console
+              ${test}
+              \`\`\`
+              `
+              });
+            } else {
+              await github.rest.issues.createComment({
+                issue_number: context.payload.pull_request.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: `
+              ## Test Failed
+              \`\`\`console
+              ${test}
+              \`\`\`
+              `
+              });
+            }
 
       - name: Save test coverage result
         run: pnpm coverage 2>&1 | tee coverage.txt
@@ -92,17 +127,34 @@ jobs:
           script: |
             const fs = require('fs');
             const coverage = fs.readFileSync('coverage.txt', 'utf-8');
-            await github.rest.issues.createComment({
+            
+            const existingComment = comments.find(comment => comment.body.includes('## Test Coverage'));
+            
+            if (existingComment) {
+              await github.rest.issues.updateComment({
+                comment_id: existingComment.id,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: `
+              ## Test Coverage
+              \`\`\`console
+              ${coverage}
+              \`\`\`
+              `
+              });
+            } else {
+              await github.rest.issues.createComment({
               issue_number: context.payload.pull_request.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
               body: `
-            <h2>Test Coverage</h2>
-            <pre>
+            ## Test Coverage
+            \`\`\`console
             ${coverage}
-            <pre>
+            \`\`\`
             `
             });
+          }
 
       - name: Assign reviewer when all steps success
         if: success()

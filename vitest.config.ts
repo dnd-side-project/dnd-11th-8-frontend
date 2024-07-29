@@ -4,7 +4,7 @@ export default defineConfig({
   test: {
     coverage: {
       provider: 'v8',
-      reporter: ['text-summary'],
+      reporter: process.env.GITHUB_ACTIONS ? ['text-summary', 'github-actions'] : ['text'],
     },
   },
 });
