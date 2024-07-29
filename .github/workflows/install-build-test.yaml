@@ -55,12 +55,12 @@ jobs:
               issue_number: context.payload.pull_request.number,
             });
             
-            const Convert = require('ansi-to-html');
+            const Convert = require('ansi-up');
             const convert = new Convert();
             
             const body = `
               <h2>Build Failed</h2>
-              ${convert.toHtml(build)}
+              ${convert.ansi_to_html(build)}
             `;
             
             const existingComment = comments.find(comment => comment.body.includes('Build Failed'));
@@ -100,12 +100,12 @@ jobs:
               issue_number: context.payload.pull_request.number,
             });
             
-            const Convert = require('ansi-to-html');
+            const Convert = require('ansi-up');
             const convert = new Convert();
             
             const body = `
               <h2>Test Failed</h2>
-              ${convert.toHtml(test)}
+              ${convert.ansi_to_html(test)}
             `;
             
             const existingComment = comments.find(comment => comment.body.includes('Test Failed'));
@@ -144,12 +144,12 @@ jobs:
               issue_number: context.payload.pull_request.number,
             });
             
-            const Convert = require('ansi-to-html');
+            const Convert = require('ansi-up');
             const convert = new Convert();
             
             const body = `
               <h2>Test Coverage</h2>
-              ${convert.toHtml(coverage)}
+              ${convert.ansi_to_html(coverage)}
             `;
             
             const existingComment = comments.find(comment => comment.body.includes('Test Coverage'));
