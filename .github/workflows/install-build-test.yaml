@@ -50,10 +50,11 @@ jobs:
               issue_number: context.payload.pull_request.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: `## Build Failed
-            \`\`\`
+              body: `
+            <h2>Build Failed</h2>
+            <pre>
             ${build}
-            \`\`\`
+            <pre>
             `
             });
 
@@ -73,10 +74,11 @@ jobs:
               issue_number: context.payload.pull_request.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: `## Test Failed
-            \`\`\`
+              body: `
+            <h2>Test Failed</h2>
+            <pre>
             ${test}
-            \`\`\`
+            <pre>
             `
             });
 
@@ -94,10 +96,11 @@ jobs:
               issue_number: context.payload.pull_request.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: `## Test Coverage
-            \`\`\`text
+              body: `
+            <h2>Test Coverage</h2>
+            <pre>
             ${coverage}
-            \`\`\`
+            <pre>
             `
             });
 
