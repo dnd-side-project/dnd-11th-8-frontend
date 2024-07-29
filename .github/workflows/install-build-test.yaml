@@ -136,7 +136,7 @@ jobs:
           script: |
             const fs = require('fs');
             
-            const coverage = fs.readFileSync('coverage.txt', 'utf-8');
+            const coverage = fs.readFileSync('coverage.txt', 'utf-8').split("=============================== Coverage summary ===============================");
             
             const { data: comments } = await github.rest.issues.listComments({
               owner: context.repo.owner,
@@ -149,7 +149,11 @@ jobs:
             
             const body = `
               <h2>Test Coverage</h2>
-              <pre>${convert.toHtml(coverage)}</pre>
+              ${convert.toHtml(coverage[0])}
+              \`\`\`text
+              =============================== Coverage summary ===============================
+              ${convert.toHtml(coverage[1])}
+              \`\`\`
             `;
             
             const existingComment = comments.find(comment => comment.body.includes('Test Coverage'));
