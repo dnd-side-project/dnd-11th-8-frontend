@@ -46,19 +46,24 @@ jobs:
           github-token: ${{ env.GITHUB_TOKEN }}
           script: |
             const fs = require('fs');
+            
             const build = fs.readFileSync('build.txt', 'utf-8');
+            
             const { data: comments } = await github.rest.issues.listComments({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: context.payload.pull_request.number,
             });
+            
+            const Convert = require('ansi-to-html');
+            const convert = new Convert();
+            
             const body = `
-              ## Build Failed
-              \`\`\`console
-              ${build}
-              \`\`\`
+              <h2>Build Failed</h2>
+              ${convert.toHtml(build)}
             `;
-            const existingComment = comments.find(comment => comment.body.includes('## Build Failed'));
+            
+            const existingComment = comments.find(comment => comment.body.includes('Build Failed'));
             if (existingComment) {
               await github.rest.issues.updateComment({
                 comment_id: existingComment.id,
@@ -86,19 +91,25 @@ jobs:
           github-token: ${{ env.GITHUB_TOKEN }}
           script: |
             const fs = require('fs');
+            
             const test = fs.readFileSync('test.txt', 'utf-8');
+            
             const { data: comments } = await github.rest.issues.listComments({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: context.payload.pull_request.number,
             });
+            
+            const Convert = require('ansi-to-html');
+            const convert = new Convert();
+            
             const body = `
-              ## Test Failed
-              \`\`\`console
-              ${test}
-              \`\`\`
+              <h2>Test Failed</h2>
+              ${convert.toHtml(test)}
             `;
-            const existingComment = comments.find(comment => comment.body.includes('## Test Failed'));
+            
+            const existingComment = comments.find(comment => comment.body.includes('Test Failed'));
+            
             if (existingComment) {
               await github.rest.issues.updateComment({
                 comment_id: existingComment.id,
@@ -124,19 +135,25 @@ jobs:
           github-token: ${{ env.GITHUB_TOKEN }}
           script: |
             const fs = require('fs');
+            
             const coverage = fs.readFileSync('coverage.txt', 'utf-8');
+            
             const { data: comments } = await github.rest.issues.listComments({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: context.payload.pull_request.number,
             });
+            
+            const Convert = require('ansi-to-html');
+            const convert = new Convert();
+            
             const body = `
-              ## Test Coverage
-              \`\`\`console
-              ${coverage}
-              \`\`\`
+              <h2>Test Coverage</h2>
+              ${convert.toHtml(coverage)}
             `;
-            const existingComment = comments.find(comment => comment.body.includes('## Test Coverage'));
+            
+            const existingComment = comments.find(comment => comment.body.includes('Test Coverage'));
+            
             if (existingComment) {
               await github.rest.issues.updateComment({
                 comment_id: existingComment.id,
