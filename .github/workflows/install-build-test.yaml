@@ -1,10 +1,9 @@
 name: CI
 
 on:
-  push:
-    branches: ["main"]
   pull_request:
-    types: [opened, synchronize]
+    branches:
+      - main
 
 env:
   GITHUB_TOKEN: ${{ secrets.DND_11_8_FRONTEND_TOKEN }}
