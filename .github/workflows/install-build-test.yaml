@@ -47,32 +47,31 @@ jobs:
           script: |
             const fs = require('fs');
             const build = fs.readFileSync('build.txt', 'utf-8');
-            
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.pull_request.number,
+            });
+            const body = `
+              ## Build Failed
+              \`\`\`console
+              ${build}
+              \`\`\`
+            `;
             const existingComment = comments.find(comment => comment.body.includes('## Build Failed'));
-            
             if (existingComment) {
               await github.rest.issues.updateComment({
                 comment_id: existingComment.id,
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                body: `
-              ## Build Failed
-              \`\`\`console
-              ${build}
-              \`\`\`
-              `
+                body,
               });
             } else {
               await github.rest.issues.createComment({
                 issue_number: context.payload.pull_request.number,
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                body: `
-              ## Build Failed
-              \`\`\`console
-              ${build}
-              \`\`\`
-              `
+                body,
               });
             }
 
@@ -88,32 +87,31 @@ jobs:
           script: |
             const fs = require('fs');
             const test = fs.readFileSync('test.txt', 'utf-8');
-            
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.pull_request.number,
+            });
+            const body = `
+              ## Test Failed
+              \`\`\`console
+              ${test}
+              \`\`\`
+            `;
             const existingComment = comments.find(comment => comment.body.includes('## Test Failed'));
-            
             if (existingComment) {
               await github.rest.issues.updateComment({
                 comment_id: existingComment.id,
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                body: `
-              ## Test Failed
-              \`\`\`console
-              ${test}
-              \`\`\`
-              `
+                body,
               });
             } else {
               await github.rest.issues.createComment({
                 issue_number: context.payload.pull_request.number,
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                body: `
-              ## Test Failed
-              \`\`\`console
-              ${test}
-              \`\`\`
-              `
+                body,
               });
             }
 
@@ -127,34 +125,33 @@ jobs:
           script: |
             const fs = require('fs');
             const coverage = fs.readFileSync('coverage.txt', 'utf-8');
-            
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.pull_request.number,
+            });
+            const body = `
+              ## Test Coverage
+              \`\`\`console
+              ${coverage}
+              \`\`\`
+            `;
             const existingComment = comments.find(comment => comment.body.includes('## Test Coverage'));
-            
             if (existingComment) {
               await github.rest.issues.updateComment({
                 comment_id: existingComment.id,
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                body: `
-              ## Test Coverage
-              \`\`\`console
-              ${coverage}
-              \`\`\`
-              `
+                body,
               });
             } else {
               await github.rest.issues.createComment({
-              issue_number: context.payload.pull_request.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: `
-            ## Test Coverage
-            \`\`\`console
-            ${coverage}
-            \`\`\`
-            `
-            });
-          }
+                issue_number: context.payload.pull_request.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body,
+              });
+            }
 
       - name: Assign reviewer when all steps success
         if: success()
