@@ -17,6 +17,9 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@emotion/react": "^11.13.0",
+    "@emotion/styled": "^11.13.0",
+    "@mui/material": "^5.16.5",
     "@tanstack/react-query": "^5.51.1",
     "axios": "^1.7.2",
     "jotai": "^2.9.0",
