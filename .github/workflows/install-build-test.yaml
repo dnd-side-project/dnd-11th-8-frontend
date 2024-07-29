@@ -6,6 +6,10 @@ on:
   pull_request:
     types: [opened, synchronize]
 
+env:
+  GITHUB_TOKEN: ${{ secrets.DND_11_8_FRONTEND_TOKEN }}
+  GITHUB_ACTIONS: true
+
 jobs:
   build:
     name: Build and Test
@@ -32,6 +36,159 @@ jobs:
         run: pnpm install
 
       - name: Build
-        run: pnpm build
+        id: build
+        run: pnpm build 2>&1 | tee build.txt
+
+      - name: Comment when build failed
+        if: steps.build.outcome == 'failure'
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ env.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            
+            const build = fs.readFileSync('build.txt', 'utf-8');
+            
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.pull_request.number,
+            });
+            
+            const Convert = require('ansi-to-html');
+            const convert = new Convert();
+            
+            const body = `
+              <h2>Build Failed</h2>
+              <pre>${convert.toHtml(build)}</pre>
+            `;
+            
+            const existingComment = comments.find(comment => comment.body.includes('Build Failed'));
+            if (existingComment) {
+              await github.rest.issues.updateComment({
+                comment_id: existingComment.id,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                issue_number: context.payload.pull_request.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body,
+              });
+            }
+
       - name: Test
-        run: pnpm test
+        id: test
+        run: pnpm test 2>&1 | tee test.txt
+
+      - name: Comment when test failed
+        if: steps.test.outcome == 'failure'
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ env.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            
+            const test = fs.readFileSync('test.txt', 'utf-8');
+            
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.pull_request.number,
+            });
+            
+            const Convert = require('ansi-to-html');
+            const convert = new Convert();
+            
+            const body = `
+              <h2>Test Failed</h2>
+              <pre>${convert.toHtml(test)}</pre>
+            `;
+            
+            const existingComment = comments.find(comment => comment.body.includes('Test Failed'));
+            
+            if (existingComment) {
+              await github.rest.issues.updateComment({
+                comment_id: existingComment.id,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                issue_number: context.payload.pull_request.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body,
+              });
+            }
+
+      - name: Save test coverage result
+        run: pnpm coverage 2>&1 | tee coverage.txt
+
+      - name: Comment test coverage result
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ env.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            
+            const coverage = fs.readFileSync('coverage.txt', 'utf-8').split("=============================== Coverage summary ===============================");
+            
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.pull_request.number,
+            });
+            
+            const Convert = require('ansi-to-html');
+            const convert = new Convert();
+            
+            const body = `
+              <h2>Test Coverage</h2>
+              ${convert.toHtml(coverage[0])}
+              \`\`\`text
+              =============================== Coverage summary ===============================
+              ${convert.toHtml(coverage[1])}
+              \`\`\`
+            `;
+            
+            const existingComment = comments.find(comment => comment.body.includes('Test Coverage'));
+            
+            if (existingComment) {
+              await github.rest.issues.updateComment({
+                comment_id: existingComment.id,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                issue_number: context.payload.pull_request.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body,
+              });
+            }
+
+      - name: Assign reviewer when all steps success
+        if: success()
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ env.GITHUB_TOKEN }}
+          script: |
+            const frontendDevelopers = ['gihwan-dev', 'hijiyun'];
+
+            const reviewers = frontendDevelopers.filter((developer) => developer !== context.actor);
+
+            if (reviewers.length > 0) {
+              await github.rest.pulls.requestReviewers({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: context.payload.pull_request.number,
+                reviewers: reviewers,
+              });
+            }
