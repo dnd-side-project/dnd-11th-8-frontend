@@ -181,8 +181,10 @@ jobs:
           github-token: ${{ env.GITHUB_TOKEN }}
           script: |
             const frontendDevelopers = ['gihwan-dev', 'hijiyun'];
+            
+            const prCreator = context.payload.pull_request.user.login;
 
-            const reviewers = frontendDevelopers.filter((developer) => developer !== context.actor);
+            const reviewers = frontendDevelopers.filter((developer) => developer !== prCreator);
 
             if (reviewers.length > 0) {
               await github.rest.pulls.requestReviewers({
