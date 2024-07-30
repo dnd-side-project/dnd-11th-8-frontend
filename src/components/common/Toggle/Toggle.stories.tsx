@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, StoryObj } from '@storybook/react';
-import ToggleComponent from '../components/common/Toggle';
+import ToggleComponent from './index';
 
 const meta: Meta = {
   title: 'ToggleComponent',
