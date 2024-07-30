@@ -26,7 +26,7 @@ const meta: Meta = {
   component: ListComponent,
   render: () => (
     <div className="w-screen h-screen">
-      <div className="w-[370px]">
+      <div className="w-[370px] flex flex-col gap-[10px]">
         {items.map((item) => (
           <ListComponent
             key={item.id}
