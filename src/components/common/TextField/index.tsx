@@ -8,60 +8,58 @@ interface TextFieldProps {
   title: string;
 }
 
-const Index: React.FC<TextFieldProps> = ({ essential = true, onValueChange, title }) => {
-  const [isFocused, setIsFocused] = useState(false);
+const TextField: React.FC<TextFieldProps> = ({ essential = true, onValueChange, title }) => {
   const [value, setValue] = useState('');
+  const [isFocused, setIsFocused] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
-    if (onValueChange) {
-      onValueChange(e.target.value);
-    }
+    onValueChange?.(e.target.value);
   };
 
   const handleClear = () => {
     setValue('');
-    if (onValueChange) {
-      onValueChange('');
+    onValueChange?.('');
+    inputRef.current?.focus();
+  };
+
+  const handleClickOutside = (event: MouseEvent) => {
+    if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+      setIsFocused(false);
     }
   };
 
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
-        setIsFocused(false);
-      }
-    };
-
     document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
   return (
-    <div ref={containerRef} className="grid w-full max-w-sm items-center gap-1.5">
-      <div className="flex gap-[5px]">
-        <Label htmlFor="textField" className="font-medium text-gray-800 text-small-writing">
+    <div ref={containerRef} className="grid w-full max-w-sm gap-2">
+      <div className="flex items-center gap-1">
+        <Label htmlFor="textField" className="font-medium text-gray-800">
           {title}
         </Label>
-        {essential && <p className="text-[#F04452] flex items-start leading-none">*</p>}
+        {essential && <span className="text-red-500">*</span>}
       </div>
       <div className="relative">
         <input
-          className="flex h-10 w-full border border-input bg-background px-[16px] py-[14px] text-sm ring-offset-background rounded-[10px] text-gray-900 focus:outline-none focus:ring-0"
           id="textField"
-          placeholder="플레이스홀더"
           type="text"
           value={value}
           onChange={handleChange}
+          placeholder="플레이스홀더"
+          className="w-full h-10 px-3 py-2 text-sm text-gray-900 border border-gray-300 rounded-md focus:outline-none"
           onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
+          ref={inputRef}
         />
         {isFocused && (
           <HiXCircle
             onClick={handleClear}
-            className="w-[24px] h-[24px] absolute top-1/2 right-[16px] translate-y-[-50%] fill-[#B0B8C1] cursor-pointer"
+            className="absolute w-6 h-6 text-gray-400 transform -translate-y-1/2 cursor-pointer top-1/2 right-3"
           />
         )}
       </div>
@@ -69,4 +67,4 @@ const Index: React.FC<TextFieldProps> = ({ essential = true, onValueChange, titl
   );
 };
 
-export default Index;
+export default TextField;
