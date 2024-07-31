@@ -6,7 +6,7 @@ const meta: Meta = {
   component: TextField,
   render: () => (
     <div className="w-screen h-screen">
-      <TextField />
+      <TextField title="소제목" />
     </div>
   ),
 };

@@ -5,9 +5,10 @@ import { HiXCircle } from 'react-icons/hi';
 interface TextFieldProps {
   essential?: boolean;
   onValueChange?: (value: string) => void;
+  title: string;
 }
 
-const Index: React.FC<TextFieldProps> = ({ essential = true, onValueChange }) => {
+const Index: React.FC<TextFieldProps> = ({ essential = true, onValueChange, title }) => {
   const [isFocused, setIsFocused] = useState(false);
   const [value, setValue] = useState('');
   const containerRef = useRef<HTMLDivElement>(null);
@@ -43,7 +44,7 @@ const Index: React.FC<TextFieldProps> = ({ essential = true, onValueChange }) =>
     <div ref={containerRef} className="grid w-full max-w-sm items-center gap-1.5">
       <div className="flex gap-[5px]">
         <Label htmlFor="textField" className="font-medium text-gray-800 text-small-writing">
-          소제목
+          {title}
         </Label>
         {essential && <p className="text-[#F04452] flex items-start leading-none">*</p>}
       </div>
