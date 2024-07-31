@@ -18,14 +18,6 @@ const segments = [
     id: 4,
     name: '부엌',
   },
-  {
-    id: 5,
-    name: '사무실',
-  },
-  {
-    id: 6,
-    name: '루밍이방2',
-  },
 ];
 
 const meta: Meta = {

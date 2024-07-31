@@ -43,7 +43,7 @@ const SegmentControl: React.FC<SegmentControlProps> = ({ segments, onSegmentChan
         {visibleSegments.map((segment) => {
           const isSelected = selectedId === segment.id;
           const buttonClasses = `flex-1 min-w-0 rounded-[30px] py-2 ${padding} ${fontSize} flex justify-center items-center whitespace-nowrap ${
-            isSelected ? 'bg-white border-blue-500' : 'text-[#6B7684] border-gray-300'
+            isSelected ? 'bg-white shadow-lg' : 'text-[#6B7684]'
           }`;
 
           return (
