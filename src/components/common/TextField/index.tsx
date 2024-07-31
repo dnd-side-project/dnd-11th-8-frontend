@@ -15,8 +15,9 @@ const TextField: React.FC<TextFieldProps> = ({ essential = true, onValueChange, 
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
-    onValueChange?.(e.target.value);
+    const newValue = e.target.value;
+    setValue(newValue);
+    onValueChange?.(newValue);
   };
 
   const handleClear = () => {
@@ -25,13 +26,13 @@ const TextField: React.FC<TextFieldProps> = ({ essential = true, onValueChange, 
     inputRef.current?.focus();
   };
 
-  const handleClickOutside = (event: MouseEvent) => {
-    if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
-      setIsFocused(false);
-    }
-  };
-
   useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+        setIsFocused(false);
+      }
+    };
+
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
@@ -56,7 +57,7 @@ const TextField: React.FC<TextFieldProps> = ({ essential = true, onValueChange, 
           onBlur={() => setIsFocused(false)}
           ref={inputRef}
         />
-        {isFocused && (
+        {isFocused && value && (
           <HiXCircle
             onClick={handleClear}
             className="absolute w-6 h-6 text-gray-400 transform -translate-y-1/2 cursor-pointer top-1/2 right-3"
