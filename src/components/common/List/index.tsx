@@ -1,4 +1,5 @@
 import { IoIosArrowForward } from 'react-icons/io';
+import Badge from '@/components/common/Badge';
 
 interface IndexProps {
   image?: string;
@@ -26,12 +27,7 @@ const index: React.FC<IndexProps> = ({ image, name, badges, onChange }) => {
             <div className="flex gap-[5px]">
               {badges &&
                 badges.map((badge, index) => (
-                  <div
-                    key={index}
-                    className="w-[47px] h-[23px] rounded-[13px] bg-slate-500 text-white text-small-writing flex items-center justify-center px-[8px] py-[3px]"
-                  >
-                    {badge}
-                  </div>
+                  <Badge text={badge} key={`${badge}-${index}`} size={'small'} type={'display'} />
                 ))}
             </div>
           </div>

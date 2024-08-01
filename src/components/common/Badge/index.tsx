@@ -52,7 +52,11 @@ const BadgeContent = ({ text, icon, className, size, ...rest }: BadgeContentProp
       {...rest}
     >
       {icon}
-      <span className={cn(size === 'medium' ? 'text-small-writing' : 'text-sub-typo')}>{text}</span>
+      <span
+        className={cn('font-medium', size === 'medium' ? 'text-small-writing' : 'text-sub-typo')}
+      >
+        {text}
+      </span>
     </Badge>
   );
 };
