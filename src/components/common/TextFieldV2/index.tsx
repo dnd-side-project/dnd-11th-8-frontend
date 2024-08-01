@@ -29,7 +29,7 @@ const TextFieldV2 = ({
       </Label>
       <div
         className={cn(
-          'w-full px-2.5 pt-0 pb-3 flex flex-row justify-between items-center border-b-2 border-gray-100',
+          'w-full px-2.5 pt-0 pb-3 flex flex-row justify-between items-center border-b-2 border-gray-100 bg-white',
           inputClassName,
         )}
       >

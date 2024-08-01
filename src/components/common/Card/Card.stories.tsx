@@ -12,12 +12,10 @@ export type Story = StoryObj<typeof Card>;
 
 export const Default: Story = {
   render: () => (
-    <div className={'w-full h-96 bg-gray-300 p-6'}>
-      <Card.Container verticalPaddingSize={'large'}>
-        <Card.Content className={'p-0 text-regular-body font-semibold text-center'}>
-          텍스트를 입력하세요
-        </Card.Content>
-      </Card.Container>
-    </div>
+    <Card.Container verticalPaddingSize={'large'}>
+      <Card.Content className={'p-0 text-regular-body font-semibold text-center'}>
+        텍스트를 입력하세요
+      </Card.Content>
+    </Card.Container>
   ),
 };
