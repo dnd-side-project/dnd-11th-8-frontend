@@ -60,12 +60,14 @@ const TextField: React.FC<TextFieldProps> = ({
           placeholder={placeholder}
           className="w-full h-10 px-3 py-2 text-sm text-gray-900 border border-gray-300 rounded-md focus:outline-none"
           onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
           ref={inputRef}
         />
         {isFocused && value && (
           <HiXCircle
-            onClick={handleClear}
+            onMouseDown={(e) => {
+              e.preventDefault();
+              handleClear();
+            }}
             className="absolute w-6 h-6 text-gray-400 transform -translate-y-1/2 cursor-pointer top-1/2 right-3"
           />
         )}
