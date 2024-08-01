@@ -6,9 +6,15 @@ interface TextFieldProps {
   essential?: boolean;
   onValueChange?: (value: string) => void;
   title: string;
+  placeholder?: string;
 }
 
-const TextField: React.FC<TextFieldProps> = ({ essential = true, onValueChange, title }) => {
+const TextField: React.FC<TextFieldProps> = ({
+  essential = true,
+  onValueChange,
+  title,
+  placeholder = '플레이스홀더',
+}) => {
   const [value, setValue] = useState('');
   const [isFocused, setIsFocused] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -51,7 +57,7 @@ const TextField: React.FC<TextFieldProps> = ({ essential = true, onValueChange, 
           type="text"
           value={value}
           onChange={handleChange}
-          placeholder="플레이스홀더"
+          placeholder={placeholder}
           className="w-full h-10 px-3 py-2 text-sm text-gray-900 border border-gray-300 rounded-md focus:outline-none"
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
