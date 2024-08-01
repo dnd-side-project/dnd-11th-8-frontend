@@ -1,9 +1,9 @@
 import { Badge, BadgeProps } from '@/components/ui/badge';
-import { ReactNode } from 'react';
+import { HTMLAttributes, ReactNode } from 'react';
 import { FiPlus } from 'react-icons/fi';
 import { cn } from '@/utils.ts';
 
-interface BadeWrapperProps {
+interface BadeWrapperProps extends Omit<HTMLAttributes<HTMLButtonElement>, 'type'> {
   text: string;
   type?: 'button' | 'display';
   size?: 'medium' | 'small';
