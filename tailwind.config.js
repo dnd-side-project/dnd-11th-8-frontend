@@ -11,6 +11,9 @@ export default {
   ],
   prefix: '',
   theme: {
+    screens: {
+      mobile: { min: '344px', max: '768px' },
+    },
     fontSize: {
       'sub-typo': ['11px', '16.5px'],
       'small-writing': ['13px', '19.5px'],
@@ -63,6 +66,9 @@ export default {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
         },
+        Gray50: '#F9FAFB',
+        Gray900: '#191F28',
+        Gray700: '#4E5968',
       },
       borderRadius: {
         lg: 'var(--radius)',
