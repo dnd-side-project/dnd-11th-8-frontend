@@ -70,6 +70,7 @@ export default {
         Gray200: '#E5E8EB',
         Gray400: '#B0B8C1',
         Gray500: '#8B95A1',
+        Gray600: '#6B7684',
         Gray700: '#4E5968',
         Gray800: '#333D48',
         Gray900: '#191F28',
