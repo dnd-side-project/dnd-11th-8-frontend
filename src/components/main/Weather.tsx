@@ -1,22 +1,30 @@
 import Card from '../common/Card';
-import humidWeather from '@/assets/icon/humidWeather.svg';
 
-const Weather = () => {
+interface WetherProps {
+  title: string;
+  description: string;
+  description2?: string;
+  icon: string;
+}
+
+const Weather: React.FC<WetherProps> = ({ title, description, description2, icon }) => {
   return (
-    <div className="max-w-[186px]">
+    <div className="min-w-[186px] mb-[100px]">
       <Card.Container verticalPaddingSize={'small'}>
         <Card.Content className={'flex flex-col pb-0 gap-[7px]'}>
-          <div>
-            <img src={humidWeather} alt="날씨 아이콘" />
+          <div className="flex flex-col gap-[7px]">
+            <div className="font-bold text-Gray900 text-small-writing">
+              <p>{title}</p>
+            </div>
+
+            <div className="text-[12px] text-Gray700">
+              <p className="whitespace-normal">{description}</p>
+              {description2 && <p className="whitespace-normal">{description2}</p>}
+            </div>
           </div>
 
-          <div className="font-bold text-Gray900 text-small-writing">
-            <p>과습 주의보</p>
-          </div>
-
-          <div className="text-[12px] text-Gray700">
-            <p>3일 이상 비가 오는 날씨에는 과습 위헙이 있습니다.</p>
-            <p>물 주기 전 흙의 상태를 확인하고 과습을 피하세요.</p>
+          <div className="self-end mt-auto">
+            <img src={icon} alt="아이콘" />
           </div>
         </Card.Content>
       </Card.Container>
