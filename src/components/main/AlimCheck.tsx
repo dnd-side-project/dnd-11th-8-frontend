@@ -17,7 +17,7 @@ const CheckItem: React.FC<CheckItemProps> = ({ icon, label, lastChecked, checked
   return (
     <div className="flex flex-col items-center gap-[4px]">
       <img src={icon} alt={`${label} 아이콘`} className="w-6 h-6" />
-      <p className=" text-small-writing text-Gray400">{label}</p>
+      <p className="text-small-writing text-Gray400">{label}</p>
       <button
         onClick={onCheck}
         className={`flex gap-[10px] text-sub-typo w-[67px] h-[23px] items-center justify-center rounded-full transition-all ${checked ? 'bg-green-500 text-white' : 'bg-Gray50 text-Gray500 border border-GrayOpacity100'}`}
@@ -38,35 +38,47 @@ const CheckItem: React.FC<CheckItemProps> = ({ icon, label, lastChecked, checked
   );
 };
 
-const AlimCheck: React.FC = () => {
+interface AlimCheckProps {
+  water: number;
+  fertilizer: number;
+  healthy: number;
+}
+
+const AlimCheck: React.FC<AlimCheckProps> = ({ water, fertilizer, healthy }) => {
   const [waterChecked, setWaterChecked] = useState(false);
   const [fertilizerChecked, setFertilizerChecked] = useState(false);
   const [sunlightChecked, setSunlightChecked] = useState(false);
 
   return (
-    <div className="p-[20px] bg-white rounded-lg shadow-sm">
-      <div className="flex items-center justify-between">
-        <CheckItem
-          icon={waterIcon}
-          label="물주기"
-          lastChecked="5일 전"
-          checked={waterChecked}
-          onCheck={() => setWaterChecked(true)}
-        />
-        <CheckItem
-          icon={fertilizerIcon}
-          label="비료"
-          lastChecked="2일 전"
-          checked={fertilizerChecked}
-          onCheck={() => setFertilizerChecked(true)}
-        />
-        <CheckItem
-          icon={sunlightIcon}
-          label="건강"
-          lastChecked="3일 전"
-          checked={sunlightChecked}
-          onCheck={() => setSunlightChecked(true)}
-        />
+    <div className="p-[20px] bg-white rounded-[10px] shadow-sm">
+      <div className="relative flex items-center justify-between">
+        <div className="flex-1">
+          <CheckItem
+            icon={waterIcon}
+            label="물주기"
+            lastChecked={`${water}일 전`}
+            checked={waterChecked}
+            onCheck={() => setWaterChecked(true)}
+          />
+        </div>
+        <div className="flex-1 relative before:content-[''] before:absolute before:top-1/3 before:left-0 before:w-[1px] before:h-[25px] before:bg-Gray400 after:content-[''] after:absolute after:top-1/3 after:right-0 after:w-[1px] after:h-[25px] after:bg-Gray400">
+          <CheckItem
+            icon={fertilizerIcon}
+            label="비료"
+            lastChecked={`${fertilizer}일 전`}
+            checked={fertilizerChecked}
+            onCheck={() => setFertilizerChecked(true)}
+          />
+        </div>
+        <div className="flex-1">
+          <CheckItem
+            icon={sunlightIcon}
+            label="건강"
+            lastChecked={`${healthy}일 전`}
+            checked={sunlightChecked}
+            onCheck={() => setSunlightChecked(true)}
+          />
+        </div>
       </div>
     </div>
   );

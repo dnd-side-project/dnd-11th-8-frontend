@@ -1,25 +1,93 @@
-import myPlant from '@/assets/img/examMyPlant.svg';
+import React, { useState } from 'react';
 import AlimCheck from './AlimCheck';
 import heart from '@/assets/icon/heart.svg';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
-const MyPlantAlimCheck = () => {
+interface Plant {
+  plantId: number;
+  name: string;
+  scientificName: string;
+  image: string;
+  startDay: number;
+  waterDDay: number;
+  fertilizerDDay: number;
+  healthy: number;
+}
+
+interface MyPlantAlimCheckProps {
+  plants: Plant[];
+}
+
+const MyPlantAlimCheck: React.FC<MyPlantAlimCheckProps> = ({ plants }) => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const settings = {
+    dots: false,
+    infinite: false,
+    speed: 300,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    afterChange: (index: number) => setCurrentSlide(index),
+  };
+
   return (
-    <div className="relative">
-      <div className="absolute bottom-[calc(100%-15px)] left-1/2 transform -translate-x-1/2">
-        <img src={myPlant} alt="나의 식물 일러스트" />
-      </div>
-      <div className="flex flex-col items-center justify-center">
-        <p className="pt-[27.9px] text-Gray900 font-semibold text-[22px]">루밍이</p>
-        <p className="text-Gray600 font-medium text-[13px]">몬스테라 델리사오사</p>
-        <div className="flex mt-[10px] gap-[5px] px-[8px] py-[4px] border border-GrayOpacity100 rounded-full bg-Gray50">
-          <img src={heart} alt="하트 아이콘" />
-          <p className="text-small-writing text-Gray800">함께한지 1일</p>
-        </div>
-      </div>
-      <div className="mx-[22px] mt-[15px] mb-[27px]">
-        <AlimCheck />
-      </div>
+    <div className="overflow-hidden ">
+      <Slider {...settings}>
+        {plants.map((plant) => (
+          <div className="flex items-center justify-center min-h-screen" key={plant.plantId}>
+            <div className="flex flex-col items-center justify-center mt-[20px]">
+              <img
+                src={plant.image}
+                alt="나의 식물 일러스트"
+                className="w-[228.76px] h-[239.31px]"
+              />
+
+              <div className="relative flex flex-col items-center justify-center">
+                <CurrentSlide currentSlide={currentSlide} plants={plants} />
+                <p className="pt-[15px] text-Gray900 font-semibold text-[22px]">{plant.name}</p>
+                <p className="text-Gray600 font-medium text-[13px]">{plant.scientificName}</p>
+                <div className="flex mt-[10px] gap-[5px] px-[8px] py-[4px] border border-GrayOpacity100 rounded-full bg-Gray50">
+                  <img src={heart} alt="하트 아이콘" />
+                  <p className="text-small-writing text-Gray800">함께한지 {plant.startDay}일</p>
+                </div>
+              </div>
+
+              <div className="mt-[15px] mb-[27px] w-[331px]">
+                <AlimCheck
+                  water={plant.waterDDay}
+                  fertilizer={plant.fertilizerDDay}
+                  healthy={plant.healthy}
+                />
+              </div>
+            </div>
+          </div>
+        ))}
+      </Slider>
     </div>
+  );
+};
+
+interface CurrentSlideProps {
+  currentSlide: number;
+  plants: Plant[];
+}
+
+const CurrentSlide: React.FC<CurrentSlideProps> = ({ currentSlide, plants }) => {
+  return (
+    <>
+      {plants.length > 1 && (
+        <div className="flex justify-center items-center gap-[5px]">
+          {plants.map((_, index) => (
+            <div
+              key={index}
+              className={`w-[7px] h-[7px] rounded-full ${currentSlide === index ? 'bg-[#34C184] w-[9.28px] h-[9.28px]' : 'bg-Gray300'}`}
+            />
+          ))}
+        </div>
+      )}
+    </>
   );
 };
 

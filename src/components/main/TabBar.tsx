@@ -11,7 +11,7 @@ const TabBar: React.FC = () => {
   };
 
   return (
-    <div className="fixed bottom-0 left-0 w-full bg-white border-t shadow-md border-Gray200 rounded-t-[24px]">
+    <div className="fixed bottom-0 left-0 w-full bg-white border-t shadow-md border-Gray200 rounded-t-[24px] z-50">
       <div className="flex justify-around pt-[10px]">
         <TabItem
           icon={guideIcon}
@@ -46,7 +46,7 @@ interface TabItemProps {
 const TabItem: React.FC<TabItemProps> = ({ icon, label, isActive, onClick }) => {
   return (
     <div
-      className={`flex flex-col items-center justify-center p-2 cursor-pointer ${isActive ? 'text-Gray800' : 'text-Gray-400'}`}
+      className={`flex flex-col items-center justify-center p-2 ${isActive ? 'text-Gray800' : 'text-Gray-400'}`}
       onClick={onClick}
     >
       <img

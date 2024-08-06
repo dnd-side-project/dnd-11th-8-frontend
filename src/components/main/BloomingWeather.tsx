@@ -26,11 +26,15 @@ const weathers = [
   },
 ];
 
-const BloomingWeather = () => {
+interface BloomingWeatherProps {
+  register: boolean;
+}
+
+const BloomingWeather: React.FC<BloomingWeatherProps> = ({ register }) => {
   return (
-    <div className="flex flex-col gap-[20px] mx-[22px]">
+    <div className={`flex flex-col gap-[20px] mx-[22px] ${register ? 'mt-[298px]' : 'mt-[210px]'}`}>
       <p className="font-semibold text-regular-body">오늘의 블상청</p>
-      <div className="overflow-x-auto whitespace-nowrap hide-scrollbar">
+      <div className="z-20 overflow-x-auto whitespace-nowrap hide-scrollbar">
         <div className="flex gap-[10px]">
           {weathers.map((weather) => (
             <Weather
