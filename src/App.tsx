@@ -1,12 +1,14 @@
-import AppleLogin from './components/auth/AppleLogin';
-import KakaoLogin from './components/auth/KakaoLogin';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Main from './pages/Main';
 
 function App() {
-  console.log('test');
   return (
     <div>
-      <KakaoLogin />
-      <AppleLogin />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Main />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
