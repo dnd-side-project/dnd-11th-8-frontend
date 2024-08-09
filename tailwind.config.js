@@ -66,6 +66,7 @@ export default {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
         },
+        PointColor: '#363737',
         Gray50: '#F9FAFB',
         Gray200: '#E5E8EB',
         Gray300: '#D1D6DB',
