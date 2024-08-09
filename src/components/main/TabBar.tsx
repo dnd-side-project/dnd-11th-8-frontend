@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import guideIcon from '@/assets/icon/tab_bar_guide.svg';
-import homeIcon from '@/assets/icon/tab_bar_home.svg';
-import myPlantsIcon from '@/assets/icon/tab_bar_my_plant.svg';
+import GuideIcon from '@/components/main/tabBarIconComponent/Guide';
+import HomeIcon from '@/components/main/tabBarIconComponent/Home';
+import MyPlantsIcon from '@/components/main/tabBarIconComponent/MyPlant';
 
 const TabBar: React.FC = () => {
   const [activeTab, setActiveTab] = useState<string>('home');
@@ -10,23 +10,25 @@ const TabBar: React.FC = () => {
     setActiveTab(tab);
   };
 
+  const getIconColor = (tab: string) => (activeTab === tab ? '#363737' : '#D1D6DB');
+
   return (
     <div className="fixed bottom-0 left-0 w-full bg-white border-t shadow-md border-Gray200 rounded-t-[24px] z-50">
       <div className="flex justify-around pt-[10px]">
         <TabItem
-          icon={guideIcon}
+          icon={<GuideIcon className="w-[24px] h-[24px]" color={getIconColor('guide')} />}
           label="가이드"
           isActive={activeTab === 'guide'}
           onClick={() => handleTabClick('guide')}
         />
         <TabItem
-          icon={homeIcon}
+          icon={<HomeIcon className="w-[24px] h-[24px]" color={getIconColor('home')} />}
           label="홈"
           isActive={activeTab === 'home'}
           onClick={() => handleTabClick('home')}
         />
         <TabItem
-          icon={myPlantsIcon}
+          icon={<MyPlantsIcon className="w-[24px] h-[24px]" color={getIconColor('myPlants')} />}
           label="내식물"
           isActive={activeTab === 'myPlants'}
           onClick={() => handleTabClick('myPlants')}
@@ -37,7 +39,7 @@ const TabBar: React.FC = () => {
 };
 
 interface TabItemProps {
-  icon: string;
+  icon: React.ReactNode;
   label: string;
   isActive: boolean;
   onClick: () => void;
@@ -46,14 +48,10 @@ interface TabItemProps {
 const TabItem: React.FC<TabItemProps> = ({ icon, label, isActive, onClick }) => {
   return (
     <div
-      className={`flex flex-col items-center justify-center p-2 ${isActive ? 'text-Gray800' : 'text-Gray-400'}`}
+      className={`flex flex-col items-center justify-center p-2 ${isActive && 'filter'}`}
       onClick={onClick}
     >
-      <img
-        src={icon}
-        alt={label}
-        className={`w-[24px] h-[24px] mb-[3px] ${isActive && 'filter'}`}
-      />
+      {icon}
       <span className={`text-sub-typo ${isActive ? 'text-Gray800' : 'text-Gray400'}`}>{label}</span>
     </div>
   );
