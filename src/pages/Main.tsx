@@ -4,7 +4,7 @@ import MyPlant from '@/components/main/MyPlant';
 import TabBar from '@/components/main/TabBar';
 
 const Main = () => {
-  const register: boolean = false;
+  const register: boolean = true;
   return (
     <MainLayout register={register}>
       <MyPlant register={register} />

@@ -1,9 +1,14 @@
-const RegisterMyPlant = () => {
+interface RegisterMyPlantProps {
+  greetingMessage: string;
+}
+
+const RegisterMyPlant: React.FC<RegisterMyPlantProps> = ({ greetingMessage }) => {
   return (
     <div>
       <div className="text-small-title text-Gray900 pt-[36.1px] pb-[30.3px]">
-        <p>김루밍님 좋아요!</p>
-        <p>초보 식집사로서 멋진 데뷔네요</p>
+        {greetingMessage.split('\n').map((line, index) => (
+          <p key={index}>{line}</p>
+        ))}
       </div>
     </div>
   );

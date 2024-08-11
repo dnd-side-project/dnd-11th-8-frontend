@@ -1,19 +1,18 @@
 import React, { useState } from 'react';
 import AlimCheck from './AlimCheck';
-import heart from '@/assets/icon/heart.svg';
+import myPlantsAll from '@/assets/icon/MyPlantsAll.svg';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 interface Plant {
-  plantId: number;
+  myPlantId: number;
   name: string;
   scientificName: string;
   image: string;
-  startDay: number;
-  waterDDay: number;
-  fertilizerDDay: number;
-  healthy: number;
+  waterRemainDay: number;
+  fertilizerRemainDay: number;
+  healthCheck: boolean;
 }
 
 interface MyPlantAlimCheckProps {
@@ -36,7 +35,7 @@ const MyPlantAlimCheck: React.FC<MyPlantAlimCheckProps> = ({ plants }) => {
     <div className="overflow-hidden ">
       <Slider {...settings}>
         {plants.map((plant) => (
-          <div className="flex items-center justify-center min-h-screen" key={plant.plantId}>
+          <div key={plant.myPlantId} className="flex items-center justify-center min-h-screen">
             <div className="flex flex-col items-center justify-center mt-[20px]">
               <img
                 src={plant.image}
@@ -49,16 +48,16 @@ const MyPlantAlimCheck: React.FC<MyPlantAlimCheckProps> = ({ plants }) => {
                 <p className="pt-[15px] text-Gray900 font-semibold text-[22px]">{plant.name}</p>
                 <p className="text-Gray600 font-medium text-[13px]">{plant.scientificName}</p>
                 <div className="flex mt-[10px] gap-[5px] px-[8px] py-[4px] border border-GrayOpacity100 rounded-full bg-Gray50">
-                  <img src={heart} alt="하트 아이콘" />
-                  <p className="text-small-writing text-Gray800">함께한지 {plant.startDay}일</p>
+                  <p className="text-small-writing text-Gray800">내 식물 전체 보기</p>
+                  <img src={myPlantsAll} alt="하트 아이콘" />
                 </div>
               </div>
 
               <div className="mt-[15px] mb-[27px] w-[331px]">
                 <AlimCheck
-                  water={plant.waterDDay}
-                  fertilizer={plant.fertilizerDDay}
-                  healthy={plant.healthy}
+                  water={plant.waterRemainDay}
+                  fertilizer={plant.fertilizerRemainDay}
+                  healthy={plant.healthCheck}
                 />
               </div>
             </div>
@@ -82,7 +81,9 @@ const CurrentSlide: React.FC<CurrentSlideProps> = ({ currentSlide, plants }) => 
           {plants.map((_, index) => (
             <div
               key={index}
-              className={`w-[7px] h-[7px] rounded-full ${currentSlide === index ? 'bg-[#34C184] w-[9.28px] h-[9.28px]' : 'bg-Gray300'}`}
+              className={`w-[7px] h-[7px] rounded-full ${
+                currentSlide === index ? 'bg-[#34C184] w-[9.28px] h-[9.28px]' : 'bg-Gray300'
+              }`}
             />
           ))}
         </div>

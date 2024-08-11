@@ -11,9 +11,17 @@ interface CheckItemProps {
   lastChecked: string;
   checked: boolean;
   onCheck: () => void;
+  healthy?: boolean;
 }
 
-const CheckItem: React.FC<CheckItemProps> = ({ icon, label, lastChecked, checked, onCheck }) => {
+const CheckItem: React.FC<CheckItemProps> = ({
+  icon,
+  label,
+  lastChecked,
+  checked,
+  onCheck,
+  healthy,
+}) => {
   return (
     <div className="flex flex-col items-center gap-[4px]">
       <img src={icon} alt={`${label} 아이콘`} className="w-6 h-6" />
@@ -25,7 +33,7 @@ const CheckItem: React.FC<CheckItemProps> = ({ icon, label, lastChecked, checked
         {checked ? (
           <>
             <img src={afterCheckIcon} alt="완료 아이콘" className="w-[10px] h-[10px]" />
-            완료
+            {label === '건강' && healthy ? 'On' : '완료'}
           </>
         ) : (
           <>
@@ -41,7 +49,7 @@ const CheckItem: React.FC<CheckItemProps> = ({ icon, label, lastChecked, checked
 interface AlimCheckProps {
   water: number;
   fertilizer: number;
-  healthy: number;
+  healthy: boolean;
 }
 
 const AlimCheck: React.FC<AlimCheckProps> = ({ water, fertilizer, healthy }) => {
@@ -74,9 +82,10 @@ const AlimCheck: React.FC<AlimCheckProps> = ({ water, fertilizer, healthy }) => 
           <CheckItem
             icon={sunlightIcon}
             label="건강"
-            lastChecked={`${healthy}일 전`}
+            lastChecked={`Off`}
             checked={sunlightChecked}
             onCheck={() => setSunlightChecked(true)}
+            healthy={healthy}
           />
         </div>
       </div>

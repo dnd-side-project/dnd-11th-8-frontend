@@ -3,45 +3,59 @@ import RegisterMyPlant from './RegisterMyPlant';
 import MyPlantAlimCheck from './MyPlantAlimCheck';
 import MyPlantRegistration from './MyPlantRegistration';
 import plant from '@/assets/img/examMyPlant.svg';
-
-const myPlants = [
-  {
-    plantId: 1,
-    name: '뿡뿡이',
-    scientificName: '몬스테라 델리오사',
-    image: plant,
-    startDay: 1,
-    waterDDay: 3,
-    fertilizerDDay: 13,
-    healthy: 2,
-  },
-  {
-    plantId: 2,
-    name: '팝팝이',
-    scientificName: '병아리 눈물',
-    image: plant,
-    startDay: 4,
-    waterDDay: 5,
-    fertilizerDDay: 23,
-    healthy: 7,
-  },
-  {
-    plantId: 3,
-    name: '뿡빵이',
-    scientificName: '몬스테라 델리오사',
-    image: plant,
-    startDay: 1,
-    waterDDay: 3,
-    fertilizerDDay: 13,
-    healthy: 2,
-  },
-];
+import { useEffect, useState } from 'react';
 
 interface MyPlantProps {
   register: boolean;
 }
 
+interface Plant {
+  myPlantId: number;
+  name: string;
+  scientificName: string;
+  image: string;
+  waterRemainDay: number;
+  fertilizerRemainDay: number;
+  healthCheck: boolean;
+}
+
 const MyPlant: React.FC<MyPlantProps> = ({ register }) => {
+  // 데이터 받아오면 제거할 예정
+  const [greetingMessage, setGreetingMessage] = useState<string>('');
+  const [myPlantsInfo, setMyPlantsInfo] = useState<Plant[]>([]);
+
+  // 데이터 받아오면 제거할 예정
+  useEffect(() => {
+    const myPlants = {
+      greetingMessage: '김루밍님 좋아요!\n초보식집사로서 멋진 데뷔네요.',
+      myPlantsInfo: [
+        {
+          myPlantId: 1,
+          name: '뿡뿡이',
+          scientificName: '몬스테라 델리오사',
+          image: plant,
+          waterRemainDay: 3,
+          fertilizerRemainDay: 23,
+          healthCheck: true,
+        },
+        {
+          myPlantId: 1,
+          name: '팝팝이',
+          scientificName: '병아리 눈물',
+          image: plant,
+          waterRemainDay: 3,
+          fertilizerRemainDay: 23,
+          healthCheck: true,
+        },
+      ],
+    };
+
+    const { greetingMessage, myPlantsInfo } = myPlants;
+
+    setGreetingMessage(greetingMessage);
+    setMyPlantsInfo(myPlantsInfo);
+  }, []);
+
   return (
     <div className={`bg-[#F2F1E5] ${register ? 'h-[410px]' : 'h-[169.81px]'} `}>
       <div className="px-[22px]">
@@ -53,7 +67,7 @@ const MyPlant: React.FC<MyPlantProps> = ({ register }) => {
         </div>
 
         {register ? (
-          <RegisterMyPlant />
+          <RegisterMyPlant greetingMessage={greetingMessage} />
         ) : (
           <div className="text-small-title text-Gray900 pt-[36.1px] pb-[30.3px]">
             <p>김루밍님</p>
@@ -61,7 +75,7 @@ const MyPlant: React.FC<MyPlantProps> = ({ register }) => {
           </div>
         )}
       </div>
-      {register ? <MyPlantAlimCheck plants={myPlants} /> : <MyPlantRegistration />}
+      {register ? <MyPlantAlimCheck plants={myPlantsInfo} /> : <MyPlantRegistration />}
     </div>
   );
 };
