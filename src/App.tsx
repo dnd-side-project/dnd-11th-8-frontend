@@ -9,8 +9,8 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Main />} />
-          <Route path={'my-plant/add'} element={<AddPlantPage />} />
-          <Route path={'my-plant/search'} element={<SearchPlantPage />} />
+          <Route path={'/my-plant/add'} element={<AddPlantPage />} />
+          <Route path={'/my-plant/search'} element={<SearchPlantPage />} />
         </Routes>
       </BrowserRouter>
     </div>
