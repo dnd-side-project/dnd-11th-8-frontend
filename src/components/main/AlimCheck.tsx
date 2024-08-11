@@ -2,11 +2,15 @@ import React, { useState } from 'react';
 import waterIcon from '@/assets/icon/water.svg';
 import fertilizerIcon from '@/assets/icon/fertilizer.svg';
 import sunlightIcon from '@/assets/icon/sunlight.svg';
+import beforeWaterIcon from '@/assets/icon/beforeWater.svg';
+import beforeFertilizerIcon from '@/assets/icon/beforeFertilizer.svg';
+import beforeHealthyIcon from '@/assets/icon/beforHealthy.svg';
 import checkIcon from '@/assets/icon/beforeCheck.svg';
 import afterCheckIcon from '@/assets/icon/afterCheck.svg';
 
 interface CheckItemProps {
   icon: string;
+  beforeIcon: string;
   label: string;
   lastChecked: string;
   checked: boolean;
@@ -16,15 +20,18 @@ interface CheckItemProps {
 
 const CheckItem: React.FC<CheckItemProps> = ({
   icon,
+  beforeIcon,
   label,
   lastChecked,
   checked,
   onCheck,
   healthy,
 }) => {
+  const currentIcon = checked ? icon : beforeIcon;
+
   return (
     <div className="flex flex-col items-center gap-[4px]">
-      <img src={icon} alt={`${label} 아이콘`} className="w-6 h-6" />
+      <img src={currentIcon} alt={`${label} 아이콘`} className="w-6 h-6" />
       <p className="text-small-writing text-Gray400">{label}</p>
       <button
         onClick={onCheck}
@@ -63,6 +70,7 @@ const AlimCheck: React.FC<AlimCheckProps> = ({ water, fertilizer, healthy }) => 
         <div className="flex-1">
           <CheckItem
             icon={waterIcon}
+            beforeIcon={beforeWaterIcon}
             label="물주기"
             lastChecked={`${water}일 전`}
             checked={waterChecked}
@@ -72,6 +80,7 @@ const AlimCheck: React.FC<AlimCheckProps> = ({ water, fertilizer, healthy }) => 
         <div className="flex-1 relative before:content-[''] before:absolute before:top-1/3 before:left-0 before:w-[1px] before:h-[25px] before:bg-Gray400 after:content-[''] after:absolute after:top-1/3 after:right-0 after:w-[1px] after:h-[25px] after:bg-Gray400">
           <CheckItem
             icon={fertilizerIcon}
+            beforeIcon={beforeFertilizerIcon}
             label="비료"
             lastChecked={`${fertilizer}일 전`}
             checked={fertilizerChecked}
@@ -81,6 +90,7 @@ const AlimCheck: React.FC<AlimCheckProps> = ({ water, fertilizer, healthy }) => 
         <div className="flex-1">
           <CheckItem
             icon={sunlightIcon}
+            beforeIcon={beforeHealthyIcon}
             label="건강"
             lastChecked={`Off`}
             checked={sunlightChecked}
