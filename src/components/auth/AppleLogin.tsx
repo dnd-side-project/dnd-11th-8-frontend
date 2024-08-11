@@ -5,7 +5,7 @@ const AppleLogin = () => {
     window.AppleID.auth.init({
       clientId: 'com.service.blooming',
       scope: 'name email',
-      redirectURI: 'https://dnd-11th-8-frontend.vercel.app/',
+      redirectURI: import.meta.env.VITE_REDIRECT_URI,
     });
   }, []);
 
