@@ -1,16 +1,7 @@
 import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-type RoutePath =
-  | '/'
-  | '/onboarding'
-  | '/login'
-  | '/guide'
-  | '/my-plant'
-  | '/my-plant/add'
-  | '/profile'
-  | '/profile/edit'
-  | string;
+type RoutePath = '/' | '/my-plant/add' | '/my-plant/search';
 
 const useInternalRouter = () => {
   const navigate = useNavigate();

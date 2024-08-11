@@ -179,7 +179,7 @@ jobs:
         with:
           github-token: ${{ env.GITHUB_TOKEN }}
           script: |
-            const frontendDevelopers = ['gihwan-dev', 'hijiyun'];
+            const frontendDevelopers = ['gihwan-dev', 'hijiyun', 'chajuhui123'];
             
             const prCreator = context.payload.pull_request.user.login;
 

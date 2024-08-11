@@ -1,10 +1,10 @@
 import ReactDOM from 'react-dom/client';
-import App from './App.tsx';
 import './index.css';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Provider as JotaiProvider } from 'jotai';
 import { GlobalPortal } from './providers/GlobalPortal.tsx';
 import { GlobalModalProvider } from './providers/GlobalModalProvider.tsx';
+import App from './App.tsx';
 
 const queryClient = new QueryClient();
 

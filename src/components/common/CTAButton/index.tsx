@@ -16,7 +16,7 @@ const CTAButton = ({ text, color = 'normal', className, ...rest }: CTAButtonProp
   return (
     <Button
       className={cn(
-        'text-regular-body py-7 text-white font-semibold rounded-2xl w-full',
+        'text-regular-body py-[18px] px-[28px] text-white font-semibold rounded-[16px] w-full h-[54px]',
         CTAButtonColor[color],
         className,
       )}

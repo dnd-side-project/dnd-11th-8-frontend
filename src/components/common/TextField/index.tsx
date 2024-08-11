@@ -1,34 +1,31 @@
-import { useState, useEffect, useRef } from 'react';
-import { Label } from '@/components/ui/label';
+import { ChangeEventHandler, ReactNode, useEffect, useId, useRef, useState } from 'react';
+import Label from '@/components/common/Label';
 import { HiXCircle } from 'react-icons/hi';
 
 interface TextFieldProps {
   essential?: boolean;
-  onValueChange?: (value: string) => void;
   title: string;
   placeholder?: string;
+  icon?: ReactNode;
+  onClear?: () => void;
+  onChange?: ChangeEventHandler<HTMLInputElement>;
+  value?: string;
 }
 
 const TextField: React.FC<TextFieldProps> = ({
   essential = true,
-  onValueChange,
   title,
-  placeholder = '플레이스홀더',
+  icon,
+  onClear,
+  ...inputProps
 }) => {
-  const [value, setValue] = useState('');
   const [isFocused, setIsFocused] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = e.target.value;
-    setValue(newValue);
-    onValueChange?.(newValue);
-  };
+  const id = useId();
 
   const handleClear = () => {
-    setValue('');
-    onValueChange?.('');
+    onClear?.();
     inputRef.current?.focus();
   };
 
@@ -45,31 +42,21 @@ const TextField: React.FC<TextFieldProps> = ({
 
   return (
     <div ref={containerRef} className="grid w-full max-w-sm gap-2">
-      <div className="flex items-center gap-1">
-        <Label htmlFor="textField" className="font-medium text-gray-800">
-          {title}
-        </Label>
-        {essential && <span className="text-red-500">*</span>}
-      </div>
-      <div className="relative">
+      <Label title={title} essential={essential} htmlFor={id} />
+      <div className="py-[14px] px-[16px] flex flex-row border border-GrayOpacity100 rounded-md bg-Gray50">
+        {icon !== undefined ? <div className={'mr-[10px]'}>{icon}</div> : null}
         <input
-          id="textField"
+          id={id}
           type="text"
-          value={value}
-          onChange={handleChange}
-          placeholder={placeholder}
-          className="w-full h-10 px-3 py-2 text-sm text-gray-900 border border-gray-300 rounded-md focus:outline-none"
+          {...inputProps}
+          className="w-full text-sm text-Gray900 bg-Gray50 focus:outline-none placeholder:text-Gray500 placeholder:text-regular-body placeholder:font-medium"
           onFocus={() => setIsFocused(true)}
           ref={inputRef}
         />
-        {isFocused && value && (
-          <HiXCircle
-            onMouseDown={(e) => {
-              e.preventDefault();
-              handleClear();
-            }}
-            className="absolute w-6 h-6 text-gray-400 transform -translate-y-1/2 cursor-pointer top-1/2 right-3"
-          />
+        {isFocused && inputProps.value && (
+          <button type={'button'} onClick={() => handleClear()}>
+            <HiXCircle className="w-6 h-6 text-gray-400" />
+          </button>
         )}
       </div>
     </div>
