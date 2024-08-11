@@ -4,6 +4,7 @@ import myPlantsAll from '@/assets/icon/MyPlantsAll.svg';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import useInternalRouter from '@/hooks/useInternalRouter';
 
 interface Plant {
   myPlantId: number;
@@ -20,6 +21,7 @@ interface MyPlantAlimCheckProps {
 }
 
 const MyPlantAlimCheck: React.FC<MyPlantAlimCheckProps> = ({ plants }) => {
+  const { push } = useInternalRouter();
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const settings = {
@@ -47,7 +49,10 @@ const MyPlantAlimCheck: React.FC<MyPlantAlimCheckProps> = ({ plants }) => {
                 <CurrentSlide currentSlide={currentSlide} plants={plants} />
                 <p className="pt-[15px] text-Gray900 font-semibold text-[22px]">{plant.name}</p>
                 <p className="text-Gray600 font-medium text-[13px]">{plant.scientificName}</p>
-                <button className="flex mt-[10px] gap-[5px] px-[8px] py-[4px] border border-GrayOpacity100 rounded-full bg-Gray50 justify-center items-center">
+                <button
+                  onClick={() => push('/my-plant')}
+                  className="flex mt-[10px] gap-[5px] px-[8px] py-[4px] border border-GrayOpacity100 rounded-full bg-Gray50 justify-center items-center"
+                >
                   <p className="text-small-writing text-Gray800">내 식물 전체 보기</p>
                   <img src={myPlantsAll} alt="하트 아이콘" />
                 </button>

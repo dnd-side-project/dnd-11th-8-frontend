@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-type RoutePath = '/' | '/my-plant/add' | '/my-plant/search';
+type RoutePath = '/' | '/my-plant/add' | '/my-plant/search' | '/guide' | '/my-plant';
 
 const useInternalRouter = () => {
   const navigate = useNavigate();

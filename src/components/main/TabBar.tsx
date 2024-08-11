@@ -2,12 +2,31 @@ import React, { useState } from 'react';
 import GuideIcon from '@/components/main/tabBarIconComponent/Guide';
 import HomeIcon from '@/components/main/tabBarIconComponent/Home';
 import MyPlantsIcon from '@/components/main/tabBarIconComponent/MyPlant';
+import useInternalRouter from '@/hooks/useInternalRouter';
 
 const TabBar: React.FC = () => {
   const [activeTab, setActiveTab] = useState<string>('home');
+  const { push } = useInternalRouter();
 
   const handleTabClick = (tab: string) => {
     setActiveTab(tab);
+    let path: '/guide' | '/' | '/my-plant' = '/';
+
+    switch (tab) {
+      case 'guide':
+        path = '/guide';
+        break;
+      case 'home':
+        path = '/';
+        break;
+      case 'myPlants':
+        path = '/my-plant';
+        break;
+      default:
+        path = '/';
+    }
+
+    push(path);
   };
 
   const getIconColor = (tab: string) => (activeTab === tab ? '#363737' : '#D1D6DB');
