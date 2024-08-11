@@ -67,6 +67,7 @@ export default {
           foreground: 'hsl(var(--card-foreground))',
         },
         Gray50: '#F9FAFB',
+        Gray100: '#F2F4F6',
         Gray200: '#E5E8EB',
         Gray300: '#D1D6DB',
         Gray400: '#B0B8C1',
@@ -76,6 +77,8 @@ export default {
         Gray800: '#333D48',
         Gray900: '#191F28',
         GrayOpacity100: 'rgba(2, 32, 71, 0.05)',
+        BloomingGreen500: '#34C184',
+        Blue500: '#3182F6',
       },
       borderRadius: {
         lg: 'var(--radius)',
