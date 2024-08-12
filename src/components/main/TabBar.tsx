@@ -1,15 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import GuideIcon from '@/components/main/tabBarIconComponent/Guide';
 import HomeIcon from '@/components/main/tabBarIconComponent/Home';
 import MyPlantsIcon from '@/components/main/tabBarIconComponent/MyPlant';
 import useInternalRouter from '@/hooks/useInternalRouter';
+import { useLocation } from 'react-router-dom';
 
 const TabBar: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<string>('home');
+  const location = useLocation();
   const { push } = useInternalRouter();
+  const [activeTab, setActiveTab] = useState<string>('');
+
+  useEffect(() => {
+    if (location.pathname === '/guide') {
+      setActiveTab('guide');
+    } else if (location.pathname === '/my-plant') {
+      setActiveTab('myPlants');
+    } else {
+      setActiveTab('home');
+    }
+  }, [location.pathname]);
 
   const handleTabClick = (tab: string) => {
-    setActiveTab(tab);
     let path: '/guide' | '/' | '/my-plant' = '/';
 
     switch (tab) {
@@ -27,6 +38,7 @@ const TabBar: React.FC = () => {
     }
 
     push(path);
+    setActiveTab(tab);
   };
 
   const getIconColor = (tab: string) => (activeTab === tab ? '#363737' : '#D1D6DB');
