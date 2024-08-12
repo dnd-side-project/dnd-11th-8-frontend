@@ -78,6 +78,7 @@ export default {
         Gray800: '#333D48',
         Gray900: '#191F28',
         GrayOpacity100: 'rgba(2, 32, 71, 0.05)',
+        GrayOpacity600: 'rgba(0, 19, 43, 0.58)',
         BloomingGreen500: '#34C184',
         Blue500: '#3182F6',
       },

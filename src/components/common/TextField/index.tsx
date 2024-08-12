@@ -10,6 +10,7 @@ interface TextFieldProps {
   onClear?: () => void;
   onChange?: ChangeEventHandler<HTMLInputElement>;
   value?: string;
+  disabled?: boolean;
 }
 
 const TextField: React.FC<TextFieldProps> = ({

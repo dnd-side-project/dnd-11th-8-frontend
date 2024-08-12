@@ -10,32 +10,44 @@ import PlantLocationBadgeList from '@/components/addPlant/PlantLocationBadgeList
 import 함께하기시작한날 from '@/components/addPlant/함께하기시작한날';
 import 마지막으로물준날 from '@/components/addPlant/마지막으로물준날.tsx';
 import NotificationToggleList from '@/components/addPlant/NotificationToggleList.tsx';
+import { useCallback, useState } from 'react';
+
+const initialForm = {
+  '식물 종류': {
+    value: '',
+    required: true,
+  },
+  식물위치: {
+    value: '',
+    required: true,
+  },
+  '반려식물 애칭': {
+    value: '',
+    required: false,
+  },
+  '함께하기 시작한 날': {
+    value: '',
+    required: false,
+  },
+  '마지막으로 물 준 날': {
+    value: '',
+    required: false,
+  },
+};
+
+type FormKey = keyof typeof initialForm;
+type FormValue = (typeof initialForm)[FormKey];
 
 const AddPlantPage = () => {
   const router = useInternalRouter();
+  const [form, setForm] = useState(initialForm);
 
-  const form = {
-    '식물 종류': {
-      value: '',
-      required: true,
-    },
-    식물위치: {
-      value: '',
-      required: true,
-    },
-    '반려식물 애칭': {
-      value: '',
-      required: false,
-    },
-    '함께하기 시작한 날': {
-      value: '',
-      required: false,
-    },
-    '마지막으로 물 준 날': {
-      value: '',
-      required: false,
-    },
-  };
+  const handleChange = useCallback((key: FormKey, value: FormValue) => {
+    setForm((prev) => ({
+      ...prev,
+      [key]: value,
+    }));
+  }, []);
 
   const isFormValid = Object.entries(form)
     .filter(([, value]) => value.required)
@@ -57,7 +69,7 @@ const AddPlantPage = () => {
         }
       />
       <form className={'w-full flex flex-col gap-[25px] mt-[41px]'}>
-        <PlantTypeTextField />
+        <PlantTypeTextField handleChange={handleChange} />
         <PlantLocationBadgeList />
         <TextField title={'반려식물 애칭'} placeholder={'몬스테라 델리시오사'} essential={false} />
         <함께하기시작한날 />
