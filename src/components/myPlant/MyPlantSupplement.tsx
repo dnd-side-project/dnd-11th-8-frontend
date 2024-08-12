@@ -14,7 +14,9 @@ interface MyPlantSupplementProps {
 const MyPlantSupplement: React.FC<MyPlantSupplementProps> = ({ plants }) => {
   return (
     <div className="flex justify-between px-[20px] py-[12px]">
-      <p>전체 ({plants.length})</p>
+      <p className="text-[15px] text-Gray800 font-normal">
+        전체 <span className="font-semibold ">({plants.length})</span>
+      </p>
       <FilterButton />
     </div>
   );
