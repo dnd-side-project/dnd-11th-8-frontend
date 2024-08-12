@@ -5,16 +5,24 @@ import sprout from '@/assets/icon/sprout.svg';
 
 interface PlusButtonProps {
   onOptionClick: () => void;
+  onCloseOverlay: () => void;
 }
 
-const PlusButton: React.FC<PlusButtonProps> = ({ onOptionClick }) => {
+const PlusButton: React.FC<PlusButtonProps> = ({ onOptionClick, onCloseOverlay }) => {
   const [isOptionsVisible, setOptionsVisible] = useState(false);
   const optionsRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   const handleButtonClick = () => {
-    setOptionsVisible(!isOptionsVisible);
-    onOptionClick();
+    setOptionsVisible((prev) => {
+      const newVisibility = !prev;
+      if (newVisibility) {
+        onOptionClick();
+      } else {
+        onCloseOverlay();
+      }
+      return newVisibility;
+    });
   };
 
   // 클릭 외부 감지
@@ -27,6 +35,7 @@ const PlusButton: React.FC<PlusButtonProps> = ({ onOptionClick }) => {
         !buttonRef.current.contains(event.target as Node)
       ) {
         setOptionsVisible(false);
+        onCloseOverlay();
       }
     };
 
@@ -35,10 +44,13 @@ const PlusButton: React.FC<PlusButtonProps> = ({ onOptionClick }) => {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, []);
+  }, [onCloseOverlay]);
 
   return (
     <div className="relative">
+      {/* 배경색 오버레이 */}
+      {isOptionsVisible && <div className="fixed inset-0 z-30" onClick={onCloseOverlay} />}
+
       {/* 플러스 버튼 */}
       <div className="fixed bottom-[61px] right-0 z-40">
         <button ref={buttonRef} onClick={handleButtonClick}>

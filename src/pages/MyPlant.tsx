@@ -65,7 +65,7 @@ const MyPlant = () => {
         </div>
         <MyPlantSupplement plants={myPlant} />
         {myPlant.length === 0 ? <NoMyPlant /> : <MyPlantList plants={myPlant} />}
-        <PlusButton onOptionClick={handleOptionClick} />
+        <PlusButton onOptionClick={handleOptionClick} onCloseOverlay={handleCloseOverlay} />
         <TabBar />
       </div>
     </div>
