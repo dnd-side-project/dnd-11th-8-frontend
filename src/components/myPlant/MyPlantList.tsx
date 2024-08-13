@@ -1,5 +1,6 @@
 import Badge from '@/components/common/Badge';
 import waterIcon from '@/assets/icon/myPlantWater.svg';
+import fertilizerIcon from '@/assets/icon/myPlantFertilizer.svg';
 
 interface MyPlantListProps {
   plants: Array<{
@@ -32,7 +33,7 @@ const MyPlantList: React.FC<MyPlantListProps> = ({ plants }) => {
               <Badge
                 className="flex items-center gap-[5px] px-[8px] py-[4px] bg-Gray50 text-[11px] text-Gray500 font-medium	border border-GrayOpacity100"
                 text={`${plant.fertilizerRemainDay}일 이내`}
-                icon={waterIcon}
+                icon={fertilizerIcon}
               />
             </div>
           </div>

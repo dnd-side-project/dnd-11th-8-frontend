@@ -41,6 +41,24 @@ const myPlant: string | Plant[] = [
     waterRemainDay: 3,
     fertilizerRemainDay: 23,
   },
+  {
+    myPlantId: 3,
+    nickname: '루밍이',
+    scientificName: '몬스테라 델리오사',
+    image:
+      'https://img1.daumcdn.net/thumb/R1280x0.fjpg/?fname=http://t1.daumcdn.net/brunch/service/user/5AU5/image/7oHw3DMrgO9_66LHCI3MkoKjY3M.JPG',
+    waterRemainDay: 1,
+    fertilizerRemainDay: 15,
+  },
+  {
+    myPlantId: 4,
+    nickname: '블루밍스밍스스',
+    scientificName: '몬스테라 델리오사',
+    image:
+      'https://img1.daumcdn.net/thumb/R1280x0.fjpg/?fname=http://t1.daumcdn.net/brunch/service/user/5AU5/image/7oHw3DMrgO9_66LHCI3MkoKjY3M.JPG',
+    waterRemainDay: 1,
+    fertilizerRemainDay: 15,
+  },
 ];
 
 const MyPlant = () => {
