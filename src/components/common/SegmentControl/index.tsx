@@ -38,11 +38,11 @@ const SegmentControl: React.FC<SegmentControlProps> = ({ segments, onSegmentChan
   const { padding, fontSize } = getClasses(visibleSegments.length);
 
   return (
-    <div className="px-[24px] pb-[15px]">
-      <div className="flex justify-around items-center py-[4px] px-[6px] bg-stone-300 rounded-[30px]">
+    <div className="px-[48px] pb-[15px]">
+      <div className="flex justify-around items-center py-[4px] px-[6px] bg-GrayOpacity100 rounded-[30px] gap-[5px]">
         {visibleSegments.map((segment) => {
           const isSelected = selectedId === segment.id;
-          const buttonClasses = `flex-1 min-w-0 rounded-[30px] py-2 ${padding} ${fontSize} flex justify-center items-center whitespace-nowrap ${
+          const buttonClasses = `flex-1 min-w-0 rounded-[30px] py-2 font-semibold	${padding} ${fontSize} flex justify-center items-center whitespace-nowrap ${
             isSelected ? 'bg-white shadow-lg' : 'text-[#6B7684]'
           }`;
 

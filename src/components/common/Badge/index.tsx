@@ -1,10 +1,10 @@
 import { Badge, BadgeProps } from '@/components/ui/badge';
 import { HTMLAttributes, ReactNode } from 'react';
-import { FiPlus } from 'react-icons/fi';
 import { cn } from '@/utils.ts';
 
-interface BadeWrapperProps extends Omit<HTMLAttributes<HTMLButtonElement>, 'type'> {
+interface BadgeWrapperProps extends Omit<HTMLAttributes<HTMLButtonElement>, 'type'> {
   text: string;
+  icon?: ReactNode; // icon을 ReactNode로 유지
   type?: 'button' | 'display';
   size?: 'medium' | 'small';
 }
@@ -13,27 +13,28 @@ const BadgeWrapper = ({
   text,
   type = 'display',
   size = 'medium',
+  icon,
   className,
   ...buttonProps
-}: BadeWrapperProps) => {
+}: BadgeWrapperProps) => {
   if (type === 'button') {
     return (
       <button {...buttonProps} type={'button'}>
-        <BadgeContent text={text} icon={<FiPlus size={14} />} size={size} className={className} />
+        <BadgeContent text={text} icon={icon} size={size} className={className} />
       </button>
     );
   }
 
   return (
     <button {...buttonProps} type={'button'}>
-      <BadgeContent text={text} size={size} className={className} />
+      <BadgeContent text={text} icon={icon} size={size} className={className} />
     </button>
   );
 };
 
 interface BadgeContentProps extends BadgeProps {
   text: string;
-  icon?: ReactNode;
+  icon?: ReactNode; // icon을 ReactNode로 유지
   size: 'medium' | 'small';
 }
 
@@ -47,7 +48,7 @@ const BadgeContent = ({ text, icon, className, size, ...rest }: BadgeContentProp
       )}
       {...rest}
     >
-      {icon}
+      {typeof icon === 'string' ? <img src={icon} alt="아이콘" /> : icon}
       <span
         className={cn('font-medium', size === 'medium' ? 'text-small-writing' : 'text-sub-typo')}
       >
