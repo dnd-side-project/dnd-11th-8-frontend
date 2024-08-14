@@ -1,4 +1,4 @@
-import { createContext, PropsWithChildren, ReactNode, useState } from 'react';
+import { createContext, PropsWithChildren, ReactNode, useCallback, useState } from 'react';
 
 interface ModalState {
   title?: string | ReactNode;
@@ -28,13 +28,13 @@ interface GlobalModalProviderProps extends PropsWithChildren {}
 export const GlobalModalProvider = ({ children }: GlobalModalProviderProps) => {
   const [modalState, setModalState] = useState(initialModalState);
 
-  const openModal = (modalState: Omit<ModalState, 'isOpen'>) => {
+  const openModal = useCallback((modalState: Omit<ModalState, 'isOpen'>) => {
     setModalState({ ...modalState, isOpen: true });
-  };
+  }, []);
 
-  const closeModal = () => {
+  const closeModal = useCallback(() => {
     setModalState(initialModalState);
-  };
+  }, []);
 
   return (
     <GlobalModalContext.Provider value={{ openModal, closeModal }}>
