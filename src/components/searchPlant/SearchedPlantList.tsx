@@ -2,8 +2,8 @@ import { useSearchPlant } from '@/queries/useSearchPlant.ts';
 import List from '@/components/common/List';
 import GreenRoundPlusIcon from '@/assets/icon/GreenRoundPlusIcon.tsx';
 import { usePlantTypeSearchParams } from '@/hooks/usePlantTypeSearchParams.ts';
-import useToast from '@/hooks/useToast.tsx';
 import RoundedGreenChecked from '@/assets/icon/RoundedGreenChecked.tsx';
+import useToast from '@/hooks/useToast';
 
 interface SearchedPlantListProps {
   query: string;

@@ -84,6 +84,8 @@ export default {
         GrayOpacity600: 'rgba(0, 19, 43, 0.58)',
         BloomingGreen500: '#34C184',
         Blue500: '#3182F6',
+        Red500: 'rgba(240, 68, 82, 1)',
+        DimBackground: 'rgba(0, 0, 0, 0.2)',
       },
       borderRadius: {
         lg: 'var(--radius)',

@@ -1,9 +1,10 @@
 import { Button, ButtonProps } from '@/components/ui/button.tsx';
 import { cn } from '@/utils.ts';
+import { ReactNode } from 'react';
 
 interface CTAButtonProps extends ButtonProps {
   color?: keyof typeof CTAButtonColor;
-  text: string;
+  text: string | ReactNode;
 }
 
 const CTAButtonColor = {
