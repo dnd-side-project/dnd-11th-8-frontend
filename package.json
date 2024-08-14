@@ -38,7 +38,7 @@
     "react-router-dom": "^6.26.0",
     "react-slick": "^0.30.2",
     "slick-carousel": "^1.8.1",
-    "tailwind-merge": "^2.4.0",
+    "tailwind-merge": "^2.5.1",
     "tailwindcss-animate": "^1.0.7",
     "use-long-press": "^3.2.0",
     "vaul": "^0.9.1",
