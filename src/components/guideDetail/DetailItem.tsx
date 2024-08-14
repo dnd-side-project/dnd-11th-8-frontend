@@ -8,7 +8,7 @@ const DetailItem: React.FC<{
   };
 
   return (
-    <div className="px-[24px]">
+    <div className="px-[24px] mb-[40px]">
       <img src={item.icon} alt="아이콘" />
       <h3 className="text-[17px] font-bold text-LabelNormal py-[10px]">{item.title}</h3>
       {item.springsummerfallSubTitle && (

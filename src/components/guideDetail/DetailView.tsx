@@ -9,7 +9,7 @@ const DetailView: React.FC<{ items: GuideDetailsProps['detailView'] }> = ({ item
     <div className="w-full max-w-md mb-[140px]">
       {keys.map((key) => (
         <div key={key}>
-          <div className="mb-[40px] mt-[40px] w-full h-[10px] bg-Gray100 border-Gray500" />
+          <div className="mb-[40px] w-full h-[10px] bg-Gray100 border-Gray500" />
           <DetailItem item={items[key]} />
         </div>
       ))}
