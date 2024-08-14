@@ -17,13 +17,13 @@ const Header: React.FC<{ korName: string; engName: string; imageUrl: string; tag
     <div className="flex flex-col mt-4 text-left px-[24px]">
       <p className="text-[20px] text-Gray900 font-semibold">{korName}</p>
       <p className="text-Gray600 text-[13px] font-normal">{engName}</p>
-      <div className="flex space-x-2 mt-[20px]">
+      <div className="flex gap-[5px] mt-[20px] text-[11px]">
         {tags.map((tag, index) => (
           <Badge
             key={index}
             type="button"
             text={tag}
-            className="border bg-Gray50 border-GrayOpacity100 text-Gray800 rounded-[13px] px-[10px] py-[4px]"
+            className="text-[11px] border bg-Gray50 border-GrayOpacity100 text-Gray800 rounded-[13px] px-[10px] py-[4px]"
           />
         ))}
       </div>
