@@ -26,6 +26,7 @@ import { PlantLocation } from '@/types/plantLocation';
 
 import { cn } from '@/utils.ts';
 import { isFalsy } from '@/utils/validation/isFalsy.ts';
+import IconPlusMono from '@/assets/icon/icon-plus-mono.tsx';
 
 interface PlantLocationBadgeListProps {
   handleChange: (key: FormKey, value: FormValue) => void;
@@ -140,6 +141,7 @@ const PlantLocationBadgeList = ({
           type={'button'}
           className={'bg-GrayOpacity100 text-Gray800'}
           onClick={openAddNewModalHandler}
+          icon={<IconPlusMono />}
         />
         <CenterBottomSheet
           title="식물 위치"
