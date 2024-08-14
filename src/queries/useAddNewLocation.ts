@@ -16,10 +16,12 @@ export const useAddNewLocation = () => {
         queryKey: keyStore.location.getAllLocation.queryKey,
       });
 
-      // @ts-expect-error -- oldData 가 any 로 추론되어 발생하는 에러를 막기 위한 주석 입니다.
-      queryClient.setQueryData(keyStore.location.getAllLocation.queryKey, (oldData) => {
-        return [...(oldData as PlantLocation[]), { id: -1, name }];
-      });
+      queryClient.setQueryData<PlantLocation[]>(
+        keyStore.location.getAllLocation.queryKey,
+        (oldData) => {
+          return [...(oldData ?? []), { id: -1, name }];
+        },
+      );
 
       return { previousLocations };
     },
