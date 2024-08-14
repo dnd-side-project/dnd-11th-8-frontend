@@ -1,7 +1,10 @@
 import TopButton from '@/components/guideDetail/TopButton';
 import difficultyIcon from '@/assets/icon/guideDetailDifficulty.svg';
 import waterIcon from '@/assets/icon/guideDetailWater.svg';
-import Badge from '@/components/common/Badge';
+import Header from '@/components/guideDetail/Header';
+import SimpleView from '@/components/guideDetail/SimpleView';
+import DetailView from '@/components/guideDetail/DetailView';
+import GuideDetailsProps from '@/types/GuideDetailsProps';
 
 const plantGuide: GuideDetailsProps = {
   korName: '몬스테라 델리오사',
@@ -92,183 +95,18 @@ const plantGuide: GuideDetailsProps = {
   },
 };
 
-interface SimpleViewItem {
-  icon: string;
-  title: string;
-  description: string;
-}
-
-interface DetailedViewItem {
-  icon: string;
-  title: string;
-  springsummerfallSubTitle?: string;
-  springsummerfallDescription?: string;
-  winterSubTitle?: string;
-  winterDescription?: string;
-  lightSubTitle?: string;
-  lightDescription?: string;
-  description?: string;
-  addition?: string;
-}
-
-interface GuideDetailsProps {
-  korName: string;
-  engName: string;
-  imageUrl: string;
-  tag: string[];
-  simpleView: {
-    difficulty: SimpleViewItem;
-    water: SimpleViewItem;
-    pests: SimpleViewItem;
-    location: SimpleViewItem;
-    size: SimpleViewItem;
-    toxicity: SimpleViewItem;
-    temperature: SimpleViewItem;
-    fertilizer: SimpleViewItem;
-  };
-  detailView: {
-    water: DetailedViewItem;
-    light: DetailedViewItem;
-    humidity: DetailedViewItem;
-    toxicity: DetailedViewItem;
-    pests: DetailedViewItem;
-  };
-}
-
 const GuideDetails: React.FC = () => {
-  const simpleViewKeys = Object.keys(plantGuide.simpleView) as Array<
-    keyof typeof plantGuide.simpleView
-  >;
-  const detailViewKeys = Object.keys(plantGuide.detailView) as Array<
-    keyof typeof plantGuide.detailView
-  >;
-
   return (
     <>
       <TopButton />
-      <div className="flex flex-col items-center max-w-full px-6 h-[327px]">
-        <img
-          src={plantGuide.imageUrl}
-          alt="식물 사진"
-          className="w-full min-w-[327px] h-full rounded-[10px] object-cover"
-        />
-      </div>
-
-      <div className="flex flex-col mt-4 text-left px-[24px]">
-        <p className="text-[20px] text-Gray900 font-semibold">{plantGuide.korName}</p>
-        <p className="text-Gray600 text-[13px] font-normal">{plantGuide.engName}</p>
-        <div className="flex space-x-2 mt-[20px]">
-          {plantGuide.tag.map((t, index) => (
-            <div key={index}>
-              <Badge
-                type="button"
-                text={t}
-                className="border bg-Gray50 border-GrayOpacity100 text-Gray800 rounded-[13px] px-[10px] py-[4px]"
-              />
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div>
-        {/* SimpleView */}
-        <h1 className="px-[24px] py-[10px] text-LabelNormal text-[18px] font-bold	mt-[27.5px]">
-          한 눈에 보는 식물 정보
-        </h1>
-        <div className="grid w-full max-w-md grid-cols-2 gap-2 px-[24px] mt-[7px]">
-          {simpleViewKeys.map((key) => (
-            <div
-              key={key}
-              className="bg-GrayOpacity100 w-[160px] h-[128px] rounded-[10px] flex flex-col px-[20px] py-[15px] gap-[8px]"
-            >
-              <div>
-                <img
-                  className="w-[24px] h-[24px]"
-                  src={plantGuide.simpleView[key].icon}
-                  alt="아이콘"
-                />
-              </div>
-              <div>
-                <h3 className="text-Gray900 text-[15px] font-semibold	">
-                  {plantGuide.simpleView[key].title}
-                </h3>
-                <p
-                  className="mt-[8px] text-[13px] text-Gray600 font-medium w-full"
-                  dangerouslySetInnerHTML={{ __html: plantGuide.simpleView[key].description }}
-                />
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* DetailView */}
-      <div className="w-full max-w-md mb-[140px]">
-        {detailViewKeys.map((key) => (
-          <>
-            <div key={key}>
-              <div className="mb-[40px] mt-[40px] w-full h-[10px] bg-Gray100 border-Gray500" />
-
-              <div className="px-[24px]">
-                <img src={plantGuide.detailView[key].icon} alt="아이콘" />
-                <h3 className="text-[17px] font-bold text-LabelNormal py-[10px]">
-                  {plantGuide.detailView[key].title}
-                </h3>
-                {plantGuide.detailView[key].springsummerfallSubTitle && (
-                  <>
-                    <h4 className="mb-[5px] font-bold text-[13px] text-Gray600">
-                      {plantGuide.detailView[key].springsummerfallSubTitle}
-                    </h4>
-                    <p
-                      className="text-[13px] font-normal text-Gray600"
-                      dangerouslySetInnerHTML={{
-                        __html: plantGuide.detailView[key].springsummerfallDescription || '',
-                      }}
-                    />
-                  </>
-                )}
-                {plantGuide.detailView[key].winterSubTitle && (
-                  <>
-                    <h4 className="mb-[5px] mt-[10px] font-bold text-[13px] text-Gray600">
-                      {plantGuide.detailView[key].winterSubTitle}
-                    </h4>
-                    <p
-                      className="text-[13px] font-normal text-Gray600"
-                      dangerouslySetInnerHTML={{
-                        __html: plantGuide.detailView[key].winterDescription || '',
-                      }}
-                    />
-                  </>
-                )}
-                {plantGuide.detailView[key].lightSubTitle && (
-                  <>
-                    <h4 className="mb-[5px] font-bold text-[13px] text-Gray600">
-                      {plantGuide.detailView[key].lightSubTitle}
-                    </h4>
-                    <p
-                      className="text-[13px] font-normal text-Gray600"
-                      dangerouslySetInnerHTML={{
-                        __html: plantGuide.detailView[key].lightDescription || '',
-                      }}
-                    />
-                  </>
-                )}
-                {plantGuide.detailView[key].description && (
-                  <p
-                    className="text-[13px] font-normal text-Gray600"
-                    dangerouslySetInnerHTML={{ __html: plantGuide.detailView[key].description }}
-                  />
-                )}
-                {plantGuide.detailView[key].addition && (
-                  <div className="bg-GrayOpacity100 py-[10px] px-[20px] text-[11px] font-semibold rounded-[10px] mt-[10px] text-Gray600">
-                    {plantGuide.detailView[key].addition}
-                  </div>
-                )}
-              </div>
-            </div>
-          </>
-        ))}
-      </div>
+      <Header
+        korName={plantGuide.korName}
+        engName={plantGuide.engName}
+        imageUrl={plantGuide.imageUrl}
+        tags={plantGuide.tag}
+      />
+      <SimpleView items={plantGuide.simpleView} />
+      <DetailView items={plantGuide.detailView} />
     </>
   );
 };
