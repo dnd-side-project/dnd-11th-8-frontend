@@ -12,4 +12,9 @@ export default defineConfig({
       reporter: process.env.GITHUB_ACTIONS ? ['text-summary'] : ['text'],
     },
   },
+  resolve: {
+    alias: {
+      '@': '/src',
+    },
+  },
 });
