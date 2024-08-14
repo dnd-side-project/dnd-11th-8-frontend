@@ -11,19 +11,21 @@ const 마지막으로물준날 = () => {
 
   const [open, setOpen] = useState<boolean>(false);
 
-  const onClick = (e: MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation();
+  const onMouseDown = (e: MouseEvent<HTMLInputElement>) => {
     e.preventDefault();
     setOpen(true);
   };
 
   return (
     <>
-      <button type={'button'} onClick={onClick}>
-        <TextField title={'마지막으로 물 준 날'} placeholder={''} essential={false} />
-      </button>
+      <TextField
+        title={'마지막으로 물 준 날'}
+        placeholder={''}
+        essential={false}
+        onMouseDown={onMouseDown}
+      />
       <BottomSheet
-        title={'함께하기 시작한 날'}
+        title={'마지막으로 물 준 날'}
         content={
           <div className={'px-[10px] h-[310px] overflow-hidden flex flex-row mt-[10px]'}>
             <ScrollPicker
@@ -51,7 +53,9 @@ const 마지막으로물준날 = () => {
         }
         actions={[<CTAButton text={'선택하기'} className={'bg-BloomingGreen500'} />]}
         isOpen={open}
-        onClose={() => {}}
+        onClose={() => {
+          setOpen(false);
+        }}
       />
     </>
   );

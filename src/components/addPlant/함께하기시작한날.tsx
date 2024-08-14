@@ -1,4 +1,4 @@
-import { MouseEvent, useState } from 'react';
+import { MouseEventHandler, useState } from 'react';
 
 import TextField from '@/components/common/TextField';
 import BottomSheet from '@/components/common/BottomSheet';
@@ -12,17 +12,19 @@ const 함께하기시작한날 = () => {
 
   const [open, setOpen] = useState<boolean>(false);
 
-  const onClick = (e: MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation();
+  const onMouseDown: MouseEventHandler<HTMLInputElement> = (e) => {
     e.preventDefault();
     setOpen(true);
   };
 
   return (
     <>
-      <button onClick={onClick} type={'button'}>
-        <TextField title={'함께하기 시작한 날'} placeholder={''} essential={false} />
-      </button>
+      <TextField
+        title={'함께하기 시작한 날'}
+        placeholder={''}
+        essential={false}
+        onMouseDown={onMouseDown}
+      />
       <BottomSheet
         title={'함께하기 시작한 날'}
         content={
@@ -52,7 +54,9 @@ const 함께하기시작한날 = () => {
         }
         actions={[<CTAButton text={'선택하기'} className={'bg-BloomingGreen500'} />]}
         isOpen={open}
-        onClose={() => {}}
+        onClose={() => {
+          setOpen(false);
+        }}
       />
     </>
   );

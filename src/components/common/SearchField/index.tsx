@@ -23,6 +23,7 @@ const SearchField: React.FC<SearchInputProps> = ({ placeholder = '플레이스�
         type="text"
         value={query}
         onChange={handleChange}
+        autoFocus={true}
         placeholder={placeholder}
         className="w-full py-[8px] pl-[42px] pr-[22px] border border-Gray100 bg-Gray100 rounded-[10px] focus:outline-none text-regular-body font-medium caret-BloomingGreen500"
       />

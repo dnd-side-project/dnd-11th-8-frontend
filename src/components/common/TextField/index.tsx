@@ -1,8 +1,9 @@
 import { ChangeEventHandler, ReactNode, useEffect, useId, useRef, useState } from 'react';
 import Label from '@/components/common/Label';
 import { HiXCircle } from 'react-icons/hi';
+import { cn } from '@/utils.ts';
 
-interface TextFieldProps {
+interface TextFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
   essential?: boolean;
   title: string;
   placeholder?: string;
@@ -18,6 +19,7 @@ const TextField: React.FC<TextFieldProps> = ({
   title,
   icon,
   onClear,
+  disabled,
   ...inputProps
 }) => {
   const [isFocused, setIsFocused] = useState(false);
@@ -42,7 +44,7 @@ const TextField: React.FC<TextFieldProps> = ({
   }, []);
 
   return (
-    <div ref={containerRef} className="grid w-full max-w-sm gap-2">
+    <div ref={containerRef} className={cn(disabled ? 'z-0' : '', 'grid w-full max-w-sm gap-2')}>
       <Label title={title} essential={essential} htmlFor={id} />
       <div className="py-[14px] px-[16px] flex flex-row border border-GrayOpacity100 rounded-md bg-Gray50">
         {icon !== undefined ? <div className={'mr-[10px]'}>{icon}</div> : null}
