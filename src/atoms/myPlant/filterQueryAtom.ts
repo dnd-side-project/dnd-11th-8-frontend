@@ -5,6 +5,6 @@ const filterQueryAtom = atom<{
   direction: string;
 }>({
   sort: 'CREATED',
-  direction: 'ASC',
+  direction: 'DESC',
 });
 export default filterQueryAtom;

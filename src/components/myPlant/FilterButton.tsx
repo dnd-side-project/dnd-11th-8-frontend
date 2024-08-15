@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { useAtom } from 'jotai';
-import filterQueryAtom from '@/atoms/myPlant/filterQueryAtom'; // atoms.ts에서 import
+import filterQueryAtom from '@/atoms/myPlant/filterQueryAtom';
 import downArrow from '@/assets/icon/downArrow.svg';
 
 const filterOptions = [
@@ -47,6 +47,12 @@ const FilterButton = () => {
     };
   }, []);
 
+  // 현재 query 상태에 따른 label 찾기
+  const currentLabel =
+    filterOptions.find(
+      (option) => option.sort === query.sort && option.direction === query.direction,
+    )?.label || '최근 등록 순'; // 기본값으로 '최근 등록 순' 설정
+
   return (
     <div className="relative">
       <button
@@ -54,8 +60,7 @@ const FilterButton = () => {
         className="flex items-center justify-center gap-[6px] text-Gray500"
         onClick={handleButtonClick}
       >
-        <p>{query.sort === 'CREATED' ? '최근 등록 순' : '물주기 최근 순'}</p>{' '}
-        {/* 선택된 옵션 텍스트 */}
+        <p>{currentLabel}</p>
         <img src={downArrow} alt="아래 화살표" />
       </button>
 

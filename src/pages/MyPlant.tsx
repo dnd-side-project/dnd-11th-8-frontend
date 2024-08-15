@@ -62,13 +62,15 @@ const MyPlant = () => {
   const [locationName, setLocationName] = useState('전체');
   const [locationId, setLocationId] = useState(1);
   // const [query] = useAtom(filterQueryAtom);
-  // const query: LocationQueryParams = {
-  //   sort: {query.sort},
-  //   direction: {query.direction},
+  // const sort = query.sort;
+  // const direction = query.direction;
+  // const querys: LocationQueryParams = {
+  //   sort: sort,
+  //   direction: direction,
   //   location: locationId,
   // };
 
-  // const { data: myPlant, error, isLoading } = useAllMyPlant(query);
+  // const { data: myPlant, error, isLoading } = useAllMyPlant(querys);
 
   const handleOptionClick = () => {
     setBgColor('bg-SementicDimBackground');

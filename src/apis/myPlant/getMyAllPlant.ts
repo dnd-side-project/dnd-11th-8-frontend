@@ -2,14 +2,14 @@ import baseAxios from '@/libs/baseAxios';
 import Plant from '@/types/MyPlant';
 
 export interface LocationQueryParams {
-  sort?: 'CREATED' | 'WATERED';
-  direction?: 'DESC' | 'ASC';
+  sort?: 'CREATED' | 'WATERED' | string;
+  direction?: 'DESC' | 'ASC' | string;
   location?: number;
 }
 
 export const getMyAllPlant = async (query?: LocationQueryParams) => {
   const response = await baseAxios.get<Plant[]>(
-    `/plant?sort=${query?.sort}&direction=${query?.direction}&location=${query?.location}`,
+    `/plants?sort=${query?.sort}&direction=${query?.direction}&location=${query?.location}`,
   );
 
   return response.data;
