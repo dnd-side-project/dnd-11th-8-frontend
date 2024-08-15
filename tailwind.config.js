@@ -67,6 +67,7 @@ export default {
           foreground: 'hsl(var(--card-foreground))',
         },
         SementicDimBackground: 'rgba(0, 0, 0, 0.20)',
+        SementicDimBackground2: 'rgba(0, 0, 0, 0.1)',
         LabelNormal: '#171719',
         PointColor: '#363737',
         Gray50: '#F9FAFB',
