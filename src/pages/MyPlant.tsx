@@ -5,7 +5,9 @@ import MyPlantSupplement from '@/components/myPlant/MyPlantSupplement';
 import NoMyPlant from '@/components/myPlant/NoMyPlant';
 import PlusButton from '@/components/myPlant/PlusButton';
 import { useState } from 'react';
-import Plant from '@/types/myPlant';
+import Plant from '@/types/MyPlant';
+// import filterQueryAtom from '@/atoms/myPlant/filterQueryAtom';
+// import { useAtom } from 'jotai';
 // import { useAllMyPlant } from '@/queries/useAllMyPlant';
 // import { LocationQueryParams } from '@/apis/myPlant/getMyAllPlant';
 
@@ -58,10 +60,11 @@ const myPlant: string | Plant[] = [
 const MyPlant = () => {
   const [bgColor, setBgColor] = useState('');
   const [locationName, setLocationName] = useState('전체');
+  // const [query] = useAtom(filterQueryAtom);
   // const [locationId, setLocationId] = useState(1);
   // const query: LocationQueryParams = {
-  //   sort: 'CREATED', // 'CREATED' 또는 'WATERED' 중 하나 선택
-  //   direction: 'ASC', // 'ASC' 또는 'DESC' 중 하나 선택
+  //   sort: {query.sort}, // 'CREATED' 또는 'WATERED' 중 하나 선택
+  //   direction: {query.direction}, // 'ASC' 또는 'DESC' 중 하나 선택
   //   location: locationId,
   // };
 

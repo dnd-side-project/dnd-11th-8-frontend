@@ -1,5 +1,5 @@
 import baseAxios from '@/libs/baseAxios';
-import Plant from '@/types/myPlant';
+import Plant from '@/types/MyPlant';
 
 export interface LocationQueryParams {
   sort?: 'CREATED' | 'WATERED';
