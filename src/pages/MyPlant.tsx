@@ -5,6 +5,9 @@ import MyPlantSupplement from '@/components/myPlant/MyPlantSupplement';
 import NoMyPlant from '@/components/myPlant/NoMyPlant';
 import PlusButton from '@/components/myPlant/PlusButton';
 import { useState } from 'react';
+import Plant from '@/types/myPlant';
+// import { useAllMyPlant } from '@/queries/useAllMyPlant';
+// import { LocationQueryParams } from '@/apis/myPlant/getMyAllPlant';
 
 const segments = [
   { id: 1, name: '전체' },
@@ -12,15 +15,6 @@ const segments = [
   { id: 3, name: '침실' },
   { id: 4, name: '테라스' },
 ];
-
-interface Plant {
-  myPlantId: number;
-  nickname: string;
-  scientificName: string;
-  image: string;
-  waterRemainDay: number;
-  fertilizerRemainDay: number;
-}
 
 const myPlant: string | Plant[] = [
   {
@@ -64,6 +58,14 @@ const myPlant: string | Plant[] = [
 const MyPlant = () => {
   const [bgColor, setBgColor] = useState('');
   const [locationName, setLocationName] = useState('전체');
+  // const [locationId, setLocationId] = useState(1);
+  // const query: LocationQueryParams = {
+  //   sort: 'CREATED', // 'CREATED' 또는 'WATERED' 중 하나 선택
+  //   direction: 'ASC', // 'ASC' 또는 'DESC' 중 하나 선택
+  //   location: locationId,
+  // };
+
+  // const { data: myPlant, error, isLoading } = useAllMyPlant(query);
 
   const handleOptionClick = () => {
     setBgColor('bg-SementicDimBackground');
@@ -74,9 +76,12 @@ const MyPlant = () => {
   };
 
   const handleSegmentChange = (selectedSegment: { id: number; name: string }) => {
-    console.log('선택한 ID:', selectedSegment.id);
+    // setLocationId(selectedSegment.id);
     setLocationName(selectedSegment.name);
   };
+
+  // if (isLoading) return <p>로딩 중...</p>;
+  // if (error) return <p>오류가 발생했습니다: {error.message}</p>;
 
   return (
     <div className="relative min-h-screen">
