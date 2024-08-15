@@ -3,6 +3,7 @@ import Main from './pages/Main';
 import AddPlantPage from './pages/AddPlantPage';
 import MyPlant from './pages/MyPlant';
 import GuideDetails from './pages/GuideDetails';
+import Guide from './pages/Guide';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <Route path={'/my-plant/add'} element={<AddPlantPage />} />
           <Route path="my-plant" element={<MyPlant />} />
           <Route path="/guide/:id" element={<GuideDetails />} />
+          <Route path="/guide" element={<Guide />} />
         </Routes>
       </BrowserRouter>
     </div>
