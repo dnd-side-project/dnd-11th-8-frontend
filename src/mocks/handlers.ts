@@ -3,9 +3,16 @@ import searchResponse from './mockDatas/searchPlant.ts';
 import { plantLocation } from '@/mocks/mockDatas/plantLocation.ts';
 
 export const handlers = [
-  http.get(import.meta.env.VITE_API_URL + '/plants', async () => {
+  http.get(import.meta.env.VITE_API_URL + '/plants', async ({ request }) => {
     await delay(1000);
-    return HttpResponse.json(searchResponse);
+    const url = new URL(request.url);
+    const query = url.searchParams.get('search');
+
+    if (!query) {
+      return HttpResponse.json([]);
+    }
+
+    return HttpResponse.json(searchResponse.filter((plant) => plant.name.includes(query)));
   }),
 
   http.post(import.meta.env.VITE_API_URL + '/location', async ({ request: req }) => {
