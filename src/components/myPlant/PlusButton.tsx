@@ -1,7 +1,8 @@
-import plusBtn from '@/assets/icon/myPlantPlusBtn.svg';
 import { useState, useRef, useEffect } from 'react';
-import location from '@/assets/icon/location.svg';
-import sprout from '@/assets/icon/sprout.svg';
+import plusBtn from '@/assets/icon/myPlantPlusBtn.svg';
+import Overlay from './Overlay';
+import OptionsMenu from './OptionsMenu';
+import BottomSheet from './BottomSheet';
 
 interface PlusButtonProps {
   onOptionClick: () => void;
@@ -10,6 +11,9 @@ interface PlusButtonProps {
 
 const PlusButton: React.FC<PlusButtonProps> = ({ onOptionClick, onCloseOverlay }) => {
   const [isOptionsVisible, setOptionsVisible] = useState(false);
+  const [isBottomSheetVisible, setBottomSheetVisible] = useState(false);
+  const [isLocationInputVisible, setLocationInputVisible] = useState(false);
+  const [isDeleteConfirmationVisible, setDeleteConfirmationVisible] = useState(false);
   const optionsRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
@@ -25,7 +29,22 @@ const PlusButton: React.FC<PlusButtonProps> = ({ onOptionClick, onCloseOverlay }
     });
   };
 
-  // 클릭 외부 감지
+  const handleLocationClick = () => setBottomSheetVisible(true);
+  const handleModifyClick = () => setLocationInputVisible(true);
+  const handleDeleteClick = () => setDeleteConfirmationVisible(true);
+  const handleCancelClick = () => {
+    setBottomSheetVisible(false);
+    setLocationInputVisible(false);
+    setDeleteConfirmationVisible(false);
+  };
+
+  const handleLocationChange = () => {
+    setBottomSheetVisible(false);
+    setLocationInputVisible(false);
+    setDeleteConfirmationVisible(false);
+    setOptionsVisible(false);
+  };
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -48,33 +67,26 @@ const PlusButton: React.FC<PlusButtonProps> = ({ onOptionClick, onCloseOverlay }
 
   return (
     <div className="relative">
-      {/* 배경색 오버레이 */}
-      {isOptionsVisible && <div className="fixed inset-0 z-30" onClick={onCloseOverlay} />}
+      {/* Overlay */}
+      {isOptionsVisible && <Overlay onClick={onCloseOverlay} />}
 
-      {/* 플러스 버튼 */}
       <div className="fixed bottom-[61px] right-0 z-40">
         <button ref={buttonRef} onClick={handleButtonClick}>
           <img src={plusBtn} alt="플러스 버튼" />
         </button>
       </div>
 
-      {/* 옵션들이 보이는 영역 */}
-      {isOptionsVisible && (
-        <div
-          ref={optionsRef}
-          className="fixed bottom-[171px] right-[16.8px] bg-white p-[10px] rounded-[16px] z-40"
-        >
-          <div className="flex flex-col">
-            <button className="flex gap-[10px] p-[10px] rounded-[10px] hover:bg-GrayOpacity100">
-              <img src={sprout} alt="새싹 아이콘" />
-              <p>식물 등록하기</p>
-            </button>
-            <button className="flex gap-[10px] p-[10px] rounded-[10px] hover:bg-GrayOpacity100">
-              <img src={location} alt="위치 아이콘" />
-              <p>위치 설정하기</p>
-            </button>
-          </div>
-        </div>
+      {isOptionsVisible && <OptionsMenu ref={optionsRef} onLocationClick={handleLocationClick} />}
+
+      {isBottomSheetVisible && (
+        <BottomSheet
+          isLocationInputVisible={isLocationInputVisible}
+          isDeleteConfirmationVisible={isDeleteConfirmationVisible}
+          onCancel={handleCancelClick}
+          onLocationChange={handleLocationChange}
+          onModify={handleModifyClick}
+          onDelete={handleDeleteClick}
+        />
       )}
     </div>
   );
