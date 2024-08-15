@@ -63,6 +63,7 @@ const myPlant: string | Plant[] = [
 
 const MyPlant = () => {
   const [bgColor, setBgColor] = useState('');
+  const [locationName, setLocationName] = useState('전체');
 
   const handleOptionClick = () => {
     setBgColor('bg-SementicDimBackground');
@@ -72,6 +73,11 @@ const MyPlant = () => {
     setBgColor('');
   };
 
+  const handleSegmentChange = (selectedSegment: { id: number; name: string }) => {
+    console.log('선택한 ID:', selectedSegment.id);
+    setLocationName(selectedSegment.name);
+  };
+
   return (
     <div className="relative min-h-screen">
       {/* 배경색 오버레이 */}
@@ -79,11 +85,15 @@ const MyPlant = () => {
 
       <div className="relative">
         <div className="pt-[30px]">
-          <SegmentControl segments={segments} />
+          <SegmentControl segments={segments} onSegmentChange={handleSegmentChange} />
         </div>
         <MyPlantSupplement plants={myPlant} />
         {myPlant.length === 0 ? <NoMyPlant /> : <MyPlantList plants={myPlant} />}
-        <PlusButton onOptionClick={handleOptionClick} onCloseOverlay={handleCloseOverlay} />
+        <PlusButton
+          onOptionClick={handleOptionClick}
+          onCloseOverlay={handleCloseOverlay}
+          locationName={locationName}
+        />
         <TabBar />
       </div>
     </div>

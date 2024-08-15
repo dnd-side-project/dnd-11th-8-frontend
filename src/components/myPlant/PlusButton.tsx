@@ -7,9 +7,10 @@ import BottomSheet from './BottomSheet';
 interface PlusButtonProps {
   onOptionClick: () => void;
   onCloseOverlay: () => void;
+  locationName: string;
 }
 
-const PlusButton: React.FC<PlusButtonProps> = ({ onOptionClick, onCloseOverlay }) => {
+const PlusButton: React.FC<PlusButtonProps> = ({ onOptionClick, onCloseOverlay, locationName }) => {
   const [isOptionsVisible, setOptionsVisible] = useState(false);
   const [isBottomSheetVisible, setBottomSheetVisible] = useState(false);
   const [isLocationInputVisible, setLocationInputVisible] = useState(false);
@@ -86,6 +87,7 @@ const PlusButton: React.FC<PlusButtonProps> = ({ onOptionClick, onCloseOverlay }
           onLocationChange={handleLocationChange}
           onModify={handleModifyClick}
           onDelete={handleDeleteClick}
+          locationName={locationName}
         />
       )}
     </div>
