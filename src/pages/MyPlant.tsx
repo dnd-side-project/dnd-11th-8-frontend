@@ -60,11 +60,11 @@ const myPlant: string | Plant[] = [
 const MyPlant = () => {
   const [bgColor, setBgColor] = useState('');
   const [locationName, setLocationName] = useState('전체');
+  const [locationId, setLocationId] = useState(1);
   // const [query] = useAtom(filterQueryAtom);
-  // const [locationId, setLocationId] = useState(1);
   // const query: LocationQueryParams = {
-  //   sort: {query.sort}, // 'CREATED' 또는 'WATERED' 중 하나 선택
-  //   direction: {query.direction}, // 'ASC' 또는 'DESC' 중 하나 선택
+  //   sort: {query.sort},
+  //   direction: {query.direction},
   //   location: locationId,
   // };
 
@@ -79,7 +79,7 @@ const MyPlant = () => {
   };
 
   const handleSegmentChange = (selectedSegment: { id: number; name: string }) => {
-    // setLocationId(selectedSegment.id);
+    setLocationId(selectedSegment.id);
     setLocationName(selectedSegment.name);
   };
 
@@ -101,6 +101,7 @@ const MyPlant = () => {
           onOptionClick={handleOptionClick}
           onCloseOverlay={handleCloseOverlay}
           locationName={locationName}
+          locationId={locationId}
         />
         <TabBar />
       </div>

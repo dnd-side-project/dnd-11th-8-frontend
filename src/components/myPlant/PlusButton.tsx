@@ -8,9 +8,15 @@ interface PlusButtonProps {
   onOptionClick: () => void;
   onCloseOverlay: () => void;
   locationName: string;
+  locationId: number;
 }
 
-const PlusButton: React.FC<PlusButtonProps> = ({ onOptionClick, onCloseOverlay, locationName }) => {
+const PlusButton: React.FC<PlusButtonProps> = ({
+  onOptionClick,
+  onCloseOverlay,
+  locationName,
+  locationId,
+}) => {
   const [isOptionsVisible, setOptionsVisible] = useState(false);
   const [isBottomSheetVisible, setBottomSheetVisible] = useState(false);
   const [isLocationInputVisible, setLocationInputVisible] = useState(false);
@@ -88,6 +94,7 @@ const PlusButton: React.FC<PlusButtonProps> = ({ onOptionClick, onCloseOverlay, 
           onModify={handleModifyClick}
           onDelete={handleDeleteClick}
           locationName={locationName}
+          locationId={locationId}
         />
       )}
     </div>

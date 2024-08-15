@@ -1,26 +1,30 @@
 import trashIcon from '@/assets/icon/trashIcon.svg';
+import { useUpdateLocation } from '@/queries/useUpdateLocation';
 import { useState } from 'react';
 
 interface LocationInputProps {
   onLocationChange: () => void;
   onDelete: () => void;
   locationName: string;
+  locationId: number;
 }
 
 const LocationInput: React.FC<LocationInputProps> = ({
   onLocationChange,
   onDelete,
   locationName,
+  locationId,
 }) => {
   const [inputValue, setInputValue] = useState(locationName);
+  const { mutate } = useUpdateLocation();
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
   };
 
   const handleLocationChange = () => {
-    // 입력값을 상태로 유지하고 onLocationChange 호출
     onLocationChange();
+    mutate({ locationId, name: inputValue });
   };
 
   return (
@@ -32,8 +36,8 @@ const LocationInput: React.FC<LocationInputProps> = ({
         <input
           id="location"
           type="text"
-          value={inputValue} // 상태로 관리되는 입력값
-          onChange={handleInputChange} // 입력값 변경 시 상태 업데이트
+          value={inputValue}
+          onChange={handleInputChange}
           className="w-full p-2 pr-10 mb-4 border-b-2 border-Gray100 focus:outline-none text-[24px] text-Gray800 font-semibold"
         />
         <img
@@ -44,7 +48,7 @@ const LocationInput: React.FC<LocationInputProps> = ({
         />
       </div>
       <button
-        onClick={handleLocationChange} // 인수 없는 onLocationChange 호출
+        onClick={handleLocationChange}
         className="px-[28px] py-[18px] text-white bg-BloomingGreen500 rounded-[16px] my-[10px]"
       >
         변경
