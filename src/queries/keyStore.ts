@@ -2,7 +2,7 @@ import { createQueryKeyStore } from '@lukemorales/query-key-factory';
 
 export const keyStore = createQueryKeyStore({
   plantGuide: {
-    searchPlant: null,
+    searchPlant: (query: string) => [query],
   },
   location: {
     addNewLocation: null,
