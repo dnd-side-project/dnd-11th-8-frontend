@@ -1,21 +1,37 @@
 import React from 'react';
 import useToast from '@/hooks/useToast'; // 올바른 경로로 수정
+import { useDeleteLocation } from '@/queries/useDeleteLocation';
 
 interface DeleteConfirmationProps {
   onCancel: () => void;
   onDelete: () => void;
+  locationId: number;
 }
 
-const DeleteConfirmation: React.FC<DeleteConfirmationProps> = ({ onCancel, onDelete }) => {
+const DeleteConfirmation: React.FC<DeleteConfirmationProps> = ({
+  onCancel,
+  onDelete,
+  locationId,
+}) => {
   const { openToast } = useToast();
+  const { mutate } = useDeleteLocation();
+
+  const handleDeleteLocation = () => {
+    mutate(locationId, {
+      onSuccess: () => {
+        openToast({
+          message: '삭제되었습니다.',
+          duration: 1500,
+          textColor: 'text-white',
+        });
+        onDelete();
+      },
+    });
+  };
 
   const handleDelete = () => {
-    openToast({
-      message: '삭제되었습니다.',
-      duration: 1500,
-      textColor: 'text-white',
-    });
-    onDelete();
+    handleDeleteLocation();
+    onCancel();
   };
 
   return (

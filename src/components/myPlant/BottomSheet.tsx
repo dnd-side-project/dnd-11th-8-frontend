@@ -8,6 +8,8 @@ interface BottomSheetProps {
   onLocationChange: () => void;
   onModify: () => void;
   onDelete: () => void;
+  locationName: string;
+  locationId: number;
 }
 
 const BottomSheet: React.FC<BottomSheetProps> = ({
@@ -17,6 +19,8 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
   onLocationChange,
   onModify,
   onDelete,
+  locationName,
+  locationId,
 }) => (
   <div className="fixed inset-0 z-50 flex items-center justify-center">
     <div className="fixed inset-0 bg-SementicDimBackground2" onClick={onCancel}></div>
@@ -47,11 +51,20 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
       )}
 
       {isLocationInputVisible && !isDeleteConfirmationVisible && (
-        <LocationInput onLocationChange={onLocationChange} onDelete={onDelete} />
+        <LocationInput
+          onLocationChange={onLocationChange}
+          onDelete={onDelete}
+          locationName={locationName}
+          locationId={locationId}
+        />
       )}
 
       {isDeleteConfirmationVisible && (
-        <DeleteConfirmation onCancel={onCancel} onDelete={onLocationChange} />
+        <DeleteConfirmation
+          onCancel={onCancel}
+          onDelete={onLocationChange}
+          locationId={locationId}
+        />
       )}
     </div>
   </div>

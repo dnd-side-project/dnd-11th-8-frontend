@@ -1,11 +1,18 @@
 import { useState, useRef, useEffect } from 'react';
+import { useAtom } from 'jotai';
+import filterQueryAtom from '@/atoms/myPlant/filterQueryAtom';
 import downArrow from '@/assets/icon/downArrow.svg';
 
-const filterOptions = ['등록 오래된 순', '최근 등록 순', '물주기 오래된 순', '물주기 최근 순'];
+const filterOptions = [
+  { label: '등록 오래된 순', sort: 'CREATED', direction: 'ASC' },
+  { label: '최근 등록 순', sort: 'CREATED', direction: 'DESC' },
+  { label: '물주기 오래된 순', sort: 'WATERED', direction: 'ASC' },
+  { label: '물주기 최근 순', sort: 'WATERED', direction: 'DESC' },
+];
 
 const FilterButton = () => {
   const [isOptionsVisible, setOptionsVisible] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(filterOptions[1]);
+  const [query, setQuery] = useAtom(filterQueryAtom);
   const optionsRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
@@ -13,12 +20,14 @@ const FilterButton = () => {
     setOptionsVisible((prev) => !prev);
   };
 
-  const handleOptionClick = (option: string) => {
-    setSelectedOption(option);
+  const handleOptionClick = (option: (typeof filterOptions)[0]) => {
+    setQuery({
+      sort: option.sort,
+      direction: option.direction,
+    });
     setOptionsVisible(false);
   };
 
-  // 클릭 외부 감지
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -38,28 +47,23 @@ const FilterButton = () => {
     };
   }, []);
 
+  // 현재 query 상태에 따른 label 찾기
+  const currentLabel =
+    filterOptions.find(
+      (option) => option.sort === query.sort && option.direction === query.direction,
+    )?.label || '최근 등록 순'; // 기본값으로 '최근 등록 순' 설정
+
   return (
     <div className="relative">
-      {/* 필터 버튼 */}
       <button
         ref={buttonRef}
         className="flex items-center justify-center gap-[6px] text-Gray500"
         onClick={handleButtonClick}
       >
-        <p>{selectedOption}</p> {/* 선택된 옵션 텍스트 */}
+        <p>{currentLabel}</p>
         <img src={downArrow} alt="아래 화살표" />
       </button>
 
-      {/* 배경 오버레이 */}
-      {isOptionsVisible && (
-        <div
-          className="fixed inset-0 bg-gray-500 bg-opacity-50"
-          style={{ zIndex: 50 }}
-          onClick={() => setOptionsVisible(false)}
-        />
-      )}
-
-      {/* 옵션들이 보이는 영역 */}
       {isOptionsVisible && (
         <div
           ref={optionsRef}
@@ -72,11 +76,11 @@ const FilterButton = () => {
             {filterOptions.map((option, index) => (
               <li key={index}>
                 <button
-                  className={`block w-full p-[10px] text-left hover:bg-GrayOpacity100 rounded-[10px] ${selectedOption === option && 'bg-GrayOpacity100'}`}
+                  className={`block w-full p-[10px] text-left hover:bg-GrayOpacity100 rounded-[10px] ${query.sort === option.sort && query.direction === option.direction ? 'bg-GrayOpacity100' : ''}`}
                   onClick={() => handleOptionClick(option)}
                 >
                   <p className="text-[15px] text-Gray700 font-medium hover:font-semibold ">
-                    {option}
+                    {option.label}
                   </p>
                 </button>
               </li>

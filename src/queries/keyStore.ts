@@ -1,3 +1,4 @@
+import { LocationQueryParams } from '@/apis/myPlant/getMyAllPlant';
 import { createQueryKeyStore } from '@lukemorales/query-key-factory';
 
 export const keyStore = createQueryKeyStore({
@@ -11,6 +12,7 @@ export const keyStore = createQueryKeyStore({
     deleteLocation: null,
   },
   myPlant: {
+    getMyAllPlant: (query?: LocationQueryParams) => ['getMyAllPlant', query],
     createMyPlant: null,
   },
 });
