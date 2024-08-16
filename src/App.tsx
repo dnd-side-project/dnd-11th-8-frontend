@@ -4,6 +4,7 @@ import AddPlantPage from './pages/AddPlantPage';
 import MyPlant from './pages/MyPlant';
 import GuideDetails from './pages/GuideDetails';
 import Guide from './pages/Guide';
+import MyPlantDetail from '@/pages/MyPlantDetail.tsx';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <Route path="/" element={<Main />} />
           <Route path={'/my-plant/add'} element={<AddPlantPage />} />
           <Route path="my-plant" element={<MyPlant />} />
+          <Route path={'/my-plant/:plantId'} element={<MyPlantDetail />} />
           <Route path="/guide/:id" element={<GuideDetails />} />
           <Route path="/guide" element={<Guide />} />
         </Routes>

@@ -17,8 +17,6 @@ const SearchedPlantList = ({ query, onClose }: SearchedPlantListProps) => {
   const { setPlantType, plantType } = usePlantTypeSearchParams();
   const { openToast } = useToast();
 
-  console.log(query);
-
   const data = response.data;
 
   const onClick = (name: string, id: number) => {

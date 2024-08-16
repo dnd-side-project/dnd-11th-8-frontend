@@ -5,7 +5,7 @@ interface HeightBoxProps {
 }
 
 const HeightBox = ({ height }: HeightBoxProps) => {
-  return <div className={cn('w-full', `h-[${height}px]`)} />;
+  return <div className={cn('w-full', `mt-[${height}px]`)} />;
 };
 
 export default HeightBox;

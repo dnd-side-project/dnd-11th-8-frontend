@@ -34,6 +34,7 @@ const 마지막으로물준날 = ({ onClick, value }: 마지막으로물준날Pr
         essential={false}
         onMouseDown={onMouseDown}
         value={value}
+        readOnly={true}
       />
       <BottomSheet
         title={'마지막으로 물 준 날'}
