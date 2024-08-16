@@ -11,6 +11,7 @@ interface NotificationToggleListProps {
   setFertilizer: (value: Partial<ToggleFormState>) => void;
   healthCheck: ToggleFormState;
   setHealthCheck: (value: Partial<ToggleFormState>) => void;
+  labelAsTitle?: boolean;
 }
 
 const NotificationToggleList = ({
@@ -20,13 +21,18 @@ const NotificationToggleList = ({
   fertilizer,
   setHealthCheck,
   healthCheck,
+  labelAsTitle = false,
 }: NotificationToggleListProps) => {
   const [notificationEnabled, setNotificationEnabled] = useState<boolean>(false);
 
   return (
     <div className={'flex flex-col gap-[10px]'}>
       <div className={'flex flex-row items-center justify-between'}>
-        <Label htmlFor={'알림 받기'} title={'알림 받기'} essential={false} />
+        {labelAsTitle ? (
+          <p className={'text-[18px] leading-[26px] font-bold'}>알림</p>
+        ) : (
+          <Label htmlFor={'알림 받기'} title={'알림 받기'} essential={false} />
+        )}
         <Toggle onCheckedChange={(checked) => setNotificationEnabled(checked)} />
       </div>
       {notificationEnabled && (
