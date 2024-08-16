@@ -13,6 +13,16 @@ import NotificationToggleList from '@/components/addPlant/NotificationToggleList
 import { Suspense, useCallback, useState } from 'react';
 import { PlantLocation } from '@/types/plantLocation';
 import { isFalsy } from '@/utils/validation/isFalsy.ts';
+import { usePlantTypeSearchParams } from '@/hooks/usePlantTypeSearchParams.ts';
+import { useCreateMyPlant } from '@/queries/useCreateMyPlant.ts';
+import useToast from '@/hooks/useToast.tsx';
+import RoundedGreenChecked from '@/assets/icon/RoundedGreenChecked.tsx';
+
+export type ToggleFormState = {
+  title: string;
+  period: number | null;
+  checked: boolean;
+};
 
 const initialForm = {
   '식물 종류': {
@@ -28,13 +38,31 @@ const initialForm = {
     required: false,
   },
   '함께하기 시작한 날': {
-    value: '',
+    value: '' as `${number}-${number}-${number}`,
     required: false,
   },
   '마지막으로 물 준 날': {
-    value: '',
+    value: '' as `${number}-${number}-${number}`,
     required: false,
   },
+};
+
+const initialNotificationForm = {
+  water: {
+    title: '물주기',
+    period: 0,
+    checked: false,
+  } as ToggleFormState,
+  fertilizer: {
+    title: '비료주기',
+    period: 0,
+    checked: false,
+  } as ToggleFormState,
+  healthCheck: {
+    title: '건강체크',
+    period: null,
+    checked: false,
+  } as ToggleFormState,
 };
 
 export type FormKey = keyof typeof initialForm;
@@ -43,6 +71,12 @@ export type FormValue = (typeof initialForm)[FormKey];
 const AddPlantPage = () => {
   const router = useInternalRouter();
   const [form, setForm] = useState(initialForm);
+  const [water, setWater] = useState(initialNotificationForm.water);
+  const [fertilizer, setFertilizer] = useState(initialNotificationForm.fertilizer);
+  const [healthCheck, setHealthCheck] = useState(initialNotificationForm.healthCheck);
+  const { plantId } = usePlantTypeSearchParams();
+  const { mutate: submitPlant } = useCreateMyPlant();
+  const { openToast } = useToast();
 
   const handleChange = useCallback((key: FormKey, value: FormValue) => {
     setForm((prev) => ({
@@ -54,6 +88,40 @@ const AddPlantPage = () => {
   const isFormValid = Object.entries(form)
     .filter(([, value]) => value.required)
     .every(([, value]) => !isFalsy(value.value));
+
+  const handleSubmit = () => {
+    const data = {
+      plantId,
+      nickname: form['반려식물 애칭'].value,
+      locationId: form.식물위치.value?.id,
+      startDate: form['함께하기 시작한 날'].value,
+      lastWateredDate: form['마지막으로 물 준 날'].value,
+      waterAlarm: water.checked,
+      waterPeriod: water.period,
+      fertilizerAlarm: fertilizer.checked,
+      fertilizerPeriod: fertilizer.period,
+      healthCheckAlarm: healthCheck.checked,
+    };
+    submitPlant(data, {
+      onSuccess: () => {
+        router.push('/');
+        setTimeout(() => {
+          openToast({
+            message: (
+              <div
+                className={
+                  'flex flex-row items-center justify-center w-full gap-2 text-small-body font-medium text-white'
+                }
+              >
+                <RoundedGreenChecked />
+                <span className={''}>내 식물로 추가 되었습니다.</span>
+              </div>
+            ),
+          });
+        });
+      },
+    });
+  };
 
   return (
     <Screen>
@@ -78,15 +146,43 @@ const AddPlantPage = () => {
             handleChange={handleChange}
           />
         </Suspense>
-        <TextField title={'반려식물 애칭'} placeholder={'몬스테라 델리시오사'} essential={false} />
-        <함께하기시작한날 />
-        <마지막으로물준날 />
-        <NotificationToggleList />
+        <TextField
+          title={'반려식물 애칭'}
+          placeholder={form['식물 종류'].value}
+          essential={false}
+        />
+        <함께하기시작한날
+          value={form['함께하기 시작한 날'].value}
+          onClick={(value) =>
+            handleChange('함께하기 시작한 날', {
+              value,
+              required: true,
+            })
+          }
+        />
+        <마지막으로물준날
+          value={form['마지막으로 물 준 날'].value}
+          onClick={(value) =>
+            handleChange('마지막으로 물 준 날', {
+              value,
+              required: true,
+            })
+          }
+        />
+        <NotificationToggleList
+          water={water}
+          setWater={(value) => setWater((prev) => ({ ...prev, ...value }))}
+          fertilizer={fertilizer}
+          setFertilizer={(value) => setFertilizer((prev) => ({ ...prev, ...value }))}
+          healthCheck={healthCheck}
+          setHealthCheck={(value) => setHealthCheck((prev) => ({ ...prev, ...value }))}
+        />
       </form>
       <CTAButton
         text={'등록하기'}
         className={cn('mt-[19px]', isFormValid ? 'bg-BloomingGreen500' : 'bg-Gray300')}
         disabled={!isFormValid}
+        onClick={handleSubmit}
       />
     </Screen>
   );

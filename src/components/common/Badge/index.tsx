@@ -7,6 +7,7 @@ interface BadgeWrapperProps extends Omit<HTMLAttributes<HTMLButtonElement>, 'typ
   icon?: ReactNode; // icon을 ReactNode로 유지
   type?: 'button' | 'display';
   size?: 'medium' | 'small';
+  trailingIcon?: ReactNode;
 }
 
 const BadgeWrapper = ({
@@ -15,19 +16,32 @@ const BadgeWrapper = ({
   size = 'medium',
   icon,
   className,
+  trailingIcon,
   ...buttonProps
 }: BadgeWrapperProps) => {
   if (type === 'button') {
     return (
       <button {...buttonProps} type={'button'}>
-        <BadgeContent text={text} icon={icon} size={size} className={className} />
+        <BadgeContent
+          text={text}
+          icon={icon}
+          size={size}
+          trailingIcon={trailingIcon}
+          className={className}
+        />
       </button>
     );
   }
 
   return (
     <button {...buttonProps} type={'button'}>
-      <BadgeContent text={text} icon={icon} size={size} className={className} />
+      <BadgeContent
+        text={text}
+        icon={icon}
+        size={size}
+        className={className}
+        trailingIcon={trailingIcon}
+      />
     </button>
   );
 };
@@ -36,9 +50,17 @@ interface BadgeContentProps extends BadgeProps {
   text: string;
   icon?: ReactNode; // icon을 ReactNode로 유지
   size: 'medium' | 'small';
+  trailingIcon?: ReactNode;
 }
 
-const BadgeContent = ({ text, icon, className, size, ...rest }: BadgeContentProps) => {
+const BadgeContent = ({
+  text,
+  icon,
+  className,
+  size,
+  trailingIcon,
+  ...rest
+}: BadgeContentProps) => {
   return (
     <Badge
       className={cn(
@@ -54,6 +76,7 @@ const BadgeContent = ({ text, icon, className, size, ...rest }: BadgeContentProp
       >
         {text}
       </span>
+      {trailingIcon}
     </Badge>
   );
 };

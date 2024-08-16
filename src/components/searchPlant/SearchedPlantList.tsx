@@ -21,8 +21,8 @@ const SearchedPlantList = ({ query, onClose }: SearchedPlantListProps) => {
 
   const data = response.data;
 
-  const onClick = (name: string) => {
-    setPlantType(name);
+  const onClick = (name: string, id: number) => {
+    setPlantType(name, id.toString());
     onClose();
     openToast({
       message: (
@@ -63,7 +63,7 @@ const SearchedPlantList = ({ query, onClose }: SearchedPlantListProps) => {
         }
         key={`SearchedPlantList-${plant.plantId}`}
         trailingIcon={
-          <button type={'button'} onClick={() => onClick(plant.name)}>
+          <button type={'button'} onClick={() => onClick(plant.name, plant.plantId)}>
             <GreenRoundPlusIcon checked={plantType === plant.name} />
           </button>
         }

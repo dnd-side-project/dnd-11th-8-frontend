@@ -4,8 +4,14 @@ import TextField from '@/components/common/TextField';
 import BottomSheet from '@/components/common/BottomSheet';
 import CTAButton from '@/components/common/CTAButton';
 import ScrollPicker from '@/components/common/ScrollPicker';
+import { getEndDayOfMonth } from '@/utils/date/getEndDayOfMonth.ts';
 
-const 함께하기시작한날 = () => {
+interface 함께하기시작한날Props {
+  onClick: (value: `${number}-${number}-${number}`) => void;
+  value: `${number}-${number}-${number}`;
+}
+
+const 함께하기시작한날 = ({ onClick, value }: 함께하기시작한날Props) => {
   const [year, setYear] = useState<number>(new Date().getFullYear());
   const [month, setMonth] = useState<number>(new Date().getMonth() + 1);
   const [day, setDay] = useState<number>(new Date().getDate());
@@ -17,6 +23,10 @@ const 함께하기시작한날 = () => {
     setOpen(true);
   };
 
+  const onClose = () => {
+    setOpen(false);
+  };
+
   return (
     <>
       <TextField
@@ -24,11 +34,13 @@ const 함께하기시작한날 = () => {
         placeholder={''}
         essential={false}
         onMouseDown={onMouseDown}
+        value={value}
+        readOnly
       />
       <BottomSheet
         title={'함께하기 시작한 날'}
         content={
-          <div className={'px-[10px] h-[310px] overflow-hidden flex flex-row mt-[10px]'}>
+          <div className={'px-[10px] h-[310px] flex flex-row mt-[10px]'}>
             <ScrollPicker
               onSelect={setYear}
               start={1950}
@@ -45,18 +57,25 @@ const 함께하기시작한날 = () => {
             />
             <ScrollPicker
               start={1}
-              end={31}
+              end={getEndDayOfMonth(year, month)}
               onSelect={setDay}
               selectedClassName={'bg-GrayOpacity100 text-Gray800 rounded-r-[10px]'}
               selected={day}
             />
           </div>
         }
-        actions={[<CTAButton text={'선택하기'} className={'bg-BloomingGreen500'} />]}
+        actions={[
+          <CTAButton
+            onClick={() => {
+              onClick(`${year}-${month}-${day}`);
+              onClose();
+            }}
+            text={'선택하기'}
+            className={'bg-BloomingGreen500'}
+          />,
+        ]}
         isOpen={open}
-        onClose={() => {
-          setOpen(false);
-        }}
+        onClose={onClose}
       />
     </>
   );

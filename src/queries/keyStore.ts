@@ -10,4 +10,7 @@ export const keyStore = createQueryKeyStore({
     updateLocation: null,
     deleteLocation: null,
   },
+  myPlant: {
+    createMyPlant: null,
+  },
 });
