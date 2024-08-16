@@ -13,5 +13,6 @@ export const keyStore = createQueryKeyStore({
   },
   myPlant: {
     getMyAllPlant: (query?: LocationQueryParams) => ['getMyAllPlant', query],
+    createMyPlant: null,
   },
 });

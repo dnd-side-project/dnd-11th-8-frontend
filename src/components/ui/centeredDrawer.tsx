@@ -9,7 +9,7 @@ const Drawer = ({
 }: React.ComponentProps<typeof DrawerPrimitive.Root>) => (
   <DrawerPrimitive.Root shouldScaleBackground={shouldScaleBackground} {...props} />
 );
-Drawer.displayName = 'Drawer';
+Drawer.displayName = 'CenterDrawer';
 
 const DrawerTrigger = DrawerPrimitive.Trigger;
 
@@ -48,7 +48,7 @@ const DrawerContent = React.forwardRef<
     </DrawerPrimitive.Content>
   </DrawerPortal>
 ));
-DrawerContent.displayName = 'DrawerContent';
+DrawerContent.displayName = 'CenterDrawerContent';
 
 const DrawerHeader = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
   <div
@@ -56,12 +56,12 @@ const DrawerHeader = ({ className, ...props }: React.HTMLAttributes<HTMLDivEleme
     {...props}
   />
 );
-DrawerHeader.displayName = 'DrawerHeader';
+DrawerHeader.displayName = 'CenterDrawerHeader';
 
 const DrawerFooter = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
   <div className={cn('mt-auto flex flex-col gap-2 p-3.5', className)} {...props} />
 );
-DrawerFooter.displayName = 'DrawerFooter';
+DrawerFooter.displayName = 'CenterDrawerFooter';
 
 const DrawerTitle = React.forwardRef<
   React.ElementRef<typeof DrawerPrimitive.Title>,

@@ -1,5 +1,5 @@
 import { cn } from '@/utils.ts';
-import { MouseEvent } from 'react';
+import { useEffect, useRef } from 'react';
 import HeightBox from '@/components/common/HeightBox';
 
 interface ScrollPickerProps {
@@ -11,32 +11,31 @@ interface ScrollPickerProps {
 }
 
 const ScrollPicker = ({ start, end, selectedClassName, onSelect, selected }: ScrollPickerProps) => {
-  const onClick = (event: MouseEvent<HTMLDivElement>, value: number) => {
-    const parentHeight = event?.currentTarget?.parentElement?.clientHeight ?? 0;
-    const itemHeight = 62;
-    const itemOffsetTop = event?.currentTarget?.offsetTop;
+  const ref = useRef<HTMLDivElement>(null);
 
-    const scrollPosition = itemOffsetTop - parentHeight / 2 + itemHeight / 2 - 62;
-
-    event.currentTarget?.parentElement?.scrollTo({
-      top: scrollPosition,
+  useEffect(() => {
+    const initialPosition = (selected - start) * 62;
+    ref.current?.scrollTo({
+      top: initialPosition,
       behavior: 'smooth',
     });
+  }, [selected, start]);
 
+  const onClick = (value: number) => {
     onSelect(value);
   };
 
   return (
-    <div className={'flex-1 h-full overflow-y-scroll hide-scrollbar'}>
+    <div className={'h-full w-full overflow-y-auto hide-scrollbar'} ref={ref}>
       <HeightBox height={62} />
       <HeightBox height={62} />
       {Array.from({ length: end - start + 1 }, (_, index) => start + index).map((item) => (
         <div
-          onClick={(e) => onClick(e, item)}
           className={cn(
             'py-[10px] px-[24px] h-[62px] text-center text-regular-body font-medium flex items-center justify-center',
             selected === item ? selectedClassName : 'text-Gray400',
           )}
+          onClick={() => onClick(item)}
           key={`ScrollPicker-${item}-${start}-${end}`}
         >
           {item}

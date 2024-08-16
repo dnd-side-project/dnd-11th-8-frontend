@@ -47,4 +47,13 @@ export const handlers = [
       id: id,
     });
   }),
+
+  http.post(import.meta.env.VITE_API_URL + '/myplants', async () => {
+    await delay(1000);
+
+    return HttpResponse.json({
+      myPlantId: 1,
+      message: '등록 되었습니다.',
+    });
+  }),
 ];
