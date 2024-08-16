@@ -3,8 +3,14 @@ import ScrollPicker from '@/components/common/ScrollPicker';
 import CTAButton from '@/components/common/CTAButton';
 import BottomSheet from '@/components/common/BottomSheet';
 import { MouseEvent, useState } from 'react';
+import { getEndDayOfMonth } from '@/utils/date/getEndDayOfMonth.ts';
 
-const 마지막으로물준날 = () => {
+interface 마지막으로물준날Props {
+  onClick: (value: `${number}-${number}-${number}`) => void;
+  value: `${number}-${number}-${number}`;
+}
+
+const 마지막으로물준날 = ({ onClick, value }: 마지막으로물준날Props) => {
   const [year, setYear] = useState<number>(new Date().getFullYear());
   const [month, setMonth] = useState<number>(new Date().getMonth() + 1);
   const [day, setDay] = useState<number>(new Date().getDate());
@@ -16,6 +22,10 @@ const 마지막으로물준날 = () => {
     setOpen(true);
   };
 
+  const onClose = () => {
+    setOpen(false);
+  };
+
   return (
     <>
       <TextField
@@ -23,6 +33,7 @@ const 마지막으로물준날 = () => {
         placeholder={''}
         essential={false}
         onMouseDown={onMouseDown}
+        value={value}
       />
       <BottomSheet
         title={'마지막으로 물 준 날'}
@@ -44,18 +55,25 @@ const 마지막으로물준날 = () => {
             />
             <ScrollPicker
               start={1}
-              end={31}
+              end={getEndDayOfMonth(year, month)}
               onSelect={setDay}
               selectedClassName={'bg-GrayOpacity100 text-Gray800 rounded-r-[10px]'}
               selected={day}
             />
           </div>
         }
-        actions={[<CTAButton text={'선택하기'} className={'bg-BloomingGreen500'} />]}
+        actions={[
+          <CTAButton
+            text={'선택하기'}
+            onClick={() => {
+              onClick(`${year}-${month}-${day}`);
+              onClose();
+            }}
+            className={'bg-BloomingGreen500'}
+          />,
+        ]}
         isOpen={open}
-        onClose={() => {
-          setOpen(false);
-        }}
+        onClose={onClose}
       />
     </>
   );

@@ -26,7 +26,13 @@ const BottomSheet = ({
   headerAsLabel,
 }: BottomSheetProps) => {
   return (
-    <Drawer open={isOpen} onClose={onClose}>
+    <Drawer
+      disablePreventScroll={true}
+      preventScrollRestoration={true}
+      modal={true}
+      open={isOpen}
+      onClose={onClose}
+    >
       <DrawerContent>
         <DrawerHeader className={'whitespace-pre-wrap'}>
           <DrawerTitle
