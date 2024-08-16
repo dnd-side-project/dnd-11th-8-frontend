@@ -1,6 +1,7 @@
 import { delay, http, HttpResponse } from 'msw';
 import searchResponse from './mockDatas/searchPlant.ts';
 import { plantLocation } from '@/mocks/mockDatas/plantLocation.ts';
+import { myPlantDetail } from '@/mocks/mockDatas/myPlantDetail.ts';
 
 export const handlers = [
   http.get(import.meta.env.VITE_API_URL + '/plants', async ({ request }) => {
@@ -55,5 +56,10 @@ export const handlers = [
       myPlantId: 1,
       message: '등록 되었습니다.',
     });
+  }),
+
+  http.get(import.meta.env.VITE_API_URL + '/myplants/:id', async () => {
+    await delay(1000);
+    return HttpResponse.json(myPlantDetail);
   }),
 ];

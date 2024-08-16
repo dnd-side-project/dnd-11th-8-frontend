@@ -10,6 +10,8 @@ import NotificationToggleList from '@/components/addPlant/NotificationToggleList
 import { ToggleFormState } from '@/pages/AddPlantPage.tsx';
 import { useState } from 'react';
 import MyPlantInfo from '@/components/myPlantDetail/MyPlantInfo.tsx';
+import { useGetMyPlantDetail } from '@/queries/useGetMyPlantDetail.ts';
+import { withAsyncBoundary } from '@toss/async-boundary';
 
 const images = [
   'https://images.unsplash.com/photo-1501004318641-b39e6451bec6?q=80&w=2273&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
@@ -24,30 +26,25 @@ export const plantInfo = {
   location: '테라스',
 };
 
-const initialNotificationForm = {
-  water: {
-    title: '물주기',
-    period: 0,
-    checked: false,
-  } as ToggleFormState,
-  fertilizer: {
-    title: '비료주기',
-    period: 0,
-    checked: false,
-  } as ToggleFormState,
-  healthCheck: {
-    title: '건강체크',
-    period: null,
-    checked: false,
-  } as ToggleFormState,
-};
-
 const MyPlantDetail = () => {
   const router = useInternalRouter();
   const { plantId } = useParams();
-  const [water, setWater] = useState(initialNotificationForm.water);
-  const [fertilizer, setFertilizer] = useState(initialNotificationForm.fertilizer);
-  const [healthCheck, setHealthCheck] = useState(initialNotificationForm.healthCheck);
+  const { data } = useGetMyPlantDetail(Number(plantId));
+  const [water, setWater] = useState<ToggleFormState>({
+    title: '물주기',
+    period: data.waterPeriod,
+    checked: data.waterAlarm,
+  });
+  const [fertilizer, setFertilizer] = useState<ToggleFormState>({
+    title: '비료주기',
+    period: data.fertilizerPeriod,
+    checked: data.fertilizerAlarm,
+  });
+  const [healthCheck, setHealthCheck] = useState<ToggleFormState>({
+    title: '건강체크',
+    period: null,
+    checked: data.healthCheckAlarm,
+  });
 
   if (!plantId) {
     throw Error('잘못된 식물 입니다.');
@@ -65,14 +62,21 @@ const MyPlantDetail = () => {
         right={
           <Link
             className={'text-regular-body font-medium text-Gray500'}
-            to={'/my-plant/edit/:plantId'}
+            to={`/my-plant/edit/${plantId}`}
           >
             편집
           </Link>
         }
       />
       <PlantImageCarousel images={images} />
-      <PlantInfo plantInfo={plantInfo} />
+      <PlantInfo
+        plantInfo={{
+          plantId: data.plantId,
+          nickname: data.nickname,
+          location: data.location,
+          species: data.scientificName,
+        }}
+      />
       <Separator height={10} />
       <NotificationToggleList
         water={water}
@@ -83,10 +87,18 @@ const MyPlantDetail = () => {
         setHealthCheck={(value) => setHealthCheck((prev) => ({ ...prev, ...value }))}
         labelAsTitle={true}
       />
-      <MyPlantInfo fertilizerCycle={1} lastWateredDate={'2024-03-20'} lastWateredDaysAgo={14} />
+      <MyPlantInfo
+        lastFertilizerInfo={data.lastFertilizerInfo}
+        lastFertilizerTitle={data.lastFertilizerTitle}
+        lastWateredInfo={data.lastWateredInfo}
+        lastWateredTitle={data.lastWateredTitle}
+      />
       <Separator height={10} />
     </Screen>
   );
 };
 
-export default MyPlantDetail;
+export default withAsyncBoundary(MyPlantDetail, {
+  rejectedFallback: () => <div>에러가 발생했습니다.</div>,
+  pendingFallback: <div>로딩 중...</div>,
+});

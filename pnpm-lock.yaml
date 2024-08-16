@@ -35,6 +35,9 @@ importers:
       '@tanstack/react-query':
         specifier: ^5.51.23
         version: 5.51.23(react@18.3.1)
+      '@toss/async-boundary':
+        specifier: ^1.5.0
+        version: 1.5.0(react@18.3.1)
       '@types/react-slick':
         specifier: ^0.23.13
         version: 0.23.13
@@ -1847,6 +1850,27 @@ packages:
     peerDependencies:
       '@testing-library/dom': '>=7.21.4'
 
+  '@toss/async-boundary@1.5.0':
+    resolution: {integrity: sha512-E2PQBN+lckEhsKoowyP6F8lPKOy4MeZLztJqLaGJYxNUS6ZKigxCxpbMimRLPPh+J/5ATENneMGSG1Uxl+D1KA==}
+    peerDependencies:
+      react: ^16.8 || ^17 || ^18
+
+  '@toss/error-boundary@1.5.0':
+    resolution: {integrity: sha512-v1nQKXe6zfM2vVPBhS3SkKAnRX7Rp2gVYRZE3uLjN8xxZgceC7QeUWkuqJopuAxew4BXcJ48Lpfc3V9VwfaDRg==}
+    peerDependencies:
+      react: ^16.8 || ^17 || ^18
+
+  '@toss/react@1.7.0':
+    resolution: {integrity: sha512-aD6pIPUdCyxj4QK2HmLCC6HESgZeqIi5Slzc84Sw/r/PJaRKRG+ukV/Vft7c2NXzqG7TXdFvTzgc4dtfjT3ieA==}
+    peerDependencies:
+      react: ^16.0.0 || ^17.0.0 || ^18
+
+  '@toss/storage@1.4.0':
+    resolution: {integrity: sha512-rT0AKWS41hX/JmPQ2JZZ7GdicJZM1DPO5VFeiZwDbNFhfgHMGuEAc6w5qDN8+a8R+sQi5jG1oMFd3QNM/EcpRA==}
+
+  '@toss/utils@1.5.0':
+    resolution: {integrity: sha512-zIZoth29c0IGXenFo34dB97CSaGurCtuQ2GRPxcqvj1CfBB/cxEu0GVGFLv/Dg74fNxrkBnv7sbLkrZ6egpzwA==}
+
   '@types/aria-query@5.0.4':
     resolution: {integrity: sha512-rfT93uj5s0PRL7EzccGMs3brplhcrghnDoV26NqKhCAS1hVo+WdNsPvE/yb6ilfr5hi2MEk6d5EWJTKdxg8jVw==}
 
@@ -2592,6 +2616,10 @@ packages:
   data-urls@5.0.0:
     resolution: {integrity: sha512-ZYP5VBHshaDAiVZxjbRVcFJpc+4xGgT0bK3vzy1HLN8jTO975HEbuYzZJcHoQEY5K1a0z8YayJkyVETa08eNTg==}
     engines: {node: '>=18'}
+
+  date-fns@2.30.0:
+    resolution: {integrity: sha512-fnULvOpxnC5/Vg3NCiWelDsLiUc9bRwAPs/+LfTLNvetFCtCTN+yQz15C/fs4AwX1R9K5GLtLfn8QW+dWisaAw==}
+    engines: {node: '>=0.11'}
 
   debug@2.6.9:
     resolution: {integrity: sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==}
@@ -3529,6 +3557,9 @@ packages:
 
   lodash.startcase@4.4.0:
     resolution: {integrity: sha512-+WKqsK294HMSc2jEbNgpHpd0JfIBhp7rEV4aqXWqFr6AlXov+SlcgB1Fv01y2kGe3Gc8nMW7VA0SrGuSkRfIEg==}
+
+  lodash.throttle@4.1.1:
+    resolution: {integrity: sha512-wIkUCfVKpVsWo3JSZlc+8MB5it+2AN5W8J7YVMST30UrvcQNZ1Okbj+rbVniijTWE6FGYy4XJq/rHkas8qJMLQ==}
 
   lodash.uniq@4.5.0:
     resolution: {integrity: sha512-xfBaXQd9ryd9dlSDvnvI0lvxfLJlYAZzXomUYzLKtUeOQvOP5piqAWuGtrhWeqaXK9hhoM/iyJc5AV+XfsX3HQ==}
@@ -6873,6 +6904,36 @@ snapshots:
     dependencies:
       '@testing-library/dom': 10.1.0
 
+  '@toss/async-boundary@1.5.0(react@18.3.1)':
+    dependencies:
+      '@toss/error-boundary': 1.5.0(react@18.3.1)
+      react: 18.3.1
+
+  '@toss/error-boundary@1.5.0(react@18.3.1)':
+    dependencies:
+      '@toss/react': 1.7.0(react@18.3.1)
+      '@toss/utils': 1.5.0
+      react: 18.3.1
+
+  '@toss/react@1.7.0(react@18.3.1)':
+    dependencies:
+      '@babel/runtime': 7.25.0
+      '@toss/storage': 1.4.0
+      '@toss/utils': 1.5.0
+      classnames: 2.5.1
+      lodash.debounce: 4.0.8
+      lodash.throttle: 4.1.1
+      react: 18.3.1
+
+  '@toss/storage@1.4.0':
+    dependencies:
+      '@babel/runtime': 7.25.0
+
+  '@toss/utils@1.5.0':
+    dependencies:
+      '@babel/runtime': 7.25.0
+      date-fns: 2.30.0
+
   '@types/aria-query@5.0.4': {}
 
   '@types/babel__core@7.20.5':
@@ -7720,6 +7781,10 @@ snapshots:
     dependencies:
       whatwg-mimetype: 4.0.0
       whatwg-url: 14.0.0
+
+  date-fns@2.30.0:
+    dependencies:
+      '@babel/runtime': 7.25.0
 
   debug@2.6.9:
     dependencies:
@@ -8688,6 +8753,8 @@ snapshots:
   lodash.snakecase@4.1.1: {}
 
   lodash.startcase@4.4.0: {}
+
+  lodash.throttle@4.1.1: {}
 
   lodash.uniq@4.5.0: {}
 
