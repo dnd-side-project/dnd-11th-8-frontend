@@ -6,8 +6,7 @@ export const usePlantTypeSearchParams = () => {
   const plantId = searchParams.get('plantId');
 
   const setPlantType = (plantType: string, plantId: string) => {
-    setSearchParams({ plantType }, { replace: true });
-    setSearchParams({ plantId }, { replace: true });
+    setSearchParams({ plantType, plantId }, { replace: false });
   };
 
   return {
