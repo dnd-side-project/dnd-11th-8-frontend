@@ -2,12 +2,15 @@ import { plantInfo } from '@/pages/MyPlantDetail.tsx';
 import Badge from '../common/Badge';
 import BookOpen from '@/assets/icon/book-open.tsx';
 import MapPin from '@/assets/icon/map-pin.tsx';
+import useInternalRouter from '@/hooks/useInternalRouter.ts';
 
 interface PlantInfoProps {
   plantInfo: typeof plantInfo;
 }
 
 const PlantInfo = ({ plantInfo }: PlantInfoProps) => {
+  const router = useInternalRouter();
+
   return (
     <div className={'mt-5'}>
       <div className={'flex flex-row w-full justify-between items-center'}>
@@ -16,6 +19,7 @@ const PlantInfo = ({ plantInfo }: PlantInfoProps) => {
           text={'가이드북'}
           icon={<BookOpen />}
           className={'bg-Green2-weak text-BloomingGreen500'}
+          onClick={() => router.push(`/guide/${plantInfo.plantId}`)}
         />
       </div>
       <div className={'text-small-writing text-Gray600'}>{plantInfo.species}</div>

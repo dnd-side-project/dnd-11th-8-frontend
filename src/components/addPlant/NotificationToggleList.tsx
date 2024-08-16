@@ -23,7 +23,9 @@ const NotificationToggleList = ({
   healthCheck,
   labelAsTitle = false,
 }: NotificationToggleListProps) => {
-  const [notificationEnabled, setNotificationEnabled] = useState<boolean>(false);
+  const [notificationEnabled, setNotificationEnabled] = useState<boolean>(
+    water.checked || fertilizer.checked || healthCheck.checked,
+  );
 
   return (
     <div className={'flex flex-col gap-[10px]'}>
@@ -33,7 +35,10 @@ const NotificationToggleList = ({
         ) : (
           <Label htmlFor={'알림 받기'} title={'알림 받기'} essential={false} />
         )}
-        <Toggle onCheckedChange={(checked) => setNotificationEnabled(checked)} />
+        <Toggle
+          checked={notificationEnabled}
+          onCheckedChange={(checked) => setNotificationEnabled(checked)}
+        />
       </div>
       {notificationEnabled && (
         <div className={'flex flex-col gap-[10px]'}>
