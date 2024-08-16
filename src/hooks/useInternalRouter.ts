@@ -3,11 +3,12 @@ import { useNavigate } from 'react-router-dom';
 
 type RoutePath =
   | '/'
-  | '/my-plant/add'
-  | '/my-plant/search'
-  | '/guide'
   | '/my-plant'
-  | '/my-plant/add';
+  | '/my-plant/add'
+  | '/guide'
+  | `/guide/${number}`
+  | '/my-plant/add'
+  | `/my-plant/edit/${number}`;
 
 const useInternalRouter = () => {
   const navigate = useNavigate();
