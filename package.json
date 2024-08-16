@@ -30,6 +30,7 @@
     "axios": "^1.7.4",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "embla-carousel-react": "^8.1.8",
     "es-toolkit": "^1.16.0",
     "jotai": "^2.9.3",
     "lucide-react": "^0.417.0",
