@@ -5,18 +5,63 @@ import MyPlant from './pages/MyPlant';
 import GuideDetails from './pages/GuideDetails';
 import Guide from './pages/Guide';
 import MyPlantDetail from '@/pages/MyPlantDetail.tsx';
+import LoginPage from '@/pages/LoginPage.tsx';
+import PrivateRoute from '@/routes/PrivateRoute.tsx';
 
 function App() {
   return (
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Main />} />
-          <Route path={'/my-plant/add'} element={<AddPlantPage />} />
-          <Route path="my-plant" element={<MyPlant />} />
-          <Route path={'/my-plant/:plantId'} element={<MyPlantDetail />} />
-          <Route path="/guide/:id" element={<GuideDetails />} />
-          <Route path="/guide" element={<Guide />} />
+          <Route
+            path="/"
+            element={
+              <PrivateRoute>
+                <Main />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path={'/my-plant/add'}
+            element={
+              <PrivateRoute>
+                <AddPlantPage />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="my-plant"
+            element={
+              <PrivateRoute>
+                <MyPlant />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path={'/my-plant/:plantId'}
+            element={
+              <PrivateRoute>
+                <MyPlantDetail />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/guide/:id"
+            element={
+              <PrivateRoute>
+                <GuideDetails />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/guide"
+            element={
+              <PrivateRoute>
+                <Guide />
+              </PrivateRoute>
+            }
+          />
+          <Route path="/login" element={<LoginPage />} />
         </Routes>
       </BrowserRouter>
     </div>

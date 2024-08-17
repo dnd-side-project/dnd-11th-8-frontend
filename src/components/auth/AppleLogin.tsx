@@ -1,4 +1,5 @@
 import { MouseEvent, useEffect } from 'react';
+import AppleLogo from '@/assets/icon/AppleLogo.tsx';
 
 const AppleLogin = () => {
   useEffect(() => {
@@ -20,7 +21,17 @@ const AppleLogin = () => {
     }
   };
 
-  return <button onClick={handleAppleLogin}>애플 로그인</button>;
+  return (
+    <button
+      className={
+        'flex flex-row items-center justify-center w-full py-[14px] rounded-[12px] bg-black gap-2.5'
+      }
+      onClick={handleAppleLogin}
+    >
+      <AppleLogo />
+      <span className={'text-white text-regular-body font-semibold'}>Apple로 로그인</span>
+    </button>
+  );
 };
 
 export default AppleLogin;

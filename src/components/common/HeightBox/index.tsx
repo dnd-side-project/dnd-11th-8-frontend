@@ -1,11 +1,16 @@
-import { cn } from '@/utils.ts';
-
 interface HeightBoxProps {
   height: number;
 }
 
 const HeightBox = ({ height }: HeightBoxProps) => {
-  return <div className={cn('w-full', `mt-[${height}px]`)} />;
+  return (
+    <div
+      style={{
+        height,
+        width: '100%',
+      }}
+    />
+  );
 };
 
 export default HeightBox;
