@@ -89,6 +89,8 @@ export default {
         Blue500: '#3182F6',
         Red500: 'rgba(240, 68, 82, 1)',
         DimBackground: 'rgba(0, 0, 0, 0.2)',
+        LoginBackground: 'rgba(242, 241, 229, 1)',
+        KakaoBackground: 'rgba(254, 229, 0, 1)',
       },
       borderRadius: {
         lg: 'var(--radius)',
