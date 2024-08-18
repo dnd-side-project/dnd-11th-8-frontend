@@ -1,17 +1,15 @@
-import { MouseEvent, useEffect } from 'react';
+import { MouseEvent } from 'react';
 import AppleLogo from '@/assets/icon/AppleLogo.tsx';
 
 const AppleLogin = () => {
-  useEffect(() => {
+  const handleAppleLogin = async (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
     window.AppleID.auth.init({
       clientId: 'com.service.blooming',
       scope: 'name email',
       redirectURI: import.meta.env.VITE_REDIRECT_URI,
+      usePopup: true,
     });
-  }, []);
-
-  const handleAppleLogin = async (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
     try {
       const data = await window.AppleID.auth.signIn();
       console.log('apple login result data: ', data);
