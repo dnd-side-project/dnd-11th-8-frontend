@@ -4,6 +4,7 @@ import MyProfile from './MyProfile';
 import Screen from '@/layouts/Screen';
 import TextField from '../common/TextField';
 import CTAButton from '../common/CTAButton';
+import useInternalRouter from '@/hooks/useInternalRouter';
 
 const myProfile = {
   nickname: '블루밍',
@@ -15,12 +16,13 @@ const myProfile = {
 
 const ModifyNickname: React.FC = () => {
   const initialNickname = myProfile.nickname;
+  const router = useInternalRouter();
 
   return (
     <Screen className="px-0">
       <div className="bg-Gray50">
         <div className="flex justify-between px-[24px] pt-[31.31px]">
-          <img src={backButtonIcon} alt="뒤로가기 버튼 아이콘" />
+          <img src={backButtonIcon} alt="뒤로가기 버튼 아이콘" onClick={() => router.goBack()} />
           <p className="text-[20px] text-Gray900 font-semibold">닉네임 수정</p>
           <div className="w-[24px] h-[24px]" />
         </div>
