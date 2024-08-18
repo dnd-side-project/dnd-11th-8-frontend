@@ -6,6 +6,7 @@ import NoMyPlant from '@/components/myPlant/NoMyPlant';
 import PlusButton from '@/components/myPlant/PlusButton';
 import { useState } from 'react';
 import Plant from '@/types/MyPlant';
+import Screen from '@/layouts/Screen';
 // import filterQueryAtom from '@/atoms/myPlant/filterQueryAtom';
 // import { useAtom } from 'jotai';
 // import { useAllMyPlant } from '@/queries/useAllMyPlant';
@@ -89,25 +90,29 @@ const MyPlant = () => {
   // if (error) return <p>오류가 발생했습니다: {error.message}</p>;
 
   return (
-    <div className="relative min-h-screen">
-      {/* 배경색 오버레이 */}
-      {bgColor && <div className={`fixed inset-0 z-30 ${bgColor}`} onClick={handleCloseOverlay} />}
+    <Screen className="px-0">
+      <div className="relative min-h-screen">
+        {/* 배경색 오버레이 */}
+        {bgColor && (
+          <div className={`fixed inset-0 z-30 ${bgColor}`} onClick={handleCloseOverlay} />
+        )}
 
-      <div className="relative">
-        <div className="pt-[30px]">
-          <SegmentControl segments={segments} onSegmentChange={handleSegmentChange} />
+        <div className="relative">
+          <div className="pt-[30px]">
+            <SegmentControl segments={segments} onSegmentChange={handleSegmentChange} />
+          </div>
+          <MyPlantSupplement plants={myPlant} />
+          {myPlant.length === 0 ? <NoMyPlant /> : <MyPlantList plants={myPlant} />}
+          <PlusButton
+            onOptionClick={handleOptionClick}
+            onCloseOverlay={handleCloseOverlay}
+            locationName={locationName}
+            locationId={locationId}
+          />
+          <TabBar />
         </div>
-        <MyPlantSupplement plants={myPlant} />
-        {myPlant.length === 0 ? <NoMyPlant /> : <MyPlantList plants={myPlant} />}
-        <PlusButton
-          onOptionClick={handleOptionClick}
-          onCloseOverlay={handleCloseOverlay}
-          locationName={locationName}
-          locationId={locationId}
-        />
-        <TabBar />
       </div>
-    </div>
+    </Screen>
   );
 };
 
