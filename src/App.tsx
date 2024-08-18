@@ -5,6 +5,8 @@ import MyPlant from './pages/MyPlant';
 import GuideDetails from './pages/GuideDetails';
 import Guide from './pages/Guide';
 import MyPlantDetail from '@/pages/MyPlantDetail.tsx';
+import Profile from './pages/Profile';
+import ModifyNickname from './components/profile/ModifyNickname';
 import LoginPage from '@/pages/LoginPage.tsx';
 import PrivateRoute from '@/routes/PrivateRoute.tsx';
 
@@ -62,6 +64,16 @@ function App() {
             }
           />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/profile" element={
+              <PrivateRoute>
+                <Profile />
+              </PrivateRoute>
+            } />
+          <Route path="/profile/edit" element={
+              <PrivateRoute>
+                <ModifyNickname />
+              </PrivateRoute>
+            } />
         </Routes>
       </BrowserRouter>
     </div>
