@@ -73,17 +73,24 @@ const PlusButton: React.FC<PlusButtonProps> = ({
   }, [onCloseOverlay]);
 
   return (
-    <div className="relative">
+    <div className="relative flex justify-end">
       {/* Overlay */}
       {isOptionsVisible && <Overlay onClick={onCloseOverlay} />}
 
-      <div className="fixed bottom-[61px] right-0 z-40">
+      <div className="fixed z-40 bottom-12">
         <button ref={buttonRef} onClick={handleButtonClick}>
           <img src={plusBtn} alt="플러스 버튼" />
         </button>
       </div>
 
-      {isOptionsVisible && <OptionsMenu ref={optionsRef} onLocationClick={handleLocationClick} />}
+      {isOptionsVisible && (
+        <OptionsMenu
+          ref={optionsRef}
+          onLocationClick={handleLocationClick}
+          locationName={locationName}
+          locationId={locationId}
+        />
+      )}
 
       {isBottomSheetVisible && (
         <BottomSheet

@@ -65,7 +65,7 @@ const myPlant: string | Plant[] = [
 const MyPlant = () => {
   const [bgColor, setBgColor] = useState('');
   const [locationName, setLocationName] = useState('전체');
-  const [locationId, setLocationId] = useState(1);
+  const [locationId, setLocationId] = useState(0);
   // const [query] = useAtom(filterQueryAtom);
   // const sort = query.sort;
   // const direction = query.direction;
@@ -94,14 +94,14 @@ const MyPlant = () => {
   // if (error) return <p>오류가 발생했습니다: {error.message}</p>;
 
   return (
-    <Screen className="px-0">
-      <div className="relative min-h-screen">
+    <Screen className="px-0 ">
+      <div className="min-h-screen ">
         {/* 배경색 오버레이 */}
         {bgColor && (
           <div className={`fixed inset-0 z-30 ${bgColor}`} onClick={handleCloseOverlay} />
         )}
 
-        <div className="relative">
+        <div className="">
           <div className="pt-[30px]">
             <SegmentControl segments={segments} onSegmentChange={handleSegmentChange} />
           </div>
