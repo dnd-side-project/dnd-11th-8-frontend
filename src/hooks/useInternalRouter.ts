@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { NavigateOptions, useNavigate } from 'react-router-dom';
 
 type RoutePath =
   | '/'
@@ -22,11 +22,11 @@ const useInternalRouter = () => {
       goBack() {
         navigate(-1);
       },
-      push(path: RoutePath) {
-        navigate(path);
+      push(path: RoutePath, options?: NavigateOptions) {
+        navigate(path, options);
       },
-      replace(path: RoutePath) {
-        navigate(path, { replace: true });
+      replace(path: RoutePath, options?: Omit<NavigateOptions, 'replace'>) {
+        navigate(path, { ...options, replace: true });
       },
     };
   }, [navigate]);

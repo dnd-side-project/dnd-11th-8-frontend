@@ -1,5 +1,7 @@
+import React from 'react';
+
 interface HeightBoxProps {
-  height: number;
+  height: React.CSSProperties['height'];
 }
 
 const HeightBox = ({ height }: HeightBoxProps) => {

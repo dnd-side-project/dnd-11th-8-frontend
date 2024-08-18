@@ -8,9 +8,17 @@ interface ScrollPickerProps {
   selectedClassName: string;
   onSelect: (value: number) => void;
   selected: number;
+  display?: (value: number) => string;
 }
 
-const ScrollPicker = ({ start, end, selectedClassName, onSelect, selected }: ScrollPickerProps) => {
+const ScrollPicker = ({
+  start,
+  end,
+  display,
+  selectedClassName,
+  onSelect,
+  selected,
+}: ScrollPickerProps) => {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -38,7 +46,7 @@ const ScrollPicker = ({ start, end, selectedClassName, onSelect, selected }: Scr
           onClick={() => onClick(item)}
           key={`ScrollPicker-${item}-${start}-${end}`}
         >
-          {item}
+          {display !== undefined ? display(item) : item}
         </div>
       ))}
       <HeightBox height={62} />

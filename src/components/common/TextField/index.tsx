@@ -5,13 +5,14 @@ import { cn } from '@/utils.ts';
 
 interface TextFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
   essential?: boolean;
-  title: string;
+  title?: string;
   placeholder?: string;
   icon?: ReactNode;
   onClear?: () => void;
   onChange?: ChangeEventHandler<HTMLInputElement>;
   value?: string;
   disabled?: boolean;
+  description?: string;
 }
 
 const TextField: React.FC<TextFieldProps> = ({
@@ -20,6 +21,7 @@ const TextField: React.FC<TextFieldProps> = ({
   icon,
   onClear,
   disabled,
+  description,
   ...inputProps
 }) => {
   const [isFocused, setIsFocused] = useState(false);
@@ -45,7 +47,7 @@ const TextField: React.FC<TextFieldProps> = ({
 
   return (
     <div ref={containerRef} className={cn(disabled ? 'z-0' : '', 'grid w-full max-w-sm gap-2')}>
-      <Label title={title} essential={essential} htmlFor={id} />
+      {title && <Label title={title} essential={essential} htmlFor={id} />}
       <div className="py-[14px] px-[16px] flex flex-row border border-GrayOpacity100 rounded-md bg-Gray50">
         {icon !== undefined ? <div className={'mr-[10px]'}>{icon}</div> : null}
         <input
@@ -62,6 +64,7 @@ const TextField: React.FC<TextFieldProps> = ({
           </button>
         )}
       </div>
+      <p className={'-mt-[3px] text-small-writing text-Gray500'}>{description}</p>
     </div>
   );
 };
