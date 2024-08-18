@@ -5,11 +5,13 @@ type RoutePath =
   | '/'
   | '/my-plant'
   | '/my-plant/add'
+  | `/my-plant/edit/${number}`
   | '/guide'
   | `/guide/${number}`
-  | '/my-plant/add'
-  | `/my-plant/edit/${number}`
+  | '/profile/edit'
   | '/login'
+  | '/redirect'
+  | '/login/register'
   | string;
 
 const useInternalRouter = () => {
