@@ -8,7 +8,7 @@ const LoginRedirectPage = () => {
   const kakaoCode = searchParams.get('code');
 
   useEffect(() => {
-    const appleCode = localStorage.getItem('appleCode');
+    const appleCode = localStorage.getItem('appleId');
     if (kakaoCode) {
       console.log('kakaoCode', kakaoCode);
     } else if (appleCode) {
