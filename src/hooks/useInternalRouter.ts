@@ -9,7 +9,7 @@ type RoutePath =
   | `/guide/${number}`
   | '/my-plant/add'
   | `/my-plant/edit/${number}`
-  | '/profile/edit';
+  | '/profile/edit'
   | '/login';
 
 const useInternalRouter = () => {
