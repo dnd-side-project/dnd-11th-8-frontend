@@ -4,6 +4,8 @@ import MyPlantAlimCheck from './MyPlantAlimCheck';
 import MyPlantRegistration from './MyPlantRegistration';
 import plant from '@/assets/img/examMyPlant.svg';
 import { useEffect, useState } from 'react';
+import logo from '@/assets/icon/logo.svg';
+import useInternalRouter from '@/hooks/useInternalRouter';
 
 interface MyPlantProps {
   register: boolean;
@@ -13,13 +15,14 @@ interface Plant {
   myPlantId: number;
   name: string;
   scientificName: string;
-  image: string;
-  waterRemainDay: number;
-  fertilizerRemainDay: number;
-  healthCheck: boolean;
+  illustUrl: string;
+  dateSinceLastWater: number | null;
+  dateSinceLastFertilizer: number | null;
+  dateSinceLastHealthCheck: number | null;
 }
 
 const MyPlant: React.FC<MyPlantProps> = ({ register }) => {
+  const { push } = useInternalRouter();
   // 데이터 받아오면 제거할 예정
   const [greetingMessage, setGreetingMessage] = useState<string>('');
   const [myPlantsInfo, setMyPlantsInfo] = useState<Plant[]>([]);
@@ -33,19 +36,19 @@ const MyPlant: React.FC<MyPlantProps> = ({ register }) => {
           myPlantId: 1,
           name: '뿡뿡이',
           scientificName: '몬스테라 델리오사',
-          image: plant,
-          waterRemainDay: 3,
-          fertilizerRemainDay: 23,
-          healthCheck: true,
+          illustUrl: plant,
+          dateSinceLastWater: null, //null 이면 기록없음
+          dateSinceLastFertilizer: 23, //null 이면 기록없음
+          dateSinceLastHealthCheck: 3,
         },
         {
           myPlantId: 1,
           name: '팝팝이',
           scientificName: '병아리 눈물',
-          image: plant,
-          waterRemainDay: 3,
-          fertilizerRemainDay: 23,
-          healthCheck: true,
+          illustUrl: plant,
+          dateSinceLastWater: 3, //null 이면 기록없음
+          dateSinceLastFertilizer: 12, //null 이면 기록없음
+          dateSinceLastHealthCheck: 8,
         },
       ],
     };
@@ -60,9 +63,9 @@ const MyPlant: React.FC<MyPlantProps> = ({ register }) => {
     <div className={`bg-[#F2F1E5] ${register ? 'h-[410px]' : 'h-[169.81px]'} `}>
       <div className="px-[22px]">
         <div className="pt-[21.3px] flex justify-between">
-          <div className="font-bold">Blooming</div>
+          <img src={logo} alt="로고" />
           <div>
-            <img src={nonUser} alt="프로필이 없는 유저" />
+            <img src={nonUser} alt="프로필이 없는 유저" onClick={() => push('/profile')} />
           </div>
         </div>
 

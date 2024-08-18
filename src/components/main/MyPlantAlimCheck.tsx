@@ -10,10 +10,10 @@ interface Plant {
   myPlantId: number;
   name: string;
   scientificName: string;
-  image: string;
-  waterRemainDay: number;
-  fertilizerRemainDay: number;
-  healthCheck: boolean;
+  illustUrl: string;
+  dateSinceLastWater: number | null;
+  dateSinceLastFertilizer: number | null;
+  dateSinceLastHealthCheck: number | null;
 }
 
 interface MyPlantAlimCheckProps {
@@ -40,7 +40,7 @@ const MyPlantAlimCheck: React.FC<MyPlantAlimCheckProps> = ({ plants }) => {
           <div key={plant.myPlantId} className="flex items-center justify-center min-h-screen">
             <div className="flex flex-col items-center justify-center mt-[20px]">
               <img
-                src={plant.image}
+                src={plant.illustUrl}
                 alt="나의 식물 일러스트"
                 className="w-[228.76px] h-[239.31px]"
               />
@@ -54,15 +54,15 @@ const MyPlantAlimCheck: React.FC<MyPlantAlimCheckProps> = ({ plants }) => {
                   className="flex mt-[10px] gap-[5px] px-[8px] py-[4px] border border-GrayOpacity100 rounded-full bg-Gray50 justify-center items-center"
                 >
                   <p className="text-small-writing text-Gray800">내 식물 전체 보기</p>
-                  <img src={myPlantsAll} alt="하트 아이콘" />
+                  <img src={myPlantsAll} alt="내 식물 보러가기 아이콘" />
                 </button>
               </div>
 
               <div className="mt-[15px] mb-[27px] w-[331px]">
                 <AlimCheck
-                  water={plant.waterRemainDay}
-                  fertilizer={plant.fertilizerRemainDay}
-                  healthy={plant.healthCheck}
+                  water={plant.dateSinceLastWater}
+                  fertilizer={plant.dateSinceLastFertilizer}
+                  sunlight={plant.dateSinceLastHealthCheck}
                 />
               </div>
             </div>
