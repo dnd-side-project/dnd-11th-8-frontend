@@ -14,7 +14,7 @@ const AppleLogin = () => {
     e.preventDefault();
     try {
       const data = await window.AppleID.auth.signIn();
-      console.log('data: ', data);
+      localStorage.setItem('appleId', JSON.stringify(data));
     } catch (e) {
       console.error(e);
       // TODO: 다이얼로그를 띄우거나 별도의 에러 처리 시도하기
