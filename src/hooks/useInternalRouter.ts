@@ -9,7 +9,8 @@ type RoutePath =
   | `/guide/${number}`
   | '/my-plant/add'
   | `/my-plant/edit/${number}`
-  | '/login';
+  | '/login'
+  | string;
 
 const useInternalRouter = () => {
   const navigate = useNavigate();

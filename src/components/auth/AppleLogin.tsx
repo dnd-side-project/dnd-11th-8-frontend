@@ -1,7 +1,9 @@
 import { MouseEvent } from 'react';
 import AppleLogo from '@/assets/icon/AppleLogo.tsx';
+import useInternalRouter from '@/hooks/useInternalRouter.ts';
 
 const AppleLogin = () => {
+  const router = useInternalRouter();
   const handleAppleLogin = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     window.AppleID.auth.init({
@@ -12,8 +14,7 @@ const AppleLogin = () => {
     });
     try {
       const data = await window.AppleID.auth.signIn();
-      console.log('apple login result data: ', data);
-      localStorage.setItem('appleId', data.authorization.id_token);
+      router.push(`/redirect?code=${data.authorization.id_token}`);
     } catch (e) {
       console.error(e);
       // TODO: 다이얼로그를 띄우거나 별도의 에러 처리 시도하기
