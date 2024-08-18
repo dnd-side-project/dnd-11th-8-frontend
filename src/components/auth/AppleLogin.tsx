@@ -14,7 +14,7 @@ const AppleLogin = () => {
     e.preventDefault();
     try {
       const data = await window.AppleID.auth.signIn();
-      console.log(data);
+      console.log('apple login result data: ', data);
       localStorage.setItem('appleId', data.authorization.id_token);
     } catch (e) {
       console.error(e);
