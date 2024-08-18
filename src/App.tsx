@@ -7,6 +7,7 @@ import Guide from './pages/Guide';
 import MyPlantDetail from '@/pages/MyPlantDetail.tsx';
 import LoginPage from '@/pages/LoginPage.tsx';
 import PrivateRoute from '@/routes/PrivateRoute.tsx';
+import LoginRedirectPage from '@/pages/LoginRedirectPage.tsx';
 
 function App() {
   return (
@@ -62,6 +63,7 @@ function App() {
             }
           />
           <Route path="/login" element={<LoginPage />} />
+          <Route path={'/redirect'} element={<LoginRedirectPage />} />
         </Routes>
       </BrowserRouter>
     </div>
