@@ -6,7 +6,7 @@ export interface SignInParams {
 }
 
 export interface SignInSuccessResponse {
-  status: 'success' | 'pending';
+  status: 'success';
   accessToken: string;
   refreshToken: string;
 }

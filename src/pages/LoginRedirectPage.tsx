@@ -8,7 +8,7 @@ import { ONE_DAY } from '@/constants/day.ts';
 
 const LoginRedirectPage = () => {
   const router = useInternalRouter();
-  const [, setCookie] = useCookies(['access-token']);
+  const [, setCookie] = useCookies(['access-token', 'refresh-token']);
   const { mutate: signIn } = useSignIn();
   const [searchParams] = useSearchParams();
   const code = searchParams.get('code');
@@ -25,7 +25,6 @@ const LoginRedirectPage = () => {
       },
       {
         onSuccess: (response) => {
-          console.log('response: ', response);
           switch (response.data.status) {
             case 'success':
               setCookie('access-token', response.data.accessToken, {
