@@ -1,4 +1,4 @@
-import baseAxios from '@/libs/baseAxios.ts';
+import { privateAxios } from '@/libs/baseAxios.ts';
 
 export interface CreateMyPlantProps {
   plantId: string | null;
@@ -13,4 +13,5 @@ export interface CreateMyPlantProps {
   healthCheckAlarm: boolean;
 }
 
-export const createMyPlant = async (form: CreateMyPlantProps) => baseAxios.post('/myplants', form);
+export const createMyPlant = async (form: CreateMyPlantProps) =>
+  privateAxios.post('/myplants', form);

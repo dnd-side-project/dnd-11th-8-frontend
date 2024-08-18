@@ -9,6 +9,8 @@ import Profile from './pages/Profile';
 import ModifyNickname from './components/profile/ModifyNickname';
 import LoginPage from '@/pages/LoginPage.tsx';
 import PrivateRoute from '@/routes/PrivateRoute.tsx';
+import LoginRedirectPage from '@/pages/LoginRedirectPage.tsx';
+import RegisterPage from '@/pages/RegisterPage.tsx';
 
 function App() {
   return (
@@ -64,16 +66,24 @@ function App() {
             }
           />
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/profile" element={
+          <Route path={'/redirect'} element={<LoginRedirectPage />} />
+          <Route path={'/login/register'} element={<RegisterPage />} />
+          <Route
+            path="/profile"
+            element={
               <PrivateRoute>
                 <Profile />
               </PrivateRoute>
-            } />
-          <Route path="/profile/edit" element={
+            }
+          />
+          <Route
+            path="/profile/edit"
+            element={
               <PrivateRoute>
                 <ModifyNickname />
               </PrivateRoute>
-            } />
+            }
+          />
         </Routes>
       </BrowserRouter>
     </div>

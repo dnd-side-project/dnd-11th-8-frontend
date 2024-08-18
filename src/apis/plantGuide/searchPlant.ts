@@ -1,4 +1,4 @@
-import baseAxios from '@/libs/baseAxios.ts';
+import { privateAxios } from '@/libs/baseAxios.ts';
 
 export type SearchPlantResponse = {
   plantId: number;
@@ -6,6 +6,6 @@ export type SearchPlantResponse = {
 }[];
 
 export const searchPlant = async (query: string) => {
-  const response = await baseAxios.get<SearchPlantResponse>(`/plants?search=${query}`);
+  const response = await privateAxios.get<SearchPlantResponse>(`/plants?search=${query}`);
   return response.data;
 };

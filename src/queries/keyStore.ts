@@ -16,4 +16,7 @@ export const keyStore = createQueryKeyStore({
     createMyPlant: null,
     getDetail: (id: number) => [id],
   },
+  auth: {
+    signIn: null,
+  },
 });

@@ -1,4 +1,4 @@
-import baseAxios from '@/libs/baseAxios';
+import { privateAxios } from '@/libs/baseAxios';
 import Plant from '@/types/MyPlant';
 
 export interface LocationQueryParams {
@@ -8,7 +8,7 @@ export interface LocationQueryParams {
 }
 
 export const getMyAllPlant = async (query?: LocationQueryParams) => {
-  const response = await baseAxios.get<Plant[]>(
+  const response = await privateAxios.get<Plant[]>(
     `/plants?sort=${query?.sort}&direction=${query?.direction}&location=${query?.location}`,
   );
 

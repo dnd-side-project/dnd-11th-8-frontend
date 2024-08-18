@@ -1,4 +1,4 @@
-import baseAxios from '@/libs/baseAxios.ts';
+import { privateAxios } from '@/libs/baseAxios.ts';
 
 export interface UpdateLocationParams {
   locationId: number;
@@ -11,4 +11,4 @@ export interface UpdateLocationResponse {
 }
 
 export const updateLocation = async ({ locationId, name }: UpdateLocationParams) =>
-  baseAxios.patch<UpdateLocationResponse>(`/location/${locationId}`, { name });
+  privateAxios.patch<UpdateLocationResponse>(`/location/${locationId}`, { name });
