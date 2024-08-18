@@ -33,7 +33,7 @@ interface BloomingWeatherProps {
 const BloomingWeather: React.FC<BloomingWeatherProps> = ({ register }) => {
   return (
     <div className={`flex flex-col gap-[20px] mx-[22px] ${register ? 'mt-[298px]' : 'mt-[210px]'}`}>
-      <p className="font-semibold text-regular-body">오늘의 블상청</p>
+      <p className="font-semibold text-regular-body">데일리 블루밍</p>
       <div className="z-20 overflow-x-auto whitespace-nowrap hide-scrollbar">
         <div className="flex gap-[10px]">
           {weathers.map((weather) => (
