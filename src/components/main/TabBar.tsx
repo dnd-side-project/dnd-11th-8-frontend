@@ -44,7 +44,7 @@ const TabBar: React.FC = () => {
   const getIconColor = (tab: string) => (activeTab === tab ? '#363737' : '#D1D6DB');
 
   return (
-    <div className="fixed bottom-0 left-0 w-full bg-white border-t shadow-md border-Gray200 rounded-t-[24px] z-20">
+    <div className="fixed max-w-md left-1/2 transform -translate-x-1/2 bottom-0 w-full bg-white border-t shadow-md border-Gray200 rounded-t-[24px] z-20">
       <div className="flex justify-around pt-[10px]">
         <TabItem
           icon={<GuideIcon className="w-[24px] h-[24px]" color={getIconColor('guide')} />}
