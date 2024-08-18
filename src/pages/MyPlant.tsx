@@ -13,10 +13,14 @@ import Screen from '@/layouts/Screen';
 // import { LocationQueryParams } from '@/apis/myPlant/getMyAllPlant';
 
 const segments = [
-  { id: 1, name: '전체' },
-  { id: 2, name: '거실' },
-  { id: 3, name: '침실' },
-  { id: 4, name: '테라스' },
+  {
+    id: 1,
+    name: '베란다',
+  },
+  {
+    id: 2,
+    name: '거실',
+  },
 ];
 
 const myPlant: string | Plant[] = [
