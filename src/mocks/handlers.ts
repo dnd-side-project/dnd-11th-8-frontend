@@ -2,6 +2,7 @@ import { delay, http, HttpResponse } from 'msw';
 import searchResponse from './mockDatas/searchPlant.ts';
 import { plantLocation } from '@/mocks/mockDatas/plantLocation.ts';
 import { myPlantDetail } from '@/mocks/mockDatas/myPlantDetail.ts';
+import { randomSigninData } from '@/mocks/mockDatas/randomSigninData.ts';
 
 export const handlers = [
   http.get(import.meta.env.VITE_API_URL + '/plants', async ({ request }) => {
@@ -61,5 +62,17 @@ export const handlers = [
   http.get(import.meta.env.VITE_API_URL + '/myplants/:id', async () => {
     await delay(1000);
     return HttpResponse.json(myPlantDetail);
+  }),
+
+  http.post(import.meta.env.VITE_API_URL + '/login/kakao', async () => {
+    await delay(1000);
+    // 0 과 1 둘 중 하나의 데이터를 랜덤하게 반환
+    return HttpResponse.json(randomSigninData[1]);
+  }),
+
+  http.post(import.meta.env.VITE_API_URL + '/login/apple', async () => {
+    await delay(1000);
+    // 0 과 1 둘 중 하나의 데이터를 랜덤하게 반환
+    return HttpResponse.json(randomSigninData[1]);
   }),
 ];

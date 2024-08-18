@@ -14,6 +14,7 @@ const AppleLogin = () => {
     });
     try {
       const data = await window.AppleID.auth.signIn();
+      localStorage.setItem('provider', 'apple');
       router.push(`/redirect?code=${data.authorization.id_token}`);
     } catch (e) {
       console.error(e);
