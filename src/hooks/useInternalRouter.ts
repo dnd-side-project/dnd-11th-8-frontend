@@ -8,7 +8,8 @@ type RoutePath =
   | '/guide'
   | `/guide/${number}`
   | '/my-plant/add'
-  | `/my-plant/edit/${number}`;
+  | `/my-plant/edit/${number}`
+  | '/profile/edit';
 
 const useInternalRouter = () => {
   const navigate = useNavigate();

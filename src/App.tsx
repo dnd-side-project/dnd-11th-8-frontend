@@ -6,6 +6,7 @@ import GuideDetails from './pages/GuideDetails';
 import Guide from './pages/Guide';
 import MyPlantDetail from '@/pages/MyPlantDetail.tsx';
 import Profile from './pages/Profile';
+import ModifyNickname from './components/profile/ModifyNickname';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/guide/:id" element={<GuideDetails />} />
           <Route path="/guide" element={<Guide />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/profile/edit" element={<ModifyNickname />} />
         </Routes>
       </BrowserRouter>
     </div>
