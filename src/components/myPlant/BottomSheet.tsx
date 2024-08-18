@@ -28,8 +28,8 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
       {!isLocationInputVisible && !isDeleteConfirmationVisible && (
         <>
           <p
-            className="px-[24px] py-[10px] text-Gray800 font-bold mb-[15px] whitespace-nowrap"
-            style={{ fontSize: 'clamp(16px, 4vw, 25px)' }}
+            className="px-[24px] py-[10px] text-Gray800 font-bold mb-[15px] whitespace-nowrap flex justify-center"
+            style={{ fontSize: 'clamp(16px, 4vw, 18px)' }}
           >
             위치명을 수정하거나 삭제 할 수 있어요.
           </p>
