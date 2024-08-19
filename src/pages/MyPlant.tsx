@@ -6,16 +6,21 @@ import NoMyPlant from '@/components/myPlant/NoMyPlant';
 import PlusButton from '@/components/myPlant/PlusButton';
 import { useState } from 'react';
 import Plant from '@/types/MyPlant';
+import Screen from '@/layouts/Screen';
 // import filterQueryAtom from '@/atoms/myPlant/filterQueryAtom';
 // import { useAtom } from 'jotai';
 // import { useAllMyPlant } from '@/queries/useAllMyPlant';
 // import { LocationQueryParams } from '@/apis/myPlant/getMyAllPlant';
 
 const segments = [
-  { id: 1, name: '전체' },
-  { id: 2, name: '거실' },
-  { id: 3, name: '침실' },
-  { id: 4, name: '테라스' },
+  {
+    id: 1,
+    name: '베란다',
+  },
+  {
+    id: 2,
+    name: '거실',
+  },
 ];
 
 const myPlant: string | Plant[] = [
@@ -60,7 +65,7 @@ const myPlant: string | Plant[] = [
 const MyPlant = () => {
   const [bgColor, setBgColor] = useState('');
   const [locationName, setLocationName] = useState('전체');
-  const [locationId, setLocationId] = useState(1);
+  const [locationId, setLocationId] = useState(0);
   // const [query] = useAtom(filterQueryAtom);
   // const sort = query.sort;
   // const direction = query.direction;
@@ -89,25 +94,29 @@ const MyPlant = () => {
   // if (error) return <p>오류가 발생했습니다: {error.message}</p>;
 
   return (
-    <div className="relative min-h-screen">
-      {/* 배경색 오버레이 */}
-      {bgColor && <div className={`fixed inset-0 z-30 ${bgColor}`} onClick={handleCloseOverlay} />}
+    <Screen className="px-0 ">
+      <div className="min-h-screen ">
+        {/* 배경색 오버레이 */}
+        {bgColor && (
+          <div className={`fixed inset-0 z-30 ${bgColor}`} onClick={handleCloseOverlay} />
+        )}
 
-      <div className="relative">
-        <div className="pt-[30px]">
-          <SegmentControl segments={segments} onSegmentChange={handleSegmentChange} />
+        <div className="">
+          <div className="pt-[30px]">
+            <SegmentControl segments={segments} onSegmentChange={handleSegmentChange} />
+          </div>
+          <MyPlantSupplement plants={myPlant} />
+          {myPlant.length === 0 ? <NoMyPlant /> : <MyPlantList plants={myPlant} />}
+          <PlusButton
+            onOptionClick={handleOptionClick}
+            onCloseOverlay={handleCloseOverlay}
+            locationName={locationName}
+            locationId={locationId}
+          />
+          <TabBar />
         </div>
-        <MyPlantSupplement plants={myPlant} />
-        {myPlant.length === 0 ? <NoMyPlant /> : <MyPlantList plants={myPlant} />}
-        <PlusButton
-          onOptionClick={handleOptionClick}
-          onCloseOverlay={handleCloseOverlay}
-          locationName={locationName}
-          locationId={locationId}
-        />
-        <TabBar />
       </div>
-    </div>
+    </Screen>
   );
 };
 

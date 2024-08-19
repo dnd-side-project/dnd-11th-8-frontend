@@ -11,11 +11,15 @@ interface SegmentControlProps {
 }
 
 const SegmentControl: React.FC<SegmentControlProps> = ({ segments, onSegmentChange }) => {
-  const [selectedId, setSelectedId] = useState<number>(segments[0]?.id || 0);
+  // 전체 탭을 추가
+  const allSegment: Segment = { id: 0, name: '전체' };
+  const augmentedSegments = [allSegment, ...segments];
+
+  const [selectedId, setSelectedId] = useState<number>(augmentedSegments[0].id);
 
   const handleSegmentClick = (id: number) => {
     setSelectedId(id);
-    const selectedSegment = segments.find((segment) => segment.id === id);
+    const selectedSegment = augmentedSegments.find((segment) => segment.id === id);
     if (selectedSegment && onSegmentChange) {
       onSegmentChange(selectedSegment);
     }
@@ -34,7 +38,7 @@ const SegmentControl: React.FC<SegmentControlProps> = ({ segments, onSegmentChan
     return { padding, fontSize };
   };
 
-  const visibleSegments = segments.slice(0, 6);
+  const visibleSegments = augmentedSegments.slice(0, 6);
   const { padding, fontSize } = getClasses(visibleSegments.length);
 
   return (
