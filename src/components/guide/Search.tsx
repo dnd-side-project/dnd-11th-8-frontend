@@ -2,6 +2,7 @@ import { useState } from 'react';
 import SearchField from '../common/SearchField';
 import ListComponent from '@/components/common/List';
 import NoSearchPlant from './NoSearchPlant';
+import useInternalRouter from '@/hooks/useInternalRouter';
 
 const search = [
   {
@@ -28,6 +29,7 @@ const search = [
 
 const Search = () => {
   const [searchTerm, setSearchTerm] = useState('');
+  const { push } = useInternalRouter();
 
   const handleSearch = (content: string) => {
     setSearchTerm(content);
@@ -51,7 +53,7 @@ const Search = () => {
               key={item.plantId}
               image={item.image}
               name={item.name}
-              onChange={() => alert('해당 식물로 페이지 이동 ~')}
+              onChange={() => push(`/guide/${item.plantId}`)}
             />
           ))
         : searchTerm && <NoSearchPlant />}
