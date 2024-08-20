@@ -6,27 +6,21 @@ import RegisterFunnelTitle from '@/components/register/RegisterFunnelTitle.tsx';
 import TextField from '@/components/common/TextField';
 import CTAButton from '@/components/common/CTAButton';
 import { cn } from '@/utils.ts';
-import { useState } from 'react';
-
-interface Location {
-  locationId: number;
-  name: string;
-}
+import { ChangeEvent, Suspense, useState } from 'react';
+import { regions } from '@/mocks/mockDatas/regions.ts';
+import { RegionList } from '@/components/register/RegionList.tsx';
+import { LuLoader2 } from 'react-icons/lu';
 
 interface LocationFunnelProps {
-  toNotificationTimeFunnel: (location: Location) => void;
+  toNotificationTimeFunnel: (location: (typeof regions)[number]) => void;
+  goBack: () => void;
 }
 
-const locationList = [
-  { locationId: 1, name: '서울시 강남구' },
-  { locationId: 2, name: '서울시 강동구' },
-];
-
-const LocationFunnel = ({ toNotificationTimeFunnel }: LocationFunnelProps) => {
-  const [location, setLocation] = useState('');
+const LocationFunnel = ({ toNotificationTimeFunnel, goBack }: LocationFunnelProps) => {
+  const [search, setSearch] = useState('');
   const [selectedLocation, setSelectedLocation] = useState<{
     name: string;
-    locationId: number;
+    id: number;
   } | null>(null);
 
   const onClick = () => {
@@ -35,9 +29,13 @@ const LocationFunnel = ({ toNotificationTimeFunnel }: LocationFunnelProps) => {
     }
   };
 
-  const onSelectLocation = (location: Location) => {
+  const onSelectLocation = (location: (typeof regions)[number]) => {
     setSelectedLocation(location);
-    setLocation(location.name);
+    setSearch(location.name);
+  };
+
+  const changeSearchHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value);
   };
 
   return (
@@ -45,7 +43,7 @@ const LocationFunnel = ({ toNotificationTimeFunnel }: LocationFunnelProps) => {
       <Header
         title={'위치'}
         left={
-          <button>
+          <button onClick={() => goBack()}>
             <왼쪽꺽쇠 />
           </button>
         }
@@ -55,23 +53,21 @@ const LocationFunnel = ({ toNotificationTimeFunnel }: LocationFunnelProps) => {
       <RegisterFunnelTitle title={'반가워요, 초보 식집사님!\n사용할 닉네임을 입력해주세요'} />
       <HeightBox height={40} />
       <TextField
-        value={location}
+        value={search}
         description="거주하시는 시와 구 or 군을 입력해주세요."
         placeholder={'ex) 서울시 강남구'}
-        onChange={(e) => setLocation(e.target.value)}
+        onChange={changeSearchHandler}
       />
       <HeightBox height={15.75} />
-      <ul>
-        {locationList.map((location) => (
-          <li
-            className={'py-4 text-regular-body text-Gray800 font-medium'}
-            key={`searched-location-list-${location.locationId}`}
-            onClick={() => onSelectLocation(location)}
-          >
-            {location.name}
-          </li>
-        ))}
-      </ul>
+      <Suspense
+        fallback={
+          <div className={'mt-[30px] flex items-center justify-center'}>
+            <LuLoader2 className={'animate-spin'} />
+          </div>
+        }
+      >
+        <RegionList search={search} onSelectLocation={onSelectLocation} />
+      </Suspense>
       <HeightBox height={'100%'} />
       <CTAButton
         text={'다음'}

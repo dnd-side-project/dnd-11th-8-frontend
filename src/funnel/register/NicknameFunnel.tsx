@@ -1,6 +1,5 @@
 import Screen from '@/layouts/Screen.tsx';
 import Header from '@/components/common/Header';
-import 왼쪽꺽쇠 from '@/assets/icon/왼쪽꺽쇠.tsx';
 import RegisterFunnelTitle from '@/components/register/RegisterFunnelTitle.tsx';
 import HeightBox from '@/components/common/HeightBox';
 import TextField from '@/components/common/TextField';
@@ -21,15 +20,7 @@ const NicknameFunnel = ({ toLocationFunnel }: NicknameFunnelProps) => {
 
   return (
     <Screen className={'h-screen w-screen flex flex-col'}>
-      <Header
-        title={'닉네임'}
-        left={
-          <button>
-            <왼쪽꺽쇠 />
-          </button>
-        }
-        className={'text-regular-body font-semibold text-Gray900'}
-      />
+      <Header title={'닉네임'} className={'text-regular-body font-semibold text-Gray900'} />
       <HeightBox height={53.5} />
       <RegisterFunnelTitle title={'반가워요, 초보 식집사님!\n사용할 닉네임을 입력해주세요'} />
       <HeightBox height={40} />
