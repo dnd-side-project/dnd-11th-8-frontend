@@ -23,7 +23,13 @@ const OptionsMenu = forwardRef<HTMLDivElement, OptionsMenuProps>(
       if (locationName === '전체' || locationId === 0) {
         openToast({
           message: '전체라는 공간명은 수정 및 삭제할 수 없습니다.',
-          duration: 1000,
+          duration: 2000,
+          className: 'text-white text-[12px]',
+        });
+      } else if (locationName === '위치 설정' || locationId === -1) {
+        openToast({
+          message: '위치를 추가하면 위치 설정이라는 공간명은 사라져요.',
+          duration: 2000,
           className: 'text-white text-[12px]',
         });
       } else {

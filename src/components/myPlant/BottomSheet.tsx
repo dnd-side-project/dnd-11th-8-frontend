@@ -27,6 +27,9 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
     <div className="relative bg-white p-[15px] rounded-[16px] shadow-sm mx-[10px] max-w-[355px] w-full">
       {!isLocationInputVisible && !isDeleteConfirmationVisible && (
         <>
+          <div className="flex justify-center w-full">
+            <div className="w-[48px] h-[4px] rounded-[40px] bg-Gray100" />
+          </div>
           <p
             className="px-[24px] py-[10px] text-Gray800 font-bold mb-[15px] whitespace-nowrap flex justify-center"
             style={{ fontSize: 'clamp(16px, 4vw, 18px)' }}

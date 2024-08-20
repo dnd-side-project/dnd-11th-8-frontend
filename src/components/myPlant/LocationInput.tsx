@@ -29,6 +29,9 @@ const LocationInput: React.FC<LocationInputProps> = ({
 
   return (
     <div className="flex justify-center flex-col px-[10px] w-full max-w-[365px]">
+      <div className="flex justify-center w-full">
+        <div className="w-[48px] h-[4px] rounded-[40px] bg-Gray100" />
+      </div>
       <label htmlFor="location" className="text-Gray800 text-[13px] font-medium">
         공간명 수정
       </label>

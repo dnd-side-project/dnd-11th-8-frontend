@@ -36,6 +36,9 @@ const DeleteConfirmation: React.FC<DeleteConfirmationProps> = ({
 
   return (
     <div>
+      <div className="flex justify-center w-full">
+        <div className="w-[48px] h-[4px] rounded-[40px] bg-Gray100" />
+      </div>
       <div className="px-[24px] py-[10px]">
         <p className="text-Gray800 text-[20px] font-bold">정말 삭제하시나요?</p>
         <p className="text-Gray800 text-[20px] font-bold">삭제 후에는 되돌릴 수 없어요</p>
