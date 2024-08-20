@@ -3,6 +3,7 @@ import searchResponse from './mockDatas/searchPlant.ts';
 import { plantLocation } from '@/mocks/mockDatas/plantLocation.ts';
 import { myPlantDetail } from '@/mocks/mockDatas/myPlantDetail.ts';
 import { randomSigninData } from '@/mocks/mockDatas/randomSigninData.ts';
+import { regions } from '@/mocks/mockDatas/regions.ts';
 
 export const handlers = [
   http.get(import.meta.env.VITE_API_URL + '/plants', async ({ request }) => {
@@ -74,5 +75,26 @@ export const handlers = [
     await delay(1000);
     // 0 과 1 둘 중 하나의 데이터를 랜덤하게 반환
     return HttpResponse.json(randomSigninData[1]);
+  }),
+
+  http.post(import.meta.env.VITE_API_URL + '/users/register', async () => {
+    await delay(1000);
+    return HttpResponse.json({
+      accessToken: 'sdf788fdfdf',
+      refreshToken: 'dfd82hdfas',
+    });
+  }),
+
+  http.get(import.meta.env.VITE_API_URL + '/region', async ({ request }) => {
+    const url = new URL(request.url);
+    const query = url.searchParams.get('name');
+
+    await delay(1000);
+
+    if (!query || query === '') {
+      return HttpResponse.json([]);
+    }
+
+    return HttpResponse.json(regions.filter((region) => region.name.includes(query)));
   }),
 ];
