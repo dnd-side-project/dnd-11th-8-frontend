@@ -30,6 +30,10 @@ const UseInformation: React.FC = () => {
     alert('이용약관 클릭됨');
   };
 
+  const handleAlimClick = () => {
+    alert('알림 클릭됨');
+  };
+
   const handleLogoutClick = () => {
     alert('로그아웃 클릭됨');
   };
@@ -50,6 +54,12 @@ const UseInformation: React.FC = () => {
       icon: moving,
       altText: '개인정보 처리 방침으로 가는 아이콘 버튼',
       onClick: handleTermsClick,
+    },
+    {
+      title: '알림',
+      icon: moving,
+      altText: '알림으로 가는 아이콘 버튼',
+      onClick: handleAlimClick,
     },
     { title: '로그아웃', icon: logout, altText: '로그아웃 버튼', onClick: handleLogoutClick },
     { title: '탈퇴하기', icon: moving, altText: '탈퇴하기 버튼', onClick: handleWithdrawalClick },
