@@ -53,7 +53,7 @@ const Nickname: React.FC<NicknameProps> = ({ initialNickname }) => {
   return (
     <div className="flex flex-col justify-between h-screen">
       <div>
-        <p className="pt-[30px] px-[24px] mb-[6px] text-Gray800 text-[13px]">닉네임 수정</p>
+        <p className="pt-[30px] px-[24px] pb-[6px] text-Gray800 text-[13px]">닉네임 수정</p>
         <div className="box-border flex w-[calc(100%-40px)] mx-auto items-center justify-between text-[15px] font-medium">
           <TextField
             value={nickname}
