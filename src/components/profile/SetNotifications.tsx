@@ -5,25 +5,25 @@ import BottomSheet from '@/components/common/BottomSheet';
 import { MyProfileProps } from '@/types/profile';
 
 const timeMap = {
-  'AM 06': 0,
-  'AM 07': 1,
-  'AM 08': 2,
-  'AM 09': 3,
-  'AM 10': 4,
-  'AM 11': 5,
-  'PM 12': 6,
-  'PM 01': 7,
-  'PM 02': 8,
-  'PM 03': 9,
-  'PM 04': 10,
-  'PM 05': 11,
-  'PM 06': 12,
-  'PM 07': 13,
-  'PM 08': 14,
-  'PM 09': 15,
-  'PM 10': 16,
-  'PM 11': 17,
-  'AM 12': 18,
+  'AM 06-07': 0,
+  'AM 07-08': 1,
+  'AM 08-09': 2,
+  'AM 09-10': 3,
+  'AM 10-11': 4,
+  'AM 11-12': 5,
+  'PM 12-01': 6,
+  'PM 01-02': 7,
+  'PM 02-03': 8,
+  'PM 03-04': 9,
+  'PM 04-05': 10,
+  'PM 05-06': 11,
+  'PM 06-07': 12,
+  'PM 07-08': 13,
+  'PM 08-09': 14,
+  'PM 09-10': 15,
+  'PM 10-11': 16,
+  'PM 11-12': 17,
+  'AM 12-01': 18,
 };
 
 const reverseTimeMap = Object.fromEntries(
@@ -71,7 +71,7 @@ const SetNotifications: React.FC<MyProfileProps> = ({ myProfile }) => {
           <div className="box-border flex w-[calc(100%-40px)] mx-auto px-[24px] py-[16px] bg-white border border-GrayOpacity100 items-center justify-between rounded-[10px] text-[15px] font-medium">
             <p className="text-Gray800">알림 시간대</p>
             <div className="flex gap-[10px] items-center">
-              <p className="text-BloomingGreen500">{selectedTime && selectedTime + ':00'}</p>
+              <p className="text-BloomingGreen500">{selectedTime}</p>
               <img
                 src={pencil}
                 alt="수정하기 아이콘"
