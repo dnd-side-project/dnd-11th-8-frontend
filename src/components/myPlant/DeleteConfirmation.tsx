@@ -22,7 +22,7 @@ const DeleteConfirmation: React.FC<DeleteConfirmationProps> = ({
         openToast({
           message: '삭제되었습니다.',
           duration: 1500,
-          textColor: 'text-white',
+          className: 'text-white',
         });
         onDelete();
       },
