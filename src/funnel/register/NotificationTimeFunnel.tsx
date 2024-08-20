@@ -11,20 +11,20 @@ import BottomSheet from '@/components/common/BottomSheet';
 import ScrollPicker from '@/components/common/ScrollPicker';
 
 interface NotificationTimeFunnelProps {
-  toCompleteFunnel: (notificationTime: NumericRange<0, 17>) => void;
+  toCompleteFunnel: (notificationTime: NumericRange<1, 19>) => void;
+  goBack: () => void;
 }
 
-const NotificationTimeFunnel = ({ toCompleteFunnel }: NotificationTimeFunnelProps) => {
+const NotificationTimeFunnel = ({ toCompleteFunnel, goBack }: NotificationTimeFunnelProps) => {
   const [openBottomSheet, setOpenBottomSheet] = useState(false);
-  const [selectedTime, setSelectedTime] = useState<NumericRange<0, 17>>(0);
+  const [selectedTime, setSelectedTime] = useState<NumericRange<1, 19>>(1);
 
-  const onSelect = (time: NumericRange<0, 17>) => {
+  const onSelect = (time: NumericRange<1, 19>) => {
     setSelectedTime(time);
   };
 
   const onConfirm = () => {
     if (selectedTime === null) return;
-    console.log('selectedTime', selectedTime);
     setOpenBottomSheet(false);
     toCompleteFunnel(selectedTime);
   };
@@ -41,7 +41,7 @@ const NotificationTimeFunnel = ({ toCompleteFunnel }: NotificationTimeFunnelProp
       <Header
         title={'닉네임'}
         left={
-          <button>
+          <button onClick={() => goBack()}>
             <왼쪽꺽쇠 />
           </button>
         }
@@ -62,11 +62,11 @@ const NotificationTimeFunnel = ({ toCompleteFunnel }: NotificationTimeFunnelProp
         content={
           <div className={'h-[310px] px-2.5'}>
             <ScrollPicker
-              start={6}
+              start={5}
               end={23}
               selectedClassName={'bg-GrayOpacity100 text-Gray800 rounded-[10px]'}
-              onSelect={(value) => onSelect(value as NumericRange<0, 17>)}
-              selected={selectedTime}
+              onSelect={(value) => onSelect((value - 4) as NumericRange<1, 19>)}
+              selected={selectedTime + 4}
               display={(value) => displayTime(value)}
             />
           </div>

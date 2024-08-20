@@ -19,4 +19,8 @@ export const keyStore = createQueryKeyStore({
   auth: {
     signIn: null,
   },
+  user: {
+    register: null,
+    regions: (query: string) => [query],
+  },
 });
