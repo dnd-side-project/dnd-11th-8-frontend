@@ -87,6 +87,7 @@ export default {
         'Green2-weak': 'rgba(237, 249, 243, 1)',
         BloomingGreen500: '#34C184',
         Blue500: '#3182F6',
+        Red50: '#FEE',
         Red500: 'rgba(240, 68, 82, 1)',
         DimBackground: 'rgba(0, 0, 0, 0.2)',
         LoginBackground: 'rgba(242, 241, 229, 1)',
