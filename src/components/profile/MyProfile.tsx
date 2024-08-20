@@ -24,7 +24,10 @@ const MyProfile: React.FC<MyProfileProps> = ({ justImg, myProfile }) => {
         ''
       ) : (
         <div className="box-border flex w-[calc(100%-40px)] mx-auto p-[20px] bg-white border border-GrayOpacity100 items-center justify-center rounded-[10px]">
-          <section className="flex flex-col items-center justify-center gap-[4px]">
+          <section
+            className="flex flex-col items-center justify-center gap-[4px]"
+            onClick={() => push('/my-plant')}
+          >
             <p className="text-Gray800 text-[13px] font-medium">내 식물</p>
             <p className="text-BloomingGreen500 text-[20px] font-semibold">
               {myProfile?.myPlantCount}
