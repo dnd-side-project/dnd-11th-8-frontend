@@ -7,15 +7,16 @@ import PlusButton from '@/components/myPlant/PlusButton';
 import { useState } from 'react';
 import Plant from '@/types/MyPlant';
 import Screen from '@/layouts/Screen';
+import Segments from '@/types/segments';
 // import filterQueryAtom from '@/atoms/myPlant/filterQueryAtom';
 // import { useAtom } from 'jotai';
 // import { useAllMyPlant } from '@/queries/useAllMyPlant';
 // import { LocationQueryParams } from '@/apis/myPlant/getMyAllPlant';
 
-const segments = [
+const segments: Segments[] = [
   {
     id: 1,
-    name: '베란다',
+    name: '내 방',
   },
   {
     id: 2,
@@ -28,37 +29,23 @@ const myPlant: string | Plant[] = [
     myPlantId: 1,
     nickname: '쫑쫑이',
     scientificName: '몬스테라 델리오사',
-    image:
+    haveLocation: false, //false 이면 분류없음
+    imageUrl:
       'https://img1.daumcdn.net/thumb/R1280x0.fjpg/?fname=http://t1.daumcdn.net/brunch/service/user/5AU5/image/7oHw3DMrgO9_66LHCI3MkoKjY3M.JPG',
-    waterRemainDay: 1,
-    fertilizerRemainDay: 15,
+    dateSinceLastWater: 3, //null 이면 기록없음
+    dateSinceLastFertilizer: 23, //null 이면 기록없음
+    dateSinceLasthealthCheck: 3,
   },
   {
     myPlantId: 2,
     nickname: '뿡뿡이',
     scientificName: '병아리눈물',
-    image:
+    haveLocation: true, //false 이면 분류없음
+    imageUrl:
       'https://thumbnail.10x10.co.kr/webimage/image/basic600/456/B004562843.jpg?cmd=thumb&w=400&h=400&fit=true&ws=false',
-    waterRemainDay: 3,
-    fertilizerRemainDay: 23,
-  },
-  {
-    myPlantId: 3,
-    nickname: '루밍이',
-    scientificName: '몬스테라 델리오사',
-    image:
-      'https://img1.daumcdn.net/thumb/R1280x0.fjpg/?fname=http://t1.daumcdn.net/brunch/service/user/5AU5/image/7oHw3DMrgO9_66LHCI3MkoKjY3M.JPG',
-    waterRemainDay: 1,
-    fertilizerRemainDay: 15,
-  },
-  {
-    myPlantId: 4,
-    nickname: '블루밍스밍스스',
-    scientificName: '몬스테라 델리오사',
-    image:
-      'https://img1.daumcdn.net/thumb/R1280x0.fjpg/?fname=http://t1.daumcdn.net/brunch/service/user/5AU5/image/7oHw3DMrgO9_66LHCI3MkoKjY3M.JPG',
-    waterRemainDay: 1,
-    fertilizerRemainDay: 15,
+    dateSinceLastWater: 3, //null 이면 기록없음
+    dateSinceLastFertilizer: 23, //null 이면 기록없음
+    dateSinceLasthealthCheck: 3,
   },
 ];
 
