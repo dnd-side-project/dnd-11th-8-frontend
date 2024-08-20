@@ -13,12 +13,13 @@ interface MyPlantProps {
 
 interface Plant {
   myPlantId: number;
-  name: string;
+  nickname: string;
   scientificName: string;
-  illustUrl: string;
+  haveLocation: boolean;
+  imageUrl: string;
   dateSinceLastWater: number | null;
   dateSinceLastFertilizer: number | null;
-  dateSinceLastHealthCheck: number | null;
+  dateSinceLasthealthCheck: number | null;
 }
 
 const MyPlant: React.FC<MyPlantProps> = ({ register }) => {
@@ -34,21 +35,23 @@ const MyPlant: React.FC<MyPlantProps> = ({ register }) => {
       myPlantsInfo: [
         {
           myPlantId: 1,
-          name: '뿡뿡이',
+          nickname: '쫑쫑이',
           scientificName: '몬스테라 델리오사',
-          illustUrl: plant,
-          dateSinceLastWater: null, //null 이면 기록없음
+          haveLocation: false, //false 이면 분류없음
+          imageUrl: plant,
+          dateSinceLastWater: 3, //null 이면 기록없음
           dateSinceLastFertilizer: 23, //null 이면 기록없음
-          dateSinceLastHealthCheck: 3,
+          dateSinceLasthealthCheck: 3,
         },
         {
-          myPlantId: 1,
-          name: '팝팝이',
-          scientificName: '병아리 눈물',
-          illustUrl: plant,
+          myPlantId: 2,
+          nickname: '뿡뿡이',
+          scientificName: '병아리눈물',
+          haveLocation: true, //false 이면 분류없음
+          imageUrl: plant,
           dateSinceLastWater: 3, //null 이면 기록없음
-          dateSinceLastFertilizer: 12, //null 이면 기록없음
-          dateSinceLastHealthCheck: 8,
+          dateSinceLastFertilizer: 23, //null 이면 기록없음
+          dateSinceLasthealthCheck: 3,
         },
       ],
     };

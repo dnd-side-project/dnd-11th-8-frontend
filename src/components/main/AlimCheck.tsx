@@ -91,7 +91,7 @@ const AlimCheck: React.FC<AlimCheckProps> = ({ water, fertilizer, sunlight }) =>
     openToast({
       message: randomMessage,
       duration: 2000,
-      className: 'text-white w-[250px]',
+      className: 'text-white w-[300px]',
     });
   };
 

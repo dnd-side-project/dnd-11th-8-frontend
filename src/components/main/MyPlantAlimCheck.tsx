@@ -8,12 +8,13 @@ import useInternalRouter from '@/hooks/useInternalRouter';
 
 interface Plant {
   myPlantId: number;
-  name: string;
+  nickname: string;
   scientificName: string;
-  illustUrl: string;
+  haveLocation: boolean;
+  imageUrl: string;
   dateSinceLastWater: number | null;
   dateSinceLastFertilizer: number | null;
-  dateSinceLastHealthCheck: number | null;
+  dateSinceLasthealthCheck: number | null;
 }
 
 interface MyPlantAlimCheckProps {
@@ -40,14 +41,14 @@ const MyPlantAlimCheck: React.FC<MyPlantAlimCheckProps> = ({ plants }) => {
           <div key={plant.myPlantId} className="flex items-center justify-center min-h-screen">
             <div className="flex flex-col items-center justify-center mt-[20px]">
               <img
-                src={plant.illustUrl}
+                src={plant.imageUrl}
                 alt="나의 식물 일러스트"
                 className="w-[228.76px] h-[239.31px]"
               />
 
               <div className="relative flex flex-col items-center justify-center">
                 <CurrentSlide currentSlide={currentSlide} plants={plants} />
-                <p className="pt-[15px] text-Gray900 font-semibold text-[22px]">{plant.name}</p>
+                <p className="pt-[15px] text-Gray900 font-semibold text-[22px]">{plant.nickname}</p>
                 <p className="text-Gray600 font-medium text-[13px]">{plant.scientificName}</p>
                 <button
                   onClick={() => push('/my-plant')}
@@ -62,7 +63,7 @@ const MyPlantAlimCheck: React.FC<MyPlantAlimCheckProps> = ({ plants }) => {
                 <AlimCheck
                   water={plant.dateSinceLastWater}
                   fertilizer={plant.dateSinceLastFertilizer}
-                  sunlight={plant.dateSinceLastHealthCheck}
+                  sunlight={plant.dateSinceLasthealthCheck}
                 />
               </div>
             </div>
