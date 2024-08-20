@@ -7,6 +7,7 @@ import beforeFertilizerIcon from '@/assets/icon/beforeFertilizer.svg';
 import beforeSunlightIcon from '@/assets/icon/heart.svg';
 import checkIcon from '@/assets/icon/beforeCheck.svg';
 import afterCheckIcon from '@/assets/icon/afterCheck.svg';
+import useToast from '@/hooks/useToast';
 
 interface CheckItemProps {
   icon: string;
@@ -38,7 +39,11 @@ const CheckItem: React.FC<CheckItemProps> = ({
       <p className="text-small-writing text-Gray400">{label}</p>
       <button
         onClick={onCheck}
-        className={`flex gap-[10px] text-sub-typo w-[67px] h-[23px] items-center justify-center rounded-full transition-all ${checked ? 'bg-green-500 text-white' : 'bg-Gray50 text-Gray500 border border-GrayOpacity100'}`}
+        className={`flex gap-[10px] text-sub-typo w-[67px] h-[23px] items-center justify-center rounded-full transition-all ${
+          checked
+            ? 'bg-green-500 text-white'
+            : 'bg-Gray50 text-Gray500 border border-GrayOpacity100'
+        }`}
       >
         {checked ? (
           <>
@@ -63,9 +68,31 @@ interface AlimCheckProps {
 }
 
 const AlimCheck: React.FC<AlimCheckProps> = ({ water, fertilizer, sunlight }) => {
+  const { openToast } = useToast();
   const [waterChecked, setWaterChecked] = useState(false);
   const [fertilizerChecked, setFertilizerChecked] = useState(false);
-  const [sunlightChecked, setSunlightChecked] = useState(true);
+  const [sunlightChecked, setSunlightChecked] = useState(false);
+
+  const messages = [
+    '환기는 시켜주셨나요?',
+    '식물에 붙은 먼지는 잘 털어 주셨나요?',
+    '애정있게 쳐다보셨나요?',
+    '잎의 색이 건강해 보이나요?',
+    '흙의 상태를 점검하셨나요?',
+    '식물이 자라는 방향을 바꿔 주셨나요?',
+    '해충이 없는지 확인하셨나요?',
+  ];
+
+  const handleSunlightCheck = () => {
+    setSunlightChecked(true);
+
+    const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+    openToast({
+      message: randomMessage,
+      duration: 2000,
+      className: 'text-white w-[250px]',
+    });
+  };
 
   useEffect(() => {
     if (sunlightChecked) {
@@ -94,7 +121,7 @@ const AlimCheck: React.FC<AlimCheckProps> = ({ water, fertilizer, sunlight }) =>
             label="관심주기"
             lastChecked={sunlight !== null ? `${sunlight}` : null}
             checked={sunlightChecked}
-            onCheck={() => setSunlightChecked(true)}
+            onCheck={handleSunlightCheck}
           />
         </div>
         <div className="flex-1">

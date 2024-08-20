@@ -8,16 +8,16 @@ const useToast = () => {
     ({
       message,
       duration = 3000,
-      textColor,
+      className,
     }: {
       message: ReactNode | string;
       duration?: number;
-      textColor?: string;
+      className?: string;
     }) => {
       openModal({
         title: (
           <div
-            className={`py-4 px-5 bg-GrayOpacity600 w-10/12 max-w-md rounded-[10px] mx-auto flex items-center justify-center ${textColor}`}
+            className={`py-4 px-5 bg-GrayOpacity600 w-10/12 max-w-md rounded-[10px] mx-auto flex items-center justify-center ${className}`}
           >
             {message}
           </div>
