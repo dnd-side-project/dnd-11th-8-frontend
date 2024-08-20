@@ -86,6 +86,7 @@ const AlimCheck: React.FC<AlimCheckProps> = ({ water, fertilizer, sunlight }) =>
   const handleSunlightCheck = () => {
     setSunlightChecked(true);
 
+    // TODO: 서버에서 tipMessage 받고, 그거 토스트로 보내기
     const randomMessage = messages[Math.floor(Math.random() * messages.length)];
     openToast({
       message: randomMessage,
