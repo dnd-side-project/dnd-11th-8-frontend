@@ -7,7 +7,14 @@ interface SeparatorProps {
 
 const Separator = ({ height, verticalSpace = 32 }: SeparatorProps) => {
   return (
-    <div className={cn(`h-[${height}px]`, `w-screen my-[${verticalSpace}px] bg-Gray100 -ml-6`)} />
+    <div
+      style={{
+        height: height,
+        marginTop: verticalSpace / 2,
+        marginBottom: verticalSpace / 2,
+      }}
+      className={cn(`w-screen bg-Gray100 -ml-6`)}
+    />
   );
 };
 

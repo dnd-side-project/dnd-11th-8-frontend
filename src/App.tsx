@@ -11,6 +11,7 @@ import LoginPage from '@/pages/LoginPage.tsx';
 import PrivateRoute from '@/routes/PrivateRoute.tsx';
 import LoginRedirectPage from '@/pages/LoginRedirectPage.tsx';
 import RegisterPage from '@/pages/RegisterPage.tsx';
+import MyPlantEdit from '@/pages/MyPlantEdit.tsx';
 
 function App() {
   return (
@@ -46,6 +47,14 @@ function App() {
             element={
               <PrivateRoute>
                 <MyPlantDetail />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path={'/my-plant/edit/:myPlantId'}
+            element={
+              <PrivateRoute>
+                <MyPlantEdit />
               </PrivateRoute>
             }
           />

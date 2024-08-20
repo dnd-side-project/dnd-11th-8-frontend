@@ -31,11 +31,13 @@ import IconPlusMono from '@/assets/icon/icon-plus-mono.tsx';
 interface PlantLocationBadgeListProps {
   handleChange: (key: FormKey, value: FormValue) => void;
   selectedLocation?: PlantLocation;
+  essential?: boolean;
 }
 
 const PlantLocationBadgeList = ({
   handleChange,
   selectedLocation,
+  essential = true,
 }: PlantLocationBadgeListProps) => {
   const { newLocationName, initializeNewLocation, isError, changeNewLocationName } =
     useNewLocation();
@@ -125,7 +127,7 @@ const PlantLocationBadgeList = ({
 
   return (
     <div>
-      <Label title={'식물위치'} htmlFor={'plant-location'} essential={true} />
+      <Label title={'식물위치'} htmlFor={'plant-location'} essential={essential} />
       <ul className={'w-full flex flex-row gap-[9px] mt-[12px]'}>
         {data.data.map((location) => (
           <LocationBadge

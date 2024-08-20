@@ -2,7 +2,11 @@ import { Carousel, CarouselApi, CarouselContent, CarouselItem } from '@/componen
 import { useEffect, useState } from 'react';
 
 interface PlantImageCarouselProps {
-  images: string[];
+  images: {
+    imageUrl: string;
+    favorite: boolean;
+    createdDate: string;
+  }[];
 }
 
 const PlantImageCarousel = ({ images }: PlantImageCarouselProps) => {
@@ -34,7 +38,7 @@ const PlantImageCarousel = ({ images }: PlantImageCarouselProps) => {
         {images.map((image, index) => (
           <CarouselItem key={`${index}-PlantImageCarousel`}>
             <img
-              src={image}
+              src={image.imageUrl}
               alt="식물 이미지"
               className="w-full aspect-square object-cover rounded-[10px]"
             />
