@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import waterIcon from '@/assets/icon/water.svg';
 import fertilizerIcon from '@/assets/icon/fertilizer.svg';
-import sunlightIcon from '@/assets/icon/sunlight.svg';
+import sunlightIcon from '@/assets/icon/heartAfter.svg';
 import beforeWaterIcon from '@/assets/icon/beforeWater.svg';
 import beforeFertilizerIcon from '@/assets/icon/beforeFertilizer.svg';
-import beforeSunlightIcon from '@/assets/icon/beforHealthy.svg';
+import beforeSunlightIcon from '@/assets/icon/heart.svg';
 import checkIcon from '@/assets/icon/beforeCheck.svg';
 import afterCheckIcon from '@/assets/icon/afterCheck.svg';
 
@@ -91,7 +91,7 @@ const AlimCheck: React.FC<AlimCheckProps> = ({ water, fertilizer, sunlight }) =>
           <CheckItem
             icon={sunlightIcon}
             beforeIcon={beforeSunlightIcon}
-            label="눈길주기"
+            label="관심주기"
             lastChecked={sunlight !== null ? `${sunlight}` : null}
             checked={sunlightChecked}
             onCheck={() => setSunlightChecked(true)}

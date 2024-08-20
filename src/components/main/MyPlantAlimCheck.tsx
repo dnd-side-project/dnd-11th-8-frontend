@@ -51,7 +51,7 @@ const MyPlantAlimCheck: React.FC<MyPlantAlimCheckProps> = ({ plants }) => {
                 <p className="text-Gray600 font-medium text-[13px]">{plant.scientificName}</p>
                 <button
                   onClick={() => push('/my-plant')}
-                  className="flex mt-[10px] gap-[5px] px-[8px] py-[4px] border border-GrayOpacity100 rounded-full bg-Gray50 justify-center items-center"
+                  className="flex mt-[10px] gap-[5px] px-[8px] py-[4px] border border-Gray300 rounded-full bg-Gray50 justify-center items-center"
                 >
                   <p className="text-small-writing text-Gray800">내 식물 전체 보기</p>
                   <img src={myPlantsAll} alt="내 식물 보러가기 아이콘" />
