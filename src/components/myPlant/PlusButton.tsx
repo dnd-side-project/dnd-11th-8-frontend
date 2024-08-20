@@ -39,6 +39,7 @@ const PlusButton: React.FC<PlusButtonProps> = ({
   const handleLocationClick = () => setBottomSheetVisible(true);
   const handleModifyClick = () => setLocationInputVisible(true);
   const handleDeleteClick = () => setDeleteConfirmationVisible(true);
+
   const handleCancelClick = () => {
     setBottomSheetVisible(false);
     setLocationInputVisible(false);
