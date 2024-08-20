@@ -1,13 +1,12 @@
 import Card from '../common/Card';
 
-interface WetherProps {
+interface WeatherProps {
   title: string;
-  description: string;
-  description2?: string;
+  description: string[];
   icon: string;
 }
 
-const Weather: React.FC<WetherProps> = ({ title, description, description2, icon }) => {
+const Weather: React.FC<WeatherProps> = ({ title, description, icon }) => {
   return (
     <div className="min-w-[186px] mb-[100px]">
       <Card.Container verticalPaddingSize={'small'}>
@@ -18,8 +17,11 @@ const Weather: React.FC<WetherProps> = ({ title, description, description2, icon
             </div>
 
             <div className="text-[12px] text-Gray700">
-              <p className="whitespace-normal">{description}</p>
-              {description2 && <p className="whitespace-normal">{description2}</p>}
+              {description.map((desc, index) => (
+                <p key={index} className="whitespace-normal">
+                  {desc}
+                </p>
+              ))}
             </div>
           </div>
 

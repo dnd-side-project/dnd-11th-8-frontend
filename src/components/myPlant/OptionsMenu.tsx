@@ -24,7 +24,7 @@ const OptionsMenu = forwardRef<HTMLDivElement, OptionsMenuProps>(
         openToast({
           message: '전체라는 공간명은 수정 및 삭제할 수 없습니다.',
           duration: 1000,
-          textColor: 'text-white text-[12px]',
+          className: 'text-white text-[12px]',
         });
       } else {
         onLocationClick();
