@@ -17,6 +17,10 @@ import { usePlantTypeSearchParams } from '@/hooks/usePlantTypeSearchParams.ts';
 import { useCreateMyPlant } from '@/queries/useCreateMyPlant.ts';
 import useToast from '@/hooks/useToast.tsx';
 import RoundedGreenChecked from '@/assets/icon/RoundedGreenChecked.tsx';
+import 마지막으로비료준날 from '@/components/addPlant/마지막으로비료준날';
+import { CreateMyPlantProps } from '@/apis/myPlant/createMyPlant.ts';
+import HeightBox from '@/components/common/HeightBox';
+import { useGetRecommendedPeriod } from '@/queries/useGetRecommendedPeriod.ts';
 
 export type ToggleFormState = {
   title: string;
@@ -42,8 +46,12 @@ const initialForm = {
     required: false,
   },
   '마지막으로 물 준 날': {
-    value: '' as `${number}-${number}-${number}`,
-    required: false,
+    value: 0,
+    required: true,
+  },
+  '마지막으로 비료 준 날': {
+    value: 0,
+    required: true,
   },
 };
 
@@ -74,9 +82,11 @@ const AddPlantPage = () => {
   const [water, setWater] = useState(initialNotificationForm.water);
   const [fertilizer, setFertilizer] = useState(initialNotificationForm.fertilizer);
   const [healthCheck, setHealthCheck] = useState(initialNotificationForm.healthCheck);
-  const { plantId } = usePlantTypeSearchParams();
+  const { plantId, plantType } = usePlantTypeSearchParams();
   const { mutate: submitPlant } = useCreateMyPlant();
   const { openToast } = useToast();
+
+  const { data: recommendedPeriod } = useGetRecommendedPeriod(plantId === null ? null : +plantId);
 
   const handleChange = useCallback((key: FormKey, value: FormValue) => {
     setForm((prev) => ({
@@ -90,16 +100,18 @@ const AddPlantPage = () => {
     .every(([, value]) => !isFalsy(value.value));
 
   const handleSubmit = () => {
-    const data = {
-      plantId,
+    const data: CreateMyPlantProps = {
+      plantId: plantId ?? undefined,
       nickname: form['반려식물 애칭'].value,
+      scientificName: plantType ?? '',
       locationId: form.식물위치.value?.id,
       startDate: form['함께하기 시작한 날'].value,
       lastWateredDate: form['마지막으로 물 준 날'].value,
+      lastFertilizerDate: form['마지막으로 비료 준 날'].value,
       waterAlarm: water.checked,
-      waterPeriod: water.period,
+      waterPeriod: water.period ?? undefined,
       fertilizerAlarm: fertilizer.checked,
-      fertilizerPeriod: fertilizer.period,
+      fertilizerPeriod: fertilizer.period ?? undefined,
       healthCheckAlarm: healthCheck.checked,
     };
     submitPlant(data, {
@@ -146,10 +158,23 @@ const AddPlantPage = () => {
             handleChange={handleChange}
           />
         </Suspense>
-        <TextField
-          title={'반려식물 애칭'}
-          placeholder={form['식물 종류'].value}
-          essential={false}
+        <마지막으로물준날
+          value={form['마지막으로 물 준 날'].value}
+          onClick={(value) =>
+            handleChange('마지막으로 물 준 날', {
+              value,
+              required: true,
+            })
+          }
+        />
+        <마지막으로비료준날
+          value={form['마지막으로 비료 준 날'].value}
+          onClick={(value) =>
+            handleChange('마지막으로 비료 준 날', {
+              value,
+              required: true,
+            })
+          }
         />
         <함께하기시작한날
           value={form['함께하기 시작한 날'].value}
@@ -160,15 +185,12 @@ const AddPlantPage = () => {
             })
           }
         />
-        <마지막으로물준날
-          value={form['마지막으로 물 준 날'].value}
-          onClick={(value) =>
-            handleChange('마지막으로 물 준 날', {
-              value,
-              required: true,
-            })
-          }
+        <TextField
+          title={'반려식물 애칭'}
+          placeholder={form['식물 종류'].value}
+          essential={false}
         />
+
         <NotificationToggleList
           water={water}
           setWater={(value) => setWater((prev) => ({ ...prev, ...value }))}
@@ -176,6 +198,8 @@ const AddPlantPage = () => {
           setFertilizer={(value) => setFertilizer((prev) => ({ ...prev, ...value }))}
           healthCheck={healthCheck}
           setHealthCheck={(value) => setHealthCheck((prev) => ({ ...prev, ...value }))}
+          recommendedFertilizerPeriod={recommendedPeriod?.recommendedFertilizerWeek}
+          recommendedWaterPeriod={recommendedPeriod?.recommendedWaterDay}
         />
       </form>
       <CTAButton
@@ -184,6 +208,7 @@ const AddPlantPage = () => {
         disabled={!isFormValid}
         onClick={handleSubmit}
       />
+      <HeightBox height={30} />
     </Screen>
   );
 };

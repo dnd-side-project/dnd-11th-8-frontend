@@ -1,36 +1,37 @@
-import TextField from '@/components/common/TextField';
-import CTAButton from '@/components/common/CTAButton';
-import BottomSheet from '@/components/common/BottomSheet';
 import { MouseEvent, useState } from 'react';
+
+import TextField from '@/components/common/TextField';
+import BottomSheet from '@/components/common/BottomSheet';
+import CTAButton from '@/components/common/CTAButton';
 import { cn } from '@/utils.ts';
 import {
   마지막으로물비료준날선택값목록,
   마지막으로물비료준날선택값목록_텍스트,
 } from '@/constants/addPlant.ts';
 
-interface 마지막으로물준날Props {
+interface 마지막으로비료준날Props {
   onClick: (value: number) => void;
   value: number;
 }
 
-const 마지막으로물준날 = ({ onClick, value }: 마지막으로물준날Props) => {
-  const [selected, onSelect] = useState<number>(0);
-
-  const [open, setOpen] = useState<boolean>(false);
+const 마지막으로비료준날 = ({ onClick, value }: 마지막으로비료준날Props) => {
+  const [openBottomSheet, setOpenBottomSheet] = useState<boolean>(false);
+  const [selected, onSelect] = useState(value);
 
   const onMouseDown = (e: MouseEvent<HTMLInputElement>) => {
     e.preventDefault();
-    setOpen(true);
+    setOpenBottomSheet(true);
   };
 
-  const onClose = () => {
-    setOpen(false);
+  const selectButtonClickHandler = (target: number) => {
+    onClick(target);
+    setOpenBottomSheet(false);
   };
 
   return (
     <>
       <TextField
-        title={'마지막으로 물 준 날'}
+        title={'마지막으로 비료 준 날'}
         placeholder={''}
         essential={true}
         onMouseDown={onMouseDown}
@@ -38,7 +39,7 @@ const 마지막으로물준날 = ({ onClick, value }: 마지막으로물준날Pr
         readOnly={true}
       />
       <BottomSheet
-        title={'마지막으로 물 준 날'}
+        title={'마지막으로 비료 준 날'}
         content={
           <div className={'h-full w-full overflow-y-auto hide-scrollbar px-[10px]'}>
             {마지막으로물비료준날선택값목록.map((item) => (
@@ -60,18 +61,15 @@ const 마지막으로물준날 = ({ onClick, value }: 마지막으로물준날Pr
         actions={[
           <CTAButton
             text={'선택하기'}
-            onClick={() => {
-              onClick(selected);
-              onClose();
-            }}
             className={'bg-BloomingGreen500'}
+            onClick={() => selectButtonClickHandler(selected)}
           />,
         ]}
-        isOpen={open}
-        onClose={onClose}
+        isOpen={openBottomSheet}
+        onClose={() => setOpenBottomSheet(false)}
       />
     </>
   );
 };
 
-export default 마지막으로물준날;
+export default 마지막으로비료준날;

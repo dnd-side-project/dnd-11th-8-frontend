@@ -5,6 +5,7 @@ import { ReactNode } from 'react';
 interface CTAButtonProps extends ButtonProps {
   color?: keyof typeof CTAButtonColor;
   text: string | ReactNode;
+  icon?: string | ReactNode;
 }
 
 const CTAButtonColor = {
@@ -13,7 +14,7 @@ const CTAButtonColor = {
   active: 'bg-gray-800',
 };
 
-const CTAButton = ({ text, color = 'normal', className, ...rest }: CTAButtonProps) => {
+const CTAButton = ({ text, color = 'normal', className, icon, ...rest }: CTAButtonProps) => {
   return (
     <Button
       className={cn(
@@ -23,6 +24,7 @@ const CTAButton = ({ text, color = 'normal', className, ...rest }: CTAButtonProp
       )}
       {...rest}
     >
+      {typeof icon === 'string' ? <img src={icon} alt="icon" /> : icon}
       {text}
     </Button>
   );

@@ -138,13 +138,16 @@ const PlantLocationBadgeList = ({
             onLongPress={() => openEditModalHandler(location)}
           />
         ))}
-        <Badge
-          text={'직접입력'}
-          type={'button'}
-          className={'bg-GrayOpacity100 text-Gray800'}
-          onClick={openAddNewModalHandler}
-          icon={<IconPlusMono />}
-        />
+        {data.data.length < 3 && (
+          <Badge
+            text={'직접입력'}
+            type={'button'}
+            className={'bg-GrayOpacity100 text-Gray800'}
+            onClick={openAddNewModalHandler}
+            icon={<IconPlusMono />}
+            disabled={data.data.length >= 3}
+          />
+        )}
         <CenterBottomSheet
           title="식물 위치"
           content={
@@ -203,6 +206,9 @@ const PlantLocationBadgeList = ({
           onClose={closeDeleteModalHandler}
         />
       </ul>
+      {data.data.length >= 3 && (
+        <p className="text-small-writing text-Red500 mt-[9.75px]">메뉴 등록은 3개까지 가능해요</p>
+      )}
     </div>
   );
 };

@@ -5,8 +5,13 @@ export const usePlantTypeSearchParams = () => {
   const plantType = searchParams.get('plantType');
   const plantId = searchParams.get('plantId');
 
-  const setPlantType = (plantType: string, plantId: string) => {
-    setSearchParams({ plantType, plantId }, { replace: false });
+  const setPlantType = (plantType: string, plantId?: number) => {
+    if (plantId !== undefined) {
+      setSearchParams({ plantType, plantId: plantId.toString() }, { replace: false });
+      return;
+    }
+
+    setSearchParams({ plantType }, { replace: false });
   };
 
   return {
