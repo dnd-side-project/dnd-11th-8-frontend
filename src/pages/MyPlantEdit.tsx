@@ -83,7 +83,7 @@ const MyPlantEdit = () => {
         <PlantLocationBadgeList handleChange={() => {}} essential={false} />
       </Suspense>
       <HeightBox height={25.5} />
-      <마지막으로물준날 value={'2024-08-24'} onClick={() => {}} />
+      <마지막으로물준날 value={0} onClick={() => {}} />
       <HeightBox height={25.5} />
       <button className={'w-full flex flex-row items-center justify-center gap-1.5'}>
         <span className={'text-regular-body text-Gray600 font-medium'}>내 식물 삭제</span>
