@@ -86,6 +86,7 @@ export default {
         GrayOpacity600: 'rgba(0, 19, 43, 0.58)',
         'Green2-weak': 'rgba(237, 249, 243, 1)',
         BloomingGreen500: '#34C184',
+        Blue50: 'rgba(232, 243, 255, 1)',
         Blue500: '#3182F6',
         Red50: '#FEE',
         Red500: 'rgba(240, 68, 82, 1)',
