@@ -1,3 +1,4 @@
+import React from 'react';
 import alim1 from '@/assets/icon/alim1.svg';
 import alim2 from '@/assets/icon/alim2.svg';
 import alim3 from '@/assets/icon/alim3.svg';
@@ -12,7 +13,7 @@ interface Alim {
   read: boolean;
 }
 
-const alimData: Alim[] = [
+const initialAlimData: Alim[] = [
   {
     id: 1,
     plantId: 1,
@@ -48,13 +49,19 @@ const parseDay = (day: string): number => {
 };
 
 const AlimList = () => {
-  const unreadAlims = alimData
-    .filter((alim) => !alim.read)
-    .sort((a, b) => parseDay(b.day) - parseDay(a.day));
+  const [alims, setAlims] = React.useState<Alim[]>(initialAlimData);
 
-  const readAlims = alimData
+  const handleClick = (id: number) => {
+    setAlims(alims.map((alim) => (alim.id === id ? { ...alim, read: true } : alim)));
+  };
+
+  const unreadAlims = alims
+    .filter((alim) => !alim.read)
+    .sort((b, a) => parseDay(b.day) - parseDay(a.day));
+
+  const readAlims = alims
     .filter((alim) => alim.read)
-    .sort((a, b) => parseDay(b.day) - parseDay(a.day));
+    .sort((b, a) => parseDay(b.day) - parseDay(a.day));
 
   const sortedAlims = [...unreadAlims, ...readAlims];
 
@@ -64,7 +71,8 @@ const AlimList = () => {
         {sortedAlims.map((alim) => (
           <div
             key={alim.id}
-            className="flex justify-between gap-4 px-4 py-5 bg-white rounded-lg shadow-sm"
+            className="flex justify-between gap-4 px-4 py-5 bg-white rounded-lg cursor-pointer"
+            onClick={() => handleClick(alim.id)}
           >
             <div className="flex items-center gap-[10px]">
               <div className="relative">
