@@ -12,6 +12,7 @@ import PrivateRoute from '@/routes/PrivateRoute.tsx';
 import LoginRedirectPage from '@/pages/LoginRedirectPage.tsx';
 import RegisterPage from '@/pages/RegisterPage.tsx';
 import MyPlantEdit from '@/pages/MyPlantEdit.tsx';
+import AlimDetail from '@/pages/AlimDetail.tsx';
 
 function App() {
   return (
@@ -90,6 +91,14 @@ function App() {
             element={
               <PrivateRoute>
                 <ModifyNickname />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path={'/profile/notification'}
+            element={
+              <PrivateRoute>
+                <AlimDetail />
               </PrivateRoute>
             }
           />
