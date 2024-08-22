@@ -1,15 +1,18 @@
 import { privateAxios } from '@/libs/baseAxios.ts';
 
 export interface CreateMyPlantProps {
-  plantId: string | null;
-  nickname: string;
-  locationId: number | undefined;
-  startDate: `${number}-${number}-${number}`;
-  lastWateredDate: `${number}-${number}-${number}`;
+  plantId?: string;
+  nickname?: string;
+  scientificName: string;
+  locationId?: number;
+  startDate?: `${number}-${number}-${number}`;
+  // TODO: 마지막으로 물, 비료 준 날 값 러프하게 변경됨
+  lastWateredDate?: number;
+  lastFertilizerDate?: number;
   waterAlarm: boolean;
-  waterPeriod: number | null;
+  waterPeriod?: number;
   fertilizerAlarm: boolean;
-  fertilizerPeriod: number | null;
+  fertilizerPeriod?: number;
   healthCheckAlarm: boolean;
 }
 

@@ -15,6 +15,7 @@ export const keyStore = createQueryKeyStore({
     getMyAllPlant: (query?: LocationQueryParams) => ['getMyAllPlant', query],
     createMyPlant: null,
     getDetail: (id: number) => [id],
+    getRecommendedPeriod: (plantId: number | null) => [`${plantId}`],
   },
   auth: {
     signIn: null,

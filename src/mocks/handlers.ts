@@ -97,4 +97,13 @@ export const handlers = [
 
     return HttpResponse.json(regions.filter((region) => region.name.includes(query)));
   }),
+
+  http.get(import.meta.env.VITE_API_URL + '/plants/:id/period', async () => {
+    await delay(1000);
+
+    return HttpResponse.json({
+      recommendedWaterDay: 3, //일
+      recommendedFertilizerWeek: 2, //주
+    });
+  }),
 ];
