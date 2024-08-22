@@ -4,8 +4,13 @@ import GreenRoundPlusIcon from '@/assets/icon/GreenRoundPlusIcon.tsx';
 import { usePlantTypeSearchParams } from '@/hooks/usePlantTypeSearchParams.ts';
 import RoundedGreenChecked from '@/assets/icon/RoundedGreenChecked.tsx';
 import useToast from '@/hooks/useToast';
-import { JSX } from 'react';
+import { JSX, useState } from 'react';
 import EmptyListIcon from '@/assets/icon/empty-list-icon.tsx';
+import CTAButton from '@/components/common/CTAButton';
+import HeightBox from '@/components/common/HeightBox';
+import PlusGreen from '@/assets/icon/PlusGreen.svg';
+import CenterBottomSheet from '@/components/common/CenterBottomSheet';
+import TextFieldV2 from '@/components/common/TextFieldV2';
 
 interface SearchedPlantListProps {
   query: string;
@@ -17,10 +22,14 @@ const SearchedPlantList = ({ query, onClose }: SearchedPlantListProps) => {
   const { setPlantType, plantType } = usePlantTypeSearchParams();
   const { openToast } = useToast();
 
+  const [customPlant, setCustomPlant] = useState('');
+
+  const [open, setOpen] = useState(false);
+
   const data = response.data;
 
-  const onClick = (name: string, id: number) => {
-    setPlantType(name, id.toString());
+  const onClick = (name: string, id?: number) => {
+    setPlantType(name, id);
     onClose();
     openToast({
       message: (
@@ -50,6 +59,39 @@ const SearchedPlantList = ({ query, onClose }: SearchedPlantListProps) => {
           검색 결과가 없어요
           <br />곧 다양한 식물이 추가될 예정이예요
         </p>
+        <HeightBox height={20} />
+        <CTAButton
+          type={'button'}
+          text={'직접 추가하기'}
+          className={
+            'border-[1.5px] border-BloomingGreen500 bg-white text-BloomingGreen500 flex flex-row items-center gap-2.5'
+          }
+          icon={PlusGreen}
+          onClick={() => setOpen(true)}
+        />
+        <CenterBottomSheet
+          title={'직접 추가하기'}
+          content={
+            <div className={'px-3.5'}>
+              <TextFieldV2 value={customPlant} onChange={(e) => setCustomPlant(e.target.value)} />
+            </div>
+          }
+          actions={[
+            <CTAButton
+              text={'등록'}
+              type={'button'}
+              className={'bg-BloomingGreen500 disabled:bg-Gray500'}
+              disabled={customPlant === ''}
+              onClick={() => onClick(customPlant)}
+            />,
+          ]}
+          isOpen={open}
+          onClose={() => {
+            setCustomPlant('');
+            setOpen(false);
+          }}
+          headerAsLabel={true}
+        />
       </div>
     );
   } else {

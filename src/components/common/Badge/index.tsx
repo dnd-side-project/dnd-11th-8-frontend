@@ -1,8 +1,12 @@
 import { Badge, BadgeProps } from '@/components/ui/badge';
-import { HTMLAttributes, ReactNode } from 'react';
+import { ButtonHTMLAttributes, DetailedHTMLProps, ReactNode } from 'react';
 import { cn } from '@/utils.ts';
 
-interface BadgeWrapperProps extends Omit<HTMLAttributes<HTMLButtonElement>, 'type'> {
+interface BadgeWrapperProps
+  extends Omit<
+    DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>,
+    'type'
+  > {
   text: string;
   icon?: ReactNode; // icon을 ReactNode로 유지
   type?: 'button' | 'display';

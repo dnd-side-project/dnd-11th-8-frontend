@@ -1,10 +1,9 @@
-import IconWaterworksMono from '@/assets/icon/icon-waterworks-mono.tsx';
 import Toggle from '@/components/common/Toggle';
 import Badge from '@/components/common/Badge';
 import IconArrowSolidDownMono from '@/assets/icon/icon-arrow-solid-down-mono.tsx';
 import BottomSheet from '@/components/common/BottomSheet';
 import ScrollPicker from '@/components/common/ScrollPicker';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import CTAButton from '@/components/common/CTAButton';
 
 interface NotificationToggleProps {
@@ -17,6 +16,8 @@ interface NotificationToggleProps {
   valueStart?: number;
   valueEnd?: number;
   onSelect?: (value: number) => void;
+  icon: string;
+  badgeIndex?: number;
 }
 
 const NotificationToggle = ({
@@ -27,6 +28,8 @@ const NotificationToggle = ({
   valueStart,
   valueEnd,
   onSelect,
+  icon,
+  badgeIndex,
   ...rest
 }: NotificationToggleProps) => {
   const [selected, setSelected] = useState<number>(valueStart ?? 0);
@@ -36,10 +39,16 @@ const NotificationToggle = ({
     setIsOpen(false);
   };
 
+  useEffect(() => {
+    if (period !== null && rest.checked && period === 0) {
+      setIsOpen(true);
+    }
+  }, [period, rest.checked]);
+
   return (
     <div className={'flex flex-row items-center justify-between py-2'}>
       <div className={'flex flex-row items-center gap-2'}>
-        <IconWaterworksMono />
+        <img src={icon} alt={'notification icon'} />
         <label className={'text-regular-body font-semibold text-Gray800'}>{name}</label>
         {period !== null && (
           <Badge
@@ -61,6 +70,7 @@ const NotificationToggle = ({
               selectedClassName={'bg-GrayOpacity100 text-Gray800 rounded-[10px]'}
               onSelect={setSelected}
               selected={selected}
+              badge={badgeIndex}
             />
           </div>
         }

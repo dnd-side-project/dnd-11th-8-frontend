@@ -4,6 +4,10 @@ import NotificationToggle from '@/components/addPlant/NotificationToggle.tsx';
 import { useState } from 'react';
 import { ToggleFormState } from '@/pages/AddPlantPage.tsx';
 
+import FertilizerGreenIcon from '@/assets/icon/FertilizerGreenIcon.svg';
+import HeartGreenIcon from '@/assets/icon/HeartGreenIcon.svg';
+import WaterGreenIcon from '@/assets/icon/WaterGreenIcon.svg';
+
 interface NotificationToggleListProps {
   water: ToggleFormState;
   setWater: (value: Partial<ToggleFormState>) => void;
@@ -12,6 +16,8 @@ interface NotificationToggleListProps {
   healthCheck: ToggleFormState;
   setHealthCheck: (value: Partial<ToggleFormState>) => void;
   labelAsTitle?: boolean;
+  recommendedWaterPeriod?: number;
+  recommendedFertilizerPeriod?: number;
 }
 
 const NotificationToggleList = ({
@@ -22,10 +28,15 @@ const NotificationToggleList = ({
   setHealthCheck,
   healthCheck,
   labelAsTitle = false,
+  recommendedWaterPeriod,
+  recommendedFertilizerPeriod,
 }: NotificationToggleListProps) => {
   const [notificationEnabled, setNotificationEnabled] = useState<boolean>(
     water.checked || fertilizer.checked || healthCheck.checked,
   );
+
+  console.log('recommendedFertilizerPeriod', recommendedFertilizerPeriod);
+  console.log('recommendedWaterPeriod', recommendedWaterPeriod);
 
   return (
     <div className={'flex flex-col gap-[10px]'}>
@@ -52,6 +63,8 @@ const NotificationToggleList = ({
             valueEnd={30}
             onSelect={(value) => setWater({ period: value })}
             onCheckedChange={(checked) => setWater({ checked })}
+            icon={WaterGreenIcon}
+            badgeIndex={recommendedWaterPeriod}
           />
           <NotificationToggle
             name={fertilizer.title}
@@ -63,12 +76,15 @@ const NotificationToggleList = ({
             valueEnd={30}
             onSelect={(value) => setFertilizer({ period: value })}
             onCheckedChange={(checked) => setFertilizer({ checked })}
+            icon={FertilizerGreenIcon}
+            badgeIndex={recommendedFertilizerPeriod}
           />
           <NotificationToggle
             name={healthCheck.title}
             period={healthCheck.period}
             checked={healthCheck.checked}
             onCheckedChange={(checked) => setHealthCheck({ checked })}
+            icon={HeartGreenIcon}
           />
         </div>
       )}
