@@ -3,6 +3,7 @@ import moving from '@/assets/icon/moving.svg';
 import logout from '@/assets/icon/logout.svg';
 import CenterBottomSheet from '../common/CenterBottomSheet';
 import CTAButton from '../common/CTAButton';
+import useInternalRouter from '@/hooks/useInternalRouter';
 
 interface InformationItemProps {
   title: string;
@@ -23,9 +24,9 @@ const InformationItem: React.FC<InformationItemProps> = ({ title, icon, altText,
 );
 
 const UseInformation: React.FC = () => {
-  // 모달 열림 상태 관리
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
   const [isOpenLogoutModal, setIsOpenLogoutModal] = useState(false);
+  const { push } = useInternalRouter();
 
   const handlePrivacyPolicyClick = () => {
     alert('개인정보처리방침 클릭됨');
@@ -36,7 +37,7 @@ const UseInformation: React.FC = () => {
   };
 
   const handleAlimClick = () => {
-    alert('알림 클릭됨');
+    push('/profile/notification');
   };
 
   const deleteLocationHandler = () => {

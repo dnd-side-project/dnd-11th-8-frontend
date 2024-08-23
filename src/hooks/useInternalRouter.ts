@@ -12,6 +12,7 @@ type RoutePath =
   | '/login'
   | '/redirect'
   | '/login/register'
+  | '/profile/notification'
   | string;
 
 const useInternalRouter = () => {

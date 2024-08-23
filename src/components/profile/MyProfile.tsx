@@ -34,7 +34,10 @@ const MyProfile: React.FC<MyProfileProps> = ({ justImg, myProfile }) => {
             </p>
           </section>
           <div className="w-px h-6 mx-[30px] bg-Gray400" />
-          <section className="flex flex-col items-center justify-center gap-[4px]">
+          <section
+            onClick={() => push('/profile/notification')}
+            className="flex flex-col items-center justify-center gap-[4px]"
+          >
             <p className="text-Gray800 text-[13px] font-medium">알림</p>
             <p className="text-BloomingGreen500 text-[20px] font-semibold">
               {myProfile?.alarmCount}
