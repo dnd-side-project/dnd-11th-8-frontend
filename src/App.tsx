@@ -13,6 +13,7 @@ import LoginRedirectPage from '@/pages/LoginRedirectPage.tsx';
 import RegisterPage from '@/pages/RegisterPage.tsx';
 import MyPlantEdit from '@/pages/MyPlantEdit.tsx';
 import AlimDetail from '@/pages/AlimDetail.tsx';
+import ErrorPage from './pages/ErrorPage';
 
 function App() {
   return (
@@ -102,6 +103,7 @@ function App() {
               </PrivateRoute>
             }
           />
+          <Route path="/*" element={<ErrorPage />} />
         </Routes>
       </BrowserRouter>
     </div>
