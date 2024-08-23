@@ -12,6 +12,7 @@ import { useState } from 'react';
 import MyPlantInfo from '@/components/myPlantDetail/MyPlantInfo.tsx';
 import { useGetMyPlantDetail } from '@/queries/useGetMyPlantDetail.ts';
 import { withAsyncBoundary } from '@toss/async-boundary';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 export const plantInfo = {
   nickname: '루밍이',
@@ -94,5 +95,5 @@ const MyPlantDetail = () => {
 
 export default withAsyncBoundary(MyPlantDetail, {
   rejectedFallback: () => <div>에러가 발생했습니다.</div>,
-  pendingFallback: <div>로딩 중...</div>,
+  pendingFallback: <LoadingSpinner />,
 });
