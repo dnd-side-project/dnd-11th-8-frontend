@@ -3,28 +3,37 @@ import { MouseEvent, useState } from 'react';
 import TextField from '@/components/common/TextField';
 import BottomSheet from '@/components/common/BottomSheet';
 import CTAButton from '@/components/common/CTAButton';
-import { cn } from '@/utils.ts';
-import {
-  마지막으로물비료준날선택값목록,
-  마지막으로물비료준날선택값목록_텍스트,
-} from '@/constants/addPlant.ts';
+import { 마지막으로물비료준날선택값목록_텍스트 } from '@/constants/addPlant.ts';
+import SimpleDateScrollPicker from '@/components/addPlant/SimpleDateScrollPicker.tsx';
+import DateScrollPicker from '@/components/addPlant/DateScrollPicker.tsx';
 
 interface 마지막으로비료준날Props {
-  onClick: (value: number) => void;
-  value: number;
+  onClick: (value: number | string) => void;
+  value: number | string;
+  type?: 'simple' | 'exact';
 }
 
-const 마지막으로비료준날 = ({ onClick, value }: 마지막으로비료준날Props) => {
+const 마지막으로비료준날 = ({ onClick, value, type = 'simple' }: 마지막으로비료준날Props) => {
   const [openBottomSheet, setOpenBottomSheet] = useState<boolean>(false);
-  const [selected, onSelect] = useState(value);
+  const [selected, onSelect] = useState<number>(value as number);
+
+  const [year, setYear] = useState<number>(new Date().getFullYear());
+  const [month, setMonth] = useState<number>(new Date().getMonth() + 1);
+  const [day, setDay] = useState<number>(new Date().getDate());
 
   const onMouseDown = (e: MouseEvent<HTMLInputElement>) => {
     e.preventDefault();
     setOpenBottomSheet(true);
   };
 
-  const selectButtonClickHandler = (target: number) => {
-    onClick(target);
+  const onComplete = () => {
+    if (type === 'simple') {
+      onClick(selected);
+      setOpenBottomSheet(false);
+      return;
+    }
+
+    onClick(`${year}-${month}-${day}`);
     setOpenBottomSheet(false);
   };
 
@@ -35,34 +44,34 @@ const 마지막으로비료준날 = ({ onClick, value }: 마지막으로비료�
         placeholder={''}
         essential={true}
         onMouseDown={onMouseDown}
-        value={마지막으로물비료준날선택값목록_텍스트.get(value.toString())}
+        value={
+          type === 'simple'
+            ? 마지막으로물비료준날선택값목록_텍스트.get(value.toString())
+            : `${year}-${month}-${day}`
+        }
         readOnly={true}
       />
       <BottomSheet
         title={'마지막으로 비료 준 날'}
         content={
-          <div className={'h-full w-full overflow-y-auto hide-scrollbar px-[10px]'}>
-            {마지막으로물비료준날선택값목록.map((item) => (
-              <div
-                className={cn(
-                  'py-[10px] px-[24px] h-[62px] text-center text-regular-body font-medium flex items-center justify-center',
-                  selected === item.value
-                    ? 'bg-GrayOpacity100 text-Gray800 rounded-[10px]'
-                    : 'text-Gray400',
-                )}
-                onClick={() => onSelect(item.value)}
-                key={`ScrollPicker-${item}-${item.name}`}
-              >
-                {item.name}
-              </div>
-            ))}
-          </div>
+          type === 'simple' ? (
+            <SimpleDateScrollPicker onSelect={onSelect} selected={selected} />
+          ) : (
+            <DateScrollPicker
+              year={year}
+              month={month}
+              day={day}
+              setYear={setYear}
+              setMonth={setMonth}
+              setDay={setDay}
+            />
+          )
         }
         actions={[
           <CTAButton
             text={'선택하기'}
             className={'bg-BloomingGreen500'}
-            onClick={() => selectButtonClickHandler(selected)}
+            onClick={() => onComplete()}
           />,
         ]}
         isOpen={openBottomSheet}

@@ -35,9 +35,6 @@ const NotificationToggleList = ({
     water.checked || fertilizer.checked || healthCheck.checked,
   );
 
-  console.log('recommendedFertilizerPeriod', recommendedFertilizerPeriod);
-  console.log('recommendedWaterPeriod', recommendedWaterPeriod);
-
   return (
     <div className={'flex flex-col gap-[10px]'}>
       <div className={'flex flex-row items-center justify-between'}>

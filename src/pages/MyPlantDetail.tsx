@@ -67,7 +67,7 @@ const MyPlantDetail = () => {
         plantInfo={{
           plantId: data.plantId,
           nickname: data.nickname,
-          location: data.location,
+          location: data.location.name,
           species: data.scientificName,
         }}
       />

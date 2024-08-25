@@ -22,7 +22,7 @@ const MyPlantList: React.FC<MyPlantListProps> = ({ plants }) => {
     <div>
       {plants.map((plant) => (
         <Link
-          to={`/my-Plant/${plant.myPlantId}`}
+          to={`/my-plant/${plant.myPlantId}`}
           key={plant.myPlantId}
           className="flex gap-[16px] px-[20px] py-[16px]"
         >
