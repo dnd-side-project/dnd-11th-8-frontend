@@ -3,8 +3,7 @@ import { MouseEventHandler, useState } from 'react';
 import TextField from '@/components/common/TextField';
 import BottomSheet from '@/components/common/BottomSheet';
 import CTAButton from '@/components/common/CTAButton';
-import ScrollPicker from '@/components/common/ScrollPicker';
-import { getEndDayOfMonth } from '@/utils/date/getEndDayOfMonth.ts';
+import DateScrollPicker from '@/components/addPlant/DateScrollPicker.tsx';
 
 interface 함께하기시작한날Props {
   onClick: (value: `${number}-${number}-${number}`) => void;
@@ -40,29 +39,14 @@ const 함께하기시작한날 = ({ onClick, value }: 함께하기시작한날Pr
       <BottomSheet
         title={'함께하기 시작한 날'}
         content={
-          <div className={'px-[10px] h-[310px] flex flex-row mt-[10px]'}>
-            <ScrollPicker
-              onSelect={setYear}
-              start={1950}
-              end={2024}
-              selected={year}
-              selectedClassName={'bg-GrayOpacity100 text-Gray800 rounded-l-[10px]'}
-            />
-            <ScrollPicker
-              start={1}
-              end={12}
-              onSelect={setMonth}
-              selectedClassName={'bg-GrayOpacity100 text-Gray800'}
-              selected={month}
-            />
-            <ScrollPicker
-              start={1}
-              end={getEndDayOfMonth(year, month)}
-              onSelect={setDay}
-              selectedClassName={'bg-GrayOpacity100 text-Gray800 rounded-r-[10px]'}
-              selected={day}
-            />
-          </div>
+          <DateScrollPicker
+            day={day}
+            month={month}
+            setDay={setDay}
+            setMonth={setMonth}
+            setYear={setYear}
+            year={year}
+          />
         }
         actions={[
           <CTAButton

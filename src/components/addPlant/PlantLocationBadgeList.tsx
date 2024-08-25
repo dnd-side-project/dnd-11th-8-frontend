@@ -20,8 +20,6 @@ import BinLineMono from '@/assets/icon/BinLineMono.tsx';
 import RoundedGreenChecked from '@/assets/icon/RoundedGreenChecked.tsx';
 
 import LocationBadge from '@/components/addPlant/LocationBadge.tsx';
-
-import { FormKey, FormValue } from '@/pages/AddPlantPage.tsx';
 import { PlantLocation } from '@/types/plantLocation';
 
 import { cn } from '@/utils.ts';
@@ -29,7 +27,7 @@ import { isFalsy } from '@/utils/validation/isFalsy.ts';
 import IconPlusMono from '@/assets/icon/icon-plus-mono.tsx';
 
 interface PlantLocationBadgeListProps {
-  handleChange: (key: FormKey, value: FormValue) => void;
+  handleChange: (location: PlantLocation) => void;
   selectedLocation?: PlantLocation;
   essential?: boolean;
 }
@@ -132,7 +130,7 @@ const PlantLocationBadgeList = ({
         {data.data.map((location) => (
           <LocationBadge
             key={`location-badge-${location.id}`}
-            onClick={() => handleChange('식물위치', { value: location, required: true })}
+            onClick={() => handleChange(location)}
             selected={selectedLocation?.id === location.id}
             location={location}
             onLongPress={() => openEditModalHandler(location)}

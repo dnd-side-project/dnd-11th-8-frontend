@@ -155,7 +155,9 @@ const AddPlantPage = () => {
         <Suspense fallback={<div>로딩중...</div>}>
           <PlantLocationBadgeList
             selectedLocation={form.식물위치.value}
-            handleChange={handleChange}
+            handleChange={(location) =>
+              handleChange('식물위치', { value: location, required: true })
+            }
           />
         </Suspense>
         <마지막으로물준날

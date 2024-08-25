@@ -106,4 +106,12 @@ export const handlers = [
       recommendedFertilizerWeek: 2, //주
     });
   }),
+
+  http.patch(import.meta.env.VITE_API_URL + '/myplants/:id', async () => {
+    await delay(1000);
+
+    return HttpResponse.json({
+      message: '수정 되었습니다.',
+    });
+  }),
 ];
