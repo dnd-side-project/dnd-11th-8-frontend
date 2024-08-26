@@ -57,7 +57,25 @@ const PlantLocationBadgeList = ({
   const addNewLocationHandler = () => {
     switch (modalState.mode) {
       case MODE.ADD:
-        addNewLocation(newLocationName);
+        if (data.data.map((location) => location.name).includes(newLocationName)) {
+          openToast({
+            message: (
+              <p className="text-small-body font-medium text-white">이미 존재하는 위치입니다.</p>
+            ),
+            duration: 1000,
+          });
+          initializeModalState();
+          initializeNewLocation();
+          return;
+        }
+        addNewLocation(newLocationName, {
+          onError: (error) => {
+            openToast({
+              message: <p className={'text-small-body font-medium text-white'}>{error.message}</p>,
+              duration: 1000,
+            });
+          },
+        });
         break;
       case MODE.EDIT:
         updateLocation({ locationId: editingLocationId!, name: newLocationName });
