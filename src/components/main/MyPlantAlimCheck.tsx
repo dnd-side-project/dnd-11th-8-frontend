@@ -1,8 +1,6 @@
 import React from 'react';
 import AlimCheck from './AlimCheck';
 import myPlantsAll from '@/assets/icon/MyPlantsAll.svg';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
 import useInternalRouter from '@/hooks/useInternalRouter';
 import { Carousel, CarouselApi, CarouselContent, CarouselItem } from '@/components/ui/carousel.tsx';
 
