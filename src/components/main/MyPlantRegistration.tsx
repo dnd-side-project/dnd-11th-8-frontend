@@ -5,7 +5,7 @@ import addIcon from '@/assets/icon/addMyPlant.svg';
 const MyPlantRegistration = () => {
   const { push } = useInternalRouter();
   return (
-    <div className="flex justify-center items-center max-w-[331px] mx-auto mt-[19px] mb-[27px]">
+    <div className="flex justify-center items-center mx-auto mt-[19px] mb-[27px]">
       <div className="w-full" onClick={() => push('/my-plant/add')}>
         <Card.Container verticalPaddingSize={'small'}>
           <div className="py-[18px]">

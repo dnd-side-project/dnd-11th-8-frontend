@@ -5,7 +5,7 @@ import MyPlantRegistration from './MyPlantRegistration';
 import plant from '@/assets/img/examMyPlant.svg';
 import { useEffect, useState } from 'react';
 import logo from '@/assets/icon/logo.svg';
-import useInternalRouter from '@/hooks/useInternalRouter';
+import AppBar from '@/components/main/AppBar.tsx';
 
 interface MyPlantProps {
   register: boolean;
@@ -23,7 +23,6 @@ interface Plant {
 }
 
 const MyPlant: React.FC<MyPlantProps> = ({ register }) => {
-  const { push } = useInternalRouter();
   // 데이터 받아오면 제거할 예정
   const [greetingMessage, setGreetingMessage] = useState<string>('');
   const [myPlantsInfo, setMyPlantsInfo] = useState<Plant[]>([]);
@@ -63,14 +62,9 @@ const MyPlant: React.FC<MyPlantProps> = ({ register }) => {
   }, []);
 
   return (
-    <div className={`bg-[#F2F1E5] ${register ? 'h-[410px]' : 'h-[169.81px]'} `}>
-      <div className="px-[22px]">
-        <div className="pt-[21.3px] flex justify-between">
-          <img src={logo} alt="로고" />
-          <div>
-            <img src={nonUser} alt="프로필이 없는 유저" onClick={() => push('/profile')} />
-          </div>
-        </div>
+    <>
+      <div className="px-[22px] bg-[#F2F1E5] -mx-6">
+        <AppBar logo={logo} profileImage={nonUser} />
 
         {register ? (
           <RegisterMyPlant greetingMessage={greetingMessage} />
@@ -82,7 +76,7 @@ const MyPlant: React.FC<MyPlantProps> = ({ register }) => {
         )}
       </div>
       {register ? <MyPlantAlimCheck plants={myPlantsInfo} /> : <MyPlantRegistration />}
-    </div>
+    </>
   );
 };
 
