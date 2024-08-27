@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import AlimCheck from './AlimCheck';
 import myPlantsAll from '@/assets/icon/MyPlantsAll.svg';
-import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import useInternalRouter from '@/hooks/useInternalRouter';
+import { Carousel, CarouselApi, CarouselContent, CarouselItem } from '@/components/ui/carousel.tsx';
 
 interface Plant {
   myPlantId: number;
@@ -23,31 +23,35 @@ interface MyPlantAlimCheckProps {
 
 const MyPlantAlimCheck: React.FC<MyPlantAlimCheckProps> = ({ plants }) => {
   const { push } = useInternalRouter();
-  const [currentSlide, setCurrentSlide] = useState(0);
+  const [api, setApi] = React.useState<CarouselApi>();
+  const [current, setCurrent] = React.useState(0);
 
-  const settings = {
-    dots: false,
-    infinite: false,
-    speed: 300,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    afterChange: (index: number) => setCurrentSlide(index),
-  };
+  React.useEffect(() => {
+    if (!api) {
+      return;
+    }
+
+    setCurrent(api.selectedScrollSnap() + 1);
+
+    api.on('select', () => {
+      setCurrent(api.selectedScrollSnap() + 1);
+    });
+  }, [api]);
 
   return (
-    <div className="overflow-hidden ">
-      <Slider {...settings}>
+    <Carousel setApi={setApi}>
+      <div className={'absolute h-[239.31px] -left-6 w-screen bg-[#F2F1E5] max-w-md'} />
+      <CarouselContent>
         {plants.map((plant) => (
-          <div key={plant.myPlantId} className="flex items-center justify-center min-h-screen">
+          <CarouselItem key={plant.myPlantId}>
             <div className="flex flex-col items-center justify-center mt-[20px]">
               <img
                 src={plant.imageUrl}
                 alt="나의 식물 일러스트"
-                className="w-[228.76px] h-[239.31px]"
+                className={'mt-[10px] mb-[15px]'}
               />
-
-              <div className="relative flex flex-col items-center justify-center">
-                <CurrentSlide currentSlide={currentSlide} plants={plants} />
+              <div className="flex flex-col items-center justify-center">
+                <CurrentSlide currentSlide={current} plants={plants} />
                 <p className="pt-[15px] text-Gray900 font-semibold text-[22px]">{plant.nickname}</p>
                 <p className="text-Gray600 font-medium text-[13px]">{plant.scientificName}</p>
                 <button
@@ -59,7 +63,7 @@ const MyPlantAlimCheck: React.FC<MyPlantAlimCheckProps> = ({ plants }) => {
                 </button>
               </div>
 
-              <div className="mt-[15px] mb-[27px] w-[331px]">
+              <div className="mt-[15px] mb-[27px] w-full">
                 <AlimCheck
                   water={plant.dateSinceLastWater}
                   fertilizer={plant.dateSinceLastFertilizer}
@@ -67,10 +71,10 @@ const MyPlantAlimCheck: React.FC<MyPlantAlimCheckProps> = ({ plants }) => {
                 />
               </div>
             </div>
-          </div>
+          </CarouselItem>
         ))}
-      </Slider>
-    </div>
+      </CarouselContent>
+    </Carousel>
   );
 };
 
@@ -88,7 +92,7 @@ const CurrentSlide: React.FC<CurrentSlideProps> = ({ currentSlide, plants }) => 
             <div
               key={index}
               className={`w-[7px] h-[7px] rounded-full ${
-                currentSlide === index ? 'bg-[#34C184] w-[9.28px] h-[9.28px]' : 'bg-Gray300'
+                currentSlide - 1 === index ? 'bg-[#34C184] w-[9.28px] h-[9.28px]' : 'bg-Gray300'
               }`}
             />
           ))}

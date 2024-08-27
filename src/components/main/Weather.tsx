@@ -8,7 +8,7 @@ interface WeatherProps {
 
 const Weather: React.FC<WeatherProps> = ({ title, description, icon }) => {
   return (
-    <div className="min-w-[186px] mb-[100px]">
+    <div className="min-w-[186px]">
       <Card.Container verticalPaddingSize={'small'}>
         <Card.Content className={'flex flex-col pb-0 gap-[7px]'}>
           <div className="flex flex-col gap-[7px]">
