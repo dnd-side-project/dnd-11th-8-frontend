@@ -59,6 +59,7 @@ const RegisterPage = () => {
           });
         },
         onError: () => {
+          setStep('알림시간대입력');
           openToast({
             message: (
               <p className="flex flex-row items-center justify-center w-full gap-2 text-small-body font-medium text-white">
