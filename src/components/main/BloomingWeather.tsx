@@ -19,7 +19,7 @@ const BloomingWeather: React.FC<BloomingWeatherProps> = () => {
               key={weather.status}
               title={weather.title}
               description={weather.message}
-              icon={weatherMessageIcon[weather.status]}
+              Icon={weatherMessageIcon[weather.status]}
             />
           ))}
         </div>

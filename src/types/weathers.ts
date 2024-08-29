@@ -1,4 +1,4 @@
-export type WeatherStatus = 'HUMIDITY' | 'BUG';
+export type WeatherStatus = 'HUMIDITY' | 'INSECT' | 'HOT' | 'DRY' | 'COLD';
 
 export interface WeatherMessage {
   status: WeatherStatus;

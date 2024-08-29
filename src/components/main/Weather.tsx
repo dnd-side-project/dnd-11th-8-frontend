@@ -1,12 +1,13 @@
 import Card from '../common/Card';
+import { IconType } from 'react-icons';
 
 interface WeatherProps {
   title: string;
   description: string[];
-  icon: string;
+  Icon?: string | IconType;
 }
 
-const Weather: React.FC<WeatherProps> = ({ title, description, icon }) => {
+const Weather: React.FC<WeatherProps> = ({ title, description, Icon }) => {
   return (
     <div className="min-w-[186px]">
       <Card.Container verticalPaddingSize={'small'}>
@@ -26,7 +27,11 @@ const Weather: React.FC<WeatherProps> = ({ title, description, icon }) => {
           </div>
 
           <div className="self-end mt-auto">
-            <img src={icon} alt="아이콘" />
+            {typeof Icon === 'string' ? (
+              <img src={Icon} alt="아이콘" />
+            ) : (
+              Icon && <Icon size={30} />
+            )}
           </div>
         </Card.Content>
       </Card.Container>

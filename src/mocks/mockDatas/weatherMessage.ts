@@ -10,7 +10,7 @@ export const weathers: WeatherMessage[] = [
     ],
   },
   {
-    status: 'BUG',
+    status: 'INSECT',
     title: '병충해 주의보',
     message: [
       '습도가 높은 날씨에는 병충해 발생 위험이 높아집니다.',
