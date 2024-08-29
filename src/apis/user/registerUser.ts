@@ -16,6 +16,6 @@ export interface UserRegisterResponse {
 export const registerUser = async ({ registerToken, ...data }: UserRegisterParams) =>
   baseAxios.post<UserRegisterResponse>('/users/register', data, {
     headers: {
-      Authorization: `Bearer ${registerToken}`,
+      RegisterToken: registerToken,
     },
   });
