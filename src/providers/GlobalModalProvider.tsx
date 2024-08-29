@@ -50,7 +50,7 @@ export const GlobalModalProvider = ({ children }: GlobalModalProviderProps) => {
             />
           )}
           <div
-            className={'fixed w-screen top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'}
+            className={'fixed w-screen top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50'}
             id={'modal-content'}
           >
             {modalState.title && <header>{modalState.title}</header>}

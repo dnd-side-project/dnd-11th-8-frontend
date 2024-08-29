@@ -18,9 +18,9 @@ import { withAsyncBoundary } from '@toss/async-boundary';
 import { MyPlantDetailType } from '@/mocks/mockDatas/myPlantDetail.ts';
 import 마지막으로비료준날 from '@/components/addPlant/마지막으로비료준날.tsx';
 import { useUpdateMyPlant } from '@/queries/useUpdateMyPlant.ts';
-import LoadingScreen from '@/components/common/LoadingScreen';
 import { useQueryClient } from '@tanstack/react-query';
 import { keyStore } from '@/queries/keyStore.ts';
+import LoadingSpinner from '@/components/LoadingSpinner.tsx';
 
 interface MyPlantEditFormState {
   nickname: string;
@@ -71,7 +71,7 @@ const MyPlantEdit = () => {
   };
 
   if (isPending) {
-    return <LoadingScreen />;
+    return <LoadingSpinner />;
   }
 
   return (

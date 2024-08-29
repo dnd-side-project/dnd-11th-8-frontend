@@ -9,8 +9,8 @@ import { useRegisterUser } from '@/queries/useRegisterUser.ts';
 import useInternalRouter from '@/hooks/useInternalRouter.ts';
 import { ONE_DAY } from '@/constants/day.ts';
 import { useCookies } from 'react-cookie';
-import LoadingScreen from '@/components/common/LoadingScreen';
 import useToast from '@/hooks/useToast.tsx';
+import LoadingSpinner from '@/components/LoadingSpinner.tsx';
 
 type RegisterForm = {
   nickname: string;
@@ -106,7 +106,7 @@ const RegisterPage = () => {
     case '완료하기':
       return <CompleteFunnel onSubmit={() => router.replace('/')} />;
     case '로딩':
-      return <LoadingScreen />;
+      return <LoadingSpinner />;
     default:
       throw Error('잘못된 접근입니다.');
   }

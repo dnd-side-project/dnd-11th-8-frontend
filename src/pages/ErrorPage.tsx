@@ -5,7 +5,11 @@ import Screen from '@/layouts/Screen';
 
 // TODO: 다시 시도 버튼 기능 구현하기
 
-const ErrorPage = () => {
+interface ErrorPageProps {
+  reset?: () => void;
+}
+
+const ErrorPage = ({ reset }: ErrorPageProps) => {
   return (
     <Screen className="flex items-center justify-center h-screen p-0">
       <div className="flex flex-col gap-[25px] p-4 ">
@@ -22,7 +26,7 @@ const ErrorPage = () => {
             <p>이용에 불편을 드려 죄송합니다.</p>
           </div>
           <div>
-            <CTAButton text="다시 시도" className="bg-BloomingGreen500 w-[120px]" />
+            <CTAButton onClick={reset} text="다시 시도" className="bg-BloomingGreen500 w-[120px]" />
           </div>
         </div>
       </div>

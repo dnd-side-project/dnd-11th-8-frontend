@@ -25,4 +25,10 @@ export const keyStore = createQueryKeyStore({
     register: null,
     regions: (query: string) => [query],
   },
+  home: {
+    getHomeData: null,
+  },
+  weather: {
+    getWeather: null,
+  },
 });

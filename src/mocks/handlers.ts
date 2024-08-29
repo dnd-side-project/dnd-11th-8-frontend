@@ -4,6 +4,8 @@ import { plantLocation } from '@/mocks/mockDatas/plantLocation.ts';
 import { myPlantDetail } from '@/mocks/mockDatas/myPlantDetail.ts';
 import { randomSigninData } from '@/mocks/mockDatas/randomSigninData.ts';
 import { regions } from '@/mocks/mockDatas/regions.ts';
+import { homeData } from '@/mocks/mockDatas/homeData.ts';
+import { weathers } from '@/mocks/mockDatas/weatherMessage.ts';
 
 export const handlers = [
   http.get(import.meta.env.VITE_API_URL + '/plants', async ({ request }) => {
@@ -113,5 +115,17 @@ export const handlers = [
     return HttpResponse.json({
       message: '수정 되었습니다.',
     });
+  }),
+
+  http.get(import.meta.env.VITE_API_URL + '/home', async () => {
+    await delay(1000);
+
+    return HttpResponse.json(homeData);
+  }),
+
+  http.get(import.meta.env.VITE_API_URL + '/weather-message', async () => {
+    await delay(1000);
+
+    return HttpResponse.json(weathers);
   }),
 ];
