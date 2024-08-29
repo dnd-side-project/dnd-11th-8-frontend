@@ -8,10 +8,16 @@ import Screen from '@/layouts/Screen';
 import HeightBox from '@/components/common/HeightBox';
 import { useCallback, useEffect } from 'react';
 import useToast from '@/hooks/useToast.tsx';
+import { useGetHomeData } from '@/queries/useGetHomeData.ts';
+import { withAsyncBoundary } from '@toss/async-boundary';
+import ErrorPage from '@/pages/ErrorPage.tsx';
+import LoadingSpinner from '@/components/LoadingSpinner.tsx';
 
 const Main = () => {
   const { openToast } = useToast();
-  const register: boolean = true;
+  const { data: homeData } = useGetHomeData();
+
+  const register = homeData.myPlantInfo.length === 0;
 
   const requestPermission = useCallback(async () => {
     const permission = await Notification.requestPermission();
@@ -20,11 +26,17 @@ const Main = () => {
         vapidKey: import.meta.env.VITE_VAPID_KEY,
       });
       console.log('token: ', token);
-    } else {
-      openToast({
-        message: '알림이 거부되었습니다. 알림을 받으려면 브라우저 설정에서 허용해주세요.',
-      });
+      return;
     }
+
+    if (localStorage.getItem('isNotificationDenied') === 'true') {
+      return;
+    }
+
+    openToast({
+      message: '알림이 거부되었습니다. 알림을 받으려면 브라우저 설정에서 허용해주세요.',
+    });
+    localStorage.setItem('isNotificationDenied', 'true');
   }, [openToast]);
 
   useEffect(() => {
@@ -33,7 +45,11 @@ const Main = () => {
 
   return (
     <Screen className="bg-Gray50 min-h-dvh">
-      <MyPlant register={register} />
+      <MyPlant
+        register={register}
+        myPlantsInfo={homeData.myPlantInfo}
+        greetingMessage={homeData.greetingMessage}
+      />
       <BloomingWeather register={register} />
       <HeightBox height={100} />
       <TabBar />
@@ -41,4 +57,10 @@ const Main = () => {
   );
 };
 
-export default Main;
+export default withAsyncBoundary(Main, {
+  rejectedFallback: ({ error, reset }) => {
+    console.log('error: ', error.message);
+    return <ErrorPage reset={reset} />;
+  },
+  pendingFallback: <LoadingSpinner />,
+});
