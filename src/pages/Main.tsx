@@ -6,26 +6,30 @@ import MyPlant from '@/components/main/MyPlant';
 import TabBar from '@/components/main/TabBar';
 import Screen from '@/layouts/Screen';
 import HeightBox from '@/components/common/HeightBox';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
+import useToast from '@/hooks/useToast.tsx';
 
 const Main = () => {
+  const { openToast } = useToast();
   const register: boolean = true;
 
-  const requestPermission = async () => {
+  const requestPermission = useCallback(async () => {
     const permission = await Notification.requestPermission();
     if (permission === 'granted') {
       const token = await getToken(messaging, {
         vapidKey: import.meta.env.VITE_VAPID_KEY,
       });
-      console.log(token);
+      console.log('token: ', token);
     } else {
-      console.log('Notification permission denied.');
+      openToast({
+        message: '알림이 거부되었습니다. 알림을 받으려면 브라우저 설정에서 허용해주세요.',
+      });
     }
-  };
+  }, [openToast]);
 
   useEffect(() => {
     void requestPermission();
-  }, []);
+  }, [requestPermission]);
 
   return (
     <Screen className="bg-Gray50 min-h-dvh">

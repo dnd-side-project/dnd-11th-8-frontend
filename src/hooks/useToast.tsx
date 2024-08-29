@@ -19,7 +19,17 @@ const useToast = () => {
           <div
             className={`py-4 px-5 bg-GrayOpacity600 w-10/12 max-w-md rounded-[10px] mx-auto flex items-center justify-center ${className}`}
           >
-            {message}
+            {typeof message === 'string' ? (
+              <p
+                className={
+                  'flex flex-row items-center justify-center w-full gap-2 text-small-body font-medium text-white'
+                }
+              >
+                {message}
+              </p>
+            ) : (
+              message
+            )}
           </div>
         ),
         backdrop: false,
