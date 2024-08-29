@@ -5,4 +5,5 @@ interface ImportMetaEnv {
   readonly VITE_KAKAO_REDIRECT_URI: string;
   readonly VITE_REDIRECT_URI: string;
   readonly VITE_NODE_ENV: 'development' | 'production' | 'test';
+  readonly VITE_KAKAO_CLIENT_SECRET: string;
 }

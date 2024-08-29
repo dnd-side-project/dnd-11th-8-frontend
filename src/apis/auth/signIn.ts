@@ -1,5 +1,6 @@
 import { baseAxios } from '@/libs/baseAxios.ts';
 import axios from 'axios';
+import { formUrlEncoded } from '@/utils/encode/formUrlEncoded.ts';
 
 export interface SignInParams {
   idToken: string;
@@ -30,12 +31,21 @@ export type SignInResponse = SignInSuccessResponse | SignInPendingResponse;
 
 export const signIn = async ({ idToken, provider }: SignInParams) => {
   if (provider === 'kakao') {
-    const response = await axios.post<KakaoSignInResponse>('https://kauth.kakao.com/oauth/token', {
-      grant_type: 'authorization_code',
-      client_id: import.meta.env.VITE_KAKAO_REST_API_KEY,
-      redirect_uri: import.meta.env.VITE_REDIRECT_URI,
-      code: idToken,
-    });
+    const response = await axios.post<KakaoSignInResponse>(
+      'https://kauth.kakao.com/oauth/token',
+      formUrlEncoded({
+        grant_type: 'authorization_code',
+        client_id: import.meta.env.VITE_KAKAO_REST_API_KEY,
+        redirect_uri: import.meta.env.VITE_REDIRECT_URI,
+        code: idToken,
+        client_secret: import.meta.env.VITE_KAKAO_CLIENT_SECRET,
+      }),
+      {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      },
+    );
     idToken = response.data.id_token;
   }
 
