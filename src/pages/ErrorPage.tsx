@@ -3,6 +3,8 @@ import CTAButton from '@/components/common/CTAButton';
 import TabBar from '@/components/main/TabBar';
 import Screen from '@/layouts/Screen';
 
+// TODO: 다시 시도 버튼 기능 구현하기
+
 const ErrorPage = () => {
   return (
     <Screen className="flex items-center justify-center h-screen p-0">

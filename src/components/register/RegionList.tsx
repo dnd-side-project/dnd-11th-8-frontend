@@ -24,7 +24,7 @@ export const RegionList = ({ onSelectLocation, search }: RegionListProps) => {
   }, [search, debouncedUpdateSearch]);
 
   return (
-    <ul>
+    <ul className={'h-full overflow-auto hide-scrollbar'}>
       {locationList.map((location) => (
         <li
           className={'py-4 text-regular-body text-Gray800 font-medium'}
