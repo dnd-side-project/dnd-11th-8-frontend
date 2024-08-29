@@ -57,6 +57,7 @@ const LocationFunnel = ({ toNotificationTimeFunnel, goBack }: LocationFunnelProp
         description="거주하시는 시와 구 or 군을 입력해주세요."
         placeholder={'ex) 서울시 강남구'}
         onChange={changeSearchHandler}
+        onClear={() => setSearch('')}
       />
       <HeightBox height={15.75} />
       <Suspense
