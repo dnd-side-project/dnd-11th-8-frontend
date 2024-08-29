@@ -57,18 +57,18 @@ const LocationFunnel = ({ toNotificationTimeFunnel, goBack }: LocationFunnelProp
         description="거주하시는 시와 구 or 군을 입력해주세요."
         placeholder={'ex) 서울시 강남구'}
         onChange={changeSearchHandler}
+        onClear={() => setSearch('')}
       />
       <HeightBox height={15.75} />
       <Suspense
         fallback={
-          <div className={'mt-[30px] flex items-center justify-center'}>
-            <LuLoader2 className={'animate-spin'} />
+          <div className={'flex justify-center h-full'}>
+            <LuLoader2 className={'mt-6 animate-spin'} />
           </div>
         }
       >
         <RegionList search={search} onSelectLocation={onSelectLocation} />
       </Suspense>
-      <HeightBox height={'100%'} />
       <CTAButton
         text={'다음'}
         className={cn(selectedLocation === null ? 'bg-Gray300' : 'bg-BloomingGreen500')}

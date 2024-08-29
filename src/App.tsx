@@ -17,96 +17,94 @@ import ErrorPage from './pages/ErrorPage';
 
 function App() {
   return (
-    <div>
-      <BrowserRouter>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <PrivateRoute>
-                <Main />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path={'/my-plant/add'}
-            element={
-              <PrivateRoute>
-                <AddPlantPage />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="my-plant"
-            element={
-              <PrivateRoute>
-                <MyPlant />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path={'/my-plant/:plantId'}
-            element={
-              <PrivateRoute>
-                <MyPlantDetail />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path={'/my-plant/edit/:myPlantId'}
-            element={
-              <PrivateRoute>
-                <MyPlantEdit />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/guide/:id"
-            element={
-              <PrivateRoute>
-                <GuideDetails />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/guide"
-            element={
-              <PrivateRoute>
-                <Guide />
-              </PrivateRoute>
-            }
-          />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path={'/redirect'} element={<LoginRedirectPage />} />
-          <Route path={'/login/register'} element={<RegisterPage />} />
-          <Route
-            path="/profile"
-            element={
-              <PrivateRoute>
-                <Profile />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/profile/edit"
-            element={
-              <PrivateRoute>
-                <ModifyNickname />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path={'/profile/notification'}
-            element={
-              <PrivateRoute>
-                <AlimDetail />
-              </PrivateRoute>
-            }
-          />
-          <Route path="/*" element={<ErrorPage />} />
-        </Routes>
-      </BrowserRouter>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <PrivateRoute>
+              <Main />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path={'/my-plant/add'}
+          element={
+            <PrivateRoute>
+              <AddPlantPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="my-plant"
+          element={
+            <PrivateRoute>
+              <MyPlant />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path={'/my-plant/:plantId'}
+          element={
+            <PrivateRoute>
+              <MyPlantDetail />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path={'/my-plant/edit/:myPlantId'}
+          element={
+            <PrivateRoute>
+              <MyPlantEdit />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/guide/:id"
+          element={
+            <PrivateRoute>
+              <GuideDetails />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/guide"
+          element={
+            <PrivateRoute>
+              <Guide />
+            </PrivateRoute>
+          }
+        />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path={'/redirect'} element={<LoginRedirectPage />} />
+        <Route path={'/login/register'} element={<RegisterPage />} />
+        <Route
+          path="/profile"
+          element={
+            <PrivateRoute>
+              <Profile />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/profile/edit"
+          element={
+            <PrivateRoute>
+              <ModifyNickname />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path={'/profile/notification'}
+          element={
+            <PrivateRoute>
+              <AlimDetail />
+            </PrivateRoute>
+          }
+        />
+        <Route path="/*" element={<ErrorPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

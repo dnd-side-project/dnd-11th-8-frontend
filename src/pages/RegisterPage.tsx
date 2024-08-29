@@ -10,6 +10,7 @@ import useInternalRouter from '@/hooks/useInternalRouter.ts';
 import { ONE_DAY } from '@/constants/day.ts';
 import { useCookies } from 'react-cookie';
 import LoadingScreen from '@/components/common/LoadingScreen';
+import useToast from '@/hooks/useToast.tsx';
 
 type RegisterForm = {
   nickname: string;
@@ -24,6 +25,7 @@ const RegisterPage = () => {
     location: '',
     locationId: undefined,
   });
+  const { openToast } = useToast();
 
   const [step, setStep] = useState<
     '닉네임입력' | '주소입력' | '알림시간대입력' | '완료하기' | '로딩'
@@ -57,7 +59,13 @@ const RegisterPage = () => {
           });
         },
         onError: () => {
-          // TODO: 에러 퍼널 보여주기
+          openToast({
+            message: (
+              <p className="flex flex-row items-center justify-center w-full gap-2 text-small-body font-medium text-white">
+                회원가입에 실패했습니다. 다시 시도해주세요.
+              </p>
+            ),
+          });
         },
       },
     );
