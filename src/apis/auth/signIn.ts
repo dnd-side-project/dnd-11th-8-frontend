@@ -11,6 +11,8 @@ export interface SignInSuccessResponse {
   status: 'success';
   accessToken: string;
   refreshToken: string;
+  expiresIn: number;
+  refreshTokenExpiresIn: number;
 }
 
 export interface SignInPendingResponse {

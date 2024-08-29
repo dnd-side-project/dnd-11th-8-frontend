@@ -1,10 +1,9 @@
 import { useSearchParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useSignIn } from '@/queries/useSignIn.ts';
-import { LuLoader2 } from 'react-icons/lu';
 import useInternalRouter from '@/hooks/useInternalRouter.ts';
 import { useCookies } from 'react-cookie';
-import { ONE_DAY } from '@/constants/day.ts';
+import LoadingSpinner from '@/components/LoadingSpinner.tsx';
 
 const LoginRedirectPage = () => {
   const router = useInternalRouter();
@@ -28,10 +27,10 @@ const LoginRedirectPage = () => {
           switch (response.data.status) {
             case 'success':
               setCookie('access-token', response.data.accessToken, {
-                expires: new Date(Date.now() + ONE_DAY * 7),
+                expires: new Date(response.data.expiresIn),
               });
               setCookie('refresh-token', response.data.refreshToken, {
-                expires: new Date(Date.now() + ONE_DAY * 180),
+                expires: new Date(response.data.refreshTokenExpiresIn),
               });
               router.replace('/');
               break;
@@ -47,15 +46,7 @@ const LoginRedirectPage = () => {
     );
   }, [code, signIn, router, setCookie]);
 
-  return (
-    <div
-      className={
-        'w-screen h-screen fixed top-0 left-0 flex items-center justify-center bg-LoginBackground'
-      }
-    >
-      <LuLoader2 className={'animate-spin'} />
-    </div>
-  );
+  return <LoadingSpinner />;
 };
 
 export default LoginRedirectPage;
