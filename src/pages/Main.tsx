@@ -59,8 +59,7 @@ const Main = () => {
 
 export default withAsyncBoundary(Main, {
   rejectedFallback: ({ error, reset }) => {
-    console.log('error: ', error.message);
-    return <ErrorPage reset={reset} />;
+    return <ErrorPage reset={reset} error={error} />;
   },
   pendingFallback: <LoadingSpinner />,
 });
