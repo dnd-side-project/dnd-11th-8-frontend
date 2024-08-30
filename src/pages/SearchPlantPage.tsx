@@ -14,13 +14,11 @@ interface SearchPlantPageProps {
   onClose: () => void;
 }
 
-// TODO: 서스펜스 폴백 수정
-
 const SearchPlantPage = ({ onClose }: SearchPlantPageProps) => {
   const [query, setQuery] = useState('');
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const debouncedSetQuery = useCallback(debounce(setQuery, 200), []);
+  const debouncedSetQuery = useCallback(debounce(setQuery, 500), []);
 
   return (
     <Screen>
