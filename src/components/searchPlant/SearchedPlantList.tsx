@@ -11,6 +11,7 @@ import HeightBox from '@/components/common/HeightBox';
 import PlusGreen from '@/assets/icon/PlusGreen.svg';
 import CenterBottomSheet from '@/components/common/CenterBottomSheet';
 import TextFieldV2 from '@/components/common/TextFieldV2';
+import ListSkeleton from '@/components/common/Skeleton/ListSkeleton.tsx';
 
 interface SearchedPlantListProps {
   query: string;
@@ -18,15 +19,13 @@ interface SearchedPlantListProps {
 }
 
 const SearchedPlantList = ({ query, onClose }: SearchedPlantListProps) => {
-  const response = useSearchPlant(query);
+  const { data, isLoading } = useSearchPlant(query);
   const { setPlantType, plantType } = usePlantTypeSearchParams();
   const { openToast } = useToast();
 
   const [customPlant, setCustomPlant] = useState('');
 
   const [open, setOpen] = useState(false);
-
-  const data = response.data;
 
   const onClick = (name: string, id?: number) => {
     setPlantType(name, id);
@@ -46,11 +45,15 @@ const SearchedPlantList = ({ query, onClose }: SearchedPlantListProps) => {
     });
   };
 
-  let content: JSX.Element | JSX.Element[] | null;
+  if (isLoading) {
+    return <ListSkeleton />;
+  }
+
+  let content: JSX.Element | JSX.Element[] | null | undefined;
 
   if (query === '') {
     content = null;
-  } else if (response.data.length === 0) {
+  } else if (data?.length === 0) {
     content = (
       <div className="mt-[80px] flex flex-col items-center w-full">
         <EmptyListIcon />
@@ -95,7 +98,7 @@ const SearchedPlantList = ({ query, onClose }: SearchedPlantListProps) => {
       </div>
     );
   } else {
-    content = data.map((plant) => (
+    content = data?.map((plant) => (
       <List
         name={plant.name}
         image={plant.imageUrl}
