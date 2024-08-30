@@ -11,6 +11,8 @@ export interface UserRegisterParams {
 export interface UserRegisterResponse {
   accessToken: string;
   refreshToken: string;
+  expiresIn: number;
+  refreshTokenExpiresIn: number;
 }
 
 export const registerUser = async ({ registerToken, ...data }: UserRegisterParams) =>

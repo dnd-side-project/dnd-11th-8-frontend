@@ -7,7 +7,6 @@ import { NumericRange } from '@/types/NewmericRange.ts';
 import CompleteFunnel from '@/funnel/register/CompleteFunnel.tsx';
 import { useRegisterUser } from '@/queries/useRegisterUser.ts';
 import useInternalRouter from '@/hooks/useInternalRouter.ts';
-import { ONE_DAY } from '@/constants/day.ts';
 import { useCookies } from 'react-cookie';
 import useToast from '@/hooks/useToast.tsx';
 import LoadingSpinner from '@/components/LoadingSpinner.tsx';
@@ -50,12 +49,13 @@ const RegisterPage = () => {
       { ...data, registerToken },
       {
         onSuccess: (response) => {
+          const currentDate = new Date();
           setStep('완료하기');
           setCookie('access-token', response.data.accessToken, {
-            expires: new Date(Date.now() + ONE_DAY * 7),
+            expires: new Date(currentDate.getTime() + response.data.expiresIn),
           });
           setCookie('refresh-token', response.data.refreshToken, {
-            expires: new Date(Date.now() + ONE_DAY * 180),
+            expires: new Date(currentDate.getTime() + response.data.refreshTokenExpiresIn),
           });
         },
         onError: () => {

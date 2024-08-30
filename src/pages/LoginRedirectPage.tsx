@@ -24,13 +24,14 @@ const LoginRedirectPage = () => {
       },
       {
         onSuccess: (response) => {
+          const currentDate = new Date();
           switch (response.data.status) {
             case 'success':
               setCookie('access-token', response.data.accessToken, {
-                expires: new Date(response.data.expiresIn),
+                expires: new Date(currentDate.getTime() + response.data.expiresIn),
               });
               setCookie('refresh-token', response.data.refreshToken, {
-                expires: new Date(response.data.refreshTokenExpiresIn),
+                expires: new Date(currentDate.getTime() + response.data.refreshTokenExpiresIn),
               });
               router.replace('/');
               break;
