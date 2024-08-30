@@ -7,7 +7,9 @@ export const baseAxios = axios.create({
 
 export const privateAxios = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
-  headers: {
-    Authorization: `Bearer ${getCookie('access-token')}`,
-  },
+});
+
+privateAxios.interceptors.request.use((config) => {
+  config.headers.Authorization = `Bearer ${getCookie('access-token')}`;
+  return config;
 });
