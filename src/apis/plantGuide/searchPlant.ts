@@ -6,6 +6,6 @@ export type SearchPlantResponse = {
 }[];
 
 export const searchPlant = async (query: string) => {
-  const response = await privateAxios.get<SearchPlantResponse>(`/plants?search=${query}`);
+  const response = await privateAxios.get<SearchPlantResponse>(`/plants?plantName=${query}`);
   return response.data;
 };
