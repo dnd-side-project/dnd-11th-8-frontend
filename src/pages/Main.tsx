@@ -17,7 +17,7 @@ const Main = () => {
   const { openToast } = useToast();
   const { data: homeData } = useGetHomeData();
 
-  const register = homeData.myPlantInfo.length === 0;
+  const register = homeData.myPlantInfo.length !== 0;
 
   const requestPermission = useCallback(async () => {
     const permission = await Notification.requestPermission();
