@@ -10,7 +10,7 @@ export const handlers = [
   http.get(import.meta.env.VITE_API_URL + '/plants', async ({ request }) => {
     await delay(1000);
     const url = new URL(request.url);
-    const query = url.searchParams.get('search');
+    const query = url.searchParams.get('plantName');
 
     if (!query) {
       return HttpResponse.json([]);
