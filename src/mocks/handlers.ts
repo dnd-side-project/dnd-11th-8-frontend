@@ -4,7 +4,6 @@ import { plantLocation } from '@/mocks/mockDatas/plantLocation.ts';
 import { myPlantDetail } from '@/mocks/mockDatas/myPlantDetail.ts';
 import { randomSigninData } from '@/mocks/mockDatas/randomSigninData.ts';
 import { regions } from '@/mocks/mockDatas/regions.ts';
-import { homeData } from '@/mocks/mockDatas/homeData.ts';
 import { weathers } from '@/mocks/mockDatas/weatherMessage.ts';
 
 export const handlers = [
@@ -120,7 +119,10 @@ export const handlers = [
   http.get(import.meta.env.VITE_API_URL + '/home', async () => {
     await delay(1000);
 
-    return HttpResponse.json(homeData);
+    return HttpResponse.json({
+      greetingMessage: '최기환님 좋아요!\n초보식집사로서 멋진 데뷔네요.',
+      myPlantInfo: [],
+    });
   }),
 
   http.get(import.meta.env.VITE_API_URL + '/weather-message', async () => {
