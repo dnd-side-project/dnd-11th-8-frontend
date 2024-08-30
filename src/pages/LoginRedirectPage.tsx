@@ -4,6 +4,7 @@ import { useSignIn } from '@/queries/useSignIn.ts';
 import useInternalRouter from '@/hooks/useInternalRouter.ts';
 import { useCookies } from 'react-cookie';
 import LoadingSpinner from '@/components/LoadingSpinner.tsx';
+import { SECOND } from '@/constants/day.ts';
 
 const LoginRedirectPage = () => {
   const router = useInternalRouter();
@@ -28,10 +29,12 @@ const LoginRedirectPage = () => {
           switch (response.data.status) {
             case 'success':
               setCookie('access-token', response.data.accessToken, {
-                expires: new Date(currentDate.getTime() + response.data.expiresIn),
+                expires: new Date(currentDate.getTime() + response.data.expiresIn * SECOND),
               });
               setCookie('refresh-token', response.data.refreshToken, {
-                expires: new Date(currentDate.getTime() + response.data.refreshTokenExpiresIn),
+                expires: new Date(
+                  currentDate.getTime() + response.data.refreshTokenExpiresIn * SECOND,
+                ),
               });
               router.replace('/');
               break;
