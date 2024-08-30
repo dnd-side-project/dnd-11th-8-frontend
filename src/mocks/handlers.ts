@@ -7,7 +7,7 @@ import { regions } from '@/mocks/mockDatas/regions.ts';
 import { weathers } from '@/mocks/mockDatas/weatherMessage.ts';
 
 export const handlers = [
-  http.get(import.meta.env.VITE_API_URL + '/plants', async ({ request }) => {
+  http.post(import.meta.env.VITE_API_URL + '/plants', async ({ request }) => {
     await delay(1000);
     const url = new URL(request.url);
     const query = url.searchParams.get('plantName');

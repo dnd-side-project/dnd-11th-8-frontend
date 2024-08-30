@@ -98,9 +98,7 @@ const SearchedPlantList = ({ query, onClose }: SearchedPlantListProps) => {
     content = data.map((plant) => (
       <List
         name={plant.name}
-        image={
-          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhKx2Fwr5Y8BEdj-CjHu5beloCcpqRVg6uJpTK6yH9vtSz_I9o'
-        }
+        image={plant.imageUrl}
         key={`SearchedPlantList-${plant.plantId}`}
         trailingIcon={
           <button type={'button'} onClick={() => onClick(plant.name, plant.plantId)}>
