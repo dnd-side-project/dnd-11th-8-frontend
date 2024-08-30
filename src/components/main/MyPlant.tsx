@@ -21,9 +21,8 @@ const MyPlant: React.FC<MyPlantProps> = ({ register, myPlantsInfo, greetingMessa
         {register ? (
           <RegisterMyPlant greetingMessage={greetingMessage} />
         ) : (
-          <div className="text-small-title text-Gray900 pt-[36.1px] pb-[30.3px]">
-            <p>김루밍님</p>
-            <p>블루밍에 오신걸 환영해요</p>
+          <div className="text-small-title text-Gray900 pt-[36.1px] pb-[30.3px] whitespace-pre-wrap">
+            {greetingMessage}
           </div>
         )}
       </div>
