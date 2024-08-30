@@ -10,6 +10,7 @@ import useInternalRouter from '@/hooks/useInternalRouter.ts';
 import { useCookies } from 'react-cookie';
 import useToast from '@/hooks/useToast.tsx';
 import LoadingSpinner from '@/components/LoadingSpinner.tsx';
+import { SECOND } from '@/constants/day.ts';
 
 type RegisterForm = {
   nickname: string;
@@ -52,10 +53,10 @@ const RegisterPage = () => {
           const currentDate = new Date();
           setStep('완료하기');
           setCookie('access-token', response.data.accessToken, {
-            expires: new Date(currentDate.getTime() + response.data.expiresIn),
+            expires: new Date(currentDate.getTime() + response.data.expiresIn * SECOND),
           });
           setCookie('refresh-token', response.data.refreshToken, {
-            expires: new Date(currentDate.getTime() + response.data.refreshTokenExpiresIn),
+            expires: new Date(currentDate.getTime() + response.data.refreshTokenExpiresIn * SECOND),
           });
         },
         onError: () => {
