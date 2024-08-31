@@ -14,7 +14,6 @@ interface SearchPlantPageProps {
 const SearchPlantPage = ({ onClose }: SearchPlantPageProps) => {
   const [query, setQuery] = useState('');
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedSetQuery = useCallback(debounce(setQuery, 500), []);
 
   return (

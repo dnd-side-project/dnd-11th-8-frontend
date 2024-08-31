@@ -5,6 +5,7 @@ import { myPlantDetail } from '@/mocks/mockDatas/myPlantDetail.ts';
 import { randomSigninData } from '@/mocks/mockDatas/randomSigninData.ts';
 import { regions } from '@/mocks/mockDatas/regions.ts';
 import { weathers } from '@/mocks/mockDatas/weatherMessage.ts';
+import { refreshAccessTokenResponseData } from '@/mocks/mockDatas/refreshAccessToken.ts';
 
 export const handlers = [
   http.post(import.meta.env.VITE_API_URL + '/plants', async ({ request }) => {
@@ -129,5 +130,10 @@ export const handlers = [
     await delay(1000);
 
     return HttpResponse.json(weathers);
+  }),
+
+  http.post(import.meta.env.VITE_API_URL + '/token', async () => {
+    await delay(1000);
+    return HttpResponse.json(refreshAccessTokenResponseData);
   }),
 ];

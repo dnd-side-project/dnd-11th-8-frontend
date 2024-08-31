@@ -7,10 +7,10 @@ import { NumericRange } from '@/types/NewmericRange.ts';
 import CompleteFunnel from '@/funnel/register/CompleteFunnel.tsx';
 import { useRegisterUser } from '@/queries/useRegisterUser.ts';
 import useInternalRouter from '@/hooks/useInternalRouter.ts';
-import { useCookies } from 'react-cookie';
 import useToast from '@/hooks/useToast.tsx';
 import LoadingSpinner from '@/components/LoadingSpinner.tsx';
 import { SECOND } from '@/constants/day.ts';
+import { useToken } from '@/hooks/useToken.ts';
 
 type RegisterForm = {
   nickname: string;
@@ -19,7 +19,7 @@ type RegisterForm = {
 };
 
 const RegisterPage = () => {
-  const [, setCookie] = useCookies(['access-token', 'refresh-token']);
+  const { setRefreshToken, setAccessToken } = useToken();
   const [registerForm, setRegisterForm] = useState<RegisterForm>({
     nickname: '',
     location: '',
@@ -50,13 +50,14 @@ const RegisterPage = () => {
       { ...data, registerToken },
       {
         onSuccess: (response) => {
-          const currentDate = new Date();
           setStep('완료하기');
-          setCookie('access-token', response.data.accessToken, {
-            expires: new Date(currentDate.getTime() + response.data.expiresIn * SECOND),
+          setAccessToken({
+            token: response.data.accessToken,
+            expiresIn: response.data.expiresIn * SECOND,
           });
-          setCookie('refresh-token', response.data.refreshToken, {
-            expires: new Date(currentDate.getTime() + response.data.refreshTokenExpiresIn * SECOND),
+          setRefreshToken({
+            token: response.data.refreshToken,
+            expiresIn: response.data.refreshTokenExpiresIn * SECOND,
           });
         },
         onError: () => {
