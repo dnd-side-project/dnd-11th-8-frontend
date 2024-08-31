@@ -20,6 +20,7 @@ export const keyStore = createQueryKeyStore({
   },
   auth: {
     signIn: null,
+    refreshAccessToken: null,
   },
   user: {
     register: null,

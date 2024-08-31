@@ -2,13 +2,13 @@ import { useSearchParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useSignIn } from '@/queries/useSignIn.ts';
 import useInternalRouter from '@/hooks/useInternalRouter.ts';
-import { useCookies } from 'react-cookie';
 import LoadingSpinner from '@/components/LoadingSpinner.tsx';
 import { SECOND } from '@/constants/day.ts';
+import { useToken } from '@/hooks/useToken.ts';
 
 const LoginRedirectPage = () => {
   const router = useInternalRouter();
-  const [, setCookie] = useCookies(['access-token', 'refresh-token']);
+  const { setAccessToken, setRefreshToken } = useToken();
   const { mutate: signIn } = useSignIn();
   const [searchParams] = useSearchParams();
   const code = searchParams.get('code');
@@ -25,16 +25,15 @@ const LoginRedirectPage = () => {
       },
       {
         onSuccess: (response) => {
-          const currentDate = new Date();
           switch (response.data.status) {
             case 'success':
-              setCookie('access-token', response.data.accessToken, {
-                expires: new Date(currentDate.getTime() + response.data.expiresIn * SECOND),
+              setAccessToken({
+                token: response.data.accessToken,
+                expiresIn: response.data.expiresIn * SECOND,
               });
-              setCookie('refresh-token', response.data.refreshToken, {
-                expires: new Date(
-                  currentDate.getTime() + response.data.refreshTokenExpiresIn * SECOND,
-                ),
+              setRefreshToken({
+                token: response.data.refreshToken,
+                expiresIn: response.data.refreshTokenExpiresIn * SECOND,
               });
               router.replace('/');
               break;
@@ -48,7 +47,7 @@ const LoginRedirectPage = () => {
         },
       },
     );
-  }, [code, signIn, router, setCookie]);
+  }, [code, signIn, router, setAccessToken, setRefreshToken]);
 
   return <LoadingSpinner />;
 };

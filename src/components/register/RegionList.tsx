@@ -16,7 +16,6 @@ export const RegionList = ({ onSelectLocation, search }: RegionListProps) => {
     setSearch(search);
   };
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedUpdateSearch = useCallback(debounce(updateSearch, 300), []);
 
   useEffect(() => {

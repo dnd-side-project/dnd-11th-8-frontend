@@ -12,10 +12,15 @@ import { useGetHomeData } from '@/queries/useGetHomeData.ts';
 import { withAsyncBoundary } from '@toss/async-boundary';
 import ErrorPage from '@/pages/ErrorPage.tsx';
 import LoadingSpinner from '@/components/LoadingSpinner.tsx';
+import { useRefreshAccessToken } from '@/queries/useRefreshAccessToken.ts';
+import { useToken } from '@/hooks/useToken.ts';
+import { SECOND } from '@/constants/day.ts';
 
 const Main = () => {
   const { openToast } = useToast();
   const { data: homeData } = useGetHomeData();
+  const { mutate: refreshAccessToken } = useRefreshAccessToken();
+  const { getRefreshToken, isValidToken, setRefreshToken, setAccessToken } = useToken();
 
   const register = homeData.myPlantInfo.length !== 0;
 
@@ -42,6 +47,25 @@ const Main = () => {
   useEffect(() => {
     void requestPermission();
   }, [requestPermission]);
+
+  useEffect(() => {
+    const refreshToken = getRefreshToken();
+    if (isValidToken(refreshToken)) {
+      refreshAccessToken(refreshToken, {
+        onSuccess: (response) => {
+          const { accessToken, refreshToken, expiresIn, refreshTokenExpiresIn } = response.data;
+          setAccessToken({
+            token: accessToken,
+            expiresIn: expiresIn * SECOND,
+          });
+          setRefreshToken({
+            token: refreshToken,
+            expiresIn: refreshTokenExpiresIn * SECOND,
+          });
+        },
+      });
+    }
+  }, []);
 
   return (
     <Screen className="bg-Gray50 min-h-dvh">
