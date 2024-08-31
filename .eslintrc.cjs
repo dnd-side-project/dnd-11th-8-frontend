@@ -17,5 +17,6 @@ module.exports = {
     'react/react-in-jsx-scope': 0,
     'react-refresh/only-export-components': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
+    'react-hooks/exhaustive-deps': 'off',
   },
 };
