@@ -2,14 +2,15 @@ import GuideDetailsProps from '@/types/GuideDetailsProps';
 
 const DetailItem: React.FC<{
   item: GuideDetailsProps['detailView'][keyof GuideDetailsProps['detailView']];
-}> = ({ item }) => {
+  icon: string;
+}> = ({ item, icon }) => {
   const formatDescription = (description?: string) => {
     return description ? { __html: description.replace(/\n/g, '<br />') } : { __html: '' };
   };
 
   return (
     <div className="px-[24px] mb-[40px]">
-      <img src={item.icon} alt="아이콘" />
+      <img src={icon} alt="아이콘" />
       <h3 className="text-[17px] font-bold text-LabelNormal py-[10px]">{item.title}</h3>
       {item.springsummerfallSubTitle && (
         <>

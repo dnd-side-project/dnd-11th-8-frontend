@@ -1,11 +1,9 @@
 interface SimpleViewItem {
-  icon: string;
   title: string;
   description: string;
 }
 
 interface DetailedViewItem {
-  icon: string;
   title: string;
   springsummerfallSubTitle?: string;
   springsummerfallDescription?: string;
