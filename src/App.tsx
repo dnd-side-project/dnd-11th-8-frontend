@@ -14,13 +14,23 @@ import RegisterPage from '@/pages/RegisterPage.tsx';
 import MyPlantEdit from '@/pages/MyPlantEdit.tsx';
 import AlimDetail from '@/pages/AlimDetail.tsx';
 import ErrorPage from './pages/ErrorPage';
+import { useCallback } from 'react';
 
 function App() {
+  const refresh = useCallback(() => {
+    window.location.reload();
+  }, []);
   return (
     <BrowserRouter>
       <Routes>
         <Route
           path="/"
+          errorElement={
+            <ErrorPage
+              error={new Error('에러가 발생했습니다. 다시 시도해 주세요.')}
+              reset={refresh}
+            />
+          }
           element={
             <PrivateRoute>
               <Main />
@@ -29,6 +39,12 @@ function App() {
         />
         <Route
           path={'/my-plant/add'}
+          errorElement={
+            <ErrorPage
+              error={new Error('에러가 발생했습니다. 다시 시도해 주세요.')}
+              reset={refresh}
+            />
+          }
           element={
             <PrivateRoute>
               <AddPlantPage />
@@ -37,6 +53,12 @@ function App() {
         />
         <Route
           path="my-plant"
+          errorElement={
+            <ErrorPage
+              error={new Error('에러가 발생했습니다. 다시 시도해 주세요.')}
+              reset={refresh}
+            />
+          }
           element={
             <PrivateRoute>
               <MyPlant />
@@ -45,6 +67,12 @@ function App() {
         />
         <Route
           path={'/my-plant/:plantId'}
+          errorElement={
+            <ErrorPage
+              error={new Error('에러가 발생했습니다. 다시 시도해 주세요.')}
+              reset={refresh}
+            />
+          }
           element={
             <PrivateRoute>
               <MyPlantDetail />
@@ -53,6 +81,12 @@ function App() {
         />
         <Route
           path={'/my-plant/edit/:myPlantId'}
+          errorElement={
+            <ErrorPage
+              error={new Error('에러가 발생했습니다. 다시 시도해 주세요.')}
+              reset={refresh}
+            />
+          }
           element={
             <PrivateRoute>
               <MyPlantEdit />
@@ -61,6 +95,12 @@ function App() {
         />
         <Route
           path="/guide/:id"
+          errorElement={
+            <ErrorPage
+              error={new Error('에러가 발생했습니다. 다시 시도해 주세요.')}
+              reset={refresh}
+            />
+          }
           element={
             <PrivateRoute>
               <GuideDetails />
@@ -69,6 +109,12 @@ function App() {
         />
         <Route
           path="/guide"
+          errorElement={
+            <ErrorPage
+              error={new Error('에러가 발생했습니다. 다시 시도해 주세요.')}
+              reset={refresh}
+            />
+          }
           element={
             <PrivateRoute>
               <Guide />
@@ -80,6 +126,12 @@ function App() {
         <Route path={'/login/register'} element={<RegisterPage />} />
         <Route
           path="/profile"
+          errorElement={
+            <ErrorPage
+              error={new Error('에러가 발생했습니다. 다시 시도해 주세요.')}
+              reset={refresh}
+            />
+          }
           element={
             <PrivateRoute>
               <Profile />
@@ -88,6 +140,12 @@ function App() {
         />
         <Route
           path="/profile/edit"
+          errorElement={
+            <ErrorPage
+              error={new Error('에러가 발생했습니다. 다시 시도해 주세요.')}
+              reset={refresh}
+            />
+          }
           element={
             <PrivateRoute>
               <ModifyNickname />
@@ -96,6 +154,12 @@ function App() {
         />
         <Route
           path={'/profile/notification'}
+          errorElement={
+            <ErrorPage
+              error={new Error('에러가 발생했습니다. 다시 시도해 주세요.')}
+              reset={refresh}
+            />
+          }
           element={
             <PrivateRoute>
               <AlimDetail />

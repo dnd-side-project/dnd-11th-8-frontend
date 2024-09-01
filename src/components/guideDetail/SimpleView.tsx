@@ -1,6 +1,7 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import GuideDetailsProps from '@/types/GuideDetailsProps';
 import seeMoreBtnIcon from '@/assets/icon/guideDetailDownArrow.svg';
+import { guideDetailIconMap } from '@/constants/guideIconMap.ts';
 
 const SimpleView: React.FC<{ items: GuideDetailsProps['simpleView'] }> = ({ items }) => {
   const keys = Object.keys(items) as Array<keyof typeof items>;
@@ -25,7 +26,7 @@ const SimpleView: React.FC<{ items: GuideDetailsProps['simpleView'] }> = ({ item
             key={key}
             className="bg-GrayOpacity100 w-full min-h-[128px] rounded-[10px] flex flex-col px-[20px] py-[15px] gap-[8px]"
           >
-            <img className="w-[24px] h-[24px]" src={items[key].icon} alt="아이콘" />
+            <img className="w-[24px] h-[24px]" src={guideDetailIconMap[key]} alt="아이콘" />
             <h3 className="text-Gray900 text-[15px] font-semibold">{items[key].title}</h3>
             <p
               className="mt-[8px] text-[13px] text-Gray600 font-medium w-full"
@@ -43,7 +44,7 @@ const SimpleView: React.FC<{ items: GuideDetailsProps['simpleView'] }> = ({ item
             key={key}
             className="bg-GrayOpacity100 w-full min-h-[128px] rounded-[10px] flex flex-col px-[20px] py-[15px] gap-[8px]"
           >
-            <img className="w-[24px] h-[24px]" src={items[key].icon} alt="아이콘" />
+            <img className="w-[24px] h-[24px]" src={guideDetailIconMap[key]} alt="아이콘" />
             <h3 className="text-Gray900 text-[15px] font-semibold">{items[key].title}</h3>
             <p
               className="mt-[8px] text-[13px] text-Gray600 font-medium w-full"

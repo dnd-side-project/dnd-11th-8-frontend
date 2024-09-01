@@ -1,6 +1,7 @@
 import GuideDetailsProps from '@/types/GuideDetailsProps';
 
 import DetailItem from './DetailItem';
+import { guideDetailIconMap } from '@/constants/guideIconMap.ts';
 
 const DetailView: React.FC<{ items: GuideDetailsProps['detailView'] }> = ({ items }) => {
   const keys = Object.keys(items) as Array<keyof typeof items>;
@@ -10,7 +11,7 @@ const DetailView: React.FC<{ items: GuideDetailsProps['detailView'] }> = ({ item
       {keys.map((key) => (
         <div key={key}>
           <div className="mb-[40px] w-full h-[10px] bg-Gray100 border-Gray500" />
-          <DetailItem item={items[key]} />
+          <DetailItem item={items[key]} icon={guideDetailIconMap[key]} />
         </div>
       ))}
     </div>
