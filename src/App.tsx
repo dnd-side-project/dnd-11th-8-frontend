@@ -14,12 +14,25 @@ import RegisterPage from '@/pages/RegisterPage.tsx';
 import MyPlantEdit from '@/pages/MyPlantEdit.tsx';
 import AlimDetail from '@/pages/AlimDetail.tsx';
 import ErrorPage from './pages/ErrorPage';
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 
 function App() {
   const refresh = useCallback(() => {
     window.location.reload();
   }, []);
+
+  useEffect(() => {
+    const handleContextMenu = (e: MouseEvent) => {
+      e.preventDefault();
+    };
+
+    document.addEventListener('contextmenu', handleContextMenu);
+
+    return () => {
+      document.removeEventListener('contextmenu', handleContextMenu);
+    };
+  }, []);
+
   return (
     <BrowserRouter>
       <Routes>
