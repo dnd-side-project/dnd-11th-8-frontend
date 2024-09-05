@@ -26,6 +26,10 @@ export const keyStore = createQueryKeyStore({
   user: {
     register: null,
     regions: (query: string) => [query],
+    getMyPageData: null,
+    updateNickname: null,
+    updateAlarmStatus: null,
+    updateAlarmTime: null,
   },
   home: {
     getHomeData: null,
