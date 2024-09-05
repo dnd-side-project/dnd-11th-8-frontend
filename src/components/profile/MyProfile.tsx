@@ -15,7 +15,7 @@ const MyProfile: React.FC<MyProfileProps> = ({ justImg, myProfile }) => {
           {justImg === true ? (
             ''
           ) : (
-            <img src={pencil} alt="수정하기 아이콘" onClick={() => push('/profile/edit')} />
+            <img src={pencil} alt="수정하기 아이콘" onClick={() => push(`/profile/edit`)} />
           )}
         </div>
       </div>

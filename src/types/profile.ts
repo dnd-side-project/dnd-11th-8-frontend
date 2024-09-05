@@ -8,5 +8,5 @@ interface MyProfiles {
 
 export interface MyProfileProps {
   justImg?: boolean;
-  myProfile?: MyProfiles;
+  myProfile: MyProfiles;
 }

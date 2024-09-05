@@ -1,8 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Toggle from '../common/Toggle';
 import pencil from '@/assets/icon/pencil.svg';
 import BottomSheet from '@/components/common/BottomSheet';
 import { MyProfileProps } from '@/types/profile';
+import { useUpdateAlarmStatus } from '@/queries/useUpdateAlarmStatus.ts';
+import { useUpdateAlarmTime } from '@/queries/useUpdateAlarmTime.ts';
 
 const timeMap = {
   'AM 06-07': 0,
@@ -26,35 +28,39 @@ const timeMap = {
   'AM 12-01': 18,
 };
 
-const reverseTimeMap = Object.fromEntries(
-  Object.entries(timeMap).map(([key, value]) => [value, key]),
-);
+const getTimeLabel = (alarmTime: number): string => {
+  const label = Object.entries(timeMap).find((item) => item[1] === alarmTime);
 
-const getTimeLabel = (alarmTime: number | null): string => {
-  if (alarmTime === null || !(alarmTime in reverseTimeMap)) {
-    return '시간 선택';
+  if (!label) {
+    throw Error('유효하지 않은 알람 시간대 입니다.');
   }
-  return reverseTimeMap[alarmTime];
+
+  return label[0];
 };
 
 const SetNotifications: React.FC<MyProfileProps> = ({ myProfile }) => {
   const [isBottomSheetOpen, setBottomSheetOpen] = useState(false);
-  const [isChecked, setIsChecked] = useState<boolean>(false);
-  const [selectedTime, setSelectedTime] = useState<string | null>(null);
+  const [selectedTime, setSelectedTime] = useState<number | undefined>();
+  const { mutate: updateAlarmStatus } = useUpdateAlarmStatus();
+  const { mutate: updateAlarmTime } = useUpdateAlarmTime();
 
-  useEffect(() => {
-    if (myProfile?.alarmStatus !== undefined) {
-      setIsChecked(myProfile.alarmStatus);
-    }
-    setSelectedTime(getTimeLabel(myProfile?.alarmTime ?? null));
-  }, [myProfile?.alarmStatus, myProfile?.alarmTime]);
-
-  const handleCheckedChange = (checked: boolean) => {
-    setIsChecked(checked);
+  const handleCheckedChange = () => {
+    updateAlarmStatus(!myProfile.alarmStatus);
   };
 
-  const handleTimeSelect = (time: string) => {
-    setSelectedTime(time);
+  const handleTimeSelect = (value: number) => {
+    setSelectedTime(value);
+  };
+
+  useEffect(() => {
+    setSelectedTime(myProfile.alarmTime);
+  }, [myProfile.alarmTime]);
+
+  const handleAlarmTimeSubmit = () => {
+    if (!selectedTime) return;
+
+    updateAlarmTime(selectedTime);
+    setBottomSheetOpen(false);
   };
 
   return (
@@ -65,13 +71,13 @@ const SetNotifications: React.FC<MyProfileProps> = ({ myProfile }) => {
       <section className="flex flex-col gap-[10px]">
         <div className="box-border flex w-[calc(100%-40px)] mx-auto px-[24px] py-[16px] bg-white border border-GrayOpacity100 items-center justify-between rounded-[10px]">
           <p className="text-Gray800 text-[15px] font-medium">블루밍 알림 설정</p>
-          <Toggle checked={isChecked} onCheckedChange={handleCheckedChange} />
+          <Toggle checked={myProfile.alarmStatus} onCheckedChange={() => handleCheckedChange()} />
         </div>
-        {isChecked && (
+        {myProfile.alarmStatus && (
           <div className="box-border flex w-[calc(100%-40px)] mx-auto px-[24px] py-[16px] bg-white border border-GrayOpacity100 items-center justify-between rounded-[10px] text-[15px] font-medium">
             <p className="text-Gray800">알림 시간대</p>
             <div className="flex gap-[10px] items-center">
-              <p className="text-BloomingGreen500">{selectedTime}</p>
+              <p className="text-BloomingGreen500">{getTimeLabel(myProfile.alarmTime)}</p>
               <img
                 src={pencil}
                 alt="수정하기 아이콘"
@@ -91,17 +97,17 @@ const SetNotifications: React.FC<MyProfileProps> = ({ myProfile }) => {
           <div className="px-[24px] py-[10px]">
             <div className="max-h-[260px] overflow-y-auto">
               <ul className="p-0 list-none">
-                {Object.keys(timeMap).map((time) => (
+                {Object.entries(timeMap).map(([title, value]) => (
                   <li
-                    key={time}
+                    key={title}
                     className={`text-[17px] rounded-[10px] py-[15px] px-[24px] text-center transition-colors ${
-                      selectedTime === time
+                      selectedTime === value
                         ? 'bg-GrayOpacity100 text-black'
                         : 'text-Gray400 hover:bg-GrayOpacity100 hover:text-black'
                     } cursor-pointer`}
-                    onClick={() => handleTimeSelect(time)}
+                    onClick={() => handleTimeSelect(value)}
                   >
-                    {time}
+                    {title}
                   </li>
                 ))}
               </ul>
@@ -111,7 +117,7 @@ const SetNotifications: React.FC<MyProfileProps> = ({ myProfile }) => {
         actions={[
           <button
             key="confirm"
-            onClick={() => setBottomSheetOpen(false)}
+            onClick={handleAlarmTimeSubmit}
             className="w-full py-[18px] px-[28px] bg-BloomingGreen500 text-white rounded-[16px]"
           >
             확인
