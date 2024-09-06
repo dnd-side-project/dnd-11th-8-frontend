@@ -45,12 +45,14 @@ const MyPlant = () => {
   switch (sort) {
     case 'created_asc':
       myPlant.sort(
-        (a, b) => new Date(a.registerDate).getTime() - new Date(b.registerDate).getTime(),
+        (a, b) =>
+          new Date(a.registeredDateTime).getTime() - new Date(b.registeredDateTime).getTime(),
       );
       break;
     case 'created_desc':
       myPlant.sort(
-        (a, b) => new Date(b.registerDate).getTime() - new Date(a.registerDate).getTime(),
+        (a, b) =>
+          new Date(b.registeredDateTime).getTime() - new Date(a.registeredDateTime).getTime(),
       );
       break;
     case 'no_location':

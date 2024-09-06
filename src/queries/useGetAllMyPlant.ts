@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import { keyStore } from './keyStore';
-import { getMyAllPlant, LocationQueryParams } from '@/apis/myPlant/getMyAllPlant';
+import { getMyAllPlant } from '@/apis/myPlant/getMyAllPlant';
 
-export const useGetAllMyPlant = (query?: LocationQueryParams) =>
+export const useGetAllMyPlant = () =>
   useQuery({
-    queryKey: keyStore.myPlant.getMyAllPlant(query).queryKey,
-    queryFn: () => getMyAllPlant(query),
+    queryKey: keyStore.myPlant.getMyAllPlant.queryKey,
+    queryFn: getMyAllPlant,
   });

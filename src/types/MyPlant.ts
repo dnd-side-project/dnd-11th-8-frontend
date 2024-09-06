@@ -7,7 +7,7 @@ interface Plant {
   dateSinceLastWater: number | null; //null 이면 기록없음
   dateSinceLastFertilizer: number | null; //null 이면 기록없음
   dateSinceLastHealthCheck: number | null;
-  registerDate: string;
+  registeredDateTime: string;
   locationId: number | null;
 }
 export default Plant;
