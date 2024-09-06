@@ -10,12 +10,14 @@ interface HeaderProps {
 
 const Header = ({ title, left, right, className }: HeaderProps) => {
   return (
-    <header className={'relative h-[30px] mt-[30px]'}>
-      <div className={'absolute left-0 top-1/2 -translate-y-1/2'}>{left}</div>
-      <h1 className={cn('text-center text-Gray-900 text-small-title font-semibold', className)}>
+    <header className={'grid grid-cols-3 pt-[30px]'}>
+      <div className={'w-full flex flex-row justify-start items-center'}>{left}</div>
+      <h1
+        className={cn('w-full text-center text-Gray-900 text-small-title font-semibold', className)}
+      >
         {title}
       </h1>
-      <div className={'absolute right-0 top-1/2 -translate-y-1/2'}>{right}</div>
+      <div className={'w-full flex flex-row justify-end items-center'}>{right}</div>
     </header>
   );
 };
