@@ -177,4 +177,18 @@ export const handlers = [
       message: '수정 되었습니다.',
     });
   }),
+
+  http.post(import.meta.env.VITE_API_URL + '/logout', async () => {
+    await delay(1000);
+    return HttpResponse.json({
+      message: '로그아웃 되었습니다.',
+    });
+  }),
+
+  http.delete(import.meta.env.VITE_API_URL + '/device-token', async () => {
+    await delay(1000);
+    return HttpResponse.json({
+      message: '디바이스 토큰이 삭제되었습니다.',
+    });
+  }),
 ];
