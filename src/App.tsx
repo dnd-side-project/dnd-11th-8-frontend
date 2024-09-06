@@ -15,6 +15,8 @@ import MyPlantEdit from '@/pages/MyPlantEdit.tsx';
 import AlimDetail from '@/pages/AlimDetail.tsx';
 import ErrorPage from './pages/ErrorPage';
 import { useCallback, useEffect } from 'react';
+import 서비스이용약관페이지 from './pages/서비스이용약관페이지';
+import 개인정보처리방침페이지 from '@/pages/개인정보처리방침페이지.tsx';
 
 function App() {
   const refresh = useCallback(() => {
@@ -179,6 +181,8 @@ function App() {
             </PrivateRoute>
           }
         />
+        <Route path={'/terms/service'} element={<서비스이용약관페이지 />} />
+        <Route path="/terms/privacy" element={<개인정보처리방침페이지 />} />
         <Route path="/*" element={<ErrorPage />} />
       </Routes>
     </BrowserRouter>
