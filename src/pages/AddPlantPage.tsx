@@ -144,7 +144,6 @@ const AddPlantPage = () => {
             onClick={() => {
               router.goBack();
             }}
-            className={'absolute right-0 top-1/2 -translate-y-1/2'}
           >
             <IconXMono />
           </button>

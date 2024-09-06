@@ -7,6 +7,7 @@ import { regions } from '@/mocks/mockDatas/regions.ts';
 import { weathers } from '@/mocks/mockDatas/weatherMessage.ts';
 import { refreshAccessTokenResponseData } from '@/mocks/mockDatas/refreshAccessToken.ts';
 import { plantGuide } from '@/mocks/mockDatas/guideDetail.ts';
+import { myPageData } from '@/mocks/mockDatas/myPageData.ts';
 
 export const handlers = [
   http.post(import.meta.env.VITE_API_URL + '/plants', async ({ request }) => {
@@ -141,5 +142,32 @@ export const handlers = [
   http.get(import.meta.env.VITE_API_URL + '/plants/:id', async () => {
     await delay(1000);
     return HttpResponse.json(plantGuide);
+  }),
+
+  http.get(import.meta.env.VITE_API_URL + '/users/my', async () => {
+    await delay(1000);
+    return HttpResponse.json(myPageData);
+  }),
+
+  http.patch(import.meta.env.VITE_API_URL + '/users/my/nickname', async () => {
+    await delay(1000);
+
+    return HttpResponse.json({
+      message: '수정 되었습니다.',
+    });
+  }),
+
+  http.patch(import.meta.env.VITE_API_URL + '/users/my/alarm-status', async () => {
+    await delay(1000);
+    return HttpResponse.json({
+      message: '수정 되었습니다.',
+    });
+  }),
+
+  http.patch(import.meta.env.VITE_API_URL + '/users/my/alarm-time', async () => {
+    await delay(1000);
+    return HttpResponse.json({
+      message: '수정 되었습니다.',
+    });
   }),
 ];

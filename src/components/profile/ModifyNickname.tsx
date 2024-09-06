@@ -5,31 +5,32 @@ import Screen from '@/layouts/Screen';
 import TextField from '../common/TextField';
 import CTAButton from '../common/CTAButton';
 import useInternalRouter from '@/hooks/useInternalRouter';
-
-const myProfile = {
-  nickname: '블루밍',
-  myPlantCount: 2,
-  alarmCount: 1,
-  alarmStatus: true,
-  alarmTime: 1,
-};
+import { useGetMyPageData } from '@/queries/useGetMyPageData.ts';
+import { withAsyncBoundary } from '@toss/async-boundary';
+import ErrorPage from '@/pages/ErrorPage.tsx';
+import LoadingSpinner from '@/components/LoadingSpinner.tsx';
+import { cn } from '@/utils.ts';
+import { isFalsy } from '@/utils/validation/isFalsy.ts';
+import { useUpdateNickname } from '@/queries/useUpdateNickname.ts';
 
 const ModifyNickname: React.FC = () => {
-  const initialNickname = myProfile.nickname;
   const router = useInternalRouter();
+  const { data: myProfile, error } = useGetMyPageData();
+
+  if (!myProfile) throw Error(error?.message);
+
+  const initialNickname = myProfile.nickname;
 
   return (
-    <Screen className="px-0">
-      <div className="bg-Gray50">
-        <div className="flex justify-between px-[24px] pt-[31.31px]">
-          <img src={backButtonIcon} alt="뒤로가기 버튼 아이콘" onClick={() => router.goBack()} />
-          <p className="text-[20px] text-Gray900 font-semibold">닉네임 수정</p>
-          <div className="w-[24px] h-[24px]" />
-        </div>
-
-        <MyProfile justImg={true} myProfile={myProfile} />
-        <Nickname initialNickname={initialNickname} />
+    <Screen className="px-0 min-h-dvh bg-Gray50 flex flex-col">
+      <div className="flex justify-between px-[24px] pt-[31.31px]">
+        <img src={backButtonIcon} alt="뒤로가기 버튼 아이콘" onClick={() => router.goBack()} />
+        <p className="text-[20px] text-Gray900 font-semibold">닉네임 수정</p>
+        <div className="w-[24px] h-[24px]" />
       </div>
+
+      <MyProfile justImg={true} myProfile={myProfile} />
+      <Nickname initialNickname={initialNickname} />
     </Screen>
   );
 };
@@ -40,6 +41,7 @@ interface NicknameProps {
 
 const Nickname: React.FC<NicknameProps> = ({ initialNickname }) => {
   const [nickname, setNickname] = useState<string>('');
+  const { mutate: updateNickname } = useUpdateNickname();
 
   const handleClear = () => {
     setNickname('');
@@ -50,8 +52,12 @@ const Nickname: React.FC<NicknameProps> = ({ initialNickname }) => {
     setNickname(value);
   };
 
+  const handleSubmit = () => {
+    updateNickname(nickname);
+  };
+
   return (
-    <div className="flex flex-col justify-between h-screen">
+    <div className="flex flex-col justify-between flex-1">
       <div>
         <p className="pt-[30px] px-[24px] pb-[6px] text-Gray800 text-[13px]">닉네임 수정</p>
         <div className="box-border flex w-[calc(100%-40px)] mx-auto items-center justify-between text-[15px] font-medium">
@@ -68,10 +74,19 @@ const Nickname: React.FC<NicknameProps> = ({ initialNickname }) => {
       </div>
 
       <div className="px-[24px] pb-[10px]">
-        <CTAButton text="확인" className="w-full bg-BloomingGreen500" />
+        <CTAButton
+          type="button"
+          onClick={handleSubmit}
+          text="확인"
+          className={cn('w-full', isFalsy(nickname) ? 'bg-Gray300' : 'bg-BloomingGreen500')}
+          disabled={isFalsy(nickname)}
+        />
       </div>
     </div>
   );
 };
 
-export default ModifyNickname;
+export default withAsyncBoundary(ModifyNickname, {
+  rejectedFallback: ({ error, reset }) => <ErrorPage error={error} reset={reset} />,
+  pendingFallback: <LoadingSpinner />,
+});
