@@ -16,11 +16,16 @@ interface SegmentControlProps {
   onSegmentChange?: (selectedSegment: Segment) => void;
 }
 
+const NO_LOCATION = {
+  id: -2,
+  name: '위치설정',
+};
+
 const SegmentControl: React.FC<SegmentControlProps> = ({ segments, onSegmentChange }) => {
   // 전체 탭을 추가
-  const allSegment: Segment = { id: 0, name: '전체' };
+  const allSegment: Segment = { id: -1, name: '전체' };
   const defaultSegments: Segment[] =
-    segments.length === 0 ? [allSegment, { id: -1, name: '위치설정' }] : [allSegment, ...segments];
+    segments.length === 0 ? [allSegment, NO_LOCATION] : [allSegment, ...segments];
 
   const [selectedId, setSelectedId] = useState<number>(defaultSegments[0].id);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -31,7 +36,7 @@ const SegmentControl: React.FC<SegmentControlProps> = ({ segments, onSegmentChan
     setSelectedId(id);
     const selectedSegment = defaultSegments.find((segment) => segment.id === id);
     if (selectedSegment) {
-      if (selectedSegment.id === -1) {
+      if (selectedSegment.id === NO_LOCATION.id) {
         // '위치 설정' 클릭 시
         setIsModalOpen(true);
       }

@@ -7,6 +7,7 @@ import { regions } from '@/mocks/mockDatas/regions.ts';
 import { weathers } from '@/mocks/mockDatas/weatherMessage.ts';
 import { refreshAccessTokenResponseData } from '@/mocks/mockDatas/refreshAccessToken.ts';
 import { plantGuide } from '@/mocks/mockDatas/guideDetail.ts';
+import { allMyPlant } from '@/mocks/mockDatas/allMyPlant.ts';
 import { myPageData } from '@/mocks/mockDatas/myPageData.ts';
 
 export const handlers = [
@@ -142,6 +143,12 @@ export const handlers = [
   http.get(import.meta.env.VITE_API_URL + '/plants/:id', async () => {
     await delay(1000);
     return HttpResponse.json(plantGuide);
+  }),
+
+  http.get(import.meta.env.VITE_API_URL + '/myplants', async () => {
+    await delay(1000);
+
+    return HttpResponse.json(allMyPlant);
   }),
 
   http.get(import.meta.env.VITE_API_URL + '/users/my', async () => {

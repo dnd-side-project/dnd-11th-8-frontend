@@ -3,18 +3,10 @@ import waterIcon from '@/assets/icon/myPlantWater.svg';
 import fertilizerIcon from '@/assets/icon/myPlantFertilizer.svg';
 import noLocation from '@/assets/icon/noLocation.svg';
 import { Link } from 'react-router-dom';
+import Plant from '@/types/MyPlant.ts';
 
 interface MyPlantListProps {
-  plants: Array<{
-    myPlantId: number;
-    nickname: string;
-    scientificName: string;
-    haveLocation: boolean; // false 이면 분류없음
-    imageUrl: string;
-    dateSinceLastWater: number | null; // null 이면 기록없음
-    dateSinceLastFertilizer: number | null; // null 이면 기록없음
-    dateSinceLasthealthCheck: number | null;
-  }>;
+  plants: Plant[];
 }
 
 const MyPlantList: React.FC<MyPlantListProps> = ({ plants }) => {
@@ -39,12 +31,20 @@ const MyPlantList: React.FC<MyPlantListProps> = ({ plants }) => {
             <div className="flex flex-wrap gap-[4px]">
               <Badge
                 className="flex-grow-0 flex-shrink-1 flex items-center gap-[5px] px-[8px] py-[4px] bg-Gray50 text-[13px] text-Gray500 font-medium border border-GrayOpacity100"
-                text={`${plant.dateSinceLastWater}일전`}
+                text={
+                  plant.dateSinceLastWater === null
+                    ? '기록 없음'
+                    : `${plant.dateSinceLastWater}일전`
+                }
                 icon={waterIcon}
               />
               <Badge
                 className="flex-grow-0 flex-shrink-1 flex items-center gap-[5px] px-[8px] py-[4px] bg-Gray50 text-[13px] text-Gray500 font-medium border border-GrayOpacity100"
-                text={`${plant.dateSinceLastFertilizer}일전`}
+                text={
+                  plant.dateSinceLastFertilizer === null
+                    ? '기록 없음'
+                    : `${plant.dateSinceLastFertilizer}일전`
+                }
                 icon={fertilizerIcon}
               />
               {!plant.haveLocation && (

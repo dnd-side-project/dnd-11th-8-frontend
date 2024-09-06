@@ -5,64 +5,60 @@ import MyPlantSupplement from '@/components/myPlant/MyPlantSupplement';
 import NoMyPlant from '@/components/myPlant/NoMyPlant';
 import PlusButton from '@/components/myPlant/PlusButton';
 import { useState } from 'react';
-import Plant from '@/types/MyPlant';
 import Screen from '@/layouts/Screen';
-import Segments from '@/types/segments';
-// import filterQueryAtom from '@/atoms/myPlant/filterQueryAtom';
-// import { useAtom } from 'jotai';
-// import { useAllMyPlant } from '@/queries/useAllMyPlant';
-// import { LocationQueryParams } from '@/apis/myPlant/getMyAllPlant';
+import { useGetAllLocation } from '@/queries/useGetAllLocation.ts';
+import { withAsyncBoundary } from '@toss/async-boundary';
+import ErrorPage from '@/pages/ErrorPage.tsx';
+import LoadingSpinner from '@/components/LoadingSpinner.tsx';
+import { useGetAllMyPlant } from '@/queries/useGetAllMyPlant.ts';
+import { PlantLocation } from '@/types/plantLocation';
+import { useAtom } from 'jotai';
+import filterQueryAtom from '@/atoms/myPlant/filterQueryAtom';
+import { Skeleton } from '@/components/ui/skeleton.tsx';
+import Plant from '@/types/MyPlant.ts';
 
-const segments: Segments[] = [
-  {
-    id: 1,
-    name: '내 방',
-  },
-  {
-    id: 2,
-    name: '거실',
-  },
-];
-
-const myPlant: string | Plant[] = [
-  {
-    myPlantId: 1,
-    nickname: '쫑쫑이',
-    scientificName: '몬스테라 델리오사',
-    haveLocation: false, //false 이면 분류없음
-    imageUrl:
-      'https://img1.daumcdn.net/thumb/R1280x0.fjpg/?fname=http://t1.daumcdn.net/brunch/service/user/5AU5/image/7oHw3DMrgO9_66LHCI3MkoKjY3M.JPG',
-    dateSinceLastWater: 3, //null 이면 기록없음
-    dateSinceLastFertilizer: 23, //null 이면 기록없음
-    dateSinceLasthealthCheck: 3,
-  },
-  {
-    myPlantId: 2,
-    nickname: '뿡뿡이',
-    scientificName: '병아리눈물',
-    haveLocation: true, //false 이면 분류없음
-    imageUrl:
-      'https://thumbnail.10x10.co.kr/webimage/image/basic600/456/B004562843.jpg?cmd=thumb&w=400&h=400&fit=true&ws=false',
-    dateSinceLastWater: 3, //null 이면 기록없음
-    dateSinceLastFertilizer: 23, //null 이면 기록없음
-    dateSinceLasthealthCheck: 3,
-  },
-];
+const defaultLocation: PlantLocation = {
+  id: -1,
+  name: '전체',
+};
 
 const MyPlant = () => {
-  const [bgColor, setBgColor] = useState('');
-  const [locationName, setLocationName] = useState('전체');
-  const [locationId, setLocationId] = useState(0);
-  // const [query] = useAtom(filterQueryAtom);
-  // const sort = query.sort;
-  // const direction = query.direction;
-  // const querys: LocationQueryParams = {
-  //   sort: sort,
-  //   direction: direction,
-  //   location: locationId,
-  // };
+  const { data: segments } = useGetAllLocation();
 
-  // const { data: myPlant, error, isLoading } = useAllMyPlant(querys);
+  const [bgColor, setBgColor] = useState('');
+
+  const [location, setLocation] = useState<PlantLocation>(defaultLocation);
+  const [sort] = useAtom(filterQueryAtom);
+
+  const { data, isLoading, isError, error } = useGetAllMyPlant();
+
+  let myPlant: Plant[] = [];
+
+  if (data) {
+    myPlant = data;
+  }
+
+  if (location.id !== -1) {
+    myPlant = myPlant.filter((plant) => plant.locationId === location.id);
+  }
+
+  switch (sort) {
+    case 'created_asc':
+      myPlant.sort(
+        (a, b) =>
+          new Date(a.registeredDateTime).getTime() - new Date(b.registeredDateTime).getTime(),
+      );
+      break;
+    case 'created_desc':
+      myPlant.sort(
+        (a, b) =>
+          new Date(b.registeredDateTime).getTime() - new Date(a.registeredDateTime).getTime(),
+      );
+      break;
+    case 'no_location':
+      myPlant = myPlant.filter((plant) => !plant.haveLocation);
+      break;
+  }
 
   const handleOptionClick = () => {
     setBgColor('bg-SementicDimBackground');
@@ -73,12 +69,25 @@ const MyPlant = () => {
   };
 
   const handleSegmentChange = (selectedSegment: { id: number; name: string }) => {
-    setLocationId(selectedSegment.id);
-    setLocationName(selectedSegment.name);
+    setLocation(selectedSegment);
   };
 
-  // if (isLoading) return <p>로딩 중...</p>;
-  // if (error) return <p>오류가 발생했습니다: {error.message}</p>;
+  if (isError) {
+    throw new Error(error?.message);
+  }
+
+  let content = <NoMyPlant />;
+
+  if (isLoading) {
+    content = (
+      <div className="flex gap-[16px] px-[20px] py-[16px]">
+        <Skeleton className="w-[80px] flex-shrink-0 h-[80px] rounded-[10px]" />
+        <Skeleton className={'w-full h-[80px]'} />
+      </div>
+    );
+  } else if (myPlant?.length) {
+    content = <MyPlantList plants={myPlant} />;
+  }
 
   return (
     <Screen className="px-0 ">
@@ -92,13 +101,13 @@ const MyPlant = () => {
           <div className="pt-[30px]">
             <SegmentControl segments={segments} onSegmentChange={handleSegmentChange} />
           </div>
-          <MyPlantSupplement plants={myPlant} />
-          {myPlant.length === 0 ? <NoMyPlant /> : <MyPlantList plants={myPlant} />}
+          <MyPlantSupplement length={myPlant?.length} />
+          {content}
           <PlusButton
             onOptionClick={handleOptionClick}
             onCloseOverlay={handleCloseOverlay}
-            locationName={locationName}
-            locationId={locationId}
+            locationName={location?.name}
+            locationId={location?.id}
           />
           <TabBar />
         </div>
@@ -107,4 +116,7 @@ const MyPlant = () => {
   );
 };
 
-export default MyPlant;
+export default withAsyncBoundary(MyPlant, {
+  rejectedFallback: ({ error, reset }) => <ErrorPage error={error} reset={reset} />,
+  pendingFallback: <LoadingSpinner />,
+});

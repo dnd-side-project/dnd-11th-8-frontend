@@ -1,14 +1,14 @@
-import { useState, useRef, useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useAtom } from 'jotai';
 import filterQueryAtom from '@/atoms/myPlant/filterQueryAtom';
 import downArrow from '@/assets/icon/downArrow.svg';
+import { LocationQueryParams } from '@/apis/myPlant/getMyAllPlant.ts';
 
-const filterOptions = [
-  { label: '등록 오래된 순', sort: 'CREATED', direction: 'ASC' },
-  { label: '최근 등록 순', sort: 'CREATED', direction: 'DESC' },
-  { label: '물주기 오래된 순', sort: 'WATERED', direction: 'ASC' },
-  { label: '물주기 최근 순', sort: 'WATERED', direction: 'DESC' },
-];
+const filterOptions: Record<string, LocationQueryParams['sort']> = {
+  '최근 등록 순': 'created_desc',
+  '등록 오래된 순': 'created_asc',
+  '위치 없음': 'no_location',
+};
 
 const FilterButton = () => {
   const [isOptionsVisible, setOptionsVisible] = useState(false);
@@ -20,11 +20,8 @@ const FilterButton = () => {
     setOptionsVisible((prev) => !prev);
   };
 
-  const handleOptionClick = (option: (typeof filterOptions)[0]) => {
-    setQuery({
-      sort: option.sort,
-      direction: option.direction,
-    });
+  const handleOptionClick = (option: LocationQueryParams['sort']) => {
+    setQuery(option);
     setOptionsVisible(false);
   };
 
@@ -48,10 +45,13 @@ const FilterButton = () => {
   }, []);
 
   // 현재 query 상태에 따른 label 찾기
-  const currentLabel =
-    filterOptions.find(
-      (option) => option.sort === query.sort && option.direction === query.direction,
-    )?.label || '최근 등록 순'; // 기본값으로 '최근 등록 순' 설정
+
+  let currentLabel = '전체';
+
+  if (query !== undefined) {
+    currentLabel =
+      Object.entries(filterOptions).find(([, value]) => value === query)?.[0] ?? '전체';
+  }
 
   return (
     <div className="relative">
@@ -73,15 +73,13 @@ const FilterButton = () => {
             <p className="block w-full text-left text-Gray500 font-bold text-[13px]">정렬</p>
             <hr className="w-full my-[10px] border-Gray100" />
 
-            {filterOptions.map((option, index) => (
+            {Object.entries(filterOptions).map(([key, value], index) => (
               <li key={index}>
                 <button
-                  className={`block w-full p-[10px] text-left hover:bg-GrayOpacity100 rounded-[10px] ${query.sort === option.sort && query.direction === option.direction ? 'bg-GrayOpacity100' : ''}`}
-                  onClick={() => handleOptionClick(option)}
+                  className={`block w-full p-[10px] text-left hover:bg-GrayOpacity100 rounded-[10px] ${query === value ? 'bg-GrayOpacity100' : ''}`}
+                  onClick={() => handleOptionClick(value)}
                 >
-                  <p className="text-[15px] text-Gray700 font-medium hover:font-semibold ">
-                    {option.label}
-                  </p>
+                  <p className="text-[15px] text-Gray700 font-medium hover:font-semibold ">{key}</p>
                 </button>
               </li>
             ))}

@@ -3,17 +3,7 @@ import AlimCheck from './AlimCheck';
 import myPlantsAll from '@/assets/icon/MyPlantsAll.svg';
 import useInternalRouter from '@/hooks/useInternalRouter';
 import { Carousel, CarouselApi, CarouselContent, CarouselItem } from '@/components/ui/carousel.tsx';
-
-interface Plant {
-  myPlantId: number;
-  nickname: string;
-  scientificName: string;
-  haveLocation: boolean;
-  imageUrl: string;
-  dateSinceLastWater: number | null;
-  dateSinceLastFertilizer: number | null;
-  dateSinceLasthealthCheck: number | null;
-}
+import Plant from '@/types/MyPlant.ts';
 
 interface MyPlantAlimCheckProps {
   plants: Plant[];
@@ -65,7 +55,7 @@ const MyPlantAlimCheck: React.FC<MyPlantAlimCheckProps> = ({ plants }) => {
                 <AlimCheck
                   water={plant.dateSinceLastWater}
                   fertilizer={plant.dateSinceLastFertilizer}
-                  sunlight={plant.dateSinceLasthealthCheck}
+                  sunlight={plant.dateSinceLastHealthCheck}
                 />
               </div>
             </div>

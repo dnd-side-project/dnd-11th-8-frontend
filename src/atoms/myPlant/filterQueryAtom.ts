@@ -1,10 +1,5 @@
 import { atom } from 'jotai';
+import { LocationQueryParams } from '@/apis/myPlant/getMyAllPlant.ts';
 
-const filterQueryAtom = atom<{
-  sort: string;
-  direction: string;
-}>({
-  sort: 'CREATED',
-  direction: 'DESC',
-});
+const filterQueryAtom = atom<LocationQueryParams['sort']>('created_desc');
 export default filterQueryAtom;
