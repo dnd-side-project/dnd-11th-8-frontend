@@ -12,14 +12,12 @@ const Profile = () => {
   const { data: myProfile } = useGetMyPageData();
 
   return (
-    <div className="bg-Gray50">
-      <Screen className="p-0">
-        <TopButton />
-        <MyProfile justImg={false} myProfile={myProfile} />
-        <SetNotifications myProfile={myProfile} />
-        <UseInformation />
-      </Screen>
-    </div>
+    <Screen className="min-h-dvh bg-Gray50 p-0">
+      <TopButton />
+      <MyProfile justImg={false} myProfile={myProfile} />
+      <SetNotifications myProfile={myProfile} />
+      <UseInformation />
+    </Screen>
   );
 };
 
