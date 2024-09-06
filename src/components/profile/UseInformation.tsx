@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import moving from '@/assets/icon/moving.svg';
-import logout from '@/assets/icon/logout.svg';
+import logoutIcon from '@/assets/icon/logout.svg';
 import CenterBottomSheet from '../common/CenterBottomSheet';
 import CTAButton from '../common/CTAButton';
 import useInternalRouter from '@/hooks/useInternalRouter';
+import { useLogout } from '@/queries/useLogout.ts';
+import { useCookies } from 'react-cookie';
 
 interface InformationItemProps {
   title: string;
@@ -27,6 +29,8 @@ const UseInformation: React.FC = () => {
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
   const [isOpenLogoutModal, setIsOpenLogoutModal] = useState(false);
   const { push } = useInternalRouter();
+  const { mutate: logout } = useLogout();
+  const [, , removeCookie] = useCookies(['access-token', 'refresh-token']);
 
   const handlePrivacyPolicyClick = () => {
     alert('개인정보처리방침 클릭됨');
@@ -46,11 +50,16 @@ const UseInformation: React.FC = () => {
   };
 
   const logoutHandler = () => {
-    alert('로그아웃이 완료되었습니다.');
     setIsOpenLogoutModal(false);
+    logout(undefined, {
+      onSuccess: () => {
+        removeCookie('access-token');
+        removeCookie('refresh-token');
+        localStorage.removeItem('device-token');
+      },
+    });
   };
 
-  // 정보 항목 데이터
   const items: InformationItemProps[] = [
     {
       title: '개인정보처리방침',
@@ -72,7 +81,7 @@ const UseInformation: React.FC = () => {
     },
     {
       title: '로그아웃',
-      icon: logout,
+      icon: logoutIcon,
       altText: '로그아웃 버튼',
       onClick: () => setIsOpenLogoutModal(true),
     },
