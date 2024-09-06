@@ -11,7 +11,7 @@ export const allMyPlant: string | Plant[] = [
     dateSinceLastWater: 3, //null 이면 기록없음
     dateSinceLastFertilizer: 23, //null 이면 기록없음
     dateSinceLastHealthCheck: 3,
-    registerDate: new Date('2024-08-29').toString(),
+    registeredDateTime: new Date('2024-08-29').toString(),
     locationId: 1,
   },
   {
@@ -24,7 +24,7 @@ export const allMyPlant: string | Plant[] = [
     dateSinceLastWater: 3, //null 이면 기록없음
     dateSinceLastFertilizer: 23, //null 이면 기록없음
     dateSinceLastHealthCheck: 3,
-    registerDate: new Date('2024-08-28').toString(),
+    registeredDateTime: new Date('2024-08-28').toString(),
     locationId: 2,
   },
   {
@@ -37,7 +37,7 @@ export const allMyPlant: string | Plant[] = [
     dateSinceLastWater: null, //null 이면 기록없음
     dateSinceLastFertilizer: null, //null 이면 기록없음
     dateSinceLastHealthCheck: 3,
-    registerDate: new Date('2024-08-28').toString(),
+    registeredDateTime: new Date('2024-08-28').toString(),
     locationId: null,
   },
 ];
