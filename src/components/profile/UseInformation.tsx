@@ -33,11 +33,11 @@ const UseInformation: React.FC = () => {
   const [, , removeCookie] = useCookies(['access-token', 'refresh-token']);
 
   const handlePrivacyPolicyClick = () => {
-    alert('개인정보처리방침 클릭됨');
+    push('/terms/privacy');
   };
 
   const handleTermsClick = () => {
-    alert('이용약관 클릭됨');
+    push('/terms/service');
   };
 
   const handleAlimClick = () => {
