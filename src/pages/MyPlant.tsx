@@ -1,4 +1,4 @@
-import SegmentControl from '@/components/common/SegmentControl';
+import SegmentControl, { ALL_LOCATION } from '@/components/common/SegmentControl';
 import TabBar from '@/components/main/TabBar';
 import MyPlantList from '@/components/myPlant/MyPlantList';
 import MyPlantSupplement from '@/components/myPlant/MyPlantSupplement';
@@ -25,8 +25,6 @@ const defaultLocation: PlantLocation = {
 const MyPlant = () => {
   const { data: segments } = useGetAllLocation();
 
-  const [bgColor, setBgColor] = useState('');
-
   const [location, setLocation] = useState<PlantLocation>(defaultLocation);
   const [sort] = useAtom(filterQueryAtom);
 
@@ -38,7 +36,7 @@ const MyPlant = () => {
     myPlant = data;
   }
 
-  if (location.id !== -1) {
+  if (location.id !== ALL_LOCATION.id) {
     myPlant = myPlant.filter((plant) => plant.locationId === location.id);
   }
 
@@ -59,14 +57,6 @@ const MyPlant = () => {
       myPlant = myPlant.filter((plant) => !plant.haveLocation);
       break;
   }
-
-  const handleOptionClick = () => {
-    setBgColor('bg-SementicDimBackground');
-  };
-
-  const handleCloseOverlay = () => {
-    setBgColor('');
-  };
 
   const handleSegmentChange = (selectedSegment: { id: number; name: string }) => {
     setLocation(selectedSegment);
@@ -92,23 +82,13 @@ const MyPlant = () => {
   return (
     <Screen className="px-0 ">
       <div className="min-h-screen ">
-        {/* 배경색 오버레이 */}
-        {bgColor && (
-          <div className={`fixed inset-0 z-30 ${bgColor}`} onClick={handleCloseOverlay} />
-        )}
-
         <div className="">
           <div className="pt-[30px]">
             <SegmentControl segments={segments} onSegmentChange={handleSegmentChange} />
           </div>
           <MyPlantSupplement length={myPlant?.length} />
           {content}
-          <PlusButton
-            onOptionClick={handleOptionClick}
-            onCloseOverlay={handleCloseOverlay}
-            locationName={location?.name}
-            locationId={location?.id}
-          />
+          <PlusButton locationName={location?.name} locationId={location?.id} />
           <TabBar />
         </div>
       </div>

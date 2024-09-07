@@ -132,7 +132,7 @@ const UseInformation: React.FC = () => {
           />,
         ]}
         isOpen={isOpenDeleteModal}
-        onClose={() => setIsOpenDeleteModal(false)}
+        onOpenChange={setIsOpenDeleteModal}
       />
 
       {/* 로그아웃 모달 */}
@@ -155,7 +155,7 @@ const UseInformation: React.FC = () => {
           />,
         ]}
         isOpen={isOpenLogoutModal}
-        onClose={() => setIsOpenLogoutModal(false)}
+        onOpenChange={setIsOpenLogoutModal}
       />
     </div>
   );

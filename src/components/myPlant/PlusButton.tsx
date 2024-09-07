@@ -1,116 +1,83 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import plusBtn from '@/assets/icon/myPlantPlusBtn.svg';
-import Overlay from './Overlay';
 import OptionsMenu from './OptionsMenu';
 import BottomSheet from './BottomSheet';
-import { useDeleteLocation } from '@/queries/useDeleteLocation.ts';
+import LocationInput from '@/components/myPlant/LocationInput.tsx';
+import DeleteConfirmation from '@/components/myPlant/DeleteConfirmation.tsx';
 
 interface PlusButtonProps {
-  onOptionClick: () => void;
-  onCloseOverlay: () => void;
   locationName: string;
   locationId: number;
 }
 
-const PlusButton: React.FC<PlusButtonProps> = ({
-  onOptionClick,
-  onCloseOverlay,
-  locationName,
-  locationId,
-}) => {
-  const [isOptionsVisible, setOptionsVisible] = useState(false);
-  const [isBottomSheetVisible, setBottomSheetVisible] = useState(false);
-  const [isLocationInputVisible, setLocationInputVisible] = useState(false);
+const PlusButton: React.FC<PlusButtonProps> = ({ locationName, locationId }) => {
+  const [isOptionsVisible, setIsOptionVisible] = useState(false);
+  const [isSelectBottomSheetVisible, setSelectBottomSheetVisible] = useState(false);
+  const [isEditLocationModalVisible, setEditLocationModalVisible] = useState(false);
   const [isDeleteConfirmationVisible, setDeleteConfirmationVisible] = useState(false);
-  const optionsRef = useRef<HTMLDivElement>(null);
-  const buttonRef = useRef<HTMLButtonElement>(null);
-  const { mutate: deleteLocation } = useDeleteLocation();
 
-  const handleButtonClick = () => {
-    setOptionsVisible((prev) => {
-      const newVisibility = !prev;
-      if (newVisibility) {
-        onOptionClick();
-      } else {
-        onCloseOverlay();
-      }
-      return newVisibility;
-    });
+  const handeSettingLocationClick = () => {
+    setSelectBottomSheetVisible(true);
+    setIsOptionVisible(false);
   };
 
-  const handleLocationClick = () => setBottomSheetVisible(true);
-  const handleModifyClick = () => setLocationInputVisible(true);
+  const openEditLocationModal = () => {
+    setEditLocationModalVisible(true);
+    setSelectBottomSheetVisible(false);
+  };
 
-  const handleDeleteClick = () => {
+  const openDeleteConfirmation = () => {
     setDeleteConfirmationVisible(true);
+    setSelectBottomSheetVisible(false);
   };
 
-  const handleCancelClick = () => {
-    setBottomSheetVisible(false);
-    setLocationInputVisible(false);
+  const closeEditLocationModal = () => {
+    setEditLocationModalVisible(false);
+  };
+
+  const closeDeleteConfirmation = () => {
     setDeleteConfirmationVisible(false);
   };
-
-  const handleLocationChange = () => {
-    setBottomSheetVisible(false);
-    setLocationInputVisible(false);
-    setDeleteConfirmationVisible(false);
-    setOptionsVisible(false);
-  };
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        optionsRef.current &&
-        !optionsRef.current.contains(event.target as Node) &&
-        buttonRef.current &&
-        !buttonRef.current.contains(event.target as Node)
-      ) {
-        setOptionsVisible(false);
-        onCloseOverlay();
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [onCloseOverlay]);
 
   return (
     <div className="relative flex justify-end">
-      {/* Overlay */}
-      {isOptionsVisible && <Overlay onClick={onCloseOverlay} />}
-
       <div className="fixed z-40 bottom-12">
-        <button ref={buttonRef} onClick={handleButtonClick}>
+        <button onClick={() => setIsOptionVisible(true)}>
           <img src={plusBtn} alt="플러스 버튼" />
         </button>
       </div>
 
       {isOptionsVisible && (
         <OptionsMenu
-          ref={optionsRef}
-          onLocationClick={handleLocationClick}
+          onSettingLocationClick={handeSettingLocationClick}
+          onClose={() => setIsOptionVisible(false)}
           locationName={locationName}
           locationId={locationId}
         />
       )}
 
-      {isBottomSheetVisible && (
+      {isSelectBottomSheetVisible && (
         <BottomSheet
-          isLocationInputVisible={isLocationInputVisible}
-          isDeleteConfirmationVisible={isDeleteConfirmationVisible}
-          onCancel={handleCancelClick}
-          onLocationChange={handleLocationChange}
-          onModify={handleModifyClick}
-          onDelete={handleDeleteClick}
-          locationName={locationName}
-          locationId={locationId}
-          onDeleteConfirm={() => deleteLocation(locationId)}
+          onEditButtonClick={openEditLocationModal}
+          onDeleteButtonClick={openDeleteConfirmation}
+          onCancel={() => setSelectBottomSheetVisible(false)}
         />
       )}
+
+      <LocationInput
+        onLocationChange={closeEditLocationModal}
+        locationName={locationName}
+        locationId={locationId}
+        isOpen={isEditLocationModalVisible}
+        onOpenChange={setEditLocationModalVisible}
+      />
+
+      <DeleteConfirmation
+        locationId={locationId}
+        isOpen={isDeleteConfirmationVisible}
+        onOpenChange={setDeleteConfirmationVisible}
+        onDelete={closeDeleteConfirmation}
+      />
     </div>
   );
 };

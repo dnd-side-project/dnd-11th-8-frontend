@@ -1,26 +1,20 @@
-import {
-  Drawer,
-  DrawerContent,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-} from '@/components/ui/centeredDrawer.tsx';
 import { ReactNode } from 'react';
 import { cn } from '@/utils.ts';
+import { Dialog, DialogContent, DialogDescription, DialogFooter } from '@/components/ui/dialog.tsx';
 
 interface CenterBottomSheetProps {
   title: string | ReactNode;
   content: ReactNode;
   actions: ReactNode[];
   isOpen: boolean;
-  onClose: () => void;
+  onOpenChange: (value: boolean) => void;
   headerAsLabel?: boolean;
   actionDirection?: 'row' | 'column';
 }
 
 const CenterBottomSheet = ({
   isOpen,
-  onClose,
+  onOpenChange,
   title,
   content,
   actions,
@@ -28,26 +22,29 @@ const CenterBottomSheet = ({
   actionDirection = 'column',
 }: CenterBottomSheetProps) => {
   return (
-    <Drawer open={isOpen} onClose={onClose}>
-      <DrawerContent className={'rounded-3xl'}>
-        <DrawerHeader className={'whitespace-pre-wrap'}>
-          <DrawerTitle
-            className={cn(
-              headerAsLabel
-                ? 'text-small-writing font-medium'
-                : 'text-small-title font-bold leading-[29px]',
-              'text-start  px-2.5 mt-[10px]',
-            )}
-          >
-            {title}
-          </DrawerTitle>
-        </DrawerHeader>
-        {content}
-        <DrawerFooter className={cn('flex', actionDirection === 'row' ? 'flex-row' : 'flex-col')}>
+    <Dialog open={isOpen} onOpenChange={onOpenChange}>
+      <DialogContent className={'rounded-3xl'}>
+        <div className="flex justify-center">
+          <div className="w-12 h-1 bg-Gray100 rounded-full" />
+        </div>
+        <header
+          className={cn(
+            'text-start px-2.5 text-Gray800',
+            headerAsLabel
+              ? 'text-small-writing font-medium'
+              : 'text-small-title font-bold leading-[29px]',
+          )}
+        >
+          {title}
+        </header>
+        <DialogDescription>{content}</DialogDescription>
+        <DialogFooter
+          className={cn('flex mt-[30px]', actionDirection === 'row' ? 'flex-row' : 'flex-col')}
+        >
           {...actions}
-        </DrawerFooter>
-      </DrawerContent>
-    </Drawer>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
 };
 

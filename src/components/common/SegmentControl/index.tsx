@@ -16,14 +16,19 @@ interface SegmentControlProps {
   onSegmentChange?: (selectedSegment: Segment) => void;
 }
 
-const NO_LOCATION = {
+export const ALL_LOCATION = {
+  id: -1,
+  name: '전체',
+};
+
+export const NO_LOCATION = {
   id: -2,
   name: '위치설정',
 };
 
 const SegmentControl: React.FC<SegmentControlProps> = ({ segments, onSegmentChange }) => {
   // 전체 탭을 추가
-  const allSegment: Segment = { id: -1, name: '전체' };
+  const allSegment: Segment = { ...ALL_LOCATION };
   const defaultSegments: Segment[] =
     segments.length === 0 ? [allSegment, NO_LOCATION] : [allSegment, ...segments];
 
@@ -101,15 +106,13 @@ const SegmentControl: React.FC<SegmentControlProps> = ({ segments, onSegmentChan
       <CenterBottomSheet
         title="식물 위치"
         content={
-          <div className="px-3.5">
-            <TextFieldV2
-              placeholder={'직접입력'}
-              onChange={handleChangeNewLocation}
-              value={newLocationName}
-              error={isError}
-              errorMessage={'이름은 최대 네글자까지 입력이 가능해요.'}
-            />
-          </div>
+          <TextFieldV2
+            placeholder={'직접입력'}
+            onChange={handleChangeNewLocation}
+            value={newLocationName}
+            error={isError}
+            errorMessage={'이름은 최대 네글자까지 입력이 가능해요.'}
+          />
         }
         actions={[
           <CTAButton
@@ -121,7 +124,11 @@ const SegmentControl: React.FC<SegmentControlProps> = ({ segments, onSegmentChan
           />,
         ]}
         isOpen={isModalOpen}
-        onClose={handleCloseModal}
+        onOpenChange={(value) => {
+          if (!value) {
+            handleCloseModal();
+          }
+        }}
         headerAsLabel
       />
     </div>

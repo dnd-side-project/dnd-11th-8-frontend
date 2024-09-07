@@ -89,9 +89,9 @@ const SearchedPlantList = ({ query, onClose }: SearchedPlantListProps) => {
             />,
           ]}
           isOpen={open}
-          onClose={() => {
+          onOpenChange={(value) => {
             setCustomPlant('');
-            setOpen(false);
+            setOpen(value);
           }}
           headerAsLabel={true}
         />

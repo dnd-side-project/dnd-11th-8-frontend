@@ -15,6 +15,11 @@ export const useNotification = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const onClose = useCallback(() => {
+    setIsModalOpen(false);
+    denyPermission();
+  }, []);
+
   const RequestPermissionModal = useCallback(
     () => (
       <CenterBottomSheet
@@ -22,14 +27,7 @@ export const useNotification = () => {
         content={''}
         actionDirection={'row'}
         actions={[
-          <CTAButton
-            text={'취소'}
-            onClick={() => {
-              setIsModalOpen(false);
-              denyPermission();
-            }}
-            className="bg-Gray300"
-          />,
+          <CTAButton text={'취소'} onClick={() => {}} className="bg-Gray300" />,
           <CTAButton
             text={'허용'}
             onClick={async () => {
@@ -40,7 +38,11 @@ export const useNotification = () => {
           />,
         ]}
         isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        onOpenChange={(value) => {
+          if (!value) {
+            onClose();
+          }
+        }}
       />
     ),
     [isModalOpen],
