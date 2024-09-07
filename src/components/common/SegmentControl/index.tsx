@@ -106,15 +106,13 @@ const SegmentControl: React.FC<SegmentControlProps> = ({ segments, onSegmentChan
       <CenterBottomSheet
         title="식물 위치"
         content={
-          <div className="px-3.5">
-            <TextFieldV2
-              placeholder={'직접입력'}
-              onChange={handleChangeNewLocation}
-              value={newLocationName}
-              error={isError}
-              errorMessage={'이름은 최대 네글자까지 입력이 가능해요.'}
-            />
-          </div>
+          <TextFieldV2
+            placeholder={'직접입력'}
+            onChange={handleChangeNewLocation}
+            value={newLocationName}
+            error={isError}
+            errorMessage={'이름은 최대 네글자까지 입력이 가능해요.'}
+          />
         }
         actions={[
           <CTAButton
@@ -126,7 +124,11 @@ const SegmentControl: React.FC<SegmentControlProps> = ({ segments, onSegmentChan
           />,
         ]}
         isOpen={isModalOpen}
-        onClose={handleCloseModal}
+        onOpenChange={(value) => {
+          if (!value) {
+            handleCloseModal();
+          }
+        }}
         headerAsLabel
       />
     </div>

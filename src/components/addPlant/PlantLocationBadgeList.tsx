@@ -196,7 +196,7 @@ const PlantLocationBadgeList = ({
             />,
           ]}
           isOpen={modalState.open}
-          onClose={closeModalHandler}
+          onOpenChange={closeModalHandler}
           // 바텀 시트 제목 사이즈 조절할 때 사용되는 값입니다. true 일 경우 큰 사이즈, 아닐 경우 작은 사이즈 입니다.
           headerAsLabel
         />
@@ -219,7 +219,11 @@ const PlantLocationBadgeList = ({
             />,
           ]}
           isOpen={isOpenDeleteModal}
-          onClose={closeDeleteModalHandler}
+          onOpenChange={(value) => {
+            if (!value) {
+              initializeEditingLocation();
+            }
+          }}
         />
       </ul>
       {data.data.length >= 3 && (
