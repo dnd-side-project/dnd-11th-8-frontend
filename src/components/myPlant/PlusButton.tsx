@@ -1,8 +1,9 @@
-import { useState, useRef, useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import plusBtn from '@/assets/icon/myPlantPlusBtn.svg';
 import Overlay from './Overlay';
 import OptionsMenu from './OptionsMenu';
 import BottomSheet from './BottomSheet';
+import { useDeleteLocation } from '@/queries/useDeleteLocation.ts';
 
 interface PlusButtonProps {
   onOptionClick: () => void;
@@ -23,6 +24,7 @@ const PlusButton: React.FC<PlusButtonProps> = ({
   const [isDeleteConfirmationVisible, setDeleteConfirmationVisible] = useState(false);
   const optionsRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const { mutate: deleteLocation } = useDeleteLocation();
 
   const handleButtonClick = () => {
     setOptionsVisible((prev) => {
@@ -38,7 +40,10 @@ const PlusButton: React.FC<PlusButtonProps> = ({
 
   const handleLocationClick = () => setBottomSheetVisible(true);
   const handleModifyClick = () => setLocationInputVisible(true);
-  const handleDeleteClick = () => setDeleteConfirmationVisible(true);
+
+  const handleDeleteClick = () => {
+    setDeleteConfirmationVisible(true);
+  };
 
   const handleCancelClick = () => {
     setBottomSheetVisible(false);
@@ -103,6 +108,7 @@ const PlusButton: React.FC<PlusButtonProps> = ({
           onDelete={handleDeleteClick}
           locationName={locationName}
           locationId={locationId}
+          onDeleteConfirm={() => deleteLocation(locationId)}
         />
       )}
     </div>
