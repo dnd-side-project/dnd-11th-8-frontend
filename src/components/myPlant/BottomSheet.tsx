@@ -4,6 +4,7 @@ import DeleteConfirmation from './DeleteConfirmation';
 interface BottomSheetProps {
   isLocationInputVisible: boolean;
   isDeleteConfirmationVisible: boolean;
+  onDeleteConfirm: () => void;
   onCancel: () => void;
   onLocationChange: () => void;
   onModify: () => void;
@@ -21,6 +22,7 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
   onDelete,
   locationName,
   locationId,
+  onDeleteConfirm,
 }) => (
   <div className="fixed inset-0 z-50 flex items-center justify-center">
     <div className="fixed inset-0 bg-SementicDimBackground2" onClick={onCancel}></div>
@@ -65,7 +67,7 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
       {isDeleteConfirmationVisible && (
         <DeleteConfirmation
           onCancel={onCancel}
-          onDelete={onLocationChange}
+          onDelete={onDeleteConfirm}
           locationId={locationId}
         />
       )}
