@@ -2,9 +2,11 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { keyStore } from '@/queries/keyStore.ts';
 import { updateAlarmStatus } from '@/apis/user/updateAlarmStatus.ts';
 import { GetMyPageDataResponse } from '@/apis/user/getMyPageData.ts';
+import { useNotification } from '@/hooks/useNotification.tsx';
 
 export const useUpdateAlarmStatus = () => {
   const queryClient = useQueryClient();
+  const { requestPermission, denyPermission } = useNotification();
 
   return useMutation({
     mutationKey: keyStore.user.updateAlarmStatus.queryKey,
@@ -24,6 +26,11 @@ export const useUpdateAlarmStatus = () => {
           };
         },
       );
+      if (newAlarmStatus) {
+        void requestPermission();
+      } else {
+        void denyPermission();
+      }
 
       return { previousData };
     },
