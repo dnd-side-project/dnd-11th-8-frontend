@@ -73,7 +73,7 @@ export const handlers = [
   http.post(import.meta.env.VITE_API_URL + '/login/kakao', async () => {
     await delay(1000);
     // 0 과 1 둘 중 하나의 데이터를 랜덤하게 반환
-    return HttpResponse.json(randomSigninData[0]);
+    return HttpResponse.json(randomSigninData[1]);
   }),
 
   http.post(import.meta.env.VITE_API_URL + '/login/apple', async () => {
@@ -86,7 +86,9 @@ export const handlers = [
     await delay(1000);
     return HttpResponse.json({
       accessToken: 'sdf788fdfdf',
+      expiresIn: 26900,
       refreshToken: 'dfd82hdfas',
+      refreshTokenExpiresIn: 604800,
     });
   }),
 
@@ -189,6 +191,14 @@ export const handlers = [
     await delay(1000);
     return HttpResponse.json({
       message: '디바이스 토큰이 삭제되었습니다.',
+    });
+  }),
+
+  http.post(import.meta.env.VITE_API_URL + '/device-token', async () => {
+    await delay(1000);
+
+    return HttpResponse.json({
+      message: '디바이스 토큰이 등록되었습니다.',
     });
   }),
 ];

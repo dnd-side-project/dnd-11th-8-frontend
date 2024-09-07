@@ -11,6 +11,7 @@ import useToast from '@/hooks/useToast.tsx';
 import LoadingSpinner from '@/components/LoadingSpinner.tsx';
 import { SECOND } from '@/constants/day.ts';
 import { useToken } from '@/hooks/useToken.ts';
+import { useNotification } from '@/hooks/useNotification.tsx';
 
 type RegisterForm = {
   nickname: string;
@@ -25,6 +26,7 @@ const RegisterPage = () => {
     location: '',
     locationId: undefined,
   });
+  const { requestPermission } = useNotification();
   const { openToast } = useToast();
 
   const [step, setStep] = useState<
@@ -59,13 +61,14 @@ const RegisterPage = () => {
             token: response.data.refreshToken,
             expiresIn: response.data.refreshTokenExpiresIn * SECOND,
           });
+          void requestPermission();
         },
         onError: () => {
-          setStep('알림시간대입력');
+          setStep('닉네임입력');
           openToast({
             message: (
               <p className="flex flex-row items-center justify-center w-full gap-2 text-small-body font-medium text-white">
-                회원가입에 실패했습니다. 다시 시도해주세요.
+                회원가입에 실패했습니다. 다시 시도해 주세요.
               </p>
             ),
           });

@@ -6,6 +6,7 @@ interface ModalState {
   actions: ReactNode[];
   isOpen: boolean;
   backdrop?: boolean;
+  content?: ReactNode;
 }
 
 export interface GlobalModalContextState {
@@ -56,6 +57,7 @@ export const GlobalModalProvider = ({ children }: GlobalModalProviderProps) => {
             {modalState.title && <header>{modalState.title}</header>}
             <p>{modalState.description}</p>
             <footer>{...modalState.actions}</footer>
+            {modalState.content && <div>{modalState.content}</div>}
           </div>
         </>
       )}
