@@ -1,19 +1,23 @@
-import trashIcon from '@/assets/icon/trashIcon.svg';
 import { useUpdateLocation } from '@/queries/useUpdateLocation';
 import { useState } from 'react';
+import CenterBottomSheet from '@/components/common/CenterBottomSheet';
+import TextFieldV2 from '@/components/common/TextFieldV2';
+import CTAButton from '@/components/common/CTAButton';
 
 interface LocationInputProps {
   onLocationChange: () => void;
-  onDelete: () => void;
   locationName: string;
   locationId: number;
+  onOpenChange: (value: boolean) => void;
+  isOpen: boolean;
 }
 
 const LocationInput: React.FC<LocationInputProps> = ({
   onLocationChange,
-  onDelete,
   locationName,
   locationId,
+  onOpenChange,
+  isOpen,
 }) => {
   const [inputValue, setInputValue] = useState(locationName);
   const { mutate } = useUpdateLocation();
@@ -27,36 +31,32 @@ const LocationInput: React.FC<LocationInputProps> = ({
     mutate({ locationId, name: inputValue });
   };
 
+  const isError = inputValue.length > 4;
+
   return (
-    <div className="flex justify-center flex-col px-[10px] w-full max-w-[365px]">
-      <div className="flex justify-center w-full">
-        <div className="w-[48px] h-[4px] rounded-[40px] bg-Gray100" />
-      </div>
-      <label htmlFor="location" className="text-Gray800 text-[13px] font-medium">
-        공간명 수정
-      </label>
-      <div className="relative">
-        <input
-          id="location"
-          type="text"
-          value={inputValue}
+    <CenterBottomSheet
+      title={'위치명 수정'}
+      headerAsLabel={true}
+      content={
+        <TextFieldV2
+          placeholder={'직접입력'}
           onChange={handleInputChange}
-          className="w-full p-2 pr-10 mb-4 border-b-2 border-Gray100 focus:outline-none text-[24px] text-Gray800 font-semibold"
+          value={inputValue}
+          error={isError}
+          errorMessage={'이름은 최대 네글자까지 입력이 가능해요.'}
         />
-        <img
-          src={trashIcon}
-          alt="삭제 아이콘"
-          className="absolute cursor-pointer right-3 top-3"
-          onClick={onDelete}
-        />
-      </div>
-      <button
-        onClick={handleLocationChange}
-        className="px-[28px] py-[18px] text-white bg-BloomingGreen500 rounded-[16px] my-[10px]"
-      >
-        변경
-      </button>
-    </div>
+      }
+      actions={[
+        <CTAButton
+          text={'변경'}
+          className={'bg-BloomingGreen500 disabled:bg-Gray300'}
+          onClick={handleLocationChange}
+          disabled={isError}
+        />,
+      ]}
+      isOpen={isOpen}
+      onOpenChange={onOpenChange}
+    />
   );
 };
 
