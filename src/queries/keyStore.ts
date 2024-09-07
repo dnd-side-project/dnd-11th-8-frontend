@@ -30,6 +30,8 @@ export const keyStore = createQueryKeyStore({
     updateNickname: null,
     updateAlarmStatus: null,
     updateAlarmTime: null,
+    createDeviceToken: null,
+    deleteDeviceToken: null,
   },
   home: {
     getHomeData: null,
