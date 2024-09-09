@@ -1,20 +1,23 @@
 import { privateAxios } from '@/libs/baseAxios.ts';
+import { YyMmDdDate } from '@/types/date.ts';
+import { NumericRange } from '@/types/NewmericRange.ts';
 
-export interface CreateMyPlantProps {
-  plantId?: string;
-  nickname?: string;
+export type SimpleDatePickerValue = NumericRange<1, 6>;
+
+export interface CreateMyPlantRequestBody {
+  plantId: string | null;
+  nickname: string | null;
   scientificName: string;
-  locationId?: number;
-  startDate?: `${number}-${number}-${number}`;
-  // TODO: 마지막으로 물, 비료 준 날 값 러프하게 변경됨
-  lastWateredDate?: number;
-  lastFertilizerDate?: number;
+  locationId: number | null;
+  startDate: YyMmDdDate | null;
+  lastWateredDate: SimpleDatePickerValue;
+  lastFertilizerDate: SimpleDatePickerValue;
   waterAlarm: boolean;
-  waterPeriod?: number;
+  waterPeriod: number | null;
   fertilizerAlarm: boolean;
-  fertilizerPeriod?: number;
+  fertilizerPeriod: number | null;
   healthCheckAlarm: boolean;
 }
 
-export const createMyPlant = async (form: CreateMyPlantProps) =>
+export const createMyPlant = async (form: CreateMyPlantRequestBody) =>
   privateAxios.post('/myplants', form);
