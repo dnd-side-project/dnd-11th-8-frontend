@@ -4,11 +4,11 @@ import MyPlantAlimCheck from './MyPlantAlimCheck';
 import MyPlantRegistration from './MyPlantRegistration';
 import logo from '@/assets/icon/logo.svg';
 import AppBar from '@/components/main/AppBar.tsx';
-import Plant from '@/types/MyPlant.ts';
+import { GetHomeScreenDataResponse } from '@/apis/home/getHomeScreenData.ts';
 
 interface MyPlantProps {
   register: boolean;
-  myPlantsInfo: Plant[];
+  myPlantsInfo: GetHomeScreenDataResponse['myPlantInfo'];
   greetingMessage: string;
 }
 
