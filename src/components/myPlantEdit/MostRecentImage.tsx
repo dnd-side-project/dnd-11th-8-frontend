@@ -12,7 +12,7 @@ const MostRecentImage = ({ image }: MostRecentImageProps) => {
   return (
     <img
       alt="edit my plant represent image"
-      src={image?.imageUrl ?? getRandomIllustrator()}
+      src={image?.imageUrl ?? getRandomIllustrator().src}
       className="w-full aspect-square rounded-[10px] overflow-hidden"
     />
   );
