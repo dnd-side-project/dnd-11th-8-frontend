@@ -24,12 +24,12 @@ const CenterBottomSheet = ({
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent className={'rounded-3xl'}>
-        <div className="flex justify-center">
+        <div className="flex justify-center my-2.5">
           <div className="w-12 h-1 bg-Gray100 rounded-full" />
         </div>
         <header
           className={cn(
-            'text-start px-2.5 text-Gray800',
+            'text-start px-2.5 text-Gray800 whitespace-pre-wrap',
             headerAsLabel
               ? 'text-small-writing font-medium'
               : 'text-small-title font-bold leading-[29px]',
@@ -39,7 +39,10 @@ const CenterBottomSheet = ({
         </header>
         <DialogDescription>{content}</DialogDescription>
         <DialogFooter
-          className={cn('flex mt-[30px]', actionDirection === 'row' ? 'flex-row' : 'flex-col')}
+          className={cn(
+            'flex mt-[30px] gap-3',
+            actionDirection === 'row' ? 'flex-row' : 'flex-col',
+          )}
         >
           {...actions}
         </DialogFooter>
