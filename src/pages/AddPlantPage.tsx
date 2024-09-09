@@ -147,7 +147,7 @@ const AddPlantPage = () => {
         right={
           <button
             onClick={() => {
-              router.goBack();
+              router.replace('/');
             }}
           >
             <IconXMono />
