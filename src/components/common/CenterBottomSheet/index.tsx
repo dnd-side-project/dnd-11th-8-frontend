@@ -24,7 +24,7 @@ const CenterBottomSheet = ({
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent className={'rounded-3xl'}>
-        <div className="flex justify-center">
+        <div className="flex justify-center my-2.5">
           <div className="w-12 h-1 bg-Gray100 rounded-full" />
         </div>
         <header
