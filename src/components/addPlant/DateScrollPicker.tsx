@@ -8,6 +8,8 @@ interface DateScrollPickerProps {
   year: number;
   month: number;
   day: number;
+  endDate?: Date;
+  startDate?: Date;
 }
 
 const DateScrollPicker = ({
@@ -17,26 +19,34 @@ const DateScrollPicker = ({
   setDay,
   setYear,
   setMonth,
+  endDate,
+  startDate,
 }: DateScrollPickerProps) => {
   return (
     <div className={'px-[10px] h-[310px] flex flex-row mt-[10px]'}>
       <ScrollPicker
         onSelect={setYear}
-        start={1950}
-        end={2024}
+        start={startDate?.getFullYear() ?? 1950}
+        end={endDate?.getFullYear() ?? 2024}
         selected={year}
         selectedClassName={'bg-GrayOpacity100 text-Gray800 rounded-l-[10px]'}
       />
       <ScrollPicker
-        start={1}
-        end={12}
+        start={startDate === undefined ? 1 : startDate.getMonth() + 1}
+        end={endDate === undefined ? 12 : endDate.getMonth() + 1}
         onSelect={setMonth}
         selectedClassName={'bg-GrayOpacity100 text-Gray800'}
         selected={month}
       />
       <ScrollPicker
-        start={1}
-        end={getEndDayOfMonth(year, month)}
+        start={startDate?.getDate() ?? 1}
+        end={
+          endDate === undefined
+            ? getEndDayOfMonth(year, month)
+            : endDate.getFullYear() === year && endDate.getMonth() + 1 === month
+              ? endDate.getDate()
+              : getEndDayOfMonth(year, month)
+        }
         onSelect={setDay}
         selectedClassName={'bg-GrayOpacity100 text-Gray800 rounded-r-[10px]'}
         selected={day}
