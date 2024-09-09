@@ -29,7 +29,7 @@ const CenterBottomSheet = ({
         </div>
         <header
           className={cn(
-            'text-start px-2.5 text-Gray800',
+            'text-start px-2.5 text-Gray800 whitespace-pre-wrap',
             headerAsLabel
               ? 'text-small-writing font-medium'
               : 'text-small-title font-bold leading-[29px]',
