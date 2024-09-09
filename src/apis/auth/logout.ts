@@ -1,7 +1,6 @@
 import { privateAxios } from '@/libs/baseAxios.ts';
+import { deleteDeviceToken } from '@/apis/user/deleteDeviceToken.ts';
 
 const requestLogout = () => privateAxios.post('/logout');
 
-const requestRemoveDeviceToken = () => privateAxios.delete('/device-token');
-
-export const logout = () => Promise.all([requestLogout(), requestRemoveDeviceToken()]);
+export const logout = () => Promise.all([requestLogout(), deleteDeviceToken()]);
