@@ -74,6 +74,7 @@ const PlusButton: React.FC<PlusButtonProps> = ({ locationName, locationId }) => 
 
       <DeleteConfirmation
         locationId={locationId}
+        onClose={closeDeleteConfirmation}
         isOpen={isDeleteConfirmationVisible}
         onOpenChange={setDeleteConfirmationVisible}
         onDelete={closeDeleteConfirmation}

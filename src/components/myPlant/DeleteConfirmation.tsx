@@ -9,6 +9,7 @@ interface DeleteConfirmationProps {
   onDelete: () => void;
   isOpen: boolean;
   locationId: number;
+  onClose: () => void;
 }
 
 const DeleteConfirmation: React.FC<DeleteConfirmationProps> = ({
@@ -16,6 +17,7 @@ const DeleteConfirmation: React.FC<DeleteConfirmationProps> = ({
   isOpen,
   onDelete,
   locationId,
+  onClose,
 }) => {
   const { openToast } = useToast();
   const { mutate } = useDeleteLocation();
@@ -41,7 +43,11 @@ const DeleteConfirmation: React.FC<DeleteConfirmationProps> = ({
     <CenterBottomSheet
       title={'정말 삭제하시나요?\n삭제 후에는 되돌릴 수 없어요'}
       content={<></>}
-      actions={[<CTAButton text={'삭제'} onClick={handleDelete} className={'bg-Red500'} />]}
+      actionDirection={'row'}
+      actions={[
+        <CTAButton text={'취소'} onClick={onClose} className={'bg-Gray100 text-Gray800'} />,
+        <CTAButton text={'삭제'} onClick={handleDelete} className={'bg-Red500'} />,
+      ]}
       isOpen={isOpen}
       onOpenChange={onOpenChange}
     />
