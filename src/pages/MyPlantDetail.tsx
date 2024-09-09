@@ -75,11 +75,13 @@ const MyPlantDetail = () => {
       <Separator height={10} />
       <NotificationToggleList
         water={water}
-        setWater={(value) => setWater((prev) => ({ ...prev, ...value }))}
+        setWaterAlarm={(value) => setWater((prev) => ({ ...prev, checked: value }))}
+        setWaterPeriod={(value) => setWater((prev) => ({ ...prev, period: value }))}
         fertilizer={fertilizer}
-        setFertilizer={(value) => setFertilizer((prev) => ({ ...prev, ...value }))}
+        setFertilizerAlarm={(value) => setFertilizer((prev) => ({ ...prev, checked: value }))}
+        setFertilizerPeriod={(value) => setFertilizer((prev) => ({ ...prev, period: value }))}
         healthCheck={healthCheck}
-        setHealthCheck={(value) => setHealthCheck((prev) => ({ ...prev, ...value }))}
+        setHealthCheckAlarm={(value) => setHealthCheck((prev) => ({ ...prev, checked: value }))}
         labelAsTitle={true}
       />
       <MyPlantInfo

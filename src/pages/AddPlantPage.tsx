@@ -11,113 +11,118 @@ import 함께하기시작한날 from '@/components/addPlant/함께하기시작�
 import 마지막으로물준날 from '@/components/addPlant/마지막으로물준날.tsx';
 import NotificationToggleList from '@/components/addPlant/NotificationToggleList.tsx';
 import { Suspense, useCallback, useState } from 'react';
-import { PlantLocation } from '@/types/plantLocation';
 import { isFalsy } from '@/utils/validation/isFalsy.ts';
-import { usePlantTypeSearchParams } from '@/hooks/usePlantTypeSearchParams.ts';
 import { useCreateMyPlant } from '@/queries/useCreateMyPlant.ts';
 import useToast from '@/hooks/useToast.tsx';
 import RoundedGreenChecked from '@/assets/icon/RoundedGreenChecked.tsx';
 import 마지막으로비료준날 from '@/components/addPlant/마지막으로비료준날';
-import { CreateMyPlantProps } from '@/apis/myPlant/createMyPlant.ts';
+import { CreateMyPlantRequestBody } from '@/apis/myPlant/createMyPlant.ts';
 import HeightBox from '@/components/common/HeightBox';
 import { useGetRecommendedPeriod } from '@/queries/useGetRecommendedPeriod.ts';
+import { FormType } from '@/types/form.ts';
+import { setForm } from '@/utils/form/setForm.ts';
+import { useSyncPlantType } from '@/hooks/useSyncPlantType.ts';
+import { usePlantTypeSearchParams } from '@/hooks/usePlantTypeSearchParams.ts';
 
 export type ToggleFormState = {
-  title: string;
+  title: '물주기' | '비료주기' | '건강체크';
   period: number | null;
   checked: boolean;
 };
 
-const initialForm = {
-  '식물 종류': {
+export type CreateMyPlantFormType = FormType<CreateMyPlantRequestBody>;
+
+const initialForm: CreateMyPlantFormType = {
+  plantId: {
+    value: null,
+    required: false,
+  },
+  scientificName: {
     value: '',
     required: true,
   },
-  식물위치: {
-    value: undefined as PlantLocation | undefined,
-    required: true,
+  locationId: {
+    value: null,
+    required: false,
   },
-  '반려식물 애칭': {
+  nickname: {
     value: '',
     required: false,
   },
-  '함께하기 시작한 날': {
+  startDate: {
     value: '' as `${number}-${number}-${number}`,
     required: false,
   },
-  '마지막으로 물 준 날': {
-    value: 0,
+  lastWateredDate: {
+    value: 6,
     required: true,
   },
-  '마지막으로 비료 준 날': {
-    value: 0,
+  lastFertilizerDate: {
+    value: 6,
+    required: true,
+  },
+  waterAlarm: {
+    value: false,
+    required: true,
+  },
+  waterPeriod: {
+    value: null,
+    required: false,
+  },
+  fertilizerAlarm: {
+    value: false,
+    required: true,
+  },
+  fertilizerPeriod: {
+    value: null,
+    required: false,
+  },
+  healthCheckAlarm: {
+    value: false,
     required: true,
   },
 };
 
-const initialNotificationForm = {
-  water: {
-    title: '물주기',
-    period: 0,
-    checked: false,
-  } as ToggleFormState,
-  fertilizer: {
-    title: '비료주기',
-    period: 0,
-    checked: false,
-  } as ToggleFormState,
-  healthCheck: {
-    title: '건강체크',
-    period: null,
-    checked: false,
-  } as ToggleFormState,
-};
-
-export type FormKey = keyof typeof initialForm;
-export type FormValue = (typeof initialForm)[FormKey];
+export type AddPlantFormKey = keyof typeof initialForm;
+export type AddPlantFormValue = (typeof initialForm)[AddPlantFormKey];
 
 const AddPlantPage = () => {
   const router = useInternalRouter();
-  const [form, setForm] = useState(initialForm);
-  const [water, setWater] = useState(initialNotificationForm.water);
-  const [fertilizer, setFertilizer] = useState(initialNotificationForm.fertilizer);
-  const [healthCheck, setHealthCheck] = useState(initialNotificationForm.healthCheck);
-  const { plantId, plantType } = usePlantTypeSearchParams();
-  const { mutate: submitPlant } = useCreateMyPlant();
-  const { openToast } = useToast();
+
+  const [addPlantForm, setAddPlantForm] = useState<CreateMyPlantFormType>(initialForm);
+  const { plantId } = usePlantTypeSearchParams();
 
   const { data: recommendedPeriod } = useGetRecommendedPeriod(plantId === null ? null : +plantId);
+  const { mutate: submitPlant } = useCreateMyPlant();
 
-  const handleChange = useCallback((key: FormKey, value: FormValue) => {
-    setForm((prev) => ({
+  const { openToast } = useToast();
+
+  const handleChange = useCallback((key: AddPlantFormKey, value: AddPlantFormValue['value']) => {
+    setAddPlantForm((prev) => ({
       ...prev,
-      [key]: value,
+      [key]: {
+        value,
+        required: prev[key].required,
+      },
     }));
   }, []);
 
-  const isFormValid = Object.entries(form)
+  useSyncPlantType({ handler: handleChange });
+
+  const isFormValid = Object.entries(addPlantForm)
     .filter(([, value]) => value.required)
     .every(([, value]) => !isFalsy(value.value));
 
   const handleSubmit = () => {
-    const data: CreateMyPlantProps = {
-      plantId: plantId ?? undefined,
-      nickname: form['반려식물 애칭'].value,
-      scientificName: plantType ?? '',
-      locationId: form.식물위치.value?.id,
-      startDate: form['함께하기 시작한 날'].value,
-      lastWateredDate: form['마지막으로 물 준 날'].value,
-      lastFertilizerDate: form['마지막으로 비료 준 날'].value,
-      waterAlarm: water.checked,
-      waterPeriod: water.period ?? undefined,
-      fertilizerAlarm: fertilizer.checked,
-      fertilizerPeriod: fertilizer.period ?? undefined,
-      healthCheckAlarm: healthCheck.checked,
-    };
+    const data = Object.entries(addPlantForm).reduce(
+      (acc, [key, value]) => setForm(acc, key as AddPlantFormKey, value.value),
+      {} as CreateMyPlantRequestBody,
+    );
+
     submitPlant(data, {
       onSuccess: () => {
         router.push('/');
-        setTimeout(() => {
+        requestAnimationFrame(() => {
           openToast({
             message: (
               <div
@@ -150,55 +155,63 @@ const AddPlantPage = () => {
         }
       />
       <form className={'w-full flex flex-col gap-[25px] mt-[41px]'}>
-        <PlantTypeTextField handleChange={handleChange} />
+        <PlantTypeTextField />
         <Suspense fallback={<div>로딩중...</div>}>
           <PlantLocationBadgeList
-            selectedLocation={form.식물위치.value}
-            handleChange={(location) =>
-              handleChange('식물위치', { value: location, required: true })
-            }
+            essential={false}
+            selectedLocation={addPlantForm.locationId.value}
+            handleChange={(location) => handleChange('locationId', location.id)}
           />
         </Suspense>
         <마지막으로물준날
-          value={form['마지막으로 물 준 날'].value}
-          onClick={(value) =>
-            handleChange('마지막으로 물 준 날', {
-              value,
-              required: true,
-            })
-          }
+          value={addPlantForm.lastWateredDate.value}
+          onClick={(value) => handleChange('lastWateredDate', value)}
         />
         <마지막으로비료준날
-          value={form['마지막으로 비료 준 날'].value}
-          onClick={(value) =>
-            handleChange('마지막으로 비료 준 날', {
-              value,
-              required: true,
-            })
-          }
+          value={addPlantForm.lastFertilizerDate.value}
+          onClick={(value) => handleChange('lastFertilizerDate', value)}
         />
         <함께하기시작한날
-          value={form['함께하기 시작한 날'].value}
-          onClick={(value) =>
-            handleChange('함께하기 시작한 날', {
-              value,
-              required: true,
-            })
-          }
+          value={addPlantForm.startDate.value}
+          onClick={(value) => handleChange('startDate', value)}
         />
         <TextField
           title={'반려식물 애칭'}
-          placeholder={form['식물 종류'].value}
+          placeholder={addPlantForm.scientificName.value}
           essential={false}
         />
 
         <NotificationToggleList
-          water={water}
-          setWater={(value) => setWater((prev) => ({ ...prev, ...value }))}
-          fertilizer={fertilizer}
-          setFertilizer={(value) => setFertilizer((prev) => ({ ...prev, ...value }))}
-          healthCheck={healthCheck}
-          setHealthCheck={(value) => setHealthCheck((prev) => ({ ...prev, ...value }))}
+          water={{
+            checked: addPlantForm.waterAlarm.value,
+            period: addPlantForm.waterPeriod.value,
+            title: '물주기',
+          }}
+          setWaterAlarm={(value) => {
+            handleChange('waterAlarm', value);
+            if (!value) {
+              handleChange('waterPeriod', null);
+            }
+          }}
+          setWaterPeriod={(value) => handleChange('waterPeriod', value)}
+          fertilizer={{
+            checked: addPlantForm.fertilizerAlarm.value,
+            period: addPlantForm.fertilizerPeriod.value,
+            title: '비료주기',
+          }}
+          setFertilizerAlarm={(value) => {
+            handleChange('fertilizerAlarm', value);
+            if (!value) {
+              handleChange('fertilizerPeriod', null);
+            }
+          }}
+          setFertilizerPeriod={(value) => handleChange('fertilizerPeriod', value)}
+          healthCheck={{
+            checked: addPlantForm.healthCheckAlarm.value,
+            period: null,
+            title: '건강체크',
+          }}
+          setHealthCheckAlarm={(value) => handleChange('healthCheckAlarm', value)}
           recommendedFertilizerPeriod={recommendedPeriod?.recommendedFertilizerWeek}
           recommendedWaterPeriod={recommendedPeriod?.recommendedWaterDay}
         />

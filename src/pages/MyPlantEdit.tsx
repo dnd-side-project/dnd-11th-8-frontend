@@ -104,7 +104,7 @@ const MyPlantEdit = () => {
       <HeightBox height={25.5} />
       <Suspense fallback={<div>로딩중...</div>}>
         <PlantLocationBadgeList
-          selectedLocation={form.location}
+          selectedLocation={form.location.id}
           handleChange={(location) => setForm((prev) => ({ ...prev, location }))}
           essential={false}
         />

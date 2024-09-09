@@ -28,7 +28,7 @@ import IconPlusMono from '@/assets/icon/icon-plus-mono.tsx';
 
 interface PlantLocationBadgeListProps {
   handleChange: (location: PlantLocation) => void;
-  selectedLocation?: PlantLocation;
+  selectedLocation?: number | null;
   essential?: boolean;
 }
 
@@ -149,7 +149,7 @@ const PlantLocationBadgeList = ({
           <LocationBadge
             key={`location-badge-${location.id}`}
             onClick={() => handleChange(location)}
-            selected={selectedLocation?.id === location.id}
+            selected={selectedLocation === location.id}
             location={location}
             onLongPress={() => openEditModalHandler(location)}
           />
