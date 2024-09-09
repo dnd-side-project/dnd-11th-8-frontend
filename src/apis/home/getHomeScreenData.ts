@@ -3,7 +3,15 @@ import Plant from '@/types/MyPlant.ts';
 
 export interface GetHomeScreenDataResponse {
   greetingMessage: string;
-  myPlantInfo: Plant[];
+  myPlantInfo: Pick<
+    Plant,
+    | 'myPlantId'
+    | 'nickname'
+    | 'scientificName'
+    | 'dateSinceLastFertilizer'
+    | 'dateSinceLastWater'
+    | 'dateSinceLastHealthCheck'
+  >[];
 }
 
 export const getHomeScreenData = async () => {
