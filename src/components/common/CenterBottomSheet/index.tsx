@@ -39,7 +39,10 @@ const CenterBottomSheet = ({
         </header>
         <DialogDescription>{content}</DialogDescription>
         <DialogFooter
-          className={cn('flex mt-[30px]', actionDirection === 'row' ? 'flex-row' : 'flex-col')}
+          className={cn(
+            'flex mt-[30px] gap-3',
+            actionDirection === 'row' ? 'flex-row' : 'flex-col',
+          )}
         >
           {...actions}
         </DialogFooter>
