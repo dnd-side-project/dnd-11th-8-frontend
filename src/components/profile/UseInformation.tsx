@@ -5,6 +5,7 @@ import CenterBottomSheet from '../common/CenterBottomSheet';
 import CTAButton from '../common/CTAButton';
 import useInternalRouter from '@/hooks/useInternalRouter';
 import { useLogout } from '@/queries/useLogout.ts';
+import { useLeave } from '@/queries/useLeave.ts';
 import { useCookies } from 'react-cookie';
 
 interface InformationItemProps {
@@ -30,6 +31,7 @@ const UseInformation: React.FC = () => {
   const [isOpenLogoutModal, setIsOpenLogoutModal] = useState(false);
   const { push } = useInternalRouter();
   const { mutate: logout } = useLogout();
+  const { mutate: leave } = useLeave();
   const [, , removeCookie] = useCookies(['access-token', 'refresh-token']);
 
   const handlePrivacyPolicyClick = () => {
@@ -44,9 +46,15 @@ const UseInformation: React.FC = () => {
     push('/profile/notification');
   };
 
-  const deleteLocationHandler = () => {
-    alert('탈퇴가 완료되었습니다.');
+  const toUserLeaveHandler = () => {
     setIsOpenDeleteModal(false);
+    leave(undefined, {
+      onSuccess: () => {
+        removeCookie('access-token');
+        removeCookie('refresh-token');
+        localStorage.removeItem('device-token');
+      },
+    });
   };
 
   const logoutHandler = () => {
@@ -127,7 +135,7 @@ const UseInformation: React.FC = () => {
           <CTAButton
             text={'탈퇴하기'}
             type={'button'}
-            onClick={deleteLocationHandler}
+            onClick={toUserLeaveHandler}
             className={'bg-Red500'}
           />,
         ]}
