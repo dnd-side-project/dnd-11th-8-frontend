@@ -9,6 +9,7 @@ import { refreshAccessTokenResponseData } from '@/mocks/mockDatas/refreshAccessT
 import { plantGuide } from '@/mocks/mockDatas/guideDetail.ts';
 import { allMyPlant } from '@/mocks/mockDatas/allMyPlant.ts';
 import { myPageData } from '@/mocks/mockDatas/myPageData.ts';
+import { homeData } from '@/mocks/mockDatas/homeData.ts';
 
 export const handlers = [
   http.post(import.meta.env.VITE_API_URL + '/plants', async ({ request }) => {
@@ -125,10 +126,7 @@ export const handlers = [
   http.get(import.meta.env.VITE_API_URL + '/home', async () => {
     await delay(1000);
 
-    return HttpResponse.json({
-      greetingMessage: '최기환님 좋아요!\n초보식집사로서 멋진 데뷔네요.',
-      myPlantInfo: [],
-    });
+    return HttpResponse.json(homeData);
   }),
 
   http.get(import.meta.env.VITE_API_URL + '/weather-message', async () => {
