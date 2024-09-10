@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { updateMyPlantAlarm, UpdateMyPlantAlarmParams } from '@/apis/myPlant/updateMyPlantAlarm.ts';
+import { AlarmDataState, updateMyPlantAlarm } from '@/apis/myPlant/updateMyPlantAlarm.ts';
 import { keyStore } from '@/queries/keyStore.ts';
 import { MyPlantDetailType } from '@/mocks/mockDatas/myPlantDetail.ts';
 
@@ -11,13 +11,13 @@ export const useUpdateMyPlantAlarm = (plantId: number | undefined) => {
   }
 
   return useMutation({
-    mutationFn: (params: Omit<UpdateMyPlantAlarmParams, 'plantId'>) =>
+    mutationFn: (params: Partial<AlarmDataState>) =>
       updateMyPlantAlarm({
-        ...params,
+        body: params,
         plantId,
       }),
     mutationKey: keyStore.myPlant.updateMyPlantAlarm.queryKey,
-    onMutate: async ({ key, value }) => {
+    onMutate: async (newAlarmState) => {
       await queryClient.cancelQueries({ queryKey: keyStore.myPlant.getDetail(plantId).queryKey });
       const previousData = queryClient.getQueryData(keyStore.myPlant.getDetail(plantId).queryKey);
 
@@ -27,7 +27,7 @@ export const useUpdateMyPlantAlarm = (plantId: number | undefined) => {
           if (!data) return;
           return {
             ...data,
-            [key]: value,
+            ...newAlarmState,
           };
         },
       );
