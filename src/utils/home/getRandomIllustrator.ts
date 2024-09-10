@@ -64,7 +64,7 @@ const illustrators = [
 ];
 
 export const getRandomIllustrator = () => {
-  const randomIndex = random(0, illustrators.length - 1).toFixed(0);
+  const randomIndex = Number(random(0, illustrators.length - 1).toFixed(0));
 
   return illustrators[randomIndex];
 };
