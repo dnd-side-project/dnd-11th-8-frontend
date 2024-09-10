@@ -7,6 +7,7 @@ import { GetHomeScreenDataResponse } from '@/apis/home/getHomeScreenData.ts';
 import { getRandomIllustrator } from '@/utils/home/getRandomIllustrator.ts';
 import 창틀 from '@/assets/icon/plants/창틀.svg';
 import { cn } from '@/utils.ts';
+import { isFalsy } from '@/utils/validation/isFalsy.ts';
 
 interface MyPlantAlimCheckProps {
   plants: GetHomeScreenDataResponse['myPlantInfo'];
@@ -52,7 +53,9 @@ const MyPlantAlimCheck: React.FC<MyPlantAlimCheckProps> = ({ plants }) => {
               />
               <div className="flex flex-col items-center justify-center">
                 <CurrentSlide currentSlide={current} plants={plants} />
-                <p className="pt-[15px] text-Gray900 font-semibold text-[22px]">{plant.nickname}</p>
+                <p className="pt-[15px] text-Gray900 font-semibold text-[22px]">
+                  {isFalsy(plant.nickname) ? plant.scientificName : plant.nickname}
+                </p>
                 <p className="text-Gray600 font-medium text-[13px]">{plant.scientificName}</p>
                 <button
                   onClick={() => push('/my-plant')}
@@ -67,7 +70,7 @@ const MyPlantAlimCheck: React.FC<MyPlantAlimCheckProps> = ({ plants }) => {
                 <AlimCheck
                   water={plant.dateSinceLastWater}
                   fertilizer={plant.dateSinceLastFertilizer}
-                  sunlight={plant.dateSinceLastHealthCheck}
+                  sunlight={plant.dateSinceLasthealthCheck}
                 />
               </div>
             </div>
