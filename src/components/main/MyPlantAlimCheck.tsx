@@ -3,10 +3,13 @@ import AlimCheck from './AlimCheck';
 import myPlantsAll from '@/assets/icon/MyPlantsAll.svg';
 import useInternalRouter from '@/hooks/useInternalRouter';
 import { Carousel, CarouselApi, CarouselContent, CarouselItem } from '@/components/ui/carousel.tsx';
-import Plant from '@/types/MyPlant.ts';
+import { GetHomeScreenDataResponse } from '@/apis/home/getHomeScreenData.ts';
+import { getRandomIllustrator } from '@/utils/home/getRandomIllustrator.ts';
+import 창틀 from '@/assets/icon/plants/창틀.svg';
+import { cn } from '@/utils.ts';
 
 interface MyPlantAlimCheckProps {
-  plants: Plant[];
+  plants: GetHomeScreenDataResponse['myPlantInfo'];
 }
 
 const MyPlantAlimCheck: React.FC<MyPlantAlimCheckProps> = ({ plants }) => {
@@ -26,17 +29,26 @@ const MyPlantAlimCheck: React.FC<MyPlantAlimCheckProps> = ({ plants }) => {
     });
   }, [api]);
 
+  const imageUrl = getRandomIllustrator();
+
   return (
     <Carousel setApi={setApi}>
-      <div className={'absolute h-[239.31px] -left-6 w-screen bg-[#F2F1E5] max-w-md'} />
+      <div className={'absolute h-[230px] -left-6 w-screen bg-[#F2F1E5] max-w-md'} />
+      <img className={'absolute top-5 left-1/2 -translate-x-1/2'} src={창틀} />
       <CarouselContent>
         {plants.map((plant) => (
           <CarouselItem key={plant.myPlantId}>
-            <div className="flex flex-col items-center justify-center mt-[20px]">
+            <div className="flex flex-col items-center justify-center">
               <img
-                src={plant.imageUrl}
+                src={imageUrl.src}
                 alt="나의 식물 일러스트"
-                className={'mt-[10px] mb-[15px]'}
+                style={{
+                  transform: 'translateY(15px) translateX(-3px)',
+                }}
+                // style={{
+                //   transform: `translateY(${imageUrl.fromBottom - 8}px) translateX(${(-1 * imageUrl.fromCenter) / 2}px)`,
+                // }}
+                className={cn('mt-[10px] mb-[30px]')}
               />
               <div className="flex flex-col items-center justify-center">
                 <CurrentSlide currentSlide={current} plants={plants} />
@@ -68,7 +80,7 @@ const MyPlantAlimCheck: React.FC<MyPlantAlimCheckProps> = ({ plants }) => {
 
 interface CurrentSlideProps {
   currentSlide: number;
-  plants: Plant[];
+  plants: GetHomeScreenDataResponse['myPlantInfo'];
 }
 
 const CurrentSlide: React.FC<CurrentSlideProps> = ({ currentSlide, plants }) => {
