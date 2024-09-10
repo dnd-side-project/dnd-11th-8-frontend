@@ -6,7 +6,7 @@ interface Plant {
   imageUrl: string;
   dateSinceLastWater: number | null; //null 이면 기록없음
   dateSinceLastFertilizer: number | null; //null 이면 기록없음
-  dateSinceLastHealthCheck: number | null;
+  dateSinceLasthealthCheck: number | null;
   registeredDateTime: string;
   locationId: number | null;
 }
