@@ -7,12 +7,13 @@ import PlantImageCarousel from '@/components/myPlantDetail/PlantImageCarousel.ts
 import PlantInfo from '@/components/myPlantDetail/PlantInfo';
 import Separator from '@/components/common/Separator';
 import NotificationToggleList from '@/components/addPlant/NotificationToggleList.tsx';
-import { ToggleFormState } from '@/pages/AddPlantPage.tsx';
-import { useState } from 'react';
 import MyPlantInfo from '@/components/myPlantDetail/MyPlantInfo.tsx';
 import { useGetMyPlantDetail } from '@/queries/useGetMyPlantDetail.ts';
 import { withAsyncBoundary } from '@toss/async-boundary';
 import LoadingSpinner from '../components/LoadingSpinner';
+import { useUpdateMyPlantAlarm } from '@/queries/useUpdateMyPlantAlarm.ts';
+import { parseIdParams } from '@/utils/params/parseIdParams.ts';
+import { UpdateMyPlantAlarmParams } from '@/apis/myPlant/updateMyPlantAlarm.ts';
 
 export const plantInfo = {
   nickname: '루밍이',
@@ -24,26 +25,32 @@ export const plantInfo = {
 const MyPlantDetail = () => {
   const router = useInternalRouter();
   const { plantId } = useParams();
+
   const { data } = useGetMyPlantDetail(Number(plantId));
-  const [water, setWater] = useState<ToggleFormState>({
-    title: '물주기',
-    period: data.waterPeriod,
-    checked: data.waterAlarm,
-  });
-  const [fertilizer, setFertilizer] = useState<ToggleFormState>({
-    title: '비료주기',
-    period: data.fertilizerPeriod,
-    checked: data.fertilizerAlarm,
-  });
-  const [healthCheck, setHealthCheck] = useState<ToggleFormState>({
-    title: '건강체크',
-    period: null,
-    checked: data.healthCheckAlarm,
-  });
+  const { mutate: updateMyPlantAlarm } = useUpdateMyPlantAlarm(parseIdParams(plantId));
 
   if (!plantId) {
     throw Error('잘못된 식물 입니다.');
   }
+
+  const handleNotificationEnabledChange = (enabled: boolean) => {
+    if (!enabled) {
+      updateMyPlantAlarm({
+        waterAlarm: false,
+        fertilizerAlarm: false,
+        healthCheckAlarm: false,
+      });
+    }
+  };
+
+  const handleUpdateMyPlantAlarm = (
+    type: keyof UpdateMyPlantAlarmParams['body'],
+    value: boolean | number,
+  ) => {
+    updateMyPlantAlarm({
+      [type]: value,
+    });
+  };
 
   return (
     <Screen>
@@ -74,14 +81,27 @@ const MyPlantDetail = () => {
       />
       <Separator height={10} />
       <NotificationToggleList
-        water={water}
-        setWaterAlarm={(value) => setWater((prev) => ({ ...prev, checked: value }))}
-        setWaterPeriod={(value) => setWater((prev) => ({ ...prev, period: value }))}
-        fertilizer={fertilizer}
-        setFertilizerAlarm={(value) => setFertilizer((prev) => ({ ...prev, checked: value }))}
-        setFertilizerPeriod={(value) => setFertilizer((prev) => ({ ...prev, period: value }))}
-        healthCheck={healthCheck}
-        setHealthCheckAlarm={(value) => setHealthCheck((prev) => ({ ...prev, checked: value }))}
+        onNotificationEnabledChange={handleNotificationEnabledChange}
+        water={{
+          checked: data.waterAlarm,
+          title: '물주기',
+          period: data.waterPeriod,
+        }}
+        setWaterAlarm={(value) => handleUpdateMyPlantAlarm('waterAlarm', value)}
+        setWaterPeriod={(value) => handleUpdateMyPlantAlarm('waterPeriod', value)}
+        fertilizer={{
+          checked: data.fertilizerAlarm,
+          title: '비료주기',
+          period: data.fertilizerPeriod,
+        }}
+        setFertilizerAlarm={(value) => handleUpdateMyPlantAlarm('fertilizerAlarm', value)}
+        setFertilizerPeriod={(value) => handleUpdateMyPlantAlarm('fertilizerPeriod', value)}
+        healthCheck={{
+          checked: data.healthCheckAlarm,
+          title: '건강체크',
+          period: null,
+        }}
+        setHealthCheckAlarm={(value) => handleUpdateMyPlantAlarm('healthCheckAlarm', value)}
         labelAsTitle={true}
       />
       <MyPlantInfo
