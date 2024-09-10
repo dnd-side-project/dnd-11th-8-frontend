@@ -140,6 +140,16 @@ const AddPlantPage = () => {
     });
   };
 
+  const onNotificationEnabledChange = (enabled: boolean) => {
+    if (!enabled) {
+      handleChange('waterAlarm', false);
+      handleChange('fertilizerAlarm', false);
+      handleChange('healthCheckAlarm', false);
+      handleChange('waterPeriod', null);
+      handleChange('fertilizerPeriod', null);
+    }
+  };
+
   return (
     <Screen>
       <Header
@@ -182,6 +192,7 @@ const AddPlantPage = () => {
         />
 
         <NotificationToggleList
+          onNotificationEnabledChange={onNotificationEnabledChange}
           water={{
             checked: addPlantForm.waterAlarm.value,
             period: addPlantForm.waterPeriod.value,

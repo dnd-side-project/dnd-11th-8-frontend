@@ -9,6 +9,7 @@ import HeartGreenIcon from '@/assets/icon/HeartGreenIcon.svg';
 import WaterGreenIcon from '@/assets/icon/WaterGreenIcon.svg';
 
 interface NotificationToggleListProps {
+  plantId?: number;
   water: ToggleFormState;
   setWaterAlarm: (value: boolean) => void;
   setWaterPeriod: (value: number) => void;
@@ -20,6 +21,7 @@ interface NotificationToggleListProps {
   labelAsTitle?: boolean;
   recommendedWaterPeriod?: number;
   recommendedFertilizerPeriod?: number;
+  onNotificationEnabledChange?: (enabled: boolean) => void;
 }
 
 const NotificationToggleList = ({
@@ -34,10 +36,18 @@ const NotificationToggleList = ({
   labelAsTitle = false,
   recommendedWaterPeriod,
   recommendedFertilizerPeriod,
+  onNotificationEnabledChange,
 }: NotificationToggleListProps) => {
   const [notificationEnabled, setNotificationEnabled] = useState<boolean>(
     water.checked || fertilizer.checked || healthCheck.checked,
   );
+
+  const handleNotificationEnabledChange = (enabled: boolean) => {
+    setNotificationEnabled(enabled);
+    if (onNotificationEnabledChange) {
+      onNotificationEnabledChange(enabled);
+    }
+  };
 
   return (
     <div className={'flex flex-col gap-[10px]'}>
@@ -47,10 +57,7 @@ const NotificationToggleList = ({
         ) : (
           <Label htmlFor={'알림 받기'} title={'알림 받기'} essential={false} />
         )}
-        <Toggle
-          checked={notificationEnabled}
-          onCheckedChange={(checked) => setNotificationEnabled(checked)}
-        />
+        <Toggle checked={notificationEnabled} onCheckedChange={handleNotificationEnabledChange} />
       </div>
       {notificationEnabled && (
         <div className={'flex flex-col gap-[10px]'}>

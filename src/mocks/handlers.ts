@@ -199,4 +199,10 @@ export const handlers = [
       message: '디바이스 토큰이 등록되었습니다.',
     });
   }),
+  http.patch(import.meta.env.VITE_API_URL + '/myplants/:id/alarm', async () => {
+    await delay(1000);
+    return HttpResponse.json({
+      message: '알람이 수정되었습니다.',
+    });
+  }),
 ];
