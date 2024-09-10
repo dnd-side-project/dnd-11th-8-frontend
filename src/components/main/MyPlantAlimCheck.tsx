@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import AlimCheck from './AlimCheck';
 import myPlantsAll from '@/assets/icon/MyPlantsAll.svg';
 import useInternalRouter from '@/hooks/useInternalRouter';
@@ -30,7 +30,7 @@ const MyPlantAlimCheck: React.FC<MyPlantAlimCheckProps> = ({ plants }) => {
     });
   }, [api]);
 
-  const imageUrl = getRandomIllustrator();
+  const imageUrl = useMemo(() => getRandomIllustrator(), []);
 
   return (
     <Carousel setApi={setApi}>
@@ -44,11 +44,8 @@ const MyPlantAlimCheck: React.FC<MyPlantAlimCheckProps> = ({ plants }) => {
                 src={imageUrl.src}
                 alt="나의 식물 일러스트"
                 style={{
-                  transform: 'translateY(15px) translateX(-3px)',
+                  transform: `translateY(-20px) translateX(${(-1 * (imageUrl.left - imageUrl.right)) / 2 - 3}px)`,
                 }}
-                // style={{
-                //   transform: `translateY(${imageUrl.fromBottom - 8}px) translateX(${(-1 * imageUrl.fromCenter) / 2}px)`,
-                // }}
                 className={cn('mt-[10px] mb-[30px]')}
               />
               <div className="flex flex-col items-center justify-center">
