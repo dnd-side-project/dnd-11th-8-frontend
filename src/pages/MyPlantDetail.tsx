@@ -14,6 +14,7 @@ import LoadingSpinner from '../components/LoadingSpinner';
 import { useUpdateMyPlantAlarm } from '@/queries/useUpdateMyPlantAlarm.ts';
 import { parseIdParams } from '@/utils/params/parseIdParams.ts';
 import { UpdateMyPlantAlarmParams } from '@/apis/myPlant/updateMyPlantAlarm.ts';
+import { useGetRecommendedPeriod } from '@/queries/useGetRecommendedPeriod.ts';
 
 export const plantInfo = {
   nickname: '루밍이',
@@ -28,6 +29,7 @@ const MyPlantDetail = () => {
 
   const { data } = useGetMyPlantDetail(Number(plantId));
   const { mutate: updateMyPlantAlarm } = useUpdateMyPlantAlarm(parseIdParams(plantId));
+  const { data: recommendedPeriod } = useGetRecommendedPeriod(parseIdParams(plantId) ?? null);
 
   if (!plantId) {
     throw Error('잘못된 식물 입니다.');
@@ -102,6 +104,8 @@ const MyPlantDetail = () => {
           period: null,
         }}
         setHealthCheckAlarm={(value) => handleUpdateMyPlantAlarm('healthCheckAlarm', value)}
+        recommendedWaterPeriod={recommendedPeriod?.recommendedWaterDay}
+        recommendedFertilizerPeriod={recommendedPeriod?.recommendedFertilizerWeek}
         labelAsTitle={true}
       />
       <MyPlantInfo
