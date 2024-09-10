@@ -11,11 +11,13 @@ import WaterGreenIcon from '@/assets/icon/WaterGreenIcon.svg';
 interface NotificationToggleListProps {
   plantId?: number;
   water: ToggleFormState;
-  setWater: (value: Partial<ToggleFormState>) => void;
+  setWaterAlarm: (value: boolean) => void;
+  setWaterPeriod: (value: number) => void;
   fertilizer: ToggleFormState;
-  setFertilizer: (value: Partial<ToggleFormState>) => void;
+  setFertilizerAlarm: (value: boolean) => void;
+  setFertilizerPeriod: (value: number) => void;
   healthCheck: ToggleFormState;
-  setHealthCheck: (value: Partial<ToggleFormState>) => void;
+  setHealthCheckAlarm: (value: boolean) => void;
   labelAsTitle?: boolean;
   recommendedWaterPeriod?: number;
   recommendedFertilizerPeriod?: number;
@@ -24,10 +26,12 @@ interface NotificationToggleListProps {
 
 const NotificationToggleList = ({
   water,
-  setWater,
-  setFertilizer,
+  setWaterAlarm,
+  setFertilizerAlarm,
+  setFertilizerPeriod,
+  setWaterPeriod,
   fertilizer,
-  setHealthCheck,
+  setHealthCheckAlarm,
   healthCheck,
   labelAsTitle = false,
   recommendedWaterPeriod,
@@ -65,8 +69,8 @@ const NotificationToggleList = ({
             bottomSheetTitle={'며칠 간격으로 물을 줄까요?\n권장량을 확인하세요'}
             valueStart={1}
             valueEnd={30}
-            onSelect={(value) => setWater({ period: value })}
-            onCheckedChange={(checked) => setWater({ checked })}
+            onSelect={(value) => setWaterPeriod(value)}
+            onCheckedChange={(checked) => setWaterAlarm(checked)}
             icon={WaterGreenIcon}
             badgeIndex={recommendedWaterPeriod}
           />
@@ -78,16 +82,17 @@ const NotificationToggleList = ({
             bottomSheetTitle={'몇 주 간격으로 비료를 줄까요?\n잦은 비료 투여는 과유블급이에요'}
             valueStart={1}
             valueEnd={30}
-            onSelect={(value) => setFertilizer({ period: value })}
-            onCheckedChange={(checked) => setFertilizer({ checked })}
+            onSelect={(value) => setFertilizerPeriod(value)}
+            onCheckedChange={(checked) => setFertilizerAlarm(checked)}
             icon={FertilizerGreenIcon}
             badgeIndex={recommendedFertilizerPeriod}
           />
           <NotificationToggle
             name={healthCheck.title}
+            hasPeriod={false}
             period={healthCheck.period}
             checked={healthCheck.checked}
-            onCheckedChange={(checked) => setHealthCheck({ checked })}
+            onCheckedChange={(checked) => setHealthCheckAlarm(checked)}
             icon={HeartGreenIcon}
           />
         </div>

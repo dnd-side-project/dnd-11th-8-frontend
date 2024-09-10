@@ -5,6 +5,7 @@ import BottomSheet from '@/components/common/BottomSheet';
 import ScrollPicker from '@/components/common/ScrollPicker';
 import { useEffect, useState } from 'react';
 import CTAButton from '@/components/common/CTAButton';
+import useToast from '@/hooks/useToast.tsx';
 
 interface NotificationToggleProps {
   name: string;
@@ -18,6 +19,7 @@ interface NotificationToggleProps {
   onSelect?: (value: number) => void;
   icon: string;
   badgeIndex?: number;
+  hasPeriod?: boolean;
 }
 
 const NotificationToggle = ({
@@ -30,17 +32,19 @@ const NotificationToggle = ({
   onSelect,
   icon,
   badgeIndex,
+  hasPeriod = true,
   ...rest
 }: NotificationToggleProps) => {
   const [selected, setSelected] = useState<number>(valueStart ?? 0);
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const { openToast } = useToast();
 
   const onClose = () => {
     setIsOpen(false);
   };
 
   useEffect(() => {
-    if (period !== null && rest.checked && period === 0) {
+    if (hasPeriod && rest.checked && period === null) {
       setIsOpen(true);
     }
   }, [period, rest.checked]);
@@ -50,13 +54,21 @@ const NotificationToggle = ({
       <div className={'flex flex-row items-center gap-2'}>
         <img src={icon} alt={'notification icon'} />
         <label className={'text-regular-body font-semibold text-Gray800'}>{name}</label>
-        {period !== null && (
+        {hasPeriod && rest.checked && (
           <Badge
-            text={`${period}${periodUnit} 간격`}
+            text={period !== null ? `${period}${periodUnit} 간격` : '주기 선택'}
             size={'small'}
             className={'bg-Gray50 border-GrayOpacity100 text-Gray-800'}
             trailingIcon={<IconArrowSolidDownMono />}
-            onClick={() => setIsOpen(true)}
+            onClick={() => {
+              if (!rest.checked) {
+                openToast({
+                  message: '주기 선택을 하시려면 알림을 허용해 주세요.',
+                });
+                return;
+              }
+              setIsOpen(true);
+            }}
           />
         )}
       </div>
