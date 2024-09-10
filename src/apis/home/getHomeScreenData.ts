@@ -10,7 +10,7 @@ export interface GetHomeScreenDataResponse {
     | 'scientificName'
     | 'dateSinceLastFertilizer'
     | 'dateSinceLastWater'
-    | 'dateSinceLastHealthCheck'
+    | 'dateSinceLasthealthCheck'
   >[];
 }
 
