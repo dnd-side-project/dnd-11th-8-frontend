@@ -5,7 +5,6 @@ import HeightBox from '@/components/common/HeightBox';
 import TextField from '@/components/common/TextField';
 import { useState } from 'react';
 import CTAButton from '@/components/common/CTAButton';
-import { cn } from '@/utils.ts';
 
 interface NicknameFunnelProps {
   toLocationFunnel: (nickname: string) => void;
@@ -18,6 +17,17 @@ const NicknameFunnel = ({ toLocationFunnel }: NicknameFunnelProps) => {
     toLocationFunnel(nickname);
   };
 
+  let isError: boolean = false;
+
+  // 한글 영어만 포함해야한다. 한글 초성만으로도 구성할 수 있다.
+  if (!/^[가-힣a-zA-Zㄱ-ㅎㅏ-ㅣ]*$/.test(nickname)) {
+    isError = true;
+  }
+
+  if (nickname.length > 10) {
+    isError = true;
+  }
+
   return (
     <Screen className={'h-screen w-screen flex flex-col'}>
       <Header title={'닉네임'} className={'text-regular-body font-semibold text-Gray900'} />
@@ -29,13 +39,14 @@ const NicknameFunnel = ({ toLocationFunnel }: NicknameFunnelProps) => {
         onChange={(e) => setNickname(e.target.value)}
         description={`특수문자를 제외한 한글, 영어만 입력해주세요.(${nickname.length}/10)`}
         placeholder={'ex)루밍이'}
+        isError={isError}
       />
       <HeightBox height={'100%'} />
       <CTAButton
         text={'다음'}
-        className={cn(nickname === '' ? 'bg-Gray300' : 'bg-BloomingGreen500')}
+        className={'bg-BloomingGreen500 disabled:bg-Gray300'}
         onClick={onClick}
-        disabled={nickname === ''}
+        disabled={nickname === '' || isError}
       />
       <HeightBox height={'30px'} />
     </Screen>
