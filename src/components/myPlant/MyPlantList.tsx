@@ -31,6 +31,7 @@ const MyPlantList: React.FC<MyPlantListProps> = ({ plants }) => {
             <div className="flex flex-wrap gap-[4px]">
               <Badge
                 className="flex-grow-0 flex-shrink-1 flex items-center gap-[5px] px-[8px] py-[4px] bg-Gray50 text-[13px] text-Gray500 font-medium border border-GrayOpacity100"
+                size={'small'}
                 text={
                   plant.dateSinceLastWater === null
                     ? '기록 없음'
@@ -40,6 +41,7 @@ const MyPlantList: React.FC<MyPlantListProps> = ({ plants }) => {
               />
               <Badge
                 className="flex-grow-0 flex-shrink-1 flex items-center gap-[5px] px-[8px] py-[4px] bg-Gray50 text-[13px] text-Gray500 font-medium border border-GrayOpacity100"
+                size={'small'}
                 text={
                   plant.dateSinceLastFertilizer === null
                     ? '기록 없음'
@@ -49,6 +51,7 @@ const MyPlantList: React.FC<MyPlantListProps> = ({ plants }) => {
               />
               {!plant.haveLocation && (
                 <Badge
+                  size={'small'}
                   className="flex-grow-0 flex-shrink-1 flex items-center gap-[5px] px-[8px] py-[4px] bg-Red50 text-[13px] text-Red500 font-medium border border-RedOpacity100"
                   text="위치없음"
                   icon={noLocation}
