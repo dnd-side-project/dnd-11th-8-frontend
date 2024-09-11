@@ -16,6 +16,7 @@ interface TextFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
   className?: string;
   white?: boolean;
   textColor?: string;
+  isError?: boolean;
 }
 
 const TextField: React.FC<TextFieldProps> = ({
@@ -28,6 +29,7 @@ const TextField: React.FC<TextFieldProps> = ({
   className,
   white = false,
   textColor,
+  isError,
   ...inputProps
 }) => {
   const [isFocused, setIsFocused] = useState(false);
@@ -72,7 +74,9 @@ const TextField: React.FC<TextFieldProps> = ({
           </button>
         )}
       </div>
-      <p className={'-mt-[3px] text-small-writing text-Gray500'}>{description}</p>
+      <p className={`-mt-[3px] text-small-writing ${isError ? 'text-Red500' : 'text-Gray500'}`}>
+        {description}
+      </p>
     </div>
   );
 };
