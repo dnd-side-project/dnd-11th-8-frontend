@@ -21,13 +21,14 @@ import { useUpdateMyPlant } from '@/queries/useUpdateMyPlant.ts';
 import { useQueryClient } from '@tanstack/react-query';
 import { keyStore } from '@/queries/keyStore.ts';
 import LoadingSpinner from '@/components/LoadingSpinner.tsx';
+import ErrorPage from '@/pages/ErrorPage.tsx';
+import { Skeleton } from '@/components/ui/skeleton.tsx';
 
 interface MyPlantEditFormState {
   nickname: string;
   location: MyPlantDetailType['location'];
   lastWateredDate: string;
   lastFertilizedDate: string;
-  images: MyPlantDetailType['images'];
 }
 
 const MyPlantEdit = () => {
@@ -47,7 +48,6 @@ const MyPlantEdit = () => {
     location: myPlantDetail.location,
     lastWateredDate: myPlantDetail.lastWateredDate,
     lastFertilizedDate: myPlantDetail.lastFertilizerDate,
-    images: myPlantDetail.images,
   });
 
   const onComplete = () => {
@@ -85,9 +85,9 @@ const MyPlantEdit = () => {
         }
       />
       <HeightBox height={23.5} />
-      <MostRecentImage image={form.images[0]} />
+      <MostRecentImage image={myPlantDetail.images[0]} />
       <HeightBox height={16} />
-      <ImageInputWithList images={form.images.slice(1)} />
+      <ImageInputWithList plantId={params.myPlantId} images={myPlantDetail.images.slice(1)} />
       <HeightBox height={32} />
       <TextField
         title={'식물 애칭'}
@@ -102,7 +102,7 @@ const MyPlantEdit = () => {
         }
       />
       <HeightBox height={25.5} />
-      <Suspense fallback={<div>로딩중...</div>}>
+      <Suspense fallback={<Skeleton className={'h-[87.750px] w-full'} />}>
         <PlantLocationBadgeList
           selectedLocation={form.location.id}
           handleChange={(location) => setForm((prev) => ({ ...prev, location }))}
@@ -143,6 +143,6 @@ const MyPlantEdit = () => {
 };
 
 export default withAsyncBoundary(MyPlantEdit, {
-  rejectedFallback: ({ error }) => <div>에러가 발생했습니다.: {error.message}</div>,
-  pendingFallback: <div>로딩중...</div>,
+  rejectedFallback: ({ error, reset }) => <ErrorPage error={error} reset={reset} />,
+  pendingFallback: <LoadingSpinner />,
 });
