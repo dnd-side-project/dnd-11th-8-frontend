@@ -205,4 +205,12 @@ export const handlers = [
       message: '알람이 수정되었습니다.',
     });
   }),
+
+  http.post(import.meta.env.VITE_API_URL + '/myplants/:id/image', async () => {
+    await delay(1000);
+
+    return HttpResponse.json({
+      message: '이미지가 등록되었습니다.',
+    });
+  }),
 ];
