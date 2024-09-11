@@ -14,10 +14,11 @@ export const keyStore = createQueryKeyStore({
   myPlant: {
     getMyAllPlant: null,
     createMyPlant: null,
-    getDetail: (id: number) => [id],
+    getDetail: (id?: number) => [id],
     getRecommendedPeriod: (plantId: number | null) => [`${plantId}`],
     updateMyPlant: null,
     updateMyPlantAlarm: null,
+    uploadMyPlantImage: null,
   },
   auth: {
     signIn: null,
