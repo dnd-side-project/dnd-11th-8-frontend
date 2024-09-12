@@ -20,6 +20,7 @@ interface NotificationToggleProps {
   icon: string;
   badgeIndex?: number;
   hasPeriod?: boolean;
+  onBottomSheetClose?: () => void;
 }
 
 const NotificationToggle = ({
@@ -33,6 +34,7 @@ const NotificationToggle = ({
   icon,
   badgeIndex,
   hasPeriod = true,
+  onBottomSheetClose,
   ...rest
 }: NotificationToggleProps) => {
   const [selected, setSelected] = useState<number>(valueStart ?? 0);
@@ -41,6 +43,7 @@ const NotificationToggle = ({
 
   const onClose = () => {
     setIsOpen(false);
+    onBottomSheetClose?.();
   };
 
   useEffect(() => {

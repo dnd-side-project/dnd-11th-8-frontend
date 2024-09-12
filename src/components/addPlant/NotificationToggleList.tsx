@@ -7,6 +7,8 @@ import { ToggleFormState } from '@/pages/AddPlantPage.tsx';
 import FertilizerGreenIcon from '@/assets/icon/FertilizerGreenIcon.svg';
 import HeartGreenIcon from '@/assets/icon/HeartGreenIcon.svg';
 import WaterGreenIcon from '@/assets/icon/WaterGreenIcon.svg';
+import CenterBottomSheet from '@/components/common/CenterBottomSheet';
+import CTAButton from '@/components/common/CTAButton';
 
 interface NotificationToggleListProps {
   plantId?: number;
@@ -41,11 +43,26 @@ const NotificationToggleList = ({
   const [notificationEnabled, setNotificationEnabled] = useState<boolean>(
     water.checked || fertilizer.checked || healthCheck.checked,
   );
+  const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
 
   const handleNotificationEnabledChange = (enabled: boolean) => {
     setNotificationEnabled(enabled);
     if (onNotificationEnabledChange) {
       onNotificationEnabledChange(enabled);
+    }
+  };
+
+  const handleBottomSheetClose = (type: 'water' | 'fertilizer') => {
+    switch (type) {
+      case 'water':
+        if (!water.period) {
+          setBottomSheetOpen(true);
+        }
+        break;
+      case 'fertilizer':
+        if (!fertilizer.period) {
+          setBottomSheetOpen(true);
+        }
     }
   };
 
@@ -73,6 +90,7 @@ const NotificationToggleList = ({
             onCheckedChange={(checked) => setWaterAlarm(checked)}
             icon={WaterGreenIcon}
             badgeIndex={recommendedWaterPeriod}
+            onBottomSheetClose={() => handleBottomSheetClose('water')}
           />
           <NotificationToggle
             name={fertilizer.title}
@@ -85,6 +103,7 @@ const NotificationToggleList = ({
             onSelect={(value) => setFertilizerPeriod(value)}
             onCheckedChange={(checked) => setFertilizerAlarm(checked)}
             icon={FertilizerGreenIcon}
+            onBottomSheetClose={() => handleBottomSheetClose('fertilizer')}
             badgeIndex={recommendedFertilizerPeriod}
           />
           <NotificationToggle
@@ -97,6 +116,19 @@ const NotificationToggleList = ({
           />
         </div>
       )}
+      <CenterBottomSheet
+        title={'주기를 입력하지 않으면 추천값이 사용되어요.'}
+        content={<></>}
+        actions={[
+          <CTAButton
+            className={'bg-BloomingGreen500'}
+            text={'확인'}
+            onClick={() => setBottomSheetOpen(false)}
+          />,
+        ]}
+        isOpen={bottomSheetOpen}
+        onOpenChange={setBottomSheetOpen}
+      />
     </div>
   );
 };
