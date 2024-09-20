@@ -1,13 +1,10 @@
 import React from 'react';
-import alim1 from '@/assets/icon/alim1.svg';
-import alim2 from '@/assets/icon/alim2.svg';
-import alim3 from '@/assets/icon/alim3.svg';
+import AlimSmallLogo from '@/assets/icon/AlimSmallLogo.jpg';
 
 const initialAlimData: Alim[] = [
   {
     id: 1,
     plantId: 1,
-    icon: alim1,
     plantName: '루밍이',
     alimContent: '루밍이는 비료가 필요해요.',
     day: '7일전',
@@ -16,7 +13,6 @@ const initialAlimData: Alim[] = [
   {
     id: 2,
     plantId: 1,
-    icon: alim2,
     plantName: '루밍이',
     alimContent: '식물 등록이 완료되었어요!',
     day: '1일전',
@@ -25,7 +21,6 @@ const initialAlimData: Alim[] = [
   {
     id: 3,
     plantId: 1,
-    icon: alim3,
     plantName: '루밍이',
     alimContent: '루밍이는 물이 필요해요.',
     day: '3일전',
@@ -36,7 +31,6 @@ const initialAlimData: Alim[] = [
 interface Alim {
   id: number;
   plantId: number;
-  icon: string;
   plantName: string;
   alimContent: string;
   day: string;
@@ -49,27 +43,26 @@ const parseDay = (day: string): number => {
 };
 
 const AlimItem: React.FC<{ alim: Alim; onClick: () => void }> = ({ alim, onClick }) => (
-  <div
-    className="flex justify-between gap-4 px-4 py-5 bg-white rounded-lg cursor-pointer "
-    onClick={onClick}
-  >
-    <div className="flex items-center gap-[10px]">
-      <div className="relative">
-        <div className="flex items-center justify-center w-[44px] h-[44px] bg-Gray100 rounded-full">
-          <img src={alim.icon} alt={alim.plantName} className="w-[24px] h-[24px]" />
-          {!alim.read && (
-            <div className="absolute top-1 left-1 w-[6px] h-[6px] bg-BloomingGreen500 rounded-full"></div>
-          )}
-        </div>
-      </div>
-      <div>
-        <h2 className="text-[15px] font-semibold text-Gray900">{alim.plantName}</h2>
-        <p className="text-[#333D48] text-[13px] font-medium">{alim.alimContent}</p>
+  <div className="flex flex-col gap-4 p-4 bg-white rounded-lg" onClick={onClick}>
+    <div className={'flex flex-row justify-between items-center w-full'}>
+      <header className={'flex flex-row gap-1.5 items-center'}>
+        <img
+          src={AlimSmallLogo}
+          alt={alim.plantName}
+          className={'w-5 h-5 object-cover rounded-[4px] overflow-hidden'}
+        />
+        <div className={'text-small-writing font-medium text-Gray600'}>블루밍</div>
+      </header>
+      <div className={'relative'}>
+        <p className={'text-small-writing font-light text-Gray400'}>{alim.day}</p>
+        {!alim.read && (
+          <div
+            className={'absolute -top-1 -right-2 w-1.5 h-1.5 rounded-full bg-BloomingGreen500'}
+          />
+        )}
       </div>
     </div>
-    <div>
-      <p className="text-[13px] text-Gray500 font-normal">{alim.day}</p>
-    </div>
+    <p className={'text-small-writing text-Gray900'}>{alim.alimContent}</p>
   </div>
 );
 

@@ -4,7 +4,7 @@ import Screen from '@/layouts/Screen';
 
 const AlimDetail = () => {
   return (
-    <Screen className="h-screen bg-Gray100">
+    <Screen className="min-h-dvh bg-Gray100">
       <TopButton />
       <AlimList />
     </Screen>
