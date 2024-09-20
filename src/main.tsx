@@ -15,7 +15,13 @@ async function enableMocking() {
   return server.start();
 }
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 5,
+    },
+  },
+});
 
 enableMocking().then(() => {
   ReactDOM.createRoot(document.getElementById('root')!).render(

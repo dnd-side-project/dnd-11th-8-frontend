@@ -67,7 +67,7 @@ const NotificationToggleList = ({
   };
 
   return (
-    <div className={'flex flex-col gap-[10px]'}>
+    <div className={'flex flex-col gap-[10px] mt-[20px]'}>
       <div className={'flex flex-row items-center justify-between'}>
         {labelAsTitle ? (
           <p className={'text-[18px] leading-[26px] font-bold'}>알림</p>
