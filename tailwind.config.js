@@ -113,6 +113,9 @@ export default {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
       },
+      boxShadow: {
+        'Weak-Filter': '0px 2px 30px 0px rgba(0, 29, 58, 0.18)',
+      },
     },
   },
   plugins: [
