@@ -2,16 +2,17 @@ import { cn } from '@/utils.ts';
 
 interface SeparatorProps {
   height: number;
-  verticalSpace?: number;
+  bottomMargin?: number;
+  topMargin?: number;
 }
 
-const Separator = ({ height, verticalSpace = 32 }: SeparatorProps) => {
+const Separator = ({ height, bottomMargin = 16, topMargin = 16 }: SeparatorProps) => {
   return (
     <div
       style={{
         height: height,
-        marginTop: verticalSpace / 2,
-        marginBottom: verticalSpace / 2,
+        marginTop: topMargin,
+        marginBottom: bottomMargin,
       }}
       className={cn(`w-screen max-w-md bg-Gray100 -ml-6`)}
     />

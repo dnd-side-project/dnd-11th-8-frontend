@@ -15,6 +15,7 @@ import { useUpdateMyPlantAlarm } from '@/queries/useUpdateMyPlantAlarm.ts';
 import { parseIdParams } from '@/utils/params/parseIdParams.ts';
 import { UpdateMyPlantAlarmParams } from '@/apis/myPlant/updateMyPlantAlarm.ts';
 import { useGetRecommendedPeriod } from '@/queries/useGetRecommendedPeriod.ts';
+import MyPlantFeed from '@/components/myPlantDetail/MyPlantFeed.tsx';
 
 export const plantInfo = {
   nickname: '루밍이',
@@ -55,7 +56,7 @@ const MyPlantDetail = () => {
   };
 
   return (
-    <Screen>
+    <Screen className={'pb-8'}>
       <Header
         title={''}
         left={
@@ -81,7 +82,7 @@ const MyPlantDetail = () => {
           species: data.scientificName,
         }}
       />
-      <Separator height={10} />
+      <Separator height={10} bottomMargin={32} />
       <NotificationToggleList
         onNotificationEnabledChange={handleNotificationEnabledChange}
         water={{
@@ -114,7 +115,8 @@ const MyPlantDetail = () => {
         lastWateredInfo={data.lastWateredInfo}
         lastWateredTitle={data.lastWateredTitle}
       />
-      <Separator height={10} />
+      <Separator height={10} bottomMargin={32} />
+      <MyPlantFeed myPlantId={+plantId} images={data.images} />
     </Screen>
   );
 };

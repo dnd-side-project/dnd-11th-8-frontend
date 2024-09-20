@@ -2,6 +2,7 @@ import errorIcon from '@/assets/icon/error.svg';
 import CTAButton from '@/components/common/CTAButton';
 import TabBar from '@/components/main/TabBar';
 import Screen from '@/layouts/Screen';
+import { useEffect } from 'react';
 
 // TODO: 다시 시도 버튼 기능 구현하기
 
@@ -11,6 +12,12 @@ interface ErrorPageProps {
 }
 
 const ErrorPage = ({ reset, error }: ErrorPageProps) => {
+  useEffect(() => {
+    if (import.meta.env.MODE === 'development') {
+      console.error(error);
+    }
+  }, []);
+
   return (
     <Screen className="flex items-center justify-center h-screen p-0">
       <div className="flex flex-col gap-[25px] p-4 ">

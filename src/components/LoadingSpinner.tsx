@@ -1,8 +1,18 @@
 import Screen from '@/layouts/Screen';
+import { cn } from '@/utils.ts';
 
-const LoadingSpinner = () => {
+interface LoadingSpinnerProps {
+  transparent?: boolean;
+}
+
+const LoadingSpinner = ({ transparent }: LoadingSpinnerProps) => {
   return (
-    <Screen className="flex items-center justify-center h-screen p-0">
+    <Screen
+      className={cn(
+        'flex fixed top-0 right-0 z-50 w-screen overflow-hidden items-center justify-center h-screen p-0',
+        transparent ? 'bg-black bg-opacity-25' : 'bg-white',
+      )}
+    >
       <div role="status" className="flex">
         <svg
           aria-hidden="true"

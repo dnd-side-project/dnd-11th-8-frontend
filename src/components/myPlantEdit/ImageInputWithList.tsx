@@ -1,12 +1,7 @@
-import { useId, useState } from 'react';
+import { useId } from 'react';
 import CameraIcon from '@/assets/icon/CameraIcon.tsx';
-import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
-import { useUploadMyPlantImage } from '@/queries/useUploadMyPlantImage.ts';
 import { parseIdParams } from '@/utils/params/parseIdParams.ts';
-import { storage } from '@/libs/firebase.ts';
-import { useQueryClient } from '@tanstack/react-query';
-import { keyStore } from '@/queries/keyStore.ts';
-import useToast from '@/hooks/useToast.tsx';
+import { useHandleImage } from '@/hooks/useHandleImage.ts';
 
 interface ImageInputWithListProps {
   images: {
@@ -19,36 +14,8 @@ interface ImageInputWithListProps {
 
 const ImageInputWithList = ({ images, plantId }: ImageInputWithListProps) => {
   const cameraInputId = useId();
-  const [isPending, setIsPending] = useState(false);
 
-  const { openToast } = useToast();
-
-  const queryClient = useQueryClient();
-
-  const { mutate: uploadMyPlantImage } = useUploadMyPlantImage(parseIdParams(plantId));
-
-  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) {
-      return;
-    }
-    setIsPending(true);
-    const storageRef = ref(storage, `images/myPlantImages/${file.name}`);
-    const snapshot = await uploadBytes(storageRef, file);
-    const imageUrl = await getDownloadURL(snapshot.ref);
-    uploadMyPlantImage(imageUrl, {
-      onError: () => {
-        setIsPending(false);
-        openToast({
-          message: '이미지 업로드에 실패했습니다.',
-        });
-      },
-      onSuccess: async () => {
-        await queryClient.invalidateQueries(keyStore.myPlant.getDetail(parseIdParams(plantId)));
-        setIsPending(false);
-      },
-    });
-  };
+  const { isPending, handleImageUpload } = useHandleImage(parseIdParams(plantId));
 
   return (
     <ul className={'flex flex-row gap-1.5 flex-wrap'}>
