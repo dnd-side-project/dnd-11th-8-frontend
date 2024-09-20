@@ -49,7 +49,7 @@ const AlimItem: React.FC<{ alim: Alim; onClick: () => void }> = ({ alim, onClick
         <img
           src={AlimSmallLogo}
           alt={alim.plantName}
-          className={'w-5 h-5 object-cover rounded-full overflow-hidden'}
+          className={'w-5 h-5 object-cover rounded-[4px] overflow-hidden'}
         />
         <div className={'text-small-writing font-medium text-Gray600'}>블루밍</div>
       </header>
