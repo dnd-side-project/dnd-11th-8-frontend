@@ -7,5 +7,5 @@ export interface UpdateMyPlantFeedParams {
 }
 
 export const updateMyPlantFeed = (params: UpdateMyPlantFeedParams) => {
-  return privateAxios.patch(`/myplant/image/${params.imageId}`);
+  return privateAxios.patch(`/myplants/image/${params.imageId}`);
 };

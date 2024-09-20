@@ -42,11 +42,12 @@ export const useHandleImage = (plantId?: number) => {
     });
   };
 
-  const handleImagesDelete = async (images: number[], callback: () => void) => {
+  const handleImagesDelete = (images: number[], callback: () => void) => {
     // TODO: 클라우드에 저장된 이미지 삭제하기
     // TODO: 클라우드 이미지 삭제 실패에 따른 처리 필요 (롤백 등)
     deleteMyPlantFeed(images, {
-      onSuccess: () => {
+      onSuccess: async () => {
+        await queryClient.invalidateQueries(keyStore.myPlant.getDetail(plantId));
         callback();
         openToast({
           message: '이미지가 삭제되었습니다.',

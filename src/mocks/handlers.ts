@@ -214,7 +214,12 @@ export const handlers = [
     });
   }),
 
-  http.patch(import.meta.env.VITE_API_URL + '/myplant/image/:id', async () => {
+  http.patch(import.meta.env.VITE_API_URL + '/myplants/image/:id', async () => {
+    await delay(1000);
+    return HttpResponse.json({});
+  }),
+
+  http.delete(import.meta.env.VITE_API_URL + '/myplants/image/:id', async () => {
     await delay(1000);
     return HttpResponse.json({});
   }),

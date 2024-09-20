@@ -26,6 +26,7 @@ const MyPlantFeedPage = () => {
   const [showDeleteOrModifyTooltip, setShowDeleteOrModifyTooltip] = useState(false);
   const [isDeleteMode, setIsDeleteMode] = useState(false);
   const [selectedImages, setSelectedImages] = useState<number[]>([]);
+  const [deleteIsPending, setDeleteIsPending] = useState(false);
 
   const params = useParams<{ plantId: string }>();
   const plantId = parseIdParams(params.plantId);
@@ -75,7 +76,12 @@ const MyPlantFeedPage = () => {
   };
 
   const handleDeletePlantFeed = () => {
-    void handleImagesDelete(selectedImages, () => setSelectedImages([]));
+    setDeleteIsPending(true);
+    void handleImagesDelete(selectedImages, () => {
+      setDeleteIsPending(false);
+      setIsDeleteMode(false);
+      setSelectedImages([]);
+    });
   };
 
   return (
@@ -88,6 +94,7 @@ const MyPlantFeedPage = () => {
           </button>
         }
       />
+      {deleteIsPending && <LoadingSpinner transparent />}
       <HeightBox height={16} />
       <div className="w-full flex flex-row justify-end">
         <FilterButton filterOptions={filterOptions} onSelect={setQuery} selected={query} />
