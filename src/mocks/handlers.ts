@@ -74,7 +74,7 @@ export const handlers = [
   http.post(import.meta.env.VITE_API_URL + '/login/kakao', async () => {
     await delay(1000);
     // 0 과 1 둘 중 하나의 데이터를 랜덤하게 반환
-    return HttpResponse.json(randomSigninData[1]);
+    return HttpResponse.json(randomSigninData[0]);
   }),
 
   http.post(import.meta.env.VITE_API_URL + '/login/apple', async () => {
@@ -212,5 +212,10 @@ export const handlers = [
     return HttpResponse.json({
       message: '이미지가 등록되었습니다.',
     });
+  }),
+
+  http.patch(import.meta.env.VITE_API_URL + '/myplant/image/:id', async () => {
+    await delay(1000);
+    return HttpResponse.json({});
   }),
 ];

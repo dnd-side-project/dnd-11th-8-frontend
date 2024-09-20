@@ -16,6 +16,7 @@ type RoutePath =
   | '/profile'
   | '/terms/service'
   | '/terms/privacy'
+  | `/my-plant/${number}/feed`
   | string;
 
 const useInternalRouter = () => {
