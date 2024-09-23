@@ -26,7 +26,6 @@ export const keyStore = createQueryKeyStore({
     signIn: null,
     refreshAccessToken: null,
     logout: null,
-    leave: null,
   },
   user: {
     register: null,
@@ -37,6 +36,7 @@ export const keyStore = createQueryKeyStore({
     updateAlarmTime: null,
     createDeviceToken: null,
     deleteDeviceToken: null,
+    deleteUser: null,
   },
   home: {
     getHomeData: null,
