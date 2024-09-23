@@ -53,6 +53,9 @@ const NotificationToggleList = ({
   };
 
   const handleBottomSheetClose = (type: 'water' | 'fertilizer') => {
+    console.log('type', type);
+    console.log('water', water.period);
+    console.log('fertilizer', fertilizer.period);
     switch (type) {
       case 'water':
         if (!water.period) {

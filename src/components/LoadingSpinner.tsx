@@ -9,7 +9,7 @@ const LoadingSpinner = ({ transparent }: LoadingSpinnerProps) => {
   return (
     <Screen
       className={cn(
-        'flex fixed top-0 right-0 z-50 w-screen overflow-hidden items-center justify-center h-screen p-0',
+        'flex fixed top-0 right-0 z-50 w-screen overflow-hidden items-center justify-center h-screen p-0 max-w-none',
         transparent ? 'bg-black bg-opacity-25' : 'bg-white',
       )}
     >
