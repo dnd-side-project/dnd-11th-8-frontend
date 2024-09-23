@@ -1,6 +1,12 @@
 import { ReactNode } from 'react';
 import { cn } from '@/utils.ts';
-import { Dialog, DialogContent, DialogDescription, DialogFooter } from '@/components/ui/dialog.tsx';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogTitle,
+} from '@/components/ui/dialog.tsx';
 
 interface CenterBottomSheetProps {
   title: string | ReactNode;
@@ -27,7 +33,7 @@ const CenterBottomSheet = ({
         <div className="flex justify-center my-2.5">
           <div className="w-12 h-1 bg-Gray100 rounded-full" />
         </div>
-        <header
+        <DialogTitle
           className={cn(
             'text-start px-2.5 text-Gray800 whitespace-pre-wrap',
             headerAsLabel
@@ -36,7 +42,7 @@ const CenterBottomSheet = ({
           )}
         >
           {title}
-        </header>
+        </DialogTitle>
         <DialogDescription>{content}</DialogDescription>
         <DialogFooter
           className={cn(
