@@ -40,21 +40,19 @@
   <summary>목차</summary>
   <ol>
     <li>
-      <a href="#about-the-project">프로젝트 개요</a>
+      <a href="#프로젝트-개요">프로젝트 개요</a>
       <ul>
-        <li><a href="#built-with">개발 스택</a></li>
+        <li><a href="#개발-스택">개발 스택</a></li>
       </ul>
     </li>
     <li>
-      <a href="#getting-started">핵심 기능</a>
+      <a href="#핵심-기능">핵심 기능</a>
       <ul>
-        <li><a href="#prerequisites">식물 가이드</a></li>
-        <li><a href="#installation">식물 물, 비료 알림</a></li>
+        <li><a href="로그인">로그인</a></li>
+        <li><a href="내-식물-관리">내 식물 관리</a></li>
+        <li><a href="#식물-가이드">식물 가이드</a></li>
       </ul>
     </li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
   </ol>
 </details>
 
@@ -116,7 +114,7 @@ Blooming 앱의 핵심 기능을 소개드리겠습니다.
 ### Top contributors:
 
 <a href="https://github.com/dnd-side-project/dnd-11th-8-frontend/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=othneildrew/Best-README-Template" alt="contrib.rocks image" />
+  <img src="https://contrib.rocks/image?repo=dnd-side-project/dnd-11th-8-frontend" alt="contrib.rocks image" />
 </a>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -133,13 +131,13 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
+[contributors-shield]: https://img.shields.io/github/contributors/dnd-side-project/dnd-11th-8-frontend.svg?style=for-the-badge
 [contributors-url]: https://github.com/dnd-side-project/dnd-11th-8-frontend/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/othneildrew/Best-README-Template.svg?style=for-the-badge
+[forks-shield]: https://img.shields.io/github/forks/dnd-side-project/dnd-11th-8-frontend.svg?style=for-the-badge
 [forks-url]: https://github.com/dnd-side-project/dnd-11th-8-frontend/network/members
-[stars-shield]: https://img.shields.io/github/stars/othneildrew/Best-README-Template.svg?style=for-the-badge
+[stars-shield]: https://img.shields.io/github/stars/dnd-side-project/dnd-11th-8-frontend.svg?style=for-the-badge
 [stars-url]: https://github.com/dnd-side-project/dnd-11th-8-frontend/stargazers
-[issues-shield]: https://img.shields.io/github/issues/othneildrew/Best-README-Template.svg?style=for-the-badge
+[issues-shield]: https://img.shields.io/github/issues/dnd-side-project/dnd-11th-8-frontend.svg?style=for-the-badge
 [issues-url]: https://github.com/dnd-side-project/dnd-11th-8-frontend/issues
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [React-url]: https://reactjs.org/
