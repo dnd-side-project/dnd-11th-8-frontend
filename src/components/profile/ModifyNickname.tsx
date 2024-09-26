@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import backButtonIcon from '@/assets/icon/guideDetailLeftArrow.svg';
+import BackButtonIcon from '@/assets/icon/left-arrow.svg?react';
 import MyProfile from './MyProfile';
 import Screen from '@/layouts/Screen';
 import TextField from '../common/TextField';
@@ -24,7 +24,9 @@ const ModifyNickname: React.FC = () => {
   return (
     <Screen className="px-0 min-h-dvh bg-Gray50 flex flex-col">
       <div className="flex justify-between px-[24px] pt-[31.31px]">
-        <img src={backButtonIcon} alt="뒤로가기 버튼 아이콘" onClick={() => router.goBack()} />
+        <button onClick={() => router.goBack()}>
+          <BackButtonIcon />
+        </button>
         <p className="text-[20px] text-Gray900 font-semibold">닉네임 수정</p>
         <div className="w-[24px] h-[24px]" />
       </div>

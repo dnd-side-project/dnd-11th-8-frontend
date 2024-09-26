@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useAtom } from 'jotai';
 import filterQueryAtom from '@/atoms/myPlant/filterQueryAtom';
-import downArrow from '@/assets/icon/downArrow.svg';
+import DownArrow from '@/assets/icon/down-arrow-gray.svg?react';
 import { LocationQueryParams } from '@/apis/myPlant/getMyAllPlant.ts';
 
 const filterOptions: Record<string, LocationQueryParams['sort']> = {
@@ -61,7 +61,7 @@ const FilterButton = () => {
         onClick={handleButtonClick}
       >
         <p>{currentLabel}</p>
-        <img src={downArrow} alt="아래 화살표" />
+        <DownArrow />
       </button>
 
       {isOptionsVisible && (

@@ -1,4 +1,4 @@
-import downArrow from '@/assets/icon/downArrow.svg';
+import DownArrow from '@/assets/icon/down-arrow-gray.svg?react';
 import { useEffect, useRef, useState } from 'react';
 
 interface FilterButtonProps {
@@ -44,7 +44,7 @@ const FilterButton = ({ filterOptions, selected, onSelect }: FilterButtonProps) 
         onClick={handleButtonClick}
       >
         <p>{selected as string}</p>
-        <img src={downArrow} alt="아래 화살표" />
+        <DownArrow />
       </button>
 
       {isOptionsVisible && (

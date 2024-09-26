@@ -1,5 +1,5 @@
 import React from 'react';
-import AlimSmallLogo from '@/assets/icon/AlimSmallLogo.jpg';
+import AlimSmallLogo from '@/assets/img/AlimSmallLogo.jpg';
 
 const initialAlimData: Alim[] = [
   {

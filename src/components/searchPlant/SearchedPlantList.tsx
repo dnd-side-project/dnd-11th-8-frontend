@@ -2,13 +2,13 @@ import { useSearchPlant } from '@/queries/useSearchPlant.ts';
 import List from '@/components/common/List';
 import GreenRoundPlusIcon from '@/assets/icon/GreenRoundPlusIcon.tsx';
 import { usePlantTypeSearchParams } from '@/hooks/usePlantTypeSearchParams.ts';
-import RoundedGreenChecked from '@/assets/icon/RoundedGreenChecked.tsx';
+import RoundedGreenChecked from '@/assets/icon/green-bg-circular-checkbox-checked.svg?react';
 import useToast from '@/hooks/useToast';
 import { JSX, useState } from 'react';
-import EmptyListIcon from '@/assets/icon/empty-list-icon.tsx';
+import EmptyListIcon from '@/assets/icon/empty-list-icon.svg?react';
 import CTAButton from '@/components/common/CTAButton';
 import HeightBox from '@/components/common/HeightBox';
-import PlusGreen from '@/assets/icon/PlusGreen.svg';
+import PlusGreen from '@/assets/icon/plus-green.svg?react';
 import CenterBottomSheet from '@/components/common/CenterBottomSheet';
 import TextFieldV2 from '@/components/common/TextFieldV2';
 import ListSkeleton from '@/components/common/Skeleton/ListSkeleton.tsx';
@@ -69,7 +69,7 @@ const SearchedPlantList = ({ query, onClose }: SearchedPlantListProps) => {
           className={
             'border-[1.5px] border-BloomingGreen500 bg-white text-BloomingGreen500 flex flex-row items-center gap-2.5'
           }
-          icon={PlusGreen}
+          icon={<PlusGreen />}
           onClick={() => setOpen(true)}
         />
         <CenterBottomSheet

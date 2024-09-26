@@ -1,4 +1,4 @@
-import KakaoIcon from '@/assets/icon/KakaoIcon.tsx';
+import KakaoIcon from '@/assets/icon/brand/kakao.svg?react';
 
 const KakaoLogin = () => {
   const KAKAO_REST_API_KEY = import.meta.env.VITE_KAKAO_REST_API_KEY;

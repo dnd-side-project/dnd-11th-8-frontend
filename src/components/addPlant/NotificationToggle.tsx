@@ -1,9 +1,10 @@
+/// <reference types="vite-plugin-svgr/client" />
 import Toggle from '@/components/common/Toggle';
 import Badge from '@/components/common/Badge';
-import IconArrowSolidDownMono from '@/assets/icon/icon-arrow-solid-down-mono.tsx';
+import IconArrowSolidDownMono from '@/assets/icon/triangle-down-dark-gray.svg?react';
 import BottomSheet from '@/components/common/BottomSheet';
 import ScrollPicker from '@/components/common/ScrollPicker';
-import { useEffect, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import CTAButton from '@/components/common/CTAButton';
 import useToast from '@/hooks/useToast.tsx';
 
@@ -17,7 +18,7 @@ interface NotificationToggleProps {
   valueStart?: number;
   valueEnd?: number;
   onSelect?: (value: number) => void;
-  icon: string;
+  Icon: ReactNode;
   badgeIndex?: number;
   hasPeriod?: boolean;
   onBottomSheetClose?: () => void;
@@ -31,7 +32,7 @@ const NotificationToggle = ({
   valueStart,
   valueEnd,
   onSelect,
-  icon,
+  Icon,
   badgeIndex,
   hasPeriod = true,
   onBottomSheetClose,
@@ -55,7 +56,7 @@ const NotificationToggle = ({
   return (
     <div className={'flex flex-row items-center justify-between py-2'}>
       <div className={'flex flex-row items-center gap-2'}>
-        <img src={icon} alt={'notification icon'} />
+        {Icon}
         <label className={'text-regular-body font-semibold text-Gray800'}>{name}</label>
         {hasPeriod && rest.checked && (
           <Badge

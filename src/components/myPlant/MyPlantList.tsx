@@ -1,7 +1,7 @@
 import Badge from '@/components/common/Badge';
-import waterIcon from '@/assets/icon/myPlantWater.svg';
-import fertilizerIcon from '@/assets/icon/myPlantFertilizer.svg';
-import noLocation from '@/assets/icon/noLocation.svg';
+import WaterIcon from '@/assets/icon/watering-pot-gray.svg?react';
+import FertilizerIcon from '@/assets/icon/sprout-2-gray.svg?react';
+import NoLocation from '@/assets/icon/location-red.svg?react';
 import { Link } from 'react-router-dom';
 import Plant from '@/types/MyPlant.ts';
 
@@ -37,7 +37,7 @@ const MyPlantList: React.FC<MyPlantListProps> = ({ plants }) => {
                     ? '기록 없음'
                     : `${plant.dateSinceLastWater}일전`
                 }
-                icon={waterIcon}
+                icon={<WaterIcon />}
               />
               <Badge
                 className="flex-grow-0 flex-shrink-1 flex items-center gap-[5px] px-[8px] py-[4px] bg-Gray50 text-[13px] text-Gray500 font-medium border border-GrayOpacity100"
@@ -47,14 +47,14 @@ const MyPlantList: React.FC<MyPlantListProps> = ({ plants }) => {
                     ? '기록 없음'
                     : `${plant.dateSinceLastFertilizer}일전`
                 }
-                icon={fertilizerIcon}
+                icon={<FertilizerIcon />}
               />
               {!plant.haveLocation && (
                 <Badge
                   size={'small'}
                   className="flex-grow-0 flex-shrink-1 flex items-center gap-[5px] px-[8px] py-[4px] bg-Red50 text-[13px] text-Red500 font-medium border border-RedOpacity100"
                   text="위치없음"
-                  icon={noLocation}
+                  icon={<NoLocation />}
                 />
               )}
             </div>

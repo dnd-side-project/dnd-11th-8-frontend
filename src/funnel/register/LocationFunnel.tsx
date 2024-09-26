@@ -1,6 +1,6 @@
 import Screen from '@/layouts/Screen.tsx';
 import Header from '@/components/common/Header';
-import 왼쪽꺽쇠 from '@/assets/icon/왼쪽꺽쇠.tsx';
+import 왼쪽꺽쇠 from '@/assets/icon/left-arrow.svg?react';
 import HeightBox from '@/components/common/HeightBox';
 import RegisterFunnelTitle from '@/components/register/RegisterFunnelTitle.tsx';
 import TextField from '@/components/common/TextField';

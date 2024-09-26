@@ -1,6 +1,6 @@
 import Screen from '@/layouts/Screen.tsx';
 import Header from '@/components/common/Header';
-import CloseIcon from '@/assets/icon/xbtn.svg';
+import CloseIcon from '@/assets/icon/x-gray.svg?react';
 import FilterButton from '@/components/common/FilterButton';
 import { useState } from 'react';
 import HeightBox from '@/components/common/HeightBox';
@@ -90,7 +90,7 @@ const MyPlantFeedPage = () => {
         title={'식물 피드'}
         right={
           <button onClick={router.goBack}>
-            <img src={CloseIcon} alt="닫기" />
+            <CloseIcon />
           </button>
         }
       />

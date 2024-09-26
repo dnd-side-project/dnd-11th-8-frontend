@@ -1,5 +1,5 @@
-import TrashIcon from '@/assets/icon/trashIcon.svg';
-import IconPlusRoundGray400 from '@/assets/icon/IconPlusRoundGray400.tsx';
+import TrashIcon from '@/assets/icon/bin-line-gray.svg?react';
+import IconPlusRoundGray400 from '@/assets/icon/plus-circular-outlined-gray.svg?react';
 import { ChangeEvent, useId } from 'react';
 import { useHandleImage } from '@/hooks/useHandleImage.ts';
 import useToast from '@/hooks/useToast.tsx';
@@ -46,7 +46,7 @@ const MyPlantFeedDeleteOrModifyTooltip = ({
         htmlFor={imageInputId}
         className="flex w-full flex-row gap-2.5 items-center active:bg-GrayOpacity100 p-2.5 rounded-[10px] text-Gray700 font-medium text-small-body"
       >
-        <img src={TrashIcon} alt="삭제하기" />
+        <TrashIcon />
         <span>추가하기</span>
       </label>
       <input

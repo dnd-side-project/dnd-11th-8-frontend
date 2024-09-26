@@ -1,11 +1,11 @@
-import noMyPlant from '@/assets/icon/noMyPlant.svg';
+import NoMyPlant from '@/assets/icon/empty-list-icon.svg?react';
 
 const NoSearchPlant = () => {
   return (
     <div className="flex items-center justify-center mt-[102.61px]">
       <div className="flex flex-col gap-[25px] p-4 ">
         <div className="flex justify-center">
-          <img src={noMyPlant} alt="식물이 없어요 이미지" />
+          <NoMyPlant />
         </div>
         <div className="flex flex-col gap-[10px] text-center text-[15px] font-medium">
           <div>

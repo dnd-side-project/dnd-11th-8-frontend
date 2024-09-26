@@ -1,5 +1,5 @@
 import Header from '@/components/common/Header';
-import IconXMono from '@/assets/icon/icon-x-mono.tsx';
+import IconXMono from '@/assets/icon/x-gray.svg?react';
 import Screen from '@/layouts/Screen.tsx';
 import useInternalRouter from '@/hooks/useInternalRouter.ts';
 import MostRecentImage from '@/components/myPlantEdit/MostRecentImage';
@@ -10,7 +10,7 @@ import PlantLocationBadgeList from '@/components/addPlant/PlantLocationBadgeList
 import { Suspense, useState } from 'react';
 import 마지막으로물준날 from '@/components/addPlant/마지막으로물준날.tsx';
 import CTAButton from '@/components/common/CTAButton';
-import Trash2 from '@/assets/icon/Trash-2.tsx';
+import Trash2 from '@/assets/icon/bin-filled-gray.svg?react';
 import { useParams } from 'react-router-dom';
 import { useGetMyPlantDetail } from '@/queries/useGetMyPlantDetail.ts';
 import { parseOrUndefined } from '@/utils/int/parseOrUndefined.ts';

@@ -2,7 +2,7 @@ import { 서비스이용약관 } from '@/constants/terms';
 import Screen from '@/layouts/Screen.tsx';
 import ReactMarkdown from 'react-markdown';
 import Header from '@/components/common/Header';
-import 왼쪽꺽쇠 from '@/assets/icon/왼쪽꺽쇠';
+import 왼쪽꺽쇠 from '@/assets/icon/left-arrow.svg?react';
 import useInternalRouter from '@/hooks/useInternalRouter.ts';
 import HeightBox from '@/components/common/HeightBox';
 

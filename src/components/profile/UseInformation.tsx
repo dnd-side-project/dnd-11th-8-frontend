@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import moving from '@/assets/icon/moving.svg';
-import logoutIcon from '@/assets/icon/logout.svg';
+import React, { ReactNode, useState } from 'react';
+import Moving from '@/assets/icon/right-arrow-gray-2.svg?react';
+import LogoutIcon from '@/assets/icon/logout.svg?react';
 import CenterBottomSheet from '../common/CenterBottomSheet';
 import CTAButton from '../common/CTAButton';
 import useInternalRouter from '@/hooks/useInternalRouter';
@@ -10,19 +10,18 @@ import { useCookies } from 'react-cookie';
 
 interface InformationItemProps {
   title: string;
-  icon: string;
-  altText: string;
+  icon: ReactNode;
   onClick: () => void;
 }
 
 // 정보 항목 컴포넌트
-const InformationItem: React.FC<InformationItemProps> = ({ title, icon, altText, onClick }) => (
+const InformationItem: React.FC<InformationItemProps> = ({ title, icon, onClick }) => (
   <div
     className="box-border flex w-[calc(100%-40px)] mx-auto px-[24px] py-[16px] bg-white border border-GrayOpacity100 items-center justify-between rounded-[10px] cursor-pointer"
     onClick={onClick}
   >
     <p className="text-Gray800 text-[15px] font-medium">{title}</p>
-    <img src={icon} alt={altText} />
+    {icon}
   </div>
 );
 
@@ -71,32 +70,27 @@ const UseInformation: React.FC = () => {
   const items: InformationItemProps[] = [
     {
       title: '개인정보처리방침',
-      icon: moving,
-      altText: '개인정보 처리 방침으로 가는 아이콘 버튼',
+      icon: <Moving />,
       onClick: handlePrivacyPolicyClick,
     },
     {
       title: '이용약관',
-      icon: moving,
-      altText: '이용약관으로 가는 아이콘 버튼',
+      icon: <Moving />,
       onClick: handleTermsClick,
     },
     {
       title: '알림',
-      icon: moving,
-      altText: '알림으로 가는 아이콘 버튼',
+      icon: <Moving />,
       onClick: handleAlimClick,
     },
     {
       title: '로그아웃',
-      icon: logoutIcon,
-      altText: '로그아웃 버튼',
+      icon: <LogoutIcon />,
       onClick: () => setIsOpenLogoutModal(true),
     },
     {
       title: '탈퇴하기',
-      icon: moving,
-      altText: '탈퇴하기 버튼',
+      icon: <Moving />,
       onClick: () => setIsOpenDeleteModal(true),
     },
   ];
@@ -109,13 +103,7 @@ const UseInformation: React.FC = () => {
 
       <section className="flex flex-col gap-[10px]">
         {items.map((item, index) => (
-          <InformationItem
-            key={index}
-            title={item.title}
-            icon={item.icon}
-            altText={item.altText}
-            onClick={item.onClick}
-          />
+          <InformationItem key={index} title={item.title} icon={item.icon} onClick={item.onClick} />
         ))}
         <div className="mb-[37px]"></div>
       </section>

@@ -1,5 +1,5 @@
 import { MouseEvent } from 'react';
-import AppleLogo from '@/assets/icon/AppleLogo.tsx';
+import AppleLogo from '@/assets/icon/brand/apple.svg?react';
 import useInternalRouter from '@/hooks/useInternalRouter.ts';
 
 const AppleLogin = () => {
@@ -18,7 +18,6 @@ const AppleLogin = () => {
       router.push(`/redirect?code=${data.authorization.id_token}`);
     } catch (e) {
       console.error(e);
-      // TODO: 다이얼로그를 띄우거나 별도의 에러 처리 시도하기
     }
   };
 

@@ -1,5 +1,5 @@
 import TextField from '@/components/common/TextField';
-import IconSearchMono from '@/assets/icon/icon-search-mono.tsx';
+import IconSearchMono from '@/assets/icon/search-gray.svg?react';
 import SearchPlantPage from '@/pages/SearchPlantPage.tsx';
 import { MouseEventHandler, useState } from 'react';
 import { usePlantTypeSearchParams } from '@/hooks/usePlantTypeSearchParams.ts';

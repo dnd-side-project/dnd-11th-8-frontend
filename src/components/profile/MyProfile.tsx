@@ -1,5 +1,5 @@
-import profileImg from '@/assets/icon/profileImg.svg';
-import pencil from '@/assets/icon/pencil.svg';
+import ProfileImg from '@/assets/icon/default-profile.svg?react';
+import Pencil from '@/assets/icon/pencil-circular-gray.svg?react';
 import useInternalRouter from '@/hooks/useInternalRouter';
 import { MyProfileProps } from '@/types/profile';
 
@@ -9,13 +9,15 @@ const MyProfile: React.FC<MyProfileProps> = ({ justImg, myProfile }) => {
   return (
     <div className="flex flex-col pt-[28.7px] gap-[30px] items-center justify-center">
       <div className="flex flex-col gap-[15px] items-center justify-center">
-        <img className="w-[72px] h-[72px]" src={profileImg} alt="프로필 이미지 사진" />
+        <ProfileImg />
         <div className="flex gap-[5px]">
           <p className="text-Gray900 text-[22px] font-semibold">{myProfile?.nickname}님</p>
           {justImg === true ? (
             ''
           ) : (
-            <img src={pencil} alt="수정하기 아이콘" onClick={() => push(`/profile/edit`)} />
+            <button onClick={() => push(`/profile/edit`)}>
+              <Pencil />
+            </button>
           )}
         </div>
       </div>

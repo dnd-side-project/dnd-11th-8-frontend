@@ -1,5 +1,5 @@
 import Screen from '@/layouts/Screen.tsx';
-import IconXMono from '@/assets/icon/icon-x-mono.tsx';
+import IconXMono from '@/assets/icon/x-gray.svg?react';
 import TextField from '@/components/common/TextField';
 import { cn } from '@/utils.ts';
 import CTAButton from '@/components/common/CTAButton';
@@ -14,7 +14,7 @@ import { Suspense, useCallback, useState } from 'react';
 import { isFalsy } from '@/utils/validation/isFalsy.ts';
 import { useCreateMyPlant } from '@/queries/useCreateMyPlant.ts';
 import useToast from '@/hooks/useToast.tsx';
-import RoundedGreenChecked from '@/assets/icon/RoundedGreenChecked.tsx';
+import RoundedGreenChecked from '@/assets/icon/green-bg-circular-checkbox-checked.svg?react';
 import 마지막으로비료준날 from '@/components/addPlant/마지막으로비료준날';
 import { CreateMyPlantRequestBody } from '@/apis/myPlant/createMyPlant.ts';
 import HeightBox from '@/components/common/HeightBox';

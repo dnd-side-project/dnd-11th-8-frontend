@@ -1,5 +1,5 @@
-import fertilizerIcon from '@/assets/icon/fertilizer.svg';
-import waterIcon from '@/assets/icon/water.svg';
+import FertilizerIcon from '@/assets/icon/sprout-2-green.svg?react';
+import WaterIcon from '@/assets/icon/watering-pot-green.svg?react';
 
 interface MyPlantInfoProps {
   lastFertilizerTitle: string;
@@ -19,7 +19,7 @@ const MyPlantInfo = ({
       <header className={'text-[18px] leading-[26px] font-bold'}>내 식물 정보</header>
       <div className={'grid grid-cols-2 mt-[18px] gap-[7px]'}>
         <div className={'py-[15px] px-[20px] rounded-[10px] bg-Gray100'}>
-          <img src={fertilizerIcon} alt={'비료'} />
+          <FertilizerIcon />
           <div className={'mt-[8px] text-[15px] font-semibold leading-[24px]'}>
             {lastFertilizerTitle}
           </div>
@@ -28,7 +28,7 @@ const MyPlantInfo = ({
           </div>
         </div>
         <div className={'py-[15px] px-[20px] rounded-[10px] bg-Gray100'}>
-          <img src={waterIcon} alt={'비료'} />
+          <WaterIcon />
           <div className={'mt-[8px] text-[15px] font-semibold leading-[24px]'}>
             {lastWateredTitle}
           </div>

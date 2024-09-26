@@ -46,6 +46,7 @@
     "tailwindcss-animate": "^1.0.7",
     "use-long-press": "^3.2.0",
     "vaul": "^0.9.1",
+    "vite-plugin-svgr": "^4.2.0",
     "zod": "^3.23.8"
   },
   "devDependencies": {
