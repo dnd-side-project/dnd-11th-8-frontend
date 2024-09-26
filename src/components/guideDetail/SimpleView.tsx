@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import GuideDetailsProps from '@/types/GuideDetailsProps';
-import seeMoreBtnIcon from '@/assets/icon/guideDetailDownArrow.svg';
+import SeeMoreBtnIcon from '@/assets/icon/down-arrow-2.svg?react';
 import { guideDetailIconMap } from '@/constants/guideIconMap.ts';
 
 const SimpleView: React.FC<{ items: GuideDetailsProps['simpleView'] }> = ({ items }) => {
@@ -61,12 +61,10 @@ const SimpleView: React.FC<{ items: GuideDetailsProps['simpleView'] }> = ({ item
         >
           <button className="px-4 py-[16px] font-medium text-Gray700 flex items-center">
             <p>{showAll ? '접기' : '더보기'}</p>
-            <img
+            <SeeMoreBtnIcon
               className={`w-[24px] h-[24px] transition-transform duration-700 ${
                 showAll ? 'rotate-180' : 'rotate-0'
               }`}
-              src={seeMoreBtnIcon}
-              alt={showAll ? '접기 버튼 아이콘' : '더보기 버튼 아이콘'}
             />
           </button>
         </div>

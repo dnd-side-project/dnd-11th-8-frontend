@@ -1,12 +1,12 @@
+import { useState } from 'react';
 import Label from '@/components/common/Label';
 import Toggle from '@/components/common/Toggle';
 import NotificationToggle from '@/components/addPlant/NotificationToggle.tsx';
-import { useState } from 'react';
 import { ToggleFormState } from '@/pages/AddPlantPage.tsx';
 
-import FertilizerGreenIcon from '@/assets/icon/FertilizerGreenIcon.svg';
-import HeartGreenIcon from '@/assets/icon/HeartGreenIcon.svg';
-import WaterGreenIcon from '@/assets/icon/WaterGreenIcon.svg';
+import FertilizerGreenIcon from '@/assets/icon/sprout-2-green-large.svg?react';
+import HeartGreenIcon from '@/assets/icon/heart-green.svg?react';
+import WaterGreenIcon from '@/assets/icon/watering-pot-green.svg?react';
 import CenterBottomSheet from '@/components/common/CenterBottomSheet';
 import CTAButton from '@/components/common/CTAButton';
 
@@ -53,9 +53,6 @@ const NotificationToggleList = ({
   };
 
   const handleBottomSheetClose = (type: 'water' | 'fertilizer') => {
-    console.log('type', type);
-    console.log('water', water.period);
-    console.log('fertilizer', fertilizer.period);
     switch (type) {
       case 'water':
         if (!water.period) {
@@ -91,7 +88,7 @@ const NotificationToggleList = ({
             valueEnd={30}
             onSelect={(value) => setWaterPeriod(value)}
             onCheckedChange={(checked) => setWaterAlarm(checked)}
-            icon={WaterGreenIcon}
+            Icon={<WaterGreenIcon />}
             badgeIndex={recommendedWaterPeriod}
             onBottomSheetClose={() => handleBottomSheetClose('water')}
           />
@@ -105,7 +102,7 @@ const NotificationToggleList = ({
             valueEnd={30}
             onSelect={(value) => setFertilizerPeriod(value)}
             onCheckedChange={(checked) => setFertilizerAlarm(checked)}
-            icon={FertilizerGreenIcon}
+            Icon={<FertilizerGreenIcon className={'-mx-[4px] mr-0.5'} />}
             onBottomSheetClose={() => handleBottomSheetClose('fertilizer')}
             badgeIndex={recommendedFertilizerPeriod}
           />
@@ -115,7 +112,7 @@ const NotificationToggleList = ({
             period={healthCheck.period}
             checked={healthCheck.checked}
             onCheckedChange={(checked) => setHealthCheckAlarm(checked)}
-            icon={HeartGreenIcon}
+            Icon={<HeartGreenIcon className={'mr-1.5'} />}
           />
         </div>
       )}

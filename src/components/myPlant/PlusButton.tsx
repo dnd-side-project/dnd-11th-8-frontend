@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import plusBtn from '@/assets/icon/myPlantPlusBtn.svg';
 import OptionsMenu from './OptionsMenu';
 import BottomSheet from './BottomSheet';
 import LocationInput from '@/components/myPlant/LocationInput.tsx';
 import DeleteConfirmation from '@/components/myPlant/DeleteConfirmation.tsx';
+import FloatingButton from '@/components/common/FloatingButton';
 
 interface PlusButtonProps {
   locationName: string;
@@ -42,9 +42,7 @@ const PlusButton: React.FC<PlusButtonProps> = ({ locationName, locationId }) => 
   return (
     <div className="relative flex justify-end">
       <div className="fixed z-40 bottom-12">
-        <button onClick={() => setIsOptionVisible(true)}>
-          <img src={plusBtn} alt="플러스 버튼" />
-        </button>
+        <FloatingButton onClick={() => setIsOptionVisible(true)} />
       </div>
 
       {isOptionsVisible && (

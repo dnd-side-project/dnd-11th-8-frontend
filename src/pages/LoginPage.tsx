@@ -2,7 +2,7 @@ import KakaoLogin from '@/components/auth/KakaoLogin.tsx';
 import AppleLogin from '@/components/auth/AppleLogin.tsx';
 import Screen from '@/layouts/Screen.tsx';
 import LoginTitle from '@/components/login/LoginTitle.tsx';
-import LoginLogo from '@/assets/icon/LoginLogo';
+import LoginLogo from '@/assets/icon/login-logo.svg?react';
 import HeightBox from '@/components/common/HeightBox';
 import LoginPlantIcon from '@/assets/icon/LoginPlantIcon.tsx';
 import LoginTerms from '@/components/login/LoginTerms.tsx';

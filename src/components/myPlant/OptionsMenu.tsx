@@ -1,6 +1,6 @@
 import { FC } from 'react';
-import sprout from '@/assets/icon/sprout.svg';
-import location from '@/assets/icon/location.svg';
+import Sprout from '@/assets/icon/sprout-green.svg?react';
+import Location from '@/assets/icon/location-green.svg?react';
 import useInternalRouter from '@/hooks/useInternalRouter';
 import useToast from '@/hooks/useToast';
 import { ALL_LOCATION, NO_LOCATION } from '@/components/common/SegmentControl';
@@ -53,14 +53,14 @@ const OptionsMenu: FC<OptionsMenuProps> = ({
             className="flex gap-[10px] p-[10px] rounded-[10px] hover:bg-GrayOpacity100"
             onClick={handleSproutClick}
           >
-            <img src={sprout} alt="새싹 아이콘" />
+            <Sprout />
             <p>식물 등록하기</p>
           </button>
           <button
             onClick={handleSettingLocationButtonClick}
             className="flex gap-[10px] p-[10px] rounded-[10px] hover:bg-GrayOpacity100"
           >
-            <img src={location} alt="위치 아이콘" />
+            <Location />
             <p>위치 설정하기</p>
           </button>
         </div>

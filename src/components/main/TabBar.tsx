@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import GuideIcon from '@/components/main/tabBarIconComponent/Guide';
-import HomeIcon from '@/components/main/tabBarIconComponent/Home';
-import MyPlantsIcon from '@/components/main/tabBarIconComponent/MyPlant';
+import React, { useEffect, useState } from 'react';
+import GuideIcon from '@/assets/icon/Guide.tsx';
+import HomeIcon from '@/assets/icon/Home.tsx';
+import MyPlantsIcon from '@/assets/icon/MyPlant.tsx';
 import useInternalRouter from '@/hooks/useInternalRouter';
 import { useLocation } from 'react-router-dom';
 

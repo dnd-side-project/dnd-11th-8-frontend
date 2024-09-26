@@ -1,10 +1,10 @@
 import Card from '../common/Card';
-import { IconType } from 'react-icons';
+import { FC } from 'react';
 
 interface WeatherProps {
   title: string;
   description: string[];
-  Icon?: string | IconType;
+  Icon?: FC;
 }
 
 const Weather: React.FC<WeatherProps> = ({ title, description, Icon }) => {
@@ -26,13 +26,7 @@ const Weather: React.FC<WeatherProps> = ({ title, description, Icon }) => {
             </div>
           </div>
 
-          <div className="self-end mt-auto">
-            {typeof Icon === 'string' ? (
-              <img src={Icon} alt="아이콘" />
-            ) : (
-              Icon && <Icon size={30} />
-            )}
-          </div>
+          <div className="self-end mt-auto">{Icon === undefined ? null : <Icon />}</div>
         </Card.Content>
       </Card.Container>
     </div>

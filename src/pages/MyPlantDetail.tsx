@@ -1,7 +1,7 @@
 import Screen from '@/layouts/Screen.tsx';
 import { Link, useParams } from 'react-router-dom';
 import Header from '@/components/common/Header';
-import 왼쪽꺽쇠 from '@/assets/icon/왼쪽꺽쇠';
+import 왼쪽꺽쇠 from '@/assets/icon/left-arrow.svg?react';
 import useInternalRouter from '@/hooks/useInternalRouter.ts';
 import PlantImageCarousel from '@/components/myPlantDetail/PlantImageCarousel.tsx';
 import PlantInfo from '@/components/myPlantDetail/PlantInfo';

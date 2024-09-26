@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import Toggle from '../common/Toggle';
-import pencil from '@/assets/icon/pencil.svg';
+import Pencil from '@/assets/icon/pencil-circular-gray.svg?react';
 import BottomSheet from '@/components/common/BottomSheet';
 import { MyProfileProps } from '@/types/profile';
 import { useUpdateAlarmStatus } from '@/queries/useUpdateAlarmStatus.ts';
@@ -78,12 +78,9 @@ const SetNotifications: React.FC<MyProfileProps> = ({ myProfile }) => {
             <p className="text-Gray800">알림 시간대</p>
             <div className="flex gap-[10px] items-center">
               <p className="text-BloomingGreen500">{getTimeLabel(myProfile.alarmTime)}</p>
-              <img
-                src={pencil}
-                alt="수정하기 아이콘"
-                className="cursor-pointer"
-                onClick={() => setBottomSheetOpen(true)}
-              />
+              <button className="cursor-pointer" onClick={() => setBottomSheetOpen(true)}>
+                <Pencil />
+              </button>
             </div>
           </div>
         )}

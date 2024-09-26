@@ -1,11 +1,12 @@
+/// <reference types="vite-plugin-svgr/client" />
 import React, { useMemo } from 'react';
 import AlimCheck from './AlimCheck';
-import myPlantsAll from '@/assets/icon/MyPlantsAll.svg';
+import RightArrow from '@/assets/icon/right-arrow.svg?react';
 import useInternalRouter from '@/hooks/useInternalRouter';
 import { Carousel, CarouselApi, CarouselContent, CarouselItem } from '@/components/ui/carousel.tsx';
 import { GetHomeScreenDataResponse } from '@/apis/home/getHomeScreenData.ts';
 import { getRandomIllustrator } from '@/utils/home/getRandomIllustrator.ts';
-import 창틀 from '@/assets/icon/plants/창틀.svg';
+import 창틀 from '@/assets/icon/plants/창틀.svg?react';
 import { cn } from '@/utils.ts';
 import { isFalsy } from '@/utils/validation/isFalsy.ts';
 
@@ -30,21 +31,19 @@ const MyPlantAlimCheck: React.FC<MyPlantAlimCheckProps> = ({ plants }) => {
     });
   }, [api]);
 
-  const imageUrl = useMemo(() => getRandomIllustrator(), []);
+  const { Icon, left, right } = useMemo(() => getRandomIllustrator(), []);
 
   return (
     <Carousel setApi={setApi}>
       <div className={'absolute h-[230px] -left-6 w-screen bg-[#F2F1E5] max-w-md'} />
-      <img className={'absolute top-5 left-1/2 -translate-x-1/2'} src={창틀} />
+      <창틀 className={'absolute top-5 left-1/2 -translate-x-1/2'} />
       <CarouselContent>
         {plants.map((plant) => (
           <CarouselItem key={plant.myPlantId}>
             <div className="flex flex-col items-center justify-center">
-              <img
-                src={imageUrl.src}
-                alt="나의 식물 일러스트"
+              <Icon
                 style={{
-                  transform: `translateY(-20px) translateX(${(-1 * (imageUrl.left - imageUrl.right)) / 2 - 3}px)`,
+                  transform: `translateY(-20px) translateX(${(-1 * (left - right)) / 2 - 3}px)`,
                 }}
                 className={cn('mt-[10px] mb-[30px]')}
               />
@@ -59,7 +58,7 @@ const MyPlantAlimCheck: React.FC<MyPlantAlimCheckProps> = ({ plants }) => {
                   className="flex mt-[10px] gap-[5px] px-[8px] py-[4px] border border-Gray300 rounded-full bg-Gray50 justify-center items-center"
                 >
                   <p className="text-small-writing text-Gray800">내 식물 전체 보기</p>
-                  <img src={myPlantsAll} alt="내 식물 보러가기 아이콘" />
+                  <RightArrow />
                 </button>
               </div>
 

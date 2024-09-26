@@ -1,8 +1,7 @@
-import nonUser from '@/assets/icon/nonUser.svg';
 import RegisterMyPlant from './RegisterMyPlant';
 import MyPlantAlimCheck from './MyPlantAlimCheck';
 import MyPlantRegistration from './MyPlantRegistration';
-import logo from '@/assets/icon/logo.svg';
+import Logo from '@/assets/icon/logo.svg?react';
 import AppBar from '@/components/main/AppBar.tsx';
 import { GetHomeScreenDataResponse } from '@/apis/home/getHomeScreenData.ts';
 
@@ -16,7 +15,7 @@ const MyPlant: React.FC<MyPlantProps> = ({ register, myPlantsInfo, greetingMessa
   return (
     <>
       <div className="px-[22px] bg-[#F2F1E5] -mx-6">
-        <AppBar logo={logo} profileImage={nonUser} />
+        <AppBar logo={<Logo />} />
 
         {register ? (
           <RegisterMyPlant greetingMessage={greetingMessage} />

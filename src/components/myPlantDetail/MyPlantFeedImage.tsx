@@ -1,6 +1,6 @@
 import FeedFavoriteIcon from '@/assets/icon/FeedFavoriteIcon.tsx';
 import { useUpdateMyPlantFeed } from '@/queries/useUpdateMyPlantFeed.ts';
-import CheckBox from '@/assets/icon/CheckBox.tsx';
+import CheckBox from '@/assets/icon/square-checkbox.svg?react';
 
 interface MyPlantFeedImageProps {
   imageSrc: string;

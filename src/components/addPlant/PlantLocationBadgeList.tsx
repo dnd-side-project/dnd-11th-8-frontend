@@ -16,15 +16,15 @@ import Label from '@/components/common/Label';
 import Badge from '@/components/common/Badge';
 import CenterBottomSheet from '@/components/common/CenterBottomSheet';
 
-import BinLineMono from '@/assets/icon/BinLineMono.tsx';
-import RoundedGreenChecked from '@/assets/icon/RoundedGreenChecked.tsx';
+import BinLineMono from '@/assets/icon/bin-line-gray.svg?react';
+import RoundedGreenChecked from '@/assets/icon/green-bg-circular-checkbox-checked.svg?react';
+import IconPlusMono from '@/assets/icon/plus-dark-gray.svg?react';
 
 import LocationBadge from '@/components/addPlant/LocationBadge.tsx';
 import { PlantLocation } from '@/types/plantLocation';
 
 import { cn } from '@/utils.ts';
 import { isFalsy } from '@/utils/validation/isFalsy.ts';
-import IconPlusMono from '@/assets/icon/icon-plus-mono.tsx';
 
 interface PlantLocationBadgeListProps {
   handleChange: (location: PlantLocation) => void;

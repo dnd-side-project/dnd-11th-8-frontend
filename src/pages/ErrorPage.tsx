@@ -1,4 +1,4 @@
-import errorIcon from '@/assets/icon/error.svg';
+import ErrorIcon from '@/assets/icon/error.svg?react';
 import CTAButton from '@/components/common/CTAButton';
 import TabBar from '@/components/main/TabBar';
 import Screen from '@/layouts/Screen';
@@ -22,7 +22,7 @@ const ErrorPage = ({ reset, error }: ErrorPageProps) => {
     <Screen className="flex items-center justify-center h-screen p-0">
       <div className="flex flex-col gap-[25px] p-4 ">
         <div className="flex justify-center">
-          <img src={errorIcon} alt="식물이 없어요 이미지" />
+          <ErrorIcon />
         </div>
         <div className="flex flex-col gap-[10px] text-center text-[15px] font-medium">
           <div>

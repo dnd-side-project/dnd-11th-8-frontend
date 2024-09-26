@@ -1,7 +1,7 @@
 import { plantInfo } from '@/pages/MyPlantDetail.tsx';
 import Badge from '../common/Badge';
-import BookOpen from '@/assets/icon/book-open.tsx';
-import MapPin from '@/assets/icon/map-pin.tsx';
+import BookOpen from '@/assets/icon/book-open-green.svg?react';
+import MapPin from '@/assets/icon/location-green.svg?react';
 import useInternalRouter from '@/hooks/useInternalRouter.ts';
 
 interface PlantInfoProps {

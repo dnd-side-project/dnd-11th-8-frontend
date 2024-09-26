@@ -1,6 +1,6 @@
 import useInternalRouter from '@/hooks/useInternalRouter';
 import Card from '../common/Card';
-import addIcon from '@/assets/icon/addMyPlant.svg';
+import AddIcon from '@/assets/icon/plus-green-filled-circle.svg?react';
 
 const MyPlantRegistration = () => {
   const { push } = useInternalRouter();
@@ -11,7 +11,7 @@ const MyPlantRegistration = () => {
           <div className="py-[18px]">
             <Card.Content className={'text-center pb-5'}>
               <button>
-                <img src={addIcon} alt="식물 추가 버튼 아이콘" />
+                <AddIcon />
               </button>
             </Card.Content>
 

@@ -1,5 +1,5 @@
 import { useId } from 'react';
-import CameraIcon from '@/assets/icon/CameraIcon.tsx';
+import CameraIcon from '@/assets/icon/camera-gray.svg?react';
 import { parseIdParams } from '@/utils/params/parseIdParams.ts';
 import { useHandleImage } from '@/hooks/useHandleImage.ts';
 

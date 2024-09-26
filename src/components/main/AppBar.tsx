@@ -1,19 +1,21 @@
-import nonUser from '@/assets/icon/nonUser.svg';
+import NonUser from '@/assets/icon/profile-dark-gray.svg?react';
 import useInternalRouter from '@/hooks/useInternalRouter.ts';
+import { ReactNode } from 'react';
 
 interface AppBarProps {
-  logo: string;
-  profileImage?: string;
+  logo: ReactNode;
 }
 
-const AppBar = ({ logo, profileImage = nonUser }: AppBarProps) => {
+const AppBar = ({ logo }: AppBarProps) => {
   const { push } = useInternalRouter();
 
   return (
     <div className="pt-[21.3px] flex justify-between items-center">
-      <img src={logo} alt="로고" />
+      {logo}
       <div>
-        <img src={profileImage} alt="프로필이 없는 유저" onClick={() => push('/profile')} />
+        <button onClick={() => push('/profile')}>
+          <NonUser />
+        </button>
       </div>
     </div>
   );

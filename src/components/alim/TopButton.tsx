@@ -1,4 +1,4 @@
-import backButtonIcon from '@/assets/icon/guideDetailLeftArrow.svg';
+import BackButtonIcon from '@/assets/icon/left-arrow.svg?react';
 import useInternalRouter from '@/hooks/useInternalRouter';
 
 const TopButton = () => {
@@ -6,7 +6,9 @@ const TopButton = () => {
 
   return (
     <div className="flex justify-between px-[24px] pt-[31.31px]">
-      <img src={backButtonIcon} alt="뒤로가기 버튼 아이콘" onClick={() => goBack()} />
+      <button onClick={() => goBack()}>
+        <BackButtonIcon />
+      </button>
       <p className="text-[20px] text-Gray900 font-semibold	">알림</p>
       <div className="w-[24px] h-[24px]" />
     </div>

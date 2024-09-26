@@ -1,7 +1,7 @@
 import Screen from '@/layouts/Screen.tsx';
 import ReactMarkdown from 'react-markdown';
 import { 개인정보처리방침 } from '@/constants/terms.ts';
-import 왼쪽꺽쇠 from '@/assets/icon/왼쪽꺽쇠.tsx';
+import 왼쪽꺽쇠 from '@/assets/icon/left-arrow.svg?react';
 import Header from '@/components/common/Header';
 import useInternalRouter from '@/hooks/useInternalRouter.ts';
 import HeightBox from '@/components/common/HeightBox';

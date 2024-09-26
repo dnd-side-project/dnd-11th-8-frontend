@@ -1,6 +1,6 @@
 import Screen from '@/layouts/Screen.tsx';
 import Header from '@/components/common/Header';
-import 왼쪽꺽쇠 from '@/assets/icon/왼쪽꺽쇠.tsx';
+import 왼쪽꺽쇠 from '@/assets/icon/left-arrow.svg?react';
 import SearchField from '@/components/common/SearchField';
 import HeightBox from '@/components/common/HeightBox';
 import { useCallback, useState } from 'react';
