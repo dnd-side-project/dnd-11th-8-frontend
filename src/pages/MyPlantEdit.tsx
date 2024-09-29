@@ -14,15 +14,14 @@ import Trash2 from '@/assets/icon/bin-filled-gray.svg?react';
 import { useParams } from 'react-router-dom';
 import { useGetMyPlantDetail } from '@/queries/useGetMyPlantDetail.ts';
 import { parseOrUndefined } from '@/utils/int/parseOrUndefined.ts';
-import { withAsyncBoundary } from '@toss/async-boundary';
 import { MyPlantDetailType } from '@/mocks/mockDatas/myPlantDetail.ts';
 import 마지막으로비료준날 from '@/components/addPlant/마지막으로비료준날.tsx';
 import { useUpdateMyPlant } from '@/queries/useUpdateMyPlant.ts';
 import { useQueryClient } from '@tanstack/react-query';
 import { keyStore } from '@/queries/keyStore.ts';
 import LoadingSpinner from '@/components/LoadingSpinner.tsx';
-import ErrorPage from '@/pages/ErrorPage.tsx';
 import { Skeleton } from '@/components/ui/skeleton.tsx';
+import { withDefaultAsyncBoundary } from '@/utils/asyncBoundary/withDefaultAsyncBoundary.tsx';
 
 interface MyPlantEditFormState {
   nickname: string;
@@ -142,7 +141,4 @@ const MyPlantEdit = () => {
   );
 };
 
-export default withAsyncBoundary(MyPlantEdit, {
-  rejectedFallback: ({ error, reset }) => <ErrorPage error={error} reset={reset} />,
-  pendingFallback: <LoadingSpinner />,
-});
+export default withDefaultAsyncBoundary(MyPlantEdit);

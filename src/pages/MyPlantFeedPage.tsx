@@ -9,13 +9,12 @@ import { useGetMyPlantDetail } from '@/queries/useGetMyPlantDetail.ts';
 import { useParams } from 'react-router-dom';
 import { parseIdParams } from '@/utils/params/parseIdParams.ts';
 import useInternalRouter from '@/hooks/useInternalRouter.ts';
-import { withAsyncBoundary } from '@toss/async-boundary';
-import ErrorPage from '@/pages/ErrorPage.tsx';
 import LoadingSpinner from '@/components/LoadingSpinner.tsx';
 import FloatingButton from '@/components/common/FloatingButton';
 import MyPlantFeedDeleteOrModifyTooltip from '@/components/myPlantFeed/MyPlantFeedDeleteOrModifyTooltip.tsx';
 import CTAButton from '@/components/common/CTAButton';
 import { useHandleImage } from '@/hooks/useHandleImage.ts';
+import { withDefaultAsyncBoundary } from '@/utils/asyncBoundary/withDefaultAsyncBoundary.tsx';
 
 // TODO: 즐겨찾기 버튼 클릭시 기능, Floating 버튼 UI 구현 및 식물 추가 삭제 기능 구현
 
@@ -150,7 +149,4 @@ const MyPlantFeedPage = () => {
   );
 };
 
-export default withAsyncBoundary(MyPlantFeedPage, {
-  rejectedFallback: ({ error, reset }) => <ErrorPage error={error} reset={reset} />,
-  pendingFallback: <LoadingSpinner />,
-});
+export default withDefaultAsyncBoundary(MyPlantFeedPage);

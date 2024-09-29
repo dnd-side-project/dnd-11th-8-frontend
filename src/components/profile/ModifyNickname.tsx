@@ -6,12 +6,10 @@ import TextField from '../common/TextField';
 import CTAButton from '../common/CTAButton';
 import useInternalRouter from '@/hooks/useInternalRouter';
 import { useGetMyPageData } from '@/queries/useGetMyPageData.ts';
-import { withAsyncBoundary } from '@toss/async-boundary';
-import ErrorPage from '@/pages/ErrorPage.tsx';
-import LoadingSpinner from '@/components/LoadingSpinner.tsx';
 import { cn } from '@/utils.ts';
 import { isFalsy } from '@/utils/validation/isFalsy.ts';
 import { useUpdateNickname } from '@/queries/useUpdateNickname.ts';
+import { withDefaultAsyncBoundary } from '@/utils/asyncBoundary/withDefaultAsyncBoundary';
 
 const ModifyNickname: React.FC = () => {
   const router = useInternalRouter();
@@ -88,7 +86,4 @@ const Nickname: React.FC<NicknameProps> = ({ initialNickname }) => {
   );
 };
 
-export default withAsyncBoundary(ModifyNickname, {
-  rejectedFallback: ({ error, reset }) => <ErrorPage error={error} reset={reset} />,
-  pendingFallback: <LoadingSpinner />,
-});
+export default withDefaultAsyncBoundary(ModifyNickname);

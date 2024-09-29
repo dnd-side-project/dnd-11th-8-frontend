@@ -12,6 +12,7 @@ import LoadingSpinner from '@/components/LoadingSpinner.tsx';
 import { SECOND } from '@/constants/day.ts';
 import { useToken } from '@/hooks/useToken.ts';
 import { useNotification } from '@/hooks/useNotification.tsx';
+import { withDefaultAsyncBoundary } from '@/utils/asyncBoundary/withDefaultAsyncBoundary.tsx';
 
 type RegisterForm = {
   nickname: string;
@@ -117,4 +118,4 @@ const RegisterPage = () => {
   }
 };
 
-export default RegisterPage;
+export default withDefaultAsyncBoundary(RegisterPage);

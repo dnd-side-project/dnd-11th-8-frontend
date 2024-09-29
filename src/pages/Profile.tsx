@@ -4,9 +4,7 @@ import TopButton from '@/components/profile/TopButton';
 import UseInformation from '@/components/profile/UseInformation';
 import Screen from '@/layouts/Screen';
 import { useGetMyPageData } from '@/queries/useGetMyPageData.ts';
-import { withAsyncBoundary } from '@toss/async-boundary';
-import ErrorPage from '@/pages/ErrorPage.tsx';
-import LoadingSpinner from '@/components/LoadingSpinner.tsx';
+import { withDefaultAsyncBoundary } from '@/utils/asyncBoundary/withDefaultAsyncBoundary.tsx';
 
 const Profile = () => {
   const { data: myProfile } = useGetMyPageData();
@@ -21,7 +19,4 @@ const Profile = () => {
   );
 };
 
-export default withAsyncBoundary(Profile, {
-  rejectedFallback: ({ error, reset }) => <ErrorPage error={error} reset={reset} />,
-  pendingFallback: <LoadingSpinner />,
-});
+export default withDefaultAsyncBoundary(Profile);
