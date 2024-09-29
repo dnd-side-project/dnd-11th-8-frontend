@@ -7,15 +7,13 @@ import PlusButton from '@/components/myPlant/PlusButton';
 import { useState } from 'react';
 import Screen from '@/layouts/Screen';
 import { useGetAllLocation } from '@/queries/useGetAllLocation.ts';
-import { withAsyncBoundary } from '@toss/async-boundary';
-import ErrorPage from '@/pages/ErrorPage.tsx';
-import LoadingSpinner from '@/components/LoadingSpinner.tsx';
 import { useGetAllMyPlant } from '@/queries/useGetAllMyPlant.ts';
 import { PlantLocation } from '@/types/plantLocation';
 import { useAtom } from 'jotai';
 import filterQueryAtom from '@/atoms/myPlant/filterQueryAtom';
 import { Skeleton } from '@/components/ui/skeleton.tsx';
 import Plant from '@/types/MyPlant.ts';
+import { withDefaultAsyncBoundary } from '@/utils/asyncBoundary/withDefaultAsyncBoundary.tsx';
 
 const defaultLocation: PlantLocation = {
   id: -1,
@@ -96,7 +94,4 @@ const MyPlant = () => {
   );
 };
 
-export default withAsyncBoundary(MyPlant, {
-  rejectedFallback: ({ error, reset }) => <ErrorPage error={error} reset={reset} />,
-  pendingFallback: <LoadingSpinner />,
-});
+export default withDefaultAsyncBoundary(MyPlant);

@@ -1,6 +1,7 @@
 import AlimList from '@/components/alim/AlimList';
 import TopButton from '@/components/alim/TopButton';
 import Screen from '@/layouts/Screen';
+import { withDefaultAsyncBoundary } from '@/utils/asyncBoundary/withDefaultAsyncBoundary.tsx';
 
 const AlimDetail = () => {
   return (
@@ -11,4 +12,4 @@ const AlimDetail = () => {
   );
 };
 
-export default AlimDetail;
+export default withDefaultAsyncBoundary(AlimDetail);

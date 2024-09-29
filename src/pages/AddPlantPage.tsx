@@ -23,6 +23,7 @@ import { FormType } from '@/types/form.ts';
 import { setForm } from '@/utils/form/setForm.ts';
 import { useSyncPlantType } from '@/hooks/useSyncPlantType.ts';
 import { usePlantTypeSearchParams } from '@/hooks/usePlantTypeSearchParams.ts';
+import { withDefaultAsyncBoundary } from '@/utils/asyncBoundary/withDefaultAsyncBoundary';
 
 export type ToggleFormState = {
   title: '물주기' | '비료주기' | '건강체크';
@@ -238,4 +239,4 @@ const AddPlantPage = () => {
   );
 };
 
-export default AddPlantPage;
+export default withDefaultAsyncBoundary(AddPlantPage);

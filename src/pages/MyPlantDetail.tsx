@@ -9,13 +9,12 @@ import Separator from '@/components/common/Separator';
 import NotificationToggleList from '@/components/addPlant/NotificationToggleList.tsx';
 import MyPlantInfo from '@/components/myPlantDetail/MyPlantInfo.tsx';
 import { useGetMyPlantDetail } from '@/queries/useGetMyPlantDetail.ts';
-import { withAsyncBoundary } from '@toss/async-boundary';
-import LoadingSpinner from '../components/LoadingSpinner';
 import { useUpdateMyPlantAlarm } from '@/queries/useUpdateMyPlantAlarm.ts';
 import { parseIdParams } from '@/utils/params/parseIdParams.ts';
 import { UpdateMyPlantAlarmParams } from '@/apis/myPlant/updateMyPlantAlarm.ts';
 import { useGetRecommendedPeriod } from '@/queries/useGetRecommendedPeriod.ts';
 import MyPlantFeed from '@/components/myPlantDetail/MyPlantFeed.tsx';
+import { withDefaultAsyncBoundary } from '@/utils/asyncBoundary/withDefaultAsyncBoundary.tsx';
 
 export const plantInfo = {
   nickname: '루밍이',
@@ -121,7 +120,4 @@ const MyPlantDetail = () => {
   );
 };
 
-export default withAsyncBoundary(MyPlantDetail, {
-  rejectedFallback: () => <div>에러가 발생했습니다.</div>,
-  pendingFallback: <LoadingSpinner />,
-});
+export default withDefaultAsyncBoundary(MyPlantDetail);

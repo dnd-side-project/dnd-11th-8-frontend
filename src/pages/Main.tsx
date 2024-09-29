@@ -12,12 +12,16 @@ import { useRefreshAccessToken } from '@/queries/useRefreshAccessToken.ts';
 import { useToken } from '@/hooks/useToken.ts';
 import { SECOND } from '@/constants/day.ts';
 import { useNotification } from '@/hooks/useNotification.tsx';
+import { useQueryClient } from '@tanstack/react-query';
+import { keyStore } from '@/queries/keyStore.ts';
 
 const Main = () => {
   const { data: homeData } = useGetHomeData();
   const { mutate: refreshAccessToken } = useRefreshAccessToken();
   const { getRefreshToken, isValidToken, setRefreshToken, setAccessToken } = useToken();
   const { RequestPermissionModal, isPermissionChecked, openPermissionModal } = useNotification();
+
+  const queryClient = useQueryClient();
 
   const register = homeData.myPlantInfo.length !== 0;
 
@@ -45,6 +49,12 @@ const Main = () => {
       console.log('isPermissionChecked', isPermissionChecked);
       openPermissionModal();
     }
+  }, []);
+
+  useEffect(() => {
+    void queryClient.prefetchQuery({
+      queryKey: keyStore.myPlant.getMyAllPlant.queryKey,
+    });
   }, []);
 
   return (
