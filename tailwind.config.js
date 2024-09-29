@@ -11,9 +11,6 @@ export default {
   ],
   prefix: '',
   theme: {
-    screens: {
-      mobile: { min: '344px', max: '768px' },
-    },
     fontSize: {
       'sub-typo': ['11px', '16.5px'],
       'small-writing': ['13px', '19.5px'],
