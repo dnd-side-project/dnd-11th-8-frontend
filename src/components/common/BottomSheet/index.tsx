@@ -33,7 +33,7 @@ const BottomSheet = ({
       open={isOpen}
       onClose={onClose}
     >
-      <DrawerContent>
+      <DrawerContent className={'md:max-w-md md:mx-auto'}>
         <DrawerHeader className={'whitespace-pre-wrap'}>
           <DrawerTitle
             className={cn(
