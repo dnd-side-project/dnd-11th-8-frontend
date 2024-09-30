@@ -30,7 +30,6 @@ const LoadingSpinner = ({ transparent }: LoadingSpinnerProps) => {
             fill="currentFill"
           />
         </svg>
-        <span className={'text-BloomingGreen500 font-semibold'}>로딩중...</span>
       </div>
     </Screen>
   );

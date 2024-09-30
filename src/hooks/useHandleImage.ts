@@ -54,6 +54,7 @@ export const useHandleImage = (plantId?: number) => {
         });
       },
       onError: () => {
+        callback();
         openToast({
           message: '이미지 삭제에 실패했습니다.',
         });

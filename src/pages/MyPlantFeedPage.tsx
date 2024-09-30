@@ -15,6 +15,7 @@ import MyPlantFeedDeleteOrModifyTooltip from '@/components/myPlantFeed/MyPlantFe
 import CTAButton from '@/components/common/CTAButton';
 import { useHandleImage } from '@/hooks/useHandleImage.ts';
 import { withDefaultAsyncBoundary } from '@/utils/asyncBoundary/withDefaultAsyncBoundary.tsx';
+import { AnimatePresence } from 'framer-motion';
 
 // TODO: 즐겨찾기 버튼 클릭시 기능, Floating 버튼 UI 구현 및 식물 추가 삭제 기능 구현
 
@@ -100,20 +101,22 @@ const MyPlantFeedPage = () => {
       </div>
       <HeightBox height={16} />
       <div className={'grid grid-cols-2 gap-x-[7px] gap-y-4'}>
-        {sortedImages.map((image) => (
-          <MyPlantFeedImage
-            key={`MyPlantFeedDetailImage-${image.imageId}`}
-            deleteMode={isDeleteMode}
-            isSelectForDelete={selectedImages.includes(image.imageId)}
-            onSelectForDelete={handleSelectForDelete}
-            imageId={image.imageId}
-            plantId={plantId}
-            imageSrc={image.imageUrl}
-            favorite={image.favorite}
-            showCreatedDate
-            createdAt={image.createdDate}
-          />
-        ))}
+        <AnimatePresence>
+          {sortedImages.map((image) => (
+            <MyPlantFeedImage
+              key={`MyPlantFeedDetailImage-${image.imageId}`}
+              deleteMode={isDeleteMode}
+              isSelectForDelete={selectedImages.includes(image.imageId)}
+              onSelectForDelete={handleSelectForDelete}
+              imageId={image.imageId}
+              plantId={plantId}
+              imageSrc={image.imageUrl}
+              favorite={image.favorite}
+              showCreatedDate
+              createdAt={image.createdDate}
+            />
+          ))}
+        </AnimatePresence>
       </div>
       {isDeleteMode ? (
         <div className={'mt-4 flex flex-row gap-4'}>

@@ -4,6 +4,7 @@ import BottomSheet from './BottomSheet';
 import LocationInput from '@/components/myPlant/LocationInput.tsx';
 import DeleteConfirmation from '@/components/myPlant/DeleteConfirmation.tsx';
 import FloatingButton from '@/components/common/FloatingButton';
+import { AnimatePresence } from 'framer-motion';
 
 interface PlusButtonProps {
   locationName: string;
@@ -45,14 +46,16 @@ const PlusButton: React.FC<PlusButtonProps> = ({ locationName, locationId }) => 
         <FloatingButton onClick={() => setIsOptionVisible(true)} />
       </div>
 
-      {isOptionsVisible && (
-        <OptionsMenu
-          onSettingLocationClick={handeSettingLocationClick}
-          onClose={() => setIsOptionVisible(false)}
-          locationName={locationName}
-          locationId={locationId}
-        />
-      )}
+      <AnimatePresence>
+        {isOptionsVisible && (
+          <OptionsMenu
+            onSettingLocationClick={handeSettingLocationClick}
+            onClose={() => setIsOptionVisible(false)}
+            locationName={locationName}
+            locationId={locationId}
+          />
+        )}
+      </AnimatePresence>
 
       {isSelectBottomSheetVisible && (
         <BottomSheet

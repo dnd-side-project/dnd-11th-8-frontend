@@ -3,6 +3,7 @@ import { useAtom } from 'jotai';
 import filterQueryAtom from '@/atoms/myPlant/filterQueryAtom';
 import DownArrow from '@/assets/icon/down-arrow-gray.svg?react';
 import { LocationQueryParams } from '@/apis/myPlant/getMyAllPlant.ts';
+import { AnimatePresence, motion } from 'framer-motion';
 
 const filterOptions: Record<string, LocationQueryParams['sort']> = {
   '최근 등록 순': 'created_desc',
@@ -64,28 +65,36 @@ const FilterButton = () => {
         <DownArrow />
       </button>
 
-      {isOptionsVisible && (
-        <div
-          ref={optionsRef}
-          className="absolute bg-white rounded-[16px] shadow-GreyOpacity300 z-50 w-[161px] right-0 top-[35px] p-[10px]"
-        >
-          <ul className="flex flex-col">
-            <p className="block w-full text-left text-Gray500 font-bold text-[13px]">정렬</p>
-            <hr className="w-full my-[10px] border-Gray100" />
+      <AnimatePresence>
+        {isOptionsVisible && (
+          <motion.div
+            ref={optionsRef}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ type: 'spring', duration: 0.4 }}
+            className="absolute bg-white rounded-[16px] shadow-Weak-Filter z-50 w-[161px] right-0 top-[35px] p-[10px] overflow-hidden"
+          >
+            <ul className="flex flex-col">
+              <p className="block w-full text-left text-Gray500 font-bold text-[13px]">정렬</p>
+              <hr className="w-full my-[10px] border-Gray100" />
 
-            {Object.entries(filterOptions).map(([key, value], index) => (
-              <li key={index}>
-                <button
-                  className={`block w-full p-[10px] text-left hover:bg-GrayOpacity100 rounded-[10px] ${query === value ? 'bg-GrayOpacity100' : ''}`}
-                  onClick={() => handleOptionClick(value)}
-                >
-                  <p className="text-[15px] text-Gray700 font-medium hover:font-semibold ">{key}</p>
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+              {Object.entries(filterOptions).map(([key, value], index) => (
+                <li key={index}>
+                  <button
+                    className={`block w-full p-[10px] text-left hover:bg-GrayOpacity100 rounded-[10px] ${query === value ? 'bg-GrayOpacity100' : ''}`}
+                    onClick={() => handleOptionClick(value)}
+                  >
+                    <p className="text-[15px] text-Gray700 font-medium hover:font-semibold ">
+                      {key}
+                    </p>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
