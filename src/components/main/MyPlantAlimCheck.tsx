@@ -31,7 +31,7 @@ const MyPlantAlimCheck: React.FC<MyPlantAlimCheckProps> = ({ plants }) => {
     });
   }, [api]);
 
-  const { icon, left, right } = useMemo(() => getRandomIllustrator(), []);
+  const { Icon, left, right } = useMemo(() => getRandomIllustrator(), []);
 
   return (
     <Carousel setApi={setApi}>
@@ -41,15 +41,10 @@ const MyPlantAlimCheck: React.FC<MyPlantAlimCheckProps> = ({ plants }) => {
         {plants.map((plant) => (
           <CarouselItem key={plant.myPlantId}>
             <div className="flex flex-col items-center justify-center">
-              <img
-                alt={'내 식물 일러스트 아이콘'}
-                src={icon}
-                loading={'lazy'}
+              <Icon
                 style={{
                   transform: `translateY(-20px) translateX(${(-1 * (left - right)) / 2 - 3}px)`,
                 }}
-                width={210}
-                height={234}
                 className={cn('mt-[10px] mb-[30px]')}
               />
               <div className="flex flex-col items-center justify-center">
