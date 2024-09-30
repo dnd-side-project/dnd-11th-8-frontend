@@ -3,6 +3,8 @@ import react from '@vitejs/plugin-react';
 import svgr from 'vite-plugin-svgr';
 import * as path from 'node:path';
 import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
+import { compression } from 'vite-plugin-compression2';
+import analyzer from 'vite-bundle-analyzer';
 
 export default defineConfig({
   plugins: [
@@ -66,6 +68,8 @@ export default defineConfig({
       cache: false,
       cacheLocation: undefined,
     }),
+    compression(),
+    analyzer(),
   ],
   resolve: {
     alias: {
