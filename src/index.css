@@ -3,27 +3,67 @@
 @tailwind utilities;
 
 @layer base {
+  @font-face {
+    font-family: "Pretendard";
+    font-style: normal;
+    font-weight: 300;
+    src: url("./assets/fonts/Pretendard-Light.subset.woff2") format("woff2");
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "Pretendard";
+    font-style: normal;
+    font-weight: 400;
+    src: url("./assets/fonts/Pretendard-Regular.subset.woff2") format("woff2");
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "Pretendard";
+    font-style: normal;
+    font-weight: 500;
+    src: url("./assets/fonts/Pretendard-Medium.subset.woff2") format("woff2");
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "Pretendard";
+    font-style: normal;
+    font-weight: 600;
+    src: url("./assets/fonts/Pretendard-SemiBold.subset.woff2") format("woff2");
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "Pretendard";
+    font-style: normal;
+    font-weight: 700;
+    src: url("./assets/fonts/Pretendard-Bold.subset.woff2") format("woff2");
+    font-display: swap;
+  }
+
+
+  @font-face {
+    font-family: "Pretendard";
+    font-style: normal;
+    font-weight: 800;
+    src: url("./assets/fonts/Pretendard-ExtraBold.subset.woff2") format("woff2");
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "Pretendard";
+    font-style: normal;
+    font-weight: 900;
+    src: url("./assets/fonts/Pretendard-Black.subset.woff2") format("woff2");
+    font-display: swap;
+  }
+
   body {
-    font-family:
-      'Pretendard Variable',
-      Pretendard,
-      -apple-system,
-      BlinkMacSystemFont,
-      system-ui,
-      Roboto,
-      'Helvetica Neue',
-      'Segoe UI',
-      'Apple SD Gothic Neo',
-      'Noto Sans KR',
-      'Malgun Gothic',
-      'Apple Color Emoji',
-      'Segoe UI Emoji',
-      'Segoe UI Symbol',
-      sans-serif;
-    padding-top: env(safe-area-inset-top);
-    padding-right: env(safe-area-inset-right);
-    padding-bottom: env(safe-area-inset-bottom);
-    padding-left: env(safe-area-inset-left);
+    font-family: Pretendard, sans-serif;
+
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
   }
 }
 
