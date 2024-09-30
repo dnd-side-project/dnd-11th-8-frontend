@@ -74,4 +74,20 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          react: ['react', 'react-dom'],
+          jotai: ['jotai'],
+          tanstack: ['@tanstack/react-query'],
+          reactRouter: ['react-router-dom'],
+          fetch: ['axios'],
+          markdown: ['react-markdown'],
+          utils: ['es-toolkit'],
+          cookie: ['react-cookie'],
+        },
+      },
+    },
+  },
 });
