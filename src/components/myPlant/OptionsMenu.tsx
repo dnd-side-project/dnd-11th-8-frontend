@@ -5,6 +5,7 @@ import useInternalRouter from '@/hooks/useInternalRouter';
 import useToast from '@/hooks/useToast';
 import { ALL_LOCATION, NO_LOCATION } from '@/components/common/SegmentControl';
 import Overlay from '@/components/myPlant/Overlay.tsx';
+import { motion } from 'framer-motion';
 
 interface OptionsMenuProps {
   onSettingLocationClick: () => void;
@@ -45,7 +46,13 @@ const OptionsMenu: FC<OptionsMenuProps> = ({
   };
 
   return (
-    <div className="relative flex justify-end mr-[17px]">
+    <motion.div
+      className="relative flex justify-end mr-[17px]"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ type: 'tween', duration: 0.1 }}
+    >
       <Overlay onClick={onClose} />
       <div className="fixed bottom-[161px] bg-white p-[10px] rounded-[16px] z-40">
         <div className="flex flex-col">
@@ -65,7 +72,7 @@ const OptionsMenu: FC<OptionsMenuProps> = ({
           </button>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

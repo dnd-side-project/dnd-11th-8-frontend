@@ -219,7 +219,7 @@ export const handlers = [
     return HttpResponse.json({});
   }),
 
-  http.delete(import.meta.env.VITE_API_URL + '/myplants/image/:id', async () => {
+  http.delete(import.meta.env.VITE_API_URL + '/myplants/image', async () => {
     await delay(1000);
     return HttpResponse.json({});
   }),

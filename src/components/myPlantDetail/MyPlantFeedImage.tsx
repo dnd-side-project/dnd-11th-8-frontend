@@ -1,6 +1,8 @@
 import FeedFavoriteIcon from '@/assets/icon/FeedFavoriteIcon.tsx';
 import { useUpdateMyPlantFeed } from '@/queries/useUpdateMyPlantFeed.ts';
 import CheckBox from '@/assets/icon/square-checkbox.svg?react';
+import { motion, useIsPresent } from 'framer-motion';
+import { cn } from '@/utils.ts';
 
 interface MyPlantFeedImageProps {
   imageSrc: string;
@@ -28,6 +30,14 @@ const MyPlantFeedImage = ({
 }: MyPlantFeedImageProps) => {
   const { mutate: updateFeedFavorite } = useUpdateMyPlantFeed();
 
+  const isPresent = useIsPresent();
+  const animations = {
+    initial: { scale: 0, opacity: 0 },
+    animate: { scale: 1, opacity: 1 },
+    exit: { scale: 0, opacity: 0 },
+    transition: { type: 'spring', stiffness: 500, damping: 40 },
+  };
+
   const handleFavoriteClick = () => {
     updateFeedFavorite({
       favorite: !favorite,
@@ -43,7 +53,15 @@ const MyPlantFeedImage = ({
   };
 
   return (
-    <div className="relative rounded-[10px] overflow-hidden bg-Gray100" onClick={handleImageClick}>
+    <motion.div
+      {...animations}
+      layout
+      className={cn(
+        'relative rounded-[10px] overflow-hidden bg-Gray100',
+        isPresent ? 'static' : 'absolute',
+      )}
+      onClick={handleImageClick}
+    >
       {deleteMode && isSelectForDelete && (
         <div className="absolute top-2 left-2 z-40">
           <CheckBox />
@@ -58,7 +76,7 @@ const MyPlantFeedImage = ({
           {createdAt}
         </div>
       )}
-    </div>
+    </motion.div>
   );
 };
 
