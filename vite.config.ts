@@ -78,8 +78,14 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: {
-          react: ['react', 'react-dom', 'jotai', '@tanstack/react-query'],
+          react: ['react', 'react-dom'],
+          jotai: ['jotai'],
+          tanstack: ['@tanstack/react-query'],
           reactRouter: ['react-router-dom'],
+          fetch: ['axios'],
+          markdown: ['react-markdown'],
+          utils: ['es-toolkit'],
+          cookie: ['react-cookie'],
         },
       },
     },
