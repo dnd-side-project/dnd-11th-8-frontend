@@ -1,8 +1,3 @@
-const CACHE = 'cache-v1';
-
-// eslint-disable-next-line no-undef
-importScripts('https://storage.googleapis.com/workbox-cdn/releases/5.1.2/workbox-sw.js');
-
 const PRECACHE_ASSETS = ['/assets/', '/src/'];
 
 const ASSETS_CACHE = 'assets-cache-v1';
@@ -22,11 +17,3 @@ self.addEventListener('install', (event) => {
     })(),
   );
 });
-
-let workbox;
-workbox.routing.registerRoute(
-  new RegExp('/*'),
-  new workbox.strategies.StaleWhileRevalidate({
-    cacheName: CACHE,
-  }),
-);
