@@ -13,7 +13,7 @@ const LoadingSpinner = ({ transparent }: LoadingSpinnerProps) => {
         transparent ? 'bg-black bg-opacity-25' : 'bg-white',
       )}
     >
-      <div role="status" className="flex">
+      <div role="status" className="flex flex-col items-center gap-3">
         <svg
           aria-hidden="true"
           className="inline w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-BloomingGreen500"
@@ -30,7 +30,7 @@ const LoadingSpinner = ({ transparent }: LoadingSpinnerProps) => {
             fill="currentFill"
           />
         </svg>
-        <span className="sr-only">Loading...</span>
+        <span className={'text-BloomingGreen500 font-semibold'}>로딩중...</span>
       </div>
     </Screen>
   );
