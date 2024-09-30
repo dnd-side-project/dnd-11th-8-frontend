@@ -26,6 +26,7 @@ import { usePlantTypeSearchParams } from '@/hooks/usePlantTypeSearchParams.ts';
 import { withDefaultAsyncBoundary } from '@/utils/asyncBoundary/withDefaultAsyncBoundary';
 import { useQueryClient } from '@tanstack/react-query';
 import { keyStore } from '@/queries/keyStore.ts';
+import LoadingSpinner from '@/components/LoadingSpinner.tsx';
 
 export type ToggleFormState = {
   title: '물주기' | '비료주기' | '건강체크';
@@ -97,7 +98,7 @@ const AddPlantPage = () => {
   const { plantId } = usePlantTypeSearchParams();
 
   const { data: recommendedPeriod } = useGetRecommendedPeriod(plantId === null ? null : +plantId);
-  const { mutate: submitPlant } = useCreateMyPlant();
+  const { mutate: submitPlant, isPending } = useCreateMyPlant();
 
   const { openToast } = useToast();
 
@@ -160,6 +161,7 @@ const AddPlantPage = () => {
 
   return (
     <Screen>
+      {isPending && <LoadingSpinner />}
       <Header
         title={'반려식물 등록'}
         right={
