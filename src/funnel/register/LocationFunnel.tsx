@@ -31,7 +31,6 @@ const LocationFunnel = ({ toNotificationTimeFunnel, goBack }: LocationFunnelProp
 
   const onSelectLocation = (location: (typeof regions)[number]) => {
     setSelectedLocation(location);
-    setSearch(location.name);
   };
 
   const changeSearchHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -67,7 +66,11 @@ const LocationFunnel = ({ toNotificationTimeFunnel, goBack }: LocationFunnelProp
           </div>
         }
       >
-        <RegionList search={search} onSelectLocation={onSelectLocation} />
+        <RegionList
+          selectedLocation={selectedLocation}
+          search={search}
+          onSelectLocation={onSelectLocation}
+        />
       </Suspense>
       <CTAButton
         text={'다음'}
