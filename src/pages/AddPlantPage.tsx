@@ -24,6 +24,8 @@ import { setForm } from '@/utils/form/setForm.ts';
 import { useSyncPlantType } from '@/hooks/useSyncPlantType.ts';
 import { usePlantTypeSearchParams } from '@/hooks/usePlantTypeSearchParams.ts';
 import { withDefaultAsyncBoundary } from '@/utils/asyncBoundary/withDefaultAsyncBoundary';
+import { useQueryClient } from '@tanstack/react-query';
+import { keyStore } from '@/queries/keyStore.ts';
 
 export type ToggleFormState = {
   title: '물주기' | '비료주기' | '건강체크';
@@ -89,6 +91,7 @@ export type AddPlantFormValue = (typeof initialForm)[AddPlantFormKey];
 
 const AddPlantPage = () => {
   const router = useInternalRouter();
+  const queryClient = useQueryClient();
 
   const [addPlantForm, setAddPlantForm] = useState<CreateMyPlantFormType>(initialForm);
   const { plantId } = usePlantTypeSearchParams();
@@ -121,9 +124,13 @@ const AddPlantPage = () => {
     );
 
     submitPlant(data, {
-      onSuccess: () => {
+      onSuccess: async () => {
+        await queryClient.invalidateQueries({ queryKey: keyStore.home.getHomeData.queryKey });
+        void queryClient.invalidateQueries({ queryKey: keyStore.myPlant.getMyAllPlant.queryKey });
+
         router.push('/');
-        requestAnimationFrame(() => {
+
+        requestIdleCallback(() => {
           openToast({
             message: (
               <div
