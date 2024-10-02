@@ -1,16 +1,17 @@
 import { useCallback, useState } from 'react';
+import { getToken } from 'firebase/messaging';
+import { messaging } from '@/libs/firebase.ts';
+import { useCreateDeviceToken } from '@/queries/useCreateDeviceToken.ts';
 import CenterBottomSheet from '@/components/common/CenterBottomSheet';
 import CTAButton from '@/components/common/CTAButton';
 import { useDeleteDeviceToken } from '@/queries/useDeleteDeviceToken.ts';
-import { useToken } from '@/hooks/useToken.ts';
 
 const DEVICE_TOKEN_KEY = 'deviceToken';
-const DEVICE_TOKEN_REQUESTED = 'requested';
+const DEVICE_TOKEN_DENIED_VALUE = 'denied';
 
 export const useNotification = () => {
-  // const { mutate: createDeviceToken } = useCreateDeviceToken();
+  const { mutate: createDeviceToken } = useCreateDeviceToken();
   const { mutate: deleteDeviceToken } = useDeleteDeviceToken();
-  const { getAccessToken } = useToken();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -48,15 +49,24 @@ export const useNotification = () => {
   );
 
   const requestPermission = useCallback(async () => {
-    if (window?.ReactNativeWebView) {
-      window.ReactNativeWebView.postMessage(getAccessToken());
+    const permission = await Notification.requestPermission();
+
+    if (permission === 'granted') {
+      const token = await getToken(messaging, {
+        vapidKey: import.meta.env.VITE_VAPID_KEY,
+      });
+
+      createDeviceToken(token);
+
+      localStorage.setItem(DEVICE_TOKEN_KEY, token);
+      return;
     }
 
-    localStorage.setItem(DEVICE_TOKEN_KEY, DEVICE_TOKEN_REQUESTED);
+    localStorage.setItem(DEVICE_TOKEN_KEY, DEVICE_TOKEN_DENIED_VALUE);
   }, []);
 
   const denyPermission = useCallback(() => {
-    localStorage.setItem(DEVICE_TOKEN_KEY, DEVICE_TOKEN_REQUESTED);
+    localStorage.setItem(DEVICE_TOKEN_KEY, DEVICE_TOKEN_DENIED_VALUE);
     deleteDeviceToken(undefined);
   }, []);
 
