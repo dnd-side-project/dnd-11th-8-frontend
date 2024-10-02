@@ -32,7 +32,6 @@
     "clsx": "^2.1.1",
     "embla-carousel-react": "^8.1.8",
     "es-toolkit": "^1.16.0",
-    "firebase": "^10.13.0",
     "framer-motion": "^11.9.0",
     "jotai": "^2.9.3",
     "lucide-react": "^0.417.0",
