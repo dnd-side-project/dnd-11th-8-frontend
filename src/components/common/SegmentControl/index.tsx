@@ -62,7 +62,6 @@ const SegmentControl: React.FC<SegmentControlProps> = ({ segments, onSegmentChan
   };
 
   const handleAddNewLocation = () => {
-    console.log('새 위치 추가:', newLocationName);
     setIsModalOpen(false);
   };
 
