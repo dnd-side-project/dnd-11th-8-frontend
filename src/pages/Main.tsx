@@ -46,7 +46,6 @@ const Main = () => {
 
   useEffect(() => {
     if (!isPermissionChecked) {
-      console.log('isPermissionChecked', isPermissionChecked);
       openPermissionModal();
     }
   }, []);
