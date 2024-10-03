@@ -11,15 +11,15 @@ import LoadingSpinner from '@/components/LoadingSpinner.tsx';
 import { useRefreshAccessToken } from '@/queries/useRefreshAccessToken.ts';
 import { useToken } from '@/hooks/useToken.ts';
 import { SECOND } from '@/constants/day.ts';
-import { useNotification } from '@/hooks/useNotification.tsx';
 import { useQueryClient } from '@tanstack/react-query';
 import { keyStore } from '@/queries/keyStore.ts';
 
 const Main = () => {
   const { data: homeData } = useGetHomeData();
   const { mutate: refreshAccessToken } = useRefreshAccessToken();
-  const { getRefreshToken, isValidToken, setRefreshToken, setAccessToken } = useToken();
-  const { RequestPermissionModal, isPermissionChecked, openPermissionModal } = useNotification();
+  const { getRefreshToken, isValidToken, setRefreshToken, setAccessToken, getAccessToken } =
+    useToken();
+  // const { RequestPermissionModal, isPermissionChecked, openPermissionModal } = useNotification();
 
   const queryClient = useQueryClient();
 
@@ -45,9 +45,10 @@ const Main = () => {
   }, []);
 
   useEffect(() => {
-    if (!isPermissionChecked) {
-      openPermissionModal();
-    }
+    // if (!isPermissionChecked) {
+    //   openPermissionModal();
+    // }
+    window.ReactNativeWebView.postMessage(getAccessToken());
   }, []);
 
   useEffect(() => {
@@ -66,7 +67,7 @@ const Main = () => {
       <BloomingWeather register={register} />
       <HeightBox height={100} />
       <TabBar />
-      <RequestPermissionModal />
+      {/*<RequestPermissionModal />*/}
     </Screen>
   );
 };
