@@ -1,3 +1,4 @@
+import { sentryVitePlugin } from '@sentry/vite-plugin';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import svgr from 'vite-plugin-svgr';
@@ -68,6 +69,10 @@ export default defineConfig({
       cacheLocation: undefined,
     }),
     compression(),
+    sentryVitePlugin({
+      org: 'gihwan',
+      project: 'blooming',
+    }),
   ],
   resolve: {
     alias: {
@@ -86,5 +91,7 @@ export default defineConfig({
         },
       },
     },
+
+    sourcemap: true,
   },
 });
