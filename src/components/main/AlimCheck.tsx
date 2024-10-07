@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useState } from 'react';
+import React, { ReactNode } from 'react';
 import WaterIcon from '@/assets/icon/watering-pot-green.svg?react';
 import FertilizerIcon from '@/assets/icon/sprout-2-green.svg?react';
 import HeartIcon from '@/assets/icon/heart-green.svg?react';
@@ -8,12 +8,15 @@ import BeforeHeartIcon from '@/assets/icon/heart-dark-gray.svg?react';
 import CheckIcon from '@/assets/icon/circular-checkbox-uncheck.svg?react';
 import AfterCheckIcon from '@/assets/icon/circular-checkbox-checked.svg?react';
 import useToast from '@/hooks/useToast';
+import { useUpdateMyPlantStatus } from '@/queries/useUpdateMyPlantStatus.ts';
+import { UpdateMyPlantType, UpdateMyPlantTypeKeys } from '@/apis/myPlant/updateMyPlantStatus.ts';
+import { GetHomeScreenDataResponse } from '@/apis/home/getHomeScreenData.ts';
 
 interface CheckItemProps {
   icon: ReactNode;
   beforeIcon: ReactNode;
   label: string;
-  lastChecked: string | null;
+  lastChecked: number | null;
   checked: boolean;
   onCheck: () => void;
 }
@@ -57,16 +60,12 @@ const CheckItem: React.FC<CheckItemProps> = ({
 };
 
 interface AlimCheckProps {
-  water: number | null;
-  fertilizer: number | null;
-  sunlight: number | null;
+  plant: GetHomeScreenDataResponse['myPlantInfo'][number];
 }
 
-const AlimCheck: React.FC<AlimCheckProps> = ({ water, fertilizer, sunlight }) => {
+const AlimCheck: React.FC<AlimCheckProps> = ({ plant }) => {
   const { openToast } = useToast();
-  const [waterChecked, setWaterChecked] = useState(false);
-  const [fertilizerChecked, setFertilizerChecked] = useState(false);
-  const [sunlightChecked, setSunlightChecked] = useState(false);
+  const { mutate: updateMyPlantStatus } = useUpdateMyPlantStatus(plant.myPlantId);
 
   const messages = [
     '환기는 시켜주셨나요?',
@@ -78,10 +77,7 @@ const AlimCheck: React.FC<AlimCheckProps> = ({ water, fertilizer, sunlight }) =>
     '해충이 없는지 확인하셨나요?',
   ];
 
-  const handleSunlightCheck = () => {
-    setSunlightChecked(true);
-
-    // TODO: 서버에서 tipMessage 받고, 그거 토스트로 보내기
+  const showHealthCheckTooltip = () => {
     const randomMessage = messages[Math.floor(Math.random() * messages.length)];
     openToast({
       message: randomMessage,
@@ -90,12 +86,37 @@ const AlimCheck: React.FC<AlimCheckProps> = ({ water, fertilizer, sunlight }) =>
     });
   };
 
-  useEffect(() => {
-    if (sunlightChecked) {
-      const timer = setTimeout(() => setSunlightChecked(false), 86400000);
-      return () => clearTimeout(timer);
+  const handleAlimCheck = (mode: (typeof UpdateMyPlantType)[UpdateMyPlantTypeKeys]) => {
+    if (mode === UpdateMyPlantType.HEALTH_CHECK) {
+      showHealthCheckTooltip();
     }
-  }, [sunlightChecked]);
+
+    updateMyPlantStatus(mode, {
+      onError: () => {
+        let message: string;
+
+        switch (mode) {
+          case UpdateMyPlantType.WATER:
+            message = '물주기';
+            break;
+          case UpdateMyPlantType.HEALTH_CHECK:
+            message = '관심주기';
+            break;
+          case UpdateMyPlantType.FERTILIZER:
+            message = '비료주기';
+            break;
+          default:
+            message = '상태 변경';
+            break;
+        }
+        openToast({
+          message: `${message}에 실패했습니다.`,
+          duration: 2000,
+          className: 'text-white w-[300px]',
+        });
+      },
+    });
+  };
 
   return (
     <div className="p-[20px] bg-white rounded-[10px] shadow-sm">
@@ -105,9 +126,9 @@ const AlimCheck: React.FC<AlimCheckProps> = ({ water, fertilizer, sunlight }) =>
             icon={<WaterIcon />}
             beforeIcon={<BeforeWaterIcon />}
             label="물주기"
-            lastChecked={water !== null ? `${water}` : null}
-            checked={waterChecked}
-            onCheck={() => setWaterChecked(true)}
+            lastChecked={plant.dateSinceLastWater}
+            checked={plant.dateSinceLastWater === 0}
+            onCheck={() => handleAlimCheck(UpdateMyPlantType.WATER)}
           />
         </div>
         <div className="flex-1 relative before:content-[''] before:absolute before:top-1/3 before:left-0 before:w-[1px] before:h-[25px] before:bg-Gray400 after:content-[''] after:absolute after:top-1/3 after:right-0 after:w-[1px] after:h-[25px] after:bg-Gray400">
@@ -115,9 +136,9 @@ const AlimCheck: React.FC<AlimCheckProps> = ({ water, fertilizer, sunlight }) =>
             icon={<HeartIcon width={20} height={20} />}
             beforeIcon={<BeforeHeartIcon width={20} height={20} />}
             label="관심주기"
-            lastChecked={sunlight !== null ? `${sunlight}` : null}
-            checked={sunlightChecked}
-            onCheck={handleSunlightCheck}
+            lastChecked={plant.dateSinceLasthealthCheck}
+            checked={plant.dateSinceLasthealthCheck === 0}
+            onCheck={() => handleAlimCheck(UpdateMyPlantType.HEALTH_CHECK)}
           />
         </div>
         <div className="flex-1">
@@ -125,9 +146,9 @@ const AlimCheck: React.FC<AlimCheckProps> = ({ water, fertilizer, sunlight }) =>
             icon={<FertilizerIcon />}
             beforeIcon={<BeforeFertilizerIcon />}
             label="비료"
-            lastChecked={fertilizer !== null ? `${fertilizer}` : null}
-            checked={fertilizerChecked}
-            onCheck={() => setFertilizerChecked(true)}
+            lastChecked={plant.dateSinceLastFertilizer}
+            checked={plant.dateSinceLastFertilizer === 0}
+            onCheck={() => handleAlimCheck(UpdateMyPlantType.FERTILIZER)}
           />
         </div>
       </div>

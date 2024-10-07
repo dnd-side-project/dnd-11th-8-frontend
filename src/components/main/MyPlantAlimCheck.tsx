@@ -63,11 +63,7 @@ const MyPlantAlimCheck: React.FC<MyPlantAlimCheckProps> = ({ plants }) => {
               </div>
 
               <div className="mt-[15px] mb-[27px] w-full">
-                <AlimCheck
-                  water={plant.dateSinceLastWater}
-                  fertilizer={plant.dateSinceLastFertilizer}
-                  sunlight={plant.dateSinceLasthealthCheck}
-                />
+                <AlimCheck plant={plant} />
               </div>
             </div>
           </CarouselItem>
