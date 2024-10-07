@@ -5,6 +5,7 @@ import TextFieldV2 from '@/components/common/TextFieldV2';
 import CenterBottomSheet from '@/components/common/CenterBottomSheet';
 
 import { cn } from '@/utils.ts';
+import { useAddNewLocation } from '@/queries/useAddNewLocation.ts';
 
 interface Segment {
   id: number;
@@ -37,6 +38,8 @@ const SegmentControl: React.FC<SegmentControlProps> = ({ segments, onSegmentChan
   const [newLocationName, setNewLocationName] = useState<string>('');
   const [isError, setIsError] = useState<boolean>(false);
 
+  const { mutate: addNewLocation } = useAddNewLocation();
+
   const handleSegmentClick = (id: number) => {
     setSelectedId(id);
     const selectedSegment = defaultSegments.find((segment) => segment.id === id);
@@ -62,6 +65,7 @@ const SegmentControl: React.FC<SegmentControlProps> = ({ segments, onSegmentChan
   };
 
   const handleAddNewLocation = () => {
+    addNewLocation(newLocationName);
     setIsModalOpen(false);
   };
 
