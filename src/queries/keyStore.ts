@@ -21,6 +21,7 @@ export const keyStore = createQueryKeyStore({
     uploadMyPlantImage: null,
     updateMyPlantFeed: null,
     deleteMyPlantFeed: null,
+    updateMyPlantStatus: null,
   },
   auth: {
     signIn: null,
