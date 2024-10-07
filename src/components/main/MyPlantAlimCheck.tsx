@@ -35,7 +35,7 @@ const MyPlantAlimCheck: React.FC<MyPlantAlimCheckProps> = ({ plants }) => {
       </div>
       <CarouselContent>
         {plants.map((plant) => (
-          <MyPlantCarouselItem plant={plant} />
+          <MyPlantCarouselItem key={`${plant.myPlantId}-CarouselItem`} plant={plant} />
         ))}
       </CarouselContent>
     </Carousel>
