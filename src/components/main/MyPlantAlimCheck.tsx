@@ -1,21 +1,16 @@
 /// <reference types="vite-plugin-svgr/client" />
-import React, { useMemo } from 'react';
-import AlimCheck from './AlimCheck';
-import RightArrow from '@/assets/icon/right-arrow.svg?react';
-import useInternalRouter from '@/hooks/useInternalRouter';
-import { Carousel, CarouselApi, CarouselContent, CarouselItem } from '@/components/ui/carousel.tsx';
+import React from 'react';
+import { Carousel, CarouselApi, CarouselContent } from '@/components/ui/carousel.tsx';
 import { GetHomeScreenDataResponse } from '@/apis/home/getHomeScreenData.ts';
-import { getRandomIllustrator } from '@/utils/home/getRandomIllustrator.ts';
 import 창틀 from '@/assets/icon/plants/창틀.svg?react';
-import { cn } from '@/utils.ts';
-import { isFalsy } from '@/utils/validation/isFalsy.ts';
+import MyPlantCarouselItem from '@/components/main/MyPlantCarouselItem.tsx';
+import CarouselCurrentSlide from '@/components/main/CarouselCurrentSlide.tsx';
 
 interface MyPlantAlimCheckProps {
   plants: GetHomeScreenDataResponse['myPlantInfo'];
 }
 
 const MyPlantAlimCheck: React.FC<MyPlantAlimCheckProps> = ({ plants }) => {
-  const { push } = useInternalRouter();
   const [api, setApi] = React.useState<CarouselApi>();
   const [current, setCurrent] = React.useState(0);
 
@@ -31,69 +26,19 @@ const MyPlantAlimCheck: React.FC<MyPlantAlimCheckProps> = ({ plants }) => {
     });
   }, [api]);
 
-  const { Icon, left, right } = useMemo(() => getRandomIllustrator(), []);
-
   return (
     <Carousel setApi={setApi}>
       <div className={'absolute h-[230px] -left-6 w-screen bg-[#F2F1E5] max-w-md'} />
-      <창틀 className={'absolute top-5 left-1/2 -translate-x-1/2'} />
+      <div className={'absolute flex flex-col gap-3.5 top-5 left-1/2 -translate-x-1/2'}>
+        <창틀 />
+        <CarouselCurrentSlide currentSlide={current} length={plants.length} />
+      </div>
       <CarouselContent>
         {plants.map((plant) => (
-          <CarouselItem key={plant.myPlantId}>
-            <div className="flex flex-col items-center justify-center">
-              <Icon
-                style={{
-                  transform: `translateY(-20px) translateX(${(-1 * (left - right)) / 2 - 3}px)`,
-                }}
-                className={cn('mt-[10px] mb-[30px]')}
-              />
-              <div className="flex flex-col items-center justify-center">
-                <CurrentSlide currentSlide={current} plants={plants} />
-                <p className="pt-[15px] text-Gray900 font-semibold text-[22px]">
-                  {isFalsy(plant.nickname) ? plant.scientificName : plant.nickname}
-                </p>
-                <p className="text-Gray600 font-medium text-[13px]">{plant.scientificName}</p>
-                <button
-                  onClick={() => push('/my-plant')}
-                  className="flex mt-[10px] gap-[5px] px-[8px] py-[4px] border border-Gray300 rounded-full bg-Gray50 justify-center items-center"
-                >
-                  <p className="text-small-writing text-Gray800">내 식물 전체 보기</p>
-                  <RightArrow />
-                </button>
-              </div>
-
-              <div className="mt-[15px] mb-[27px] w-full">
-                <AlimCheck plant={plant} />
-              </div>
-            </div>
-          </CarouselItem>
+          <MyPlantCarouselItem plant={plant} />
         ))}
       </CarouselContent>
     </Carousel>
-  );
-};
-
-interface CurrentSlideProps {
-  currentSlide: number;
-  plants: GetHomeScreenDataResponse['myPlantInfo'];
-}
-
-const CurrentSlide: React.FC<CurrentSlideProps> = ({ currentSlide, plants }) => {
-  return (
-    <>
-      {plants.length > 1 && (
-        <div className="flex justify-center items-center gap-[5px]">
-          {plants.map((_, index) => (
-            <div
-              key={index}
-              className={`w-[7px] h-[7px] rounded-full ${
-                currentSlide - 1 === index ? 'bg-[#34C184] w-[9.28px] h-[9.28px]' : 'bg-Gray300'
-              }`}
-            />
-          ))}
-        </div>
-      )}
-    </>
   );
 };
 
