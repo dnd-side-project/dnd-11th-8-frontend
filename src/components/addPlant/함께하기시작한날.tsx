@@ -5,6 +5,7 @@ import BottomSheet from '@/components/common/BottomSheet';
 import CTAButton from '@/components/common/CTAButton';
 import DateScrollPicker from '@/components/addPlant/DateScrollPicker.tsx';
 import { YyMmDdDate } from '@/types/date.ts';
+import { prefixWithZero } from '@/utils/date/prefixWithZero.ts';
 
 interface 함께하기시작한날Props {
   onClick: (value: YyMmDdDate) => void;
@@ -53,7 +54,9 @@ const 함께하기시작한날 = ({ onClick, value }: 함께하기시작한날Pr
         actions={[
           <CTAButton
             onClick={() => {
-              onClick(`${year}-${month}-${day}`);
+              onClick(
+                `${year}-${prefixWithZero(month)}-${prefixWithZero(day)}` as `${number}-${number}-${number}`,
+              );
               onClose();
             }}
             text={'선택하기'}
