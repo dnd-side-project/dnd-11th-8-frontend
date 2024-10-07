@@ -9,5 +9,21 @@ export const homeData = {
       dateSinceLastFertilizer: 30,
       dateSinceLasthealthCheck: 30,
     },
+    {
+      myPlantId: 2,
+      nickname: '뿡뿡이',
+      scientificName: '몬스테라 델리오사',
+      dateSinceLastWater: 2,
+      dateSinceLastFertilizer: 30,
+      dateSinceLasthealthCheck: 30,
+    },
+    {
+      myPlantId: 3,
+      nickname: '뿡뿡이',
+      scientificName: '몬스테라 델리오사',
+      dateSinceLastWater: 2,
+      dateSinceLastFertilizer: 30,
+      dateSinceLasthealthCheck: 30,
+    },
   ],
 };
