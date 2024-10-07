@@ -7,6 +7,7 @@ import useToast from '@/hooks/useToast.tsx';
 import { useQueryClient } from '@tanstack/react-query';
 import { useUploadMyPlantImage } from '@/queries/useUploadMyPlantImage.ts';
 import { useDeleteMyPlantFeed } from '@/queries/useDeleteMyPlantFeed.ts';
+import imageCompression from 'browser-image-compression';
 
 export const useHandleImage = (plantId?: number) => {
   const [isPending, setIsPending] = useState(false);
@@ -24,9 +25,17 @@ export const useHandleImage = (plantId?: number) => {
       return;
     }
 
+    const compressedFile = await imageCompression(file, {
+      maxSizeMB: 1,
+      maxWidthOrHeight: 960,
+      useWebWorker: true,
+      initialQuality: 0.5,
+      fileType: 'image/webp',
+    });
+
     setIsPending(true);
     const storageRef = ref(storage, `images/myPlantImages/${file.name}`);
-    const snapshot = await uploadBytes(storageRef, file);
+    const snapshot = await uploadBytes(storageRef, compressedFile);
     const imageUrl = await getDownloadURL(snapshot.ref);
     uploadMyPlantImage(imageUrl, {
       onError: () => {
