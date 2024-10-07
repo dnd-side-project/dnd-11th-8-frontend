@@ -5,7 +5,6 @@ import 왼쪽꺽쇠 from '@/assets/icon/left-arrow.svg?react';
 import Header from '@/components/common/Header';
 import useInternalRouter from '@/hooks/useInternalRouter.ts';
 import HeightBox from '@/components/common/HeightBox';
-import { withDefaultAsyncBoundary } from '@/utils/asyncBoundary/withDefaultAsyncBoundary.tsx';
 
 const 개인정보처리방침페이지 = () => {
   const { goBack } = useInternalRouter();
@@ -33,4 +32,4 @@ const 개인정보처리방침페이지 = () => {
   );
 };
 
-export default withDefaultAsyncBoundary(개인정보처리방침페이지);
+export default 개인정보처리방침페이지;

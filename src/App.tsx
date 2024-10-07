@@ -213,8 +213,22 @@ function App() {
             </Suspense>
           }
         />
-        <Route path={'/terms/service'} element={<서비스이용약관페이지 />} />
-        <Route path="/terms/privacy" element={<개인정보처리방침페이지 />} />
+        <Route
+          path={'/terms/service'}
+          element={
+            <Suspense fallback={<LoadingSpinner />}>
+              <서비스이용약관페이지 />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/terms/privacy"
+          element={
+            <Suspense fallback={<LoadingSpinner />}>
+              <개인정보처리방침페이지 />
+            </Suspense>
+          }
+        />
         <Route path="/*" element={<ErrorPage />} />
       </Routes>
     </BrowserRouter>
