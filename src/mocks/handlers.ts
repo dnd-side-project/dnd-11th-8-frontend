@@ -223,4 +223,25 @@ export const handlers = [
     await delay(1000);
     return HttpResponse.json({});
   }),
+
+  http.post(import.meta.env.VITE_API_URL + '/myplants/:id/water', async () => {
+    await delay(1000);
+    return HttpResponse.json({
+      message: '물주기가 완료되었습니다.',
+    });
+  }),
+
+  http.post(import.meta.env.VITE_API_URL + '/myplants/:id/fertilizer', async () => {
+    await delay(1000);
+    return HttpResponse.json({
+      message: '비료주기가 완료되었습니다.',
+    });
+  }),
+
+  http.post(import.meta.env.VITE_API_URL + '/myplants/:id/healthcheck', async () => {
+    await delay(1000);
+    return HttpResponse.json({
+      message: '건강체크가 완료되었습니다.',
+    });
+  }),
 ];
