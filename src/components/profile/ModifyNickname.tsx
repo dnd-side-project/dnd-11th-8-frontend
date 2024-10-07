@@ -6,10 +6,9 @@ import TextField from '../common/TextField';
 import CTAButton from '../common/CTAButton';
 import useInternalRouter from '@/hooks/useInternalRouter';
 import { useGetMyPageData } from '@/queries/useGetMyPageData.ts';
-import { cn } from '@/utils.ts';
-import { isFalsy } from '@/utils/validation/isFalsy.ts';
 import { useUpdateNickname } from '@/queries/useUpdateNickname.ts';
 import { withDefaultAsyncBoundary } from '@/utils/asyncBoundary/withDefaultAsyncBoundary';
+import { isValidNickname } from '@/utils/validation/validateNickname.ts';
 
 const ModifyNickname: React.FC = () => {
   const router = useInternalRouter();
@@ -56,6 +55,16 @@ const Nickname: React.FC<NicknameProps> = ({ initialNickname }) => {
     updateNickname(nickname);
   };
 
+  let isError = false;
+
+  if (!isValidNickname(nickname)) {
+    isError = true;
+  }
+
+  if (nickname.length > 10) {
+    isError = true;
+  }
+
   return (
     <div className="flex flex-col justify-between flex-1">
       <div>
@@ -69,6 +78,7 @@ const Nickname: React.FC<NicknameProps> = ({ initialNickname }) => {
             white={true}
             onClear={handleClear}
             placeholder={initialNickname}
+            isError={isError}
           />
         </div>
       </div>
@@ -78,8 +88,8 @@ const Nickname: React.FC<NicknameProps> = ({ initialNickname }) => {
           type="button"
           onClick={handleSubmit}
           text="확인"
-          className={cn('w-full', isFalsy(nickname) ? 'bg-Gray300' : 'bg-BloomingGreen500')}
-          disabled={isFalsy(nickname)}
+          className={'w-full bg-BloomingGreen500 disabled:bg-Gray300'}
+          disabled={isError}
         />
       </div>
     </div>

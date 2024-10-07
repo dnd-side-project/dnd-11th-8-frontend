@@ -5,6 +5,7 @@ import HeightBox from '@/components/common/HeightBox';
 import TextField from '@/components/common/TextField';
 import { useState } from 'react';
 import CTAButton from '@/components/common/CTAButton';
+import { isValidNickname } from '@/utils/validation/validateNickname.ts';
 
 interface NicknameFunnelProps {
   toLocationFunnel: (nickname: string) => void;
@@ -20,7 +21,7 @@ const NicknameFunnel = ({ toLocationFunnel }: NicknameFunnelProps) => {
   let isError: boolean = false;
 
   // 한글 영어만 포함해야한다. 한글 초성만으로도 구성할 수 있다.
-  if (!/^[가-힣a-zA-Zㄱ-ㅎㅏ-ㅣ]*$/.test(nickname)) {
+  if (!isValidNickname(nickname)) {
     isError = true;
   }
 
