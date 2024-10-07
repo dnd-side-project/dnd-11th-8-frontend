@@ -88,6 +88,7 @@ export default defineConfig({
           utils: ['es-toolkit'],
           form: ['react-hook-form', 'zod', '@hookform/resolvers'],
           icons: ['lucide-react', 'react-icons'],
+          compressor: ['browser-image-compression'],
         },
       },
     },
