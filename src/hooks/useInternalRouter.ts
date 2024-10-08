@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { NavigateOptions, useNavigate } from 'react-router-dom';
 import { routes } from '@/constants/routes.tsx';
 
-type RoutePath = (typeof routes)[number]['path'];
+type RoutePath = (typeof routes)[number]['path'] | string;
 
 const useInternalRouter = () => {
   const navigate = useNavigate();
