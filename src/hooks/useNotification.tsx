@@ -7,7 +7,8 @@ import CTAButton from '@/components/common/CTAButton';
 import { useDeleteDeviceToken } from '@/queries/useDeleteDeviceToken.ts';
 
 const DEVICE_TOKEN_KEY = 'deviceToken';
-const DEVICE_TOKEN_DENIED_VALUE = 'denied';
+const DEVICE_TOKEN_DENIED = 'denied';
+const DEVICE_TOKEN_REQUESTED = 'requested';
 
 export const useNotification = () => {
   const { mutate: createDeviceToken } = useCreateDeviceToken();
@@ -52,6 +53,7 @@ export const useNotification = () => {
     const permission = await Notification.requestPermission();
 
     if (permission === 'granted') {
+      localStorage.setItem(DEVICE_TOKEN_KEY, DEVICE_TOKEN_REQUESTED);
       const token = await getToken(messaging, {
         vapidKey: import.meta.env.VITE_VAPID_KEY,
       });
@@ -62,11 +64,11 @@ export const useNotification = () => {
       return;
     }
 
-    localStorage.setItem(DEVICE_TOKEN_KEY, DEVICE_TOKEN_DENIED_VALUE);
+    localStorage.setItem(DEVICE_TOKEN_KEY, DEVICE_TOKEN_DENIED);
   }, []);
 
   const denyPermission = useCallback(() => {
-    localStorage.setItem(DEVICE_TOKEN_KEY, DEVICE_TOKEN_DENIED_VALUE);
+    localStorage.setItem(DEVICE_TOKEN_KEY, DEVICE_TOKEN_DENIED);
     deleteDeviceToken(undefined);
   }, []);
 
