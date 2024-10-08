@@ -22,6 +22,10 @@ import { keyStore } from '@/queries/keyStore.ts';
 import LoadingSpinner from '@/components/LoadingSpinner.tsx';
 import { Skeleton } from '@/components/ui/skeleton.tsx';
 import { withDefaultAsyncBoundary } from '@/utils/asyncBoundary/withDefaultAsyncBoundary.tsx';
+import { useDeleteMyPlant } from '@/queries/useDeleteMyPlant.ts';
+import { parseIdParams } from '@/utils/params/parseIdParams.ts';
+import useToast from '@/hooks/useToast.tsx';
+import CenterBottomSheet from '@/components/common/CenterBottomSheet';
 
 interface MyPlantEditFormState {
   nickname: string;
@@ -31,6 +35,8 @@ interface MyPlantEditFormState {
 }
 
 const MyPlantEdit = () => {
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
   const params = useParams<{
     myPlantId: string;
   }>();
@@ -41,6 +47,9 @@ const MyPlantEdit = () => {
 
   const { data: myPlantDetail } = useGetMyPlantDetail(parseOrUndefined(params.myPlantId));
   const { mutate: updateMyPlant, isPending } = useUpdateMyPlant();
+  const { mutate: deleteMyPlant } = useDeleteMyPlant();
+
+  const { openToast } = useToast();
 
   const [form, setForm] = useState<MyPlantEditFormState>({
     nickname: myPlantDetail.nickname,
@@ -72,6 +81,33 @@ const MyPlantEdit = () => {
   if (isPending) {
     return <LoadingSpinner />;
   }
+
+  const handleDeleteMyPlant = () => {
+    const myPlantId = parseIdParams(params.myPlantId);
+
+    if (!myPlantId) {
+      throw new Error('유효하지 않은 접근입니다.');
+    }
+
+    router.push('/my-plant');
+
+    deleteMyPlant(myPlantId, {
+      onSuccess: () => {
+        requestIdleCallback(() => {
+          openToast({
+            message: '내 식물이 삭제되었습니다.',
+          });
+        });
+      },
+      onError: () => {
+        requestIdleCallback(() => {
+          openToast({
+            message: '내 식물 삭제에 실패했습니다.',
+          });
+        });
+      },
+    });
+  };
 
   return (
     <Screen>
@@ -130,13 +166,27 @@ const MyPlantEdit = () => {
         }
       />
       <HeightBox height={25.5} />
-      <button className={'w-full flex flex-row items-center justify-center gap-1.5'}>
+      <button
+        onClick={() => setIsDeleteModalOpen(true)}
+        className={'w-full flex flex-row items-center justify-center gap-1.5'}
+      >
         <span className={'text-regular-body text-Gray600 font-medium'}>내 식물 삭제</span>
         <Trash2 />
       </button>
       <HeightBox height={17.25} />
       <CTAButton text={'저장'} onClick={onComplete} />
       <HeightBox height={13.75} />
+      <CenterBottomSheet
+        title={'정말 삭제하시겠어요?'}
+        content={<></>}
+        actionDirection={'row'}
+        actions={[
+          <CTAButton text={'취소'} onClick={() => setIsDeleteModalOpen(false)} variant={'ghost'} />,
+          <CTAButton text={'삭제'} onClick={handleDeleteMyPlant} variant={'warning'} />,
+        ]}
+        isOpen={isDeleteModalOpen}
+        onOpenChange={(value) => setIsDeleteModalOpen(value)}
+      />
     </Screen>
   );
 };
