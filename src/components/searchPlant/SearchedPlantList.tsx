@@ -103,7 +103,11 @@ const SearchedPlantList = ({ query, onClose }: SearchedPlantListProps) => {
         image={plant.imageUrl}
         key={`SearchedPlantList-${plant.plantId}`}
         trailingIcon={
-          <button type={'button'} onClick={() => onClick(plant.name, plant.plantId)}>
+          <button
+            aria-label="add-searched-result-button"
+            type={'button'}
+            onClick={() => onClick(plant.name, plant.plantId)}
+          >
             <GreenRoundPlusIcon checked={plantType === plant.name} />
           </button>
         }
@@ -112,7 +116,7 @@ const SearchedPlantList = ({ query, onClose }: SearchedPlantListProps) => {
     ));
   }
 
-  return <ul>{content}</ul>;
+  return <ul data-testid="plant-type-searched-list">{content}</ul>;
 };
 
 export default SearchedPlantList;
