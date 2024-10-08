@@ -11,7 +11,7 @@ interface CTAButtonProps extends Omit<ButtonProps, 'variant'> {
 const CTAButtonColorVariants = {
   primary: 'bg-BloomingGreen500 text-white disabled:bg-Gray300',
   warning: 'bg-Red500 text-white disabled:bg-Gray300',
-  ghost: 'bg-Gray300 text-Gray800 disabled:bg-Gray100',
+  ghost: 'bg-Gray100 text-Gray800 disabled:bg-Gray100',
 };
 
 const CTAButton = ({ text, className, icon, variant = 'primary', ...rest }: CTAButtonProps) => {
