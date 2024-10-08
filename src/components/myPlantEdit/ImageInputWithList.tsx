@@ -2,6 +2,7 @@ import { useId } from 'react';
 import CameraIcon from '@/assets/icon/camera-gray.svg?react';
 import { parseIdParams } from '@/utils/params/parseIdParams.ts';
 import { useHandleImage } from '@/hooks/useHandleImage.ts';
+import { Link } from 'react-router-dom';
 
 interface ImageInputWithListProps {
   images: {
@@ -70,7 +71,7 @@ const ImageInputWithList = ({ images, plantId }: ImageInputWithListProps) => {
         />
       ))}
       {images.length > 2 && (
-        <div className={'w-16 aspect-square relative'}>
+        <Link to={`/my-plant/${plantId}/feed`} className={'w-16 aspect-square relative'}>
           <img
             src={images[2].imageUrl}
             className={'w-16 aspect-square rounded-[10px]'}
@@ -86,7 +87,7 @@ const ImageInputWithList = ({ images, plantId }: ImageInputWithListProps) => {
           >
             + {images.slice(3).length}
           </div>
-        </div>
+        </Link>
       )}
     </ul>
   );

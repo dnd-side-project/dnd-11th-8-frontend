@@ -13,6 +13,8 @@ import { useToken } from '@/hooks/useToken.ts';
 import { SECOND } from '@/constants/day.ts';
 import { useQueryClient } from '@tanstack/react-query';
 import { keyStore } from '@/queries/keyStore.ts';
+import { getMyAllPlant } from '@/apis/myPlant/getMyAllPlant.ts';
+import { getAllLocation } from '@/apis/location/getAllLocation.ts';
 
 const Main = () => {
   const { data: homeData } = useGetHomeData();
@@ -52,6 +54,11 @@ const Main = () => {
   useEffect(() => {
     void queryClient.prefetchQuery({
       queryKey: keyStore.myPlant.getMyAllPlant.queryKey,
+      queryFn: getMyAllPlant,
+    });
+    void queryClient.prefetchQuery({
+      queryKey: keyStore.location.getAllLocation.queryKey,
+      queryFn: getAllLocation,
     });
   }, []);
 
