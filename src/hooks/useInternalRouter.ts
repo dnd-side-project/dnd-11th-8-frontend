@@ -1,23 +1,8 @@
 import { useMemo } from 'react';
 import { NavigateOptions, useNavigate } from 'react-router-dom';
+import { routes } from '@/constants/routes.tsx';
 
-type RoutePath =
-  | '/'
-  | '/my-plant'
-  | '/my-plant/add'
-  | `/my-plant/edit/${number}`
-  | '/guide'
-  | `/guide/${number}`
-  | '/profile/edit'
-  | '/login'
-  | '/redirect'
-  | '/login/register'
-  | '/profile/notification'
-  | '/profile'
-  | '/terms/service'
-  | '/terms/privacy'
-  | `/my-plant/${number}/feed`
-  | string;
+type RoutePath = (typeof routes)[number]['path'] | string;
 
 const useInternalRouter = () => {
   const navigate = useNavigate();
