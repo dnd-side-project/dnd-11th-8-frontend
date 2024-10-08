@@ -27,7 +27,7 @@ const SearchPlantPage = ({ onClose }: SearchPlantPageProps) => {
         }
       />
       <HeightBox height={30} />
-      <SearchField placeholder={'검색'} onSearch={debouncedSetQuery} />
+      <SearchField placeholder={'식물 종류 검색'} onSearch={debouncedSetQuery} />
       <HeightBox height={30} />
       <SearchedPlantList query={query} onClose={onClose} />
     </Screen>

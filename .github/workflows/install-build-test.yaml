@@ -8,6 +8,7 @@ on:
 env:
   GITHUB_TOKEN: ${{ secrets.DND_11_8_FRONTEND_TOKEN }}
   GITHUB_ACTIONS: true
+  VITE_API_URL: ${{ secrets.VITE_API_URL }}
 
 jobs:
   build:
