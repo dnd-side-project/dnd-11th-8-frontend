@@ -121,18 +121,18 @@ const MyPlantFeedPage = () => {
       {isDeleteMode ? (
         <div className={'mt-4 flex flex-row gap-4'}>
           <CTAButton
-            className="bg-BloomingGreen500"
             text="취소"
             onClick={() => {
               setIsDeleteMode(false);
               setSelectedImages([]);
             }}
+            variant={'ghost'}
           />
           <CTAButton
             disabled={selectedImages.length === 0}
-            className={'bg-Red500 disabled:bg-Gray300'}
             onClick={handleDeletePlantFeed}
             text={`삭제(${selectedImages.length})`}
+            variant={'warning'}
           />
         </div>
       ) : (

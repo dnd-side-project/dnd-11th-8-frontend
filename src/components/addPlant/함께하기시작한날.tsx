@@ -28,6 +28,13 @@ const 함께하기시작한날 = ({ onClick, value }: 함께하기시작한날Pr
     setOpen(false);
   };
 
+  const handleButtonClick = () => {
+    onClick(
+      `${year}-${prefixWithZero(month)}-${prefixWithZero(day)}` as `${number}-${number}-${number}`,
+    );
+    onClose();
+  };
+
   return (
     <>
       <TextField
@@ -51,18 +58,7 @@ const 함께하기시작한날 = ({ onClick, value }: 함께하기시작한날Pr
             endDate={new Date()}
           />
         }
-        actions={[
-          <CTAButton
-            onClick={() => {
-              onClick(
-                `${year}-${prefixWithZero(month)}-${prefixWithZero(day)}` as `${number}-${number}-${number}`,
-              );
-              onClose();
-            }}
-            text={'선택하기'}
-            className={'bg-BloomingGreen500'}
-          />,
-        ]}
+        actions={[<CTAButton onClick={handleButtonClick} text={'선택하기'} />]}
         isOpen={open}
         onClose={onClose}
       />

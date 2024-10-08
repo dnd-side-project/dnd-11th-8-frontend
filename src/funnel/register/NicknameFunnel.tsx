@@ -43,12 +43,7 @@ const NicknameFunnel = ({ toLocationFunnel }: NicknameFunnelProps) => {
         isError={isError}
       />
       <HeightBox height={'100%'} />
-      <CTAButton
-        text={'다음'}
-        className={'bg-BloomingGreen500 disabled:bg-Gray300'}
-        onClick={onClick}
-        disabled={nickname === '' || isError}
-      />
+      <CTAButton text={'다음'} onClick={onClick} disabled={nickname === '' || isError} />
       <HeightBox height={'30px'} />
     </Screen>
   );

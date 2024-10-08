@@ -118,13 +118,13 @@ const UseInformation: React.FC = () => {
             text={'취소'}
             type={'button'}
             onClick={() => setIsOpenDeleteModal(false)}
-            className={'bg-Gray100 text-Gray800'}
+            variant={'ghost'}
           />,
           <CTAButton
             text={'탈퇴하기'}
             type={'button'}
             onClick={deleteUserHandler}
-            className={'bg-Red500'}
+            variant={'warning'}
           />,
         ]}
         isOpen={isOpenDeleteModal}
@@ -141,14 +141,9 @@ const UseInformation: React.FC = () => {
             text={'취소'}
             type={'button'}
             onClick={() => setIsOpenLogoutModal(false)}
-            className={'bg-Gray100 text-Gray800'}
+            variant={'ghost'}
           />,
-          <CTAButton
-            text={'로그아웃'}
-            type={'button'}
-            onClick={logoutHandler}
-            className={'bg-BloomingGreen500'}
-          />,
+          <CTAButton text={'로그아웃'} type={'button'} onClick={logoutHandler} />,
         ]}
         isOpen={isOpenLogoutModal}
         onOpenChange={setIsOpenLogoutModal}

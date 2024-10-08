@@ -1,7 +1,6 @@
 import Screen from '@/layouts/Screen.tsx';
 import IconXMono from '@/assets/icon/x-gray.svg?react';
 import TextField from '@/components/common/TextField';
-import { cn } from '@/utils.ts';
 import CTAButton from '@/components/common/CTAButton';
 import Header from '@/components/common/Header';
 import useInternalRouter from '@/hooks/useInternalRouter.ts';
@@ -239,7 +238,7 @@ const AddPlantPage = () => {
       </form>
       <CTAButton
         text={'등록하기'}
-        className={cn('mt-[19px]', isFormValid ? 'bg-BloomingGreen500' : 'bg-Gray300')}
+        className={'mt-[19px]'}
         disabled={!isFormValid}
         onClick={handleSubmit}
       />

@@ -97,7 +97,6 @@ const NotificationToggle = ({
               setIsOpen(false);
             }}
             text={'선택하기'}
-            className={'bg-BloomingGreen500 text-white'}
           />,
         ]}
         isOpen={isOpen}

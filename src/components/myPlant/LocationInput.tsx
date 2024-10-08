@@ -46,14 +46,7 @@ const LocationInput: React.FC<LocationInputProps> = ({
           errorMessage={'이름은 최대 네글자까지 입력이 가능해요.'}
         />
       }
-      actions={[
-        <CTAButton
-          text={'변경'}
-          className={'bg-BloomingGreen500 disabled:bg-Gray300'}
-          onClick={handleLocationChange}
-          disabled={isError}
-        />,
-      ]}
+      actions={[<CTAButton text={'변경'} onClick={handleLocationChange} disabled={isError} />]}
       isOpen={isOpen}
       onOpenChange={onOpenChange}
     />

@@ -3,8 +3,6 @@ import CTAButton from '@/components/common/CTAButton';
 import TextFieldV2 from '@/components/common/TextFieldV2';
 
 import CenterBottomSheet from '@/components/common/CenterBottomSheet';
-
-import { cn } from '@/utils.ts';
 import { useAddNewLocation } from '@/queries/useAddNewLocation.ts';
 
 interface Segment {
@@ -122,7 +120,6 @@ const SegmentControl: React.FC<SegmentControlProps> = ({ segments, onSegmentChan
             text={'등록하기'}
             type={'button'}
             onClick={handleAddNewLocation}
-            className={cn(!newLocationName || isError ? 'bg-Gray300' : 'bg-BloomingGreen500')}
             disabled={!newLocationName || isError}
           />,
         ]}
