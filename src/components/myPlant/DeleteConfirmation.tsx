@@ -45,8 +45,8 @@ const DeleteConfirmation: React.FC<DeleteConfirmationProps> = ({
       content={<></>}
       actionDirection={'row'}
       actions={[
-        <CTAButton text={'취소'} onClick={onClose} className={'bg-Gray100 text-Gray800'} />,
-        <CTAButton text={'삭제'} onClick={handleDelete} className={'bg-Red500'} />,
+        <CTAButton text={'취소'} onClick={onClose} variant={'ghost'} />,
+        <CTAButton text={'삭제'} onClick={handleDelete} variant={'warning'} />,
       ]}
       isOpen={isOpen}
       onOpenChange={onOpenChange}

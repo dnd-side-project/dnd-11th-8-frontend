@@ -5,7 +5,6 @@ import HeightBox from '@/components/common/HeightBox';
 import RegisterFunnelTitle from '@/components/register/RegisterFunnelTitle.tsx';
 import TextField from '@/components/common/TextField';
 import CTAButton from '@/components/common/CTAButton';
-import { cn } from '@/utils.ts';
 import { ChangeEvent, Suspense, useState } from 'react';
 import { regions } from '@/mocks/mockDatas/regions.ts';
 import { RegionList } from '@/components/register/RegionList.tsx';
@@ -72,12 +71,7 @@ const LocationFunnel = ({ toNotificationTimeFunnel, goBack }: LocationFunnelProp
           onSelectLocation={onSelectLocation}
         />
       </Suspense>
-      <CTAButton
-        text={'다음'}
-        className={cn(selectedLocation === null ? 'bg-Gray300' : 'bg-BloomingGreen500')}
-        onClick={onClick}
-        disabled={!selectedLocation}
-      />
+      <CTAButton text={'다음'} onClick={onClick} disabled={!selectedLocation} />
       <HeightBox height={'30px'} />
     </Screen>
   );

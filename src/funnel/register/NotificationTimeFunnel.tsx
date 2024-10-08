@@ -4,7 +4,6 @@ import 왼쪽꺽쇠 from '@/assets/icon/left-arrow.svg?react';
 import HeightBox from '@/components/common/HeightBox';
 import RegisterFunnelTitle from '@/components/register/RegisterFunnelTitle.tsx';
 import CTAButton from '@/components/common/CTAButton';
-import { cn } from '@/utils.ts';
 import { useState } from 'react';
 import { NumericRange } from '@/types/NewmericRange.ts';
 import BottomSheet from '@/components/common/BottomSheet';
@@ -50,11 +49,7 @@ const NotificationTimeFunnel = ({ toCompleteFunnel, goBack }: NotificationTimeFu
       <HeightBox height={53.5} />
       <RegisterFunnelTitle title={'거의 다 왔어요!\n알림 시간대를 설정해주세요'} />
       <HeightBox height={'100%'} />
-      <CTAButton
-        text={'선택하기'}
-        className={cn('bg-BloomingGreen500')}
-        onClick={() => setOpenBottomSheet(true)}
-      />
+      <CTAButton text={'선택하기'} onClick={() => setOpenBottomSheet(true)} />
 
       <HeightBox height={'30px'} />
       <BottomSheet
@@ -71,9 +66,7 @@ const NotificationTimeFunnel = ({ toCompleteFunnel, goBack }: NotificationTimeFu
             />
           </div>
         }
-        actions={[
-          <CTAButton text={'선택하기'} onClick={onConfirm} className={'bg-BloomingGreen500'} />,
-        ]}
+        actions={[<CTAButton text={'선택하기'} onClick={onConfirm} />]}
         isOpen={openBottomSheet}
         onClose={() => setOpenBottomSheet(false)}
       />

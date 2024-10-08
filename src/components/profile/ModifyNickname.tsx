@@ -84,13 +84,7 @@ const Nickname: React.FC<NicknameProps> = ({ initialNickname }) => {
       </div>
 
       <div className="px-[24px] pb-[10px]">
-        <CTAButton
-          type="button"
-          onClick={handleSubmit}
-          text="확인"
-          className={'w-full bg-BloomingGreen500 disabled:bg-Gray300'}
-          disabled={isError}
-        />
+        <CTAButton type="button" onClick={handleSubmit} text="확인" disabled={isError} />
       </div>
     </div>
   );

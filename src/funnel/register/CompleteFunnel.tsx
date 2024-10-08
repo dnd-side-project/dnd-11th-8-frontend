@@ -21,11 +21,7 @@ const CompleteFunnel = ({ onSubmit }: CompleteFunnelProps) => {
         <HeightBox height={'30px'} />
       </main>
 
-      <CTAButton
-        text={'블루밍 시작하기'}
-        className={'bg-BloomingGreen500'}
-        onClick={() => onSubmit()}
-      />
+      <CTAButton text={'블루밍 시작하기'} onClick={() => onSubmit()} />
       <HeightBox height={'30px'} />
     </Screen>
   );

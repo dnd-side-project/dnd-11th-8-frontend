@@ -28,14 +28,13 @@ export const useNotification = () => {
         content={''}
         actionDirection={'row'}
         actions={[
-          <CTAButton text={'취소'} onClick={() => {}} className="bg-Gray300" />,
+          <CTAButton text={'취소'} onClick={() => {}} variant={'ghost'} />,
           <CTAButton
             text={'허용'}
             onClick={async () => {
               setIsModalOpen(false);
               await requestPermission();
             }}
-            className="bg-BloomingGreen500"
           />,
         ]}
         isOpen={isModalOpen}

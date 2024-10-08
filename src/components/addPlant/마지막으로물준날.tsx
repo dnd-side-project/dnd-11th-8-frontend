@@ -71,9 +71,7 @@ const 마지막으로물준날 = ({ onClick, value, type = 'simple' }: 마지막
             />
           )
         }
-        actions={[
-          <CTAButton text={'선택하기'} onClick={onComplete} className={'bg-BloomingGreen500'} />,
-        ]}
+        actions={[<CTAButton text={'선택하기'} onClick={onComplete} />]}
         isOpen={open}
         onClose={onClose}
       />

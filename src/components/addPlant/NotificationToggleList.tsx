@@ -125,13 +125,7 @@ const NotificationToggleList = ({
       <CenterBottomSheet
         title={'주기를 입력하지 않으면 추천값이 사용되어요.'}
         content={<></>}
-        actions={[
-          <CTAButton
-            className={'bg-BloomingGreen500'}
-            text={'확인'}
-            onClick={() => setBottomSheetOpen(false)}
-          />,
-        ]}
+        actions={[<CTAButton text={'확인'} onClick={() => setBottomSheetOpen(false)} />]}
         isOpen={bottomSheetOpen}
         onOpenChange={setBottomSheetOpen}
       />

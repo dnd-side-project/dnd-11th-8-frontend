@@ -135,7 +135,7 @@ const MyPlantEdit = () => {
         <Trash2 />
       </button>
       <HeightBox height={17.25} />
-      <CTAButton text={'저장'} onClick={onComplete} className={'bg-BloomingGreen500'} />
+      <CTAButton text={'저장'} onClick={onComplete} />
       <HeightBox height={13.75} />
     </Screen>
   );

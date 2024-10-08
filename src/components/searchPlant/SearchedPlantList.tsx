@@ -83,7 +83,6 @@ const SearchedPlantList = ({ query, onClose }: SearchedPlantListProps) => {
             <CTAButton
               text={'등록'}
               type={'button'}
-              className={'bg-BloomingGreen500 disabled:bg-Gray500'}
               disabled={customPlant === ''}
               onClick={() => onClick(customPlant)}
             />,

@@ -22,8 +22,6 @@ import IconPlusMono from '@/assets/icon/plus-dark-gray.svg?react';
 
 import LocationBadge from '@/components/addPlant/LocationBadge.tsx';
 import { PlantLocation } from '@/types/plantLocation';
-
-import { cn } from '@/utils.ts';
 import { isFalsy } from '@/utils/validation/isFalsy.ts';
 
 interface PlantLocationBadgeListProps {
@@ -189,9 +187,6 @@ const PlantLocationBadgeList = ({
               text={'등록하기'}
               type={'button'}
               onClick={addNewLocationHandler}
-              className={cn(
-                isFalsy(newLocationName) || isError ? 'bg-Gray300' : 'bg-BloomingGreen500',
-              )}
               disabled={isFalsy(newLocationName) || isError}
             />,
           ]}
@@ -209,13 +204,13 @@ const PlantLocationBadgeList = ({
               text={'취소'}
               type={'button'}
               onClick={closeDeleteModalHandler}
-              className={'bg-Gray100 text-Gray800'}
+              variant={'ghost'}
             />,
             <CTAButton
               text={'삭제'}
               type={'button'}
               onClick={() => deleteLocationHandler()}
-              className={'bg-Red500'}
+              variant={'warning'}
             />,
           ]}
           isOpen={isOpenDeleteModal}

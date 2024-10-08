@@ -40,7 +40,7 @@ const ErrorPage = ({ reset, error }: ErrorPageProps) => {
             <div className="text-Gray500 text-[15px] pb-[10px]">{error.message}</div>
           )}
           <div>
-            <CTAButton onClick={reset} text="다시 시도" className="bg-BloomingGreen500 w-[120px]" />
+            <CTAButton onClick={reset} text="다시 시도" className="w-[120px]" />
           </div>
         </div>
       </div>
