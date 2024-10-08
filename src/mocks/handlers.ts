@@ -244,4 +244,11 @@ export const handlers = [
       message: '건강체크가 완료되었습니다.',
     });
   }),
+
+  http.delete(import.meta.env.VITE_API_URL + '/myplants/:id', async () => {
+    await delay(1000);
+    return HttpResponse.json({
+      message: '내 식물이 삭제되었습니다.',
+    });
+  }),
 ];
