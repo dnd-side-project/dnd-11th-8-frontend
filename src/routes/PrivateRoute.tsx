@@ -1,17 +1,18 @@
-import { useCookies } from 'react-cookie';
 import { PropsWithChildren, useEffect } from 'react';
 import useInternalRouter from '@/hooks/useInternalRouter.ts';
+import { useToken } from '@/hooks/useToken.ts';
 
 const PrivateRoute = ({ children }: PropsWithChildren) => {
   const { replace } = useInternalRouter();
-  const [cookies] = useCookies(['access-token']);
-  const token = cookies['access-token'];
+  const { getRefreshToken, getAccessToken, isValidToken } = useToken();
+  const accessToken = getAccessToken();
+  const refreshToken = getRefreshToken();
 
   useEffect(() => {
-    if (!token) {
+    if (!isValidToken(accessToken) && !isValidToken(refreshToken)) {
       replace('/login');
     }
-  }, [token, replace]);
+  }, [accessToken, refreshToken]);
 
   return children;
 };
