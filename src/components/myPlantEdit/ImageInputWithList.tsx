@@ -65,6 +65,7 @@ const ImageInputWithList = ({ images, plantId }: ImageInputWithListProps) => {
       )}
       {images.slice(0, 2).map((image) => (
         <img
+          key={`${image.imageUrl}-${image.createdDate}`}
           src={image.imageUrl}
           alt={'my plant image list'}
           className={'w-16 aspect-square border border-GrayOpacity100 rounded-[10px]'}
