@@ -44,11 +44,17 @@ export const useToken = () => {
     return typeof token === 'string';
   }, []);
 
+  const deleteAllToken = useCallback(() => {
+    setCookie('access-token', '', { expires: new Date(0) });
+    setCookie('refresh-token', '', { expires: new Date(0) });
+  }, []);
+
   return {
     setAccessToken,
     setRefreshToken,
     getRefreshToken,
     getAccessToken,
     isValidToken,
+    deleteAllToken,
   };
 };
