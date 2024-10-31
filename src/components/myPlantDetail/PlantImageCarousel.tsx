@@ -1,5 +1,8 @@
-import { Carousel, CarouselApi, CarouselContent, CarouselItem } from '@/components/ui/carousel.tsx';
 import { useEffect, useState } from 'react';
+
+import BaseIllust from '@/assets/icon/plants/1.svg?react';
+
+import { Carousel, CarouselApi, CarouselContent, CarouselItem } from '@/components/ui/carousel.tsx';
 
 interface PlantImageCarouselProps {
   images: {
@@ -35,6 +38,12 @@ const PlantImageCarousel = ({ images }: PlantImageCarouselProps) => {
         {current}/{count}
       </div>
       <CarouselContent>
+        {images.length === 0 && (
+          <div className="w-full aspect-square rounded-[10px] flex flex-col justify-center items-center gap-4">
+            <BaseIllust />
+            <p className="text-xs text-gray-500">이미지를 추가해 주세요.</p>
+          </div>
+        )}
         {images.map((image, index) => (
           <CarouselItem key={`${index}-PlantImageCarousel`}>
             <img
