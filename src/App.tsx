@@ -5,10 +5,18 @@ import PrivateRoute from '@/routes/PrivateRoute.tsx';
 import { routes } from '@/constants/routes.tsx';
 import LoadingSpinner from '@/components/LoadingSpinner.tsx';
 import ErrorPage from '@/pages/ErrorPage.tsx';
+import { useToken } from '@/hooks/useToken.ts';
 
 function App() {
+  const { deleteAllToken } = useToken();
+
   const refresh = useCallback(() => {
     window.location.reload();
+  }, []);
+
+  const authRefresh = useCallback(() => {
+    deleteAllToken();
+    refresh();
   }, []);
 
   useEffect(() => {
@@ -20,6 +28,14 @@ function App() {
 
     return () => {
       document.removeEventListener('contextmenu', handleContextMenu);
+    };
+  }, []);
+
+  useEffect(() => {
+    document.addEventListener('invalid-user', authRefresh);
+
+    return () => {
+      document.removeEventListener('invalid-user', authRefresh);
     };
   }, []);
 
