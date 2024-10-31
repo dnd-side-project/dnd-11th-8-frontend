@@ -50,6 +50,7 @@ const MyPlantDetail = () => {
     value: boolean | number,
   ) => {
     updateMyPlantAlarm({
+      ...data,
       [type]: value,
     });
   };
