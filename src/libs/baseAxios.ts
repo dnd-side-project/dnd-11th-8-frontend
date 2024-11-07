@@ -1,4 +1,4 @@
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 import { getCookie } from '@/utils/cookie/getCookie.ts';
 import { refreshAccessToken } from '@/apis/auth/refreshAccessToken.ts';
 import { setCookie } from '@/utils/cookie/setCookie.ts';
@@ -21,28 +21,18 @@ privateAxios.interceptors.request.use((config) => {
 privateAxios.interceptors.response.use(
   (response) => response,
   async (error) => {
-    try {
-      const refreshToken = getCookie('refresh-token');
+    const refreshToken = getCookie('refresh-token');
 
-      if (refreshToken === '') return Promise.reject(error);
+    if (refreshToken === '') return Promise.reject(error);
 
-      if (error.response?.status === 401) {
-        const response = await refreshAccessToken(getCookie('refresh-token'));
+    if (error.response?.status === 401) {
+      const response = await refreshAccessToken(getCookie('refresh-token'));
 
-        const { refreshToken, refreshTokenExpiresIn, accessToken, expiresIn } = response.data;
-        setCookie('access-token', accessToken, expiresIn);
-        setCookie('refresh-token', refreshToken, refreshTokenExpiresIn);
+      const { refreshToken, refreshTokenExpiresIn, accessToken, expiresIn } = response.data;
+      setCookie('access-token', accessToken, expiresIn);
+      setCookie('refresh-token', refreshToken, refreshTokenExpiresIn);
 
-        return privateAxios(error.config);
-      }
-    } catch (e) {
-      if (e instanceof AxiosError) {
-        const notValidEvent = new Event('invalid-user');
-
-        document.dispatchEvent(notValidEvent);
-
-        return Promise.reject(e);
-      }
+      return privateAxios(error.config);
     }
 
     return Promise.reject(error);
