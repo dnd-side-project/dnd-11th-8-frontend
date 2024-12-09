@@ -17,8 +17,6 @@ import { useHandleImage } from '@/hooks/useHandleImage.ts';
 import { withDefaultAsyncBoundary } from '@/utils/asyncBoundary/withDefaultAsyncBoundary.tsx';
 import { AnimatePresence } from 'framer-motion';
 
-// TODO: 즐겨찾기 버튼 클릭시 기능, Floating 버튼 UI 구현 및 식물 추가 삭제 기능 구현
-
 const filterOptions = ['최근 등록 순', '오래된 날짜 순'];
 
 const MyPlantFeedPage = () => {
