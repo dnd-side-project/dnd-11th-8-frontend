@@ -16,9 +16,9 @@ const MyPlantFeedDeleteOrModifyTooltip = ({
   onCompleted,
 }: MyPlantFeedDeleteOrModifyTooltipProps) => {
   const imageInputId = useId();
-  const { openToast } = useToast();
 
   const { handleImageUpload } = useHandleImage(plantId);
+  const { openToast } = useToast();
 
   const handleAddPlantFeed = async (e: ChangeEvent<HTMLInputElement>) => {
     openToast({
