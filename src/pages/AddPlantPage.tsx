@@ -198,6 +198,7 @@ const AddPlantPage = () => {
           title={'반려식물 애칭'}
           placeholder={addPlantForm.scientificName.value}
           essential={false}
+          onChange={(e) => handleChange('nickname', e.target.value)}
         />
 
         <NotificationToggleList
